@@ -12,7 +12,7 @@ class Layer_HTTP extends \app\Layer
 		\kohana4\types\Meta,
 		\kohana4\types\HTTP
 {
-	use Trait_Meta;
+	use \app\Trait_Meta;
 	
 	/**
 	 * @var string
