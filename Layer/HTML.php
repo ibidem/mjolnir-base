@@ -71,7 +71,7 @@ class Layer_HTML extends \app\Layer
 		// standard favicon path
 		if ($this->meta['favicon'] === null)
 		{
-			$html_before .= '<link rel="shortcut icon" href="'.$kohana4_base['url_base'].'favicon.ico" type="image/x-icon">';
+			$html_before .= '<link rel="shortcut icon" href="//'.$kohana4_base['url_base'].'/favicon.ico" type="image/x-icon">';
 		}
 		else # predefined path
 		{
