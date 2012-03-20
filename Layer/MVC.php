@@ -42,6 +42,7 @@ class Layer_MVC extends \app\Layer
 		{
 			$controller = $this->meta['controller'];
 
+			$controller->params($this->meta['params']);
 			$controller->before_action();
 			\call_user_func(array($controller, $this->meta['action']));
 			$controller->after_action();

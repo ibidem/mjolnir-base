@@ -14,6 +14,8 @@ class Controller extends \app\Instantiatable
 {
 	use \app\Trait_Document;
 	
+	protected $params;
+	
 	/**
 	 * @return $this 
 	 */
@@ -27,6 +29,16 @@ class Controller extends \app\Instantiatable
 	 */
 	public function after_action()
 	{
+		return $this;
+	}
+	
+	/**
+	 * @param \kohana4\types\Params
+	 * @return $this
+	 */
+	public function params(\kohana4\types\Params $params)
+	{
+		$this->params = $params;
 		return $this;
 	}
 	
