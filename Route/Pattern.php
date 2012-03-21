@@ -1,58 +1,265 @@
 <?php namespace kohana4\base;
 
 /** 
- * Very simple Regex route. Simply matches to pattern.
- * 
  * @package    Kohana4
  * @category   Base
  * @author     Kohana Team
  * @copyright  (c) 2008-2012 Kohana Team
  * @license    http://kohanaframework.org/license
  */
-class Route_Path extends \app\Instantiatable 
+class Route_Pattern extends \app\Instantiatable 
 	implements 
 		\kohana4\types\Matcher, 
 		\kohana4\types\RelayCompatible,
 		\kohana4\types\Parameterized,
 		\kohana4\types\URLCompatible
 {
+	// Defines the pattern of a <segment>
+	protected static $REGEX_KEY     = '<([a-zA-Z0-9_]++)>';
+
+	// What can be part of a <segment> value
+	protected static $REGEX_SEGMENT = '[^/.,;?\n]++'; # all except non url chars
+
+	// What must be escaped in the route regex
+	protected static $REGEX_ESCAPE  = '[.\\+*?[^\\]${}=!|]';
+	
+	/**
+	 * @var string 
+	 */
+	protected $matched_pattern;
+	
 	/**
 	 * @var string
 	 */
-	protected $path;
+	protected $standard_pattern;
+	
+	/**
+	 * @var string
+	 */
+	protected $standard_uri;
+	
+	/**
+	 * @var string
+	 */
+	protected $canonical_pattern;
+	
+	/**
+	 * @var string
+	 */
+	protected $canonical_uri;
+	
+	/**
+	 * @var \kohana4\types\Params
+	 */
+	protected $params;
+	
+	/**
+	 * @var string
+	 */
+	protected $url_base;
 	
 	/**
 	 * @param string $regex
-	 * @return \kohana4\base\Route_Regex
+	 * @return \kohana4\base\Route_Pattern
 	 */
-	public static function instance($path = '')
+	public static function instance($uri = null)
 	{
 		$instance = parent::instance();
-		$instance->pattern($path);
+		
+		if ($uri)
+		{
+			$instance->uri = $uri;
+		}
+		else # no uri
+		{
+			$instance->uri = \trim(Layer_HTTP::detect_uri(), '/');
+		}
+		
+		// setup params
+		$instance->params = \app\Params::instance();
+		
 		return $instance;
 	}
 	
 	/**
-	 * Pattern to match.
+	 * @param string pattern
+	 * @param array regex
+	 * @return $this
 	 */
-	function pattern($path)
+	public function canonical($pattern, array $regex)
 	{
-		$this->path = \trim($path, '/');
+		$this->canonical_uri = $pattern;
+		$this->canonical_pattern = static::setup_pattern($pattern, $regex);
+		
 		return $this;
+	}
+	
+	/**
+	 * @param string pattern
+	 * @param array regex
+	 * @return $this
+	 */
+	public function standard($pattern, array $regex)
+	{
+		$this->standard_uri = $pattern;
+		$this->standard_pattern = static::setup_pattern($pattern, $regex);
+		
+		return $this;
+	}
+	
+	/**
+	 * @param string uri
+	 * @param array regex
+	 * @return $this
+	 */
+	protected static function setup_pattern($uri, array $regex)
+	{	
+		// the URI should be considered literal except for keys and optional parts
+		// escape everything preg_quote would escape except for : ( ) < >
+		$expression = \preg_replace('#'.static::$REGEX_ESCAPE.'#', '\\\\$0', $uri);
+	
+		if (\strpos($expression, '(') !== false)
+		{
+			// make optional parts of the URI non-capturing and optional
+			$expression = \str_replace
+				(
+					array('(', ')'), 
+					array('(?:', ')?'), 
+					$expression
+				);
+		}
+
+		// insert default regex for keys
+		$expression = \str_replace
+			(
+				array('<', '>'), 
+				// named subpattern PHP4.3 compatible: (?P<key>regex)
+				// http://php.net/manual/en/function.preg-match.php#example-4371
+				array('(?P<', '>'.static::$REGEX_SEGMENT.')'), 
+				$expression
+			);
+
+		$search = $replace = array();
+		foreach ($regex as $key => $value)
+		{
+			$search[]  = "<$key>".static::$REGEX_SEGMENT;
+			$replace[] = "<$key>$value";
+		}
+
+		// replace the default regex with the user-specified regex
+		$expression = \str_replace($search, $replace, $expression);
+
+		return '#^'.$expression.'$#uD';
 	}
 
 	/**
+	 * @param string uri
+	 * @param string regex pattern
+	 * @param \kohana4\types\Params
+	 * @return \kohana4\types\Params
+	 */
+	protected static function match_params($uri, $pattern, $params)
+	{
+		if ( ! \preg_match($pattern, $uri, $matches))
+			return null;
+
+		foreach ($matches as $key => $value)
+		{
+			if (\is_int($key))
+			{
+				// skip all unnamed keys
+				continue;
+			}
+
+			// set the value for all matched keys
+			$params->set($key, $value);
+		}
+
+		return $params;
+	}
+	
+	/**
 	 * @return boolean defined route matches? 
 	 */
-	public function check() 
-	{		
-		$uri = \app\Layer_HTTP::detect_uri();
-		if ($uri !== null)
+	public function check()
+	{	
+		if ($this->canonical_pattern !== null && \preg_match($this->canonical_pattern, $this->uri))
 		{
-			return $this->path === \trim($uri, '/');
+			$this->matched_pattern =& $this->canonical_pattern;
+			return true;
 		}
 		
+		if ($this->standard_pattern !== null && \preg_match($this->standard_pattern, $this->uri))
+		{
+			$this->matched_pattern =& $this->standard_pattern;
+			return true;
+		}
+		
+		// no match
 		return false;
+	}
+	
+	/**
+	 * @param string uri regex pattern
+	 * @param array uri parameters
+	 * @return string
+	 */
+	protected static function generate_uri($uri, array $params = null)
+	{
+		if (\strpos($uri, '<') === false && \strpos($uri, '(') === false)
+		{
+			// this is a static route, no need to replace anything
+			return $uri;
+		}
+
+		// cycle though all optional groups
+		while (\preg_match('#\([^()]++\)#', $uri, $match))
+		{
+			// search for the matched value
+			$search = $match[0];
+
+			// remove the parenthesis from the match as the replace
+			$replace = \substr($match[0], 1, -1);
+
+			while (\preg_match('#'.static::$REGEX_KEY.'#', $replace, $match))
+			{
+				list($key, $param) = $match;
+
+				if (isset($params[$param]))
+				{
+					// replace the key with the parameter value
+					$replace = \str_replace($key, $params[$param], $replace);
+				}
+				else # don't have paramter
+				{
+					// this group has missing parameters
+					$replace = '';
+					break;
+				}
+			}
+
+			// replace the group in the URI
+			$uri = \str_replace($search, $replace, $uri);
+		}
+
+		// cycle though required paramters
+		while (\preg_match('#'.static::$REGEX_KEY.'#', $uri, $match))
+		{
+			list($key, $param) = $match;
+
+			if ( ! isset($params[$param]))
+			{
+				throw \app\Exception_NotApplicable::instance
+					("Required route paramter not passed $param");
+			}
+			else # paramter is set
+			{
+				$uri = \str_replace($key, $params[$param], $uri);
+			}
+		}
+
+		// trim all extra slashes from the URI
+		return \preg_replace('#//+#', '/', \rtrim($uri, '/'));
 	}
 
 	/**
@@ -69,7 +276,17 @@ class Route_Path extends \app\Instantiatable
 	 */
 	public function get_params()
 	{
-		return \app\Params::instance();
+		if ($this->matched_pattern === null)
+		{
+			$this->check();
+		}
+		
+		return static::match_params
+			(
+				$this->uri, 
+				$this->matched_pattern, 
+				$this->params
+			);
 	}
 	
 	/**
@@ -102,10 +319,22 @@ class Route_Path extends \app\Instantiatable
 	 */
 	public function url(array $params = array(), $protocol = null)
 	{
-		$kohana_base = \app\CFS::config('kohana4/base');
-		$protocol = $protocol === null ? '//' : $protocol.'://';
-		return $protocol.\rtrim($kohana_base['url_base'], '/').'/'.$this->path;
+		if ($this->standard_pattern)
+		{
+			return 
+				// relative protocol?
+				($protocol === null ? '//' : $protocol.'://').
+				// url_base is set?
+				($this->url_base ? $this->url_base : \app\CFS::config('kohana4/base')['url_base']).
+				// append the uri
+				'/'.static::generate_uri($this->standard_uri, $params);
+		}
+		else if ($this->canonical_pattern) 
+		{
+			return $this->canonical_url();
+		}
 		
+		return null;
 	}
 	
 	/**
@@ -115,7 +344,34 @@ class Route_Path extends \app\Instantiatable
 	 */
 	public function canonical_url(array $params, $protocol)
 	{
-		return $this->url();
+		if ($this->canonical_pattern)
+		{
+			return 
+				// relative or defined protocol?
+				($protocol === null ? '//' : $protocol.'://').
+				// url_base is set?
+				($this->url_base ? $this->url_base : \app\CFS::config('kohana4/base')['url_base']).
+				// append the uri
+				'/'.static::generate_uri($this->canonical_uri, $params);
+		}
+		else if ($this->standard_pattern) 
+		{
+			return $this->url();
+		}
+		
+		return null;
+	}
+	
+	/**
+	 * Base for the url, if not defined should retrieve kohana4/base value.
+	 * 
+	 * @param string url base
+	 * @return $this
+	 */
+	public function url_base($url_base = null)
+	{
+		$this->url_base = $url_base;
+		return $this;
 	}
 	
 } # class
