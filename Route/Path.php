@@ -20,17 +20,34 @@ class Route_Path extends \app\Instantiatable
 	protected $path;
 	
 	/**
-	 * @param string $regex
-	 * @return \kohana4\base\Route_Regex
+	 * @var string
 	 */
-	public static function instance($path = null)
+	protected $url_base;
+	
+	/**
+	 * @var \kohana4\types\Params
+	 */
+	protected $params;
+	
+	/**
+	 * @param string $regex
+	 * @return \kohana4\base\Route_Path
+	 */
+	public static function instance($uri = null)
 	{
 		$instance = parent::instance();
 		
-		if ($path)
+		if ($uri)
 		{
-			$instance->pattern($path);
+			$instance->uri = $uri;
 		}
+		else # no uri
+		{
+			$instance->uri = Layer_HTTP::detect_uri();
+		}
+		
+		// setup params
+		$instance->params = \app\Params::instance();
 		
 		return $instance;
 	}
@@ -38,7 +55,7 @@ class Route_Path extends \app\Instantiatable
 	/**
 	 * Pattern to match.
 	 */
-	public function pattern($path)
+	public function path($path)
 	{
 		$this->path = \trim($path, '/');
 		return $this;
@@ -49,10 +66,9 @@ class Route_Path extends \app\Instantiatable
 	 */
 	public function check() 
 	{		
-		$uri = \app\Layer_HTTP::detect_uri();
-		if ($uri !== null)
+		if ($this->uri !== null)
 		{
-			return $this->path === \trim($uri, '/');
+			return $this->path === \trim($this->uri, '/');
 		}
 		
 		return false;
@@ -72,7 +88,7 @@ class Route_Path extends \app\Instantiatable
 	 */
 	public function get_params()
 	{
-		return \app\Params::instance();
+		return $this->params;
 	}
 	
 	/**
@@ -105,10 +121,13 @@ class Route_Path extends \app\Instantiatable
 	 */
 	public function url(array $params = array(), $protocol = null)
 	{
-		$kohana_base = \app\CFS::config('kohana4/base');
-		$protocol = $protocol === null ? '//' : $protocol.'://';
-		return $protocol.\rtrim($kohana_base['url_base'], '/').'/'.$this->path;
-		
+		return
+			// relative protocol?
+			($protocol === null ? '//' : $protocol.'://').
+			// url_base is set?
+			($this->url_base ? $this->url_base : \app\CFS::config('kohana4/base')['url_base']).
+			// append the uri
+			'/'.$this->path;		
 	}
 	
 	/**
@@ -118,7 +137,19 @@ class Route_Path extends \app\Instantiatable
 	 */
 	public function canonical_url(array $params, $protocol)
 	{
-		return $this->url();
+		return $this->url($params, $protocol);
+	}
+	
+	/**
+	 * Base for the url, if not defined should retrieve kohana4/base value.
+	 * 
+	 * @param string url base
+	 * @return $this
+	 */
+	public function url_base($url_base = null)
+	{
+		$this->url_base = $url_base;
+		return $this;
 	}
 	
 } # class

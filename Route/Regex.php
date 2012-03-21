@@ -21,20 +21,34 @@ class Route_Regex extends \app\Instantiatable
 	protected $regex;
 	
 	/**
+	 * @var string
+	 */
+	protected $uri;
+	
+	/**
 	 * @param string $regex
 	 * @return \kohana4\base\Route_Regex
 	 */
-	public static function instance($regex = '+.*+')
+	public static function instance($uri = null)
 	{
 		$instance = parent::instance();
-		$instance->pattern($regex);
+		
+		if ($uri)
+		{
+			$instance->uri = $uri;
+		}
+		else # no url
+		{
+			$instance->uri = Layer_HTTP::detect_uri();
+		}
+		
 		return $instance;
 	}
 	
 	/**
 	 * Pattern to match.
 	 */
-	function pattern($regex)
+	function regex($regex)
 	{
 		$this->regex = $regex;
 		return $this;
@@ -45,10 +59,9 @@ class Route_Regex extends \app\Instantiatable
 	 */
 	public function check() 
 	{
-		$uri = \app\Layer_HTTP::detect_uri();
-		if ($uri)
+		if ($this->uri)
 		{		
-			return \preg_match($this->regex, $uri);
+			return \preg_match($this->regex, $this->uri);
 		}
 		
 		return false;
