@@ -1,8 +1,6 @@
 <?php namespace kohana4\base;
 
 /** 
- * Very simple Regex route. Simply matches to pattern.
- * 
  * @package    Kohana4
  * @category   Base
  * @author     Kohana Team
@@ -25,17 +23,22 @@ class Route_Path extends \app\Instantiatable
 	 * @param string $regex
 	 * @return \kohana4\base\Route_Regex
 	 */
-	public static function instance($path = '')
+	public static function instance($path = null)
 	{
 		$instance = parent::instance();
-		$instance->pattern($path);
+		
+		if ($path)
+		{
+			$instance->pattern($path);
+		}
+		
 		return $instance;
 	}
 	
 	/**
 	 * Pattern to match.
 	 */
-	function pattern($path)
+	public function pattern($path)
 	{
 		$this->path = \trim($path, '/');
 		return $this;
