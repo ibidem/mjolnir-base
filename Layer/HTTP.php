@@ -41,15 +41,22 @@ class Layer_HTTP extends \app\Layer
 	 */
 	public static function detect_uri()
 	{
+		static $detected_uri;
+		
+		// did we do this already?
+		if (isset($detected_uri))
+		{
+			return $detected_uri;
+		}
+		
 		if ( ! empty($_SERVER['PATH_INFO']))
 		{
 			// PATH_INFO does not contain the docroot or index
 			$uri = $_SERVER['PATH_INFO'];
 		}
-		else
+		else # empty PATH_INFO
 		{
 			// REQUEST_URI and PHP_SELF include the docroot and index
-
 			if (isset($_SERVER['REQUEST_URI']))
 			{
 				/**
@@ -80,9 +87,9 @@ class Layer_HTTP extends \app\Layer
 			{
 				$uri = $_SERVER['REDIRECT_URL'];
 			}
-			else
+			else # failed to detect
 			{
-				return null;
+				return $detected_uri = null;
 			}
 
 			$config = \app\CFS::config('kohana4/base');
@@ -106,7 +113,7 @@ class Layer_HTTP extends \app\Layer
 			}
 		}
 
-		return $uri;
+		return $detected_uri = $uri;
 	}
 	
 	/**
