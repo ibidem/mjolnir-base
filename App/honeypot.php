@@ -17,6 +17,7 @@ class Exception_NotApplicable extends \kohana4\base\Exception_NotApplicable {}
 class Exception_NotFound extends \kohana4\base\Exception_NotFound {}
 class Controller extends \kohana4\base\Controller {}
 class View extends \kohana4\base\View {}
+class Event extends \kohana4\base\Event {}
 trait Trait_Document { use \kohana4\base\Trait_Document; }
 trait Trait_FileBased { use \kohana4\base\Trait_FileBased; }
 trait Trait_Meta { use \kohana4\base\Trait_Meta; }
