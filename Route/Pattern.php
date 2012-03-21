@@ -205,13 +205,13 @@ class Route_Pattern extends \app\Instantiatable
 	 * @return string
 	 */
 	protected static function generate_uri($uri, array $params = null)
-	{
+	{		
 		if (\strpos($uri, '<') === false && \strpos($uri, '(') === false)
 		{
 			// this is a static route, no need to replace anything
 			return $uri;
 		}
-
+		
 		// cycle though all optional groups
 		while (\preg_match('#\([^()]++\)#', $uri, $match))
 		{
@@ -242,15 +242,17 @@ class Route_Pattern extends \app\Instantiatable
 			$uri = \str_replace($search, $replace, $uri);
 		}
 
+		
+		
 		// cycle though required paramters
 		while (\preg_match('#'.static::$REGEX_KEY.'#', $uri, $match))
 		{
 			list($key, $param) = $match;
-
+			
 			if ( ! isset($params[$param]))
 			{
 				throw \app\Exception_NotApplicable::instance
-					("Required route paramter not passed $param");
+					("Required route paramter not passed: [$param]");
 			}
 			else # paramter is set
 			{
@@ -329,9 +331,14 @@ class Route_Pattern extends \app\Instantiatable
 				// append the uri
 				'/'.static::generate_uri($this->standard_uri, $params);
 		}
-		else if ($this->canonical_pattern) 
+		else if ($this->canonical_pattern && $protocol)
 		{
-			return $this->canonical_url();
+			return $this->canonical_url($params, $protocol);
+		}
+		else # missing protocol; can't use canonical
+		{
+			throw \app\Exception_NotApplicable::instance
+				('Route information missing; can not generate URL.');
 		}
 		
 		return null;
@@ -356,7 +363,7 @@ class Route_Pattern extends \app\Instantiatable
 		}
 		else if ($this->standard_pattern) 
 		{
-			return $this->url();
+			return $this->url($params, $protocol);
 		}
 		
 		return null;
