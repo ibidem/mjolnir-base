@@ -18,7 +18,7 @@ class Layer_PlainText extends \app\Layer
 	/**
 	 * @var string
 	 */
-	protected static $layer_name = \kohana4\types\MVC::LAYER_NAME;
+	protected static $layer_name = \kohana4\types\Layer::DEFAULT_LAYER_NAME;
 	
 	/**
 	 * Set the document's body.
