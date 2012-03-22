@@ -10,13 +10,13 @@
 class Layer_MVC extends \app\Layer 
 	implements 
 		\kohana4\types\Meta,
-		\kohana4\types\MVC,
-		\kohana4\types\RelayCompatible
+		\kohana4\types\RelayCompatible,
+		\kohana4\types\Pattern_MVC
 {
 	/**
 	 * @var string
 	 */
-	protected static $layer_name = \kohana4\types\MVC::LAYER_NAME;
+	protected static $layer_name = \kohana4\types\Pattern_MVC::LAYER_NAME;
 	
 	/**
 	 * @var array 
