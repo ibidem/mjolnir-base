@@ -12,13 +12,11 @@
 class Layer_PlainText extends \app\Layer 
 	implements 
 		\kohana4\types\Document
-{
-	/**
-	 * @var string
-	 */
-	protected static $layer_name = 'http';
-	
-	protected $body = '';
+{	
+	use Trait_Document 
+	{
+		Trait_Document::body as private Document_body;
+	}
 	
 	/**
 	 * Set the document's body.
@@ -34,18 +32,7 @@ class Layer_PlainText extends \app\Layer
 				->type(\kohana4\types\Exception::NotApplicable);
 		}
 		
-		$this->body = $body;
-		return $this;
-	}
-	
-	/**
-	 * Retrieve the body.
-	 * 
-	 * @return string body of document 
-	 */
-	public function get_body()
-	{
-		return $this->body;
+		$this->Document_body($body);
 	}
 
 	/**
