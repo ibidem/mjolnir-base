@@ -36,6 +36,16 @@ class Layer_PlainText extends \app\Layer
 		
 		$this->Document_body($body);
 	}
+	
+	/**
+	 * Executes non-content related tasks before main contents.
+	 */
+	public function headerinfo()
+	{
+		// meta information
+		\header("content-type: text/plain");
+		parent::headerinfo();
+	}
 
 	/**
 	 * Execute the layer.
@@ -55,8 +65,6 @@ class Layer_PlainText extends \app\Layer
 			{
 				$this->contents($this->get_body());
 			}
-			// meta information
-			\header("content-type: text/plain");
 		}
 		catch (\Exception $exception)
 		{
