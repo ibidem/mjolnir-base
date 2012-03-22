@@ -90,9 +90,16 @@ abstract class Layer extends \app\Instantiatable
 	 */
 	public function execute()
 	{
-		if ($this->layer !== null)
+		try 
 		{
-			$this->layer->execute();
+			if ($this->layer !== null)
+			{
+				$this->layer->execute();
+			}
+		}
+		catch (\Exception $e)
+		{
+			$this->exception($e);
 		}
 	}
 	
