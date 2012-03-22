@@ -1,8 +1,6 @@
 <?php namespace kohana4\base;
 
 /** 
- * Extremely simple Layer.
- * 
  * @package    Kohana4
  * @category   Base
  * @author     Kohana Team
@@ -17,6 +15,11 @@ class Layer_PlainText extends \app\Layer
 	{
 		Trait_Document::body as private Document_body;
 	}
+	
+	/**
+	 * @var string
+	 */
+	protected static $layer_name = \kohana4\types\MVC::LAYER_NAME;
 	
 	/**
 	 * Set the document's body.
