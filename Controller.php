@@ -8,9 +8,7 @@
  * @license    http://kohanaframework.org/license
  */
 class Controller extends \app\Instantiatable
-	implements 
-		\kohana4\types\Document,
-		\kohana4\types\Controller
+	implements \kohana4\types\Document, \kohana4\types\Controller
 {
 	use \app\Trait_Document;
 	

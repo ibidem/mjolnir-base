@@ -8,9 +8,7 @@
  * @license    http://kohanaframework.org/license
  */
 class Exception extends \Exception
-	implements 
-		\kohana4\types\Instantiatable,
-		\kohana4\types\Exception
+	implements \kohana4\types\Instantiatable, \kohana4\types\Exception
 {
 	/**
 	 * @var string

@@ -8,9 +8,7 @@
  * @license    http://kohanaframework.org/license
  */
 class Layer_HTTP extends \app\Layer 
-	implements 
-		\kohana4\types\Meta,
-		\kohana4\types\HTTP
+	implements \kohana4\types\Meta,	\kohana4\types\HTTP
 {
 	use \app\Trait_Meta;
 	

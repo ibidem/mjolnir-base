@@ -8,9 +8,7 @@
  * @license    http://kohanaframework.org/license
  */
 class View extends \app\Instantiatable
-	implements
-		\kohana4\types\View,
-		\kohana4\types\FileBased
+	implements \kohana4\types\View,	\kohana4\types\FileBased
 {
 	use \app\Trait_FileBased;
 	

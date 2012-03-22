@@ -8,8 +8,7 @@
  * @license    http://kohanaframework.org/license
  */
 class Layer_PlainText extends \app\Layer 
-	implements 
-		\kohana4\types\Document
+	implements \kohana4\types\Document
 {	
 	use Trait_Document 
 	{
