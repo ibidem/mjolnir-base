@@ -13,13 +13,13 @@ class Layer_HTML extends \app\Layer
 		\kohana4\types\Document,
 		\kohana4\types\HTML
 {
-	use \app\Trait_Meta;
-	use \app\Trait_Document;
+	use \app\Trait_Meta, 
+		\app\Trait_Document;
 	
 	/**
 	 * @var string
 	 */
-	protected static $layer_name = 'html';
+	protected static $layer_name = \kohana4\types\HTML::LAYER_NAME;
 	
 	/**
 	 * @return \kohana4\types\Layer
@@ -304,6 +304,32 @@ class Layer_HTML extends \app\Layer
 		
 		// default execution from Layer
 		parent::exception($exception);
+	}
+		
+	/**
+	 * Sends an Event to the parent of the current layer.
+	 * 
+	 * @param \kohana4\types\Event
+	 */
+	public function dispatch(\kohana4\types\Event $event)
+	{
+		switch ($event->get_subject())
+		{
+			case \kohana4\types\Event::canonical_url:
+				$this->canonical($event->get_contents());
+				break;
+			
+			case \kohana4\types\Event::title:
+				$this->title($event->get_contents());
+				break;
+			
+			case \kohana4\types\Event::tags:
+				$this->add_keywords($event->get_contents());
+				break;
+		}
+		
+		// pass to default handling
+		parent::dispatch($event);
 	}
 	
 	/**

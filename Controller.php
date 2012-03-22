@@ -14,7 +14,24 @@ class Controller extends \app\Instantiatable
 {
 	use \app\Trait_Document;
 	
+	/**
+	 * @var \kohana4\types\Params
+	 */
 	protected $params;
+	
+	/**
+	 * @var \kohana4\types\Layer
+	 */
+	protected $layer;
+	
+	/**
+	 * @param \kohana4\types\Layer
+	 * @return $this
+	 */
+	public function layer(\kohana4\types\Layer $layer)
+	{
+		$this->layer = $layer;
+	}
 	
 	/**
 	 * @return $this 

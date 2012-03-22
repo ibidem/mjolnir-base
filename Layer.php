@@ -9,22 +9,22 @@
  */
 abstract class Layer extends \app\Instantiatable 
 	implements \kohana4\types\Layer
-{
-	/**
-	 * @var string 
-	 */
-	protected static $layer_name = 'layer';
-	
+{	
 	/**
 	 * @var \kohana4\types\Layer
 	 */
 	protected static $top;
 	
 	/**
+	 * @var string
+	 */
+	protected static $layer_name = \kohana4\types\Layer::DEFAULT_LAYER_NAME;
+	
+	/**
 	 * @var \kohana4\types\Layer
 	 */
 	protected $layer;
-	
+
 	/**
 	 * @var \kohana4\types\Layer 
 	 */
@@ -33,7 +33,7 @@ abstract class Layer extends \app\Instantiatable
 	/**
 	 * @var string
 	 */
-	protected $contents = null;
+	protected $contents;
 	
 	/**
 	 * @return string layer name of self 
@@ -50,7 +50,7 @@ abstract class Layer extends \app\Instantiatable
 	 */
 	public function register(\kohana4\types\Layer $layer)
 	{
-		if ($this->layer !== null)
+		if ($this->layer)
 		{
 			throw \app\Exception_NotApplicable::instance
 				(
@@ -59,8 +59,18 @@ abstract class Layer extends \app\Instantiatable
 		}
 		
 		$this->layer = $layer;
-		$this->layer->parent = $this;
+		$this->layer->parent_layer($this);
 
+		return $this;
+	}
+	
+	/**
+	 * @param \kohana4\types\Layer $parent
+	 * @return \kohana4\base\Layer
+	 */
+	public function parent_layer(\kohana4\types\Layer $parent)
+	{
+		$this->parent = $parent;
 		return $this;
 	}
 	
@@ -122,7 +132,7 @@ abstract class Layer extends \app\Instantiatable
 	public function get_layer($layer_name)
 	{
 		// this layer?
-		if ($layer_name === static::$layer_name)
+		if ($layer_name === static::LAYER_NAME)
 		{
 			return $this;
 		}
@@ -163,7 +173,7 @@ abstract class Layer extends \app\Instantiatable
 	 * @param \Exception
 	 * @param boolean layer is origin of exception?
 	 */
-	function exception(\Exception $exception, $origin = false)
+	public function exception(\Exception $exception, $origin = false)
 	{
 		// propagate contents; contents should not be set unless they were set
 		// by an overwrite on this method... because setting the contents should
@@ -175,7 +185,7 @@ abstract class Layer extends \app\Instantiatable
 		}
 		
 		// pass to parent
-		if ($this->parent !== null)
+		if ($this->parent)
 		{
 			$this->parent->exception($exception);
 		}
@@ -184,6 +194,42 @@ abstract class Layer extends \app\Instantiatable
 			// we can't do anything about it anymore
 			throw $exception;
 		}
+	}
+	
+	/**
+	 * Captures a broadcast Event.
+	 * 
+	 * @param \kohana4\types\Event
+	 */
+	public function capture(\kohana4\types\Event $event)
+	{
+		if ($this->layer)
+		{
+			$this->layer->capture($event);
+		}
+	}
+	
+	/**
+	 * Sends an Event to the parent of the current layer.
+	 * 
+	 * @param \kohana4\types\Event
+	 */
+	public function dispatch(\kohana4\types\Event $event)
+	{
+		if ($this->parent)
+		{
+			$this->parent->dispatch($event);
+		}
+	}
+	
+	/**
+	 * Send an Event to the top layer and then down
+	 * 
+	 * @param \kohana4\types\Event
+	 */
+	public static function broadcast(\kohana4\types\Event $event)
+	{
+		static::$top->capture($event);
 	}
 	
 	/**

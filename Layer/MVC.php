@@ -16,12 +16,17 @@ class Layer_MVC extends \app\Layer
 	/**
 	 * @var string
 	 */
-	protected static $layer_name = 'mvc';
+	protected static $layer_name = \kohana4\types\MVC::LAYER_NAME;
 	
 	/**
 	 * @var array 
 	 */
 	protected $meta;
+	
+	/**
+	 * @var array
+	 */
+	protected $relay;
 	
 	/**
 	 * @return \kohana4\types\Layer
@@ -40,9 +45,28 @@ class Layer_MVC extends \app\Layer
 	{
 		try 
 		{
-			$controller = $this->meta['controller'];
+			$relay = $this->relay;
+			// relay configuration
+			$this->controller( $controller = $relay['controller']::instance() );
+			$this->params($relay['route']->get_params());
+			$this->meta('action', $relay['action']);
+			
+			// dispatch events
+			if (\is_a($relay['route'], '\kohana4\types\URLCompatible'))
+			{
+				$canonical_url = $relay['route']->canonical_url
+					(array('name' => $this->meta['params']->get('name')), 'http');
 
+				$this->dispatch
+					(
+						Event::instance()->contents($canonical_url)
+							->subject(\kohana4\types\Event::canonical_url)
+					);
+			}
+			
+			// execute controller
 			$controller->params($this->meta['params']);
+			$controller->layer($this);
 			$controller->before_action();
 			\call_user_func(array($controller, $this->meta['action']));
 			$controller->after_action();
@@ -63,7 +87,7 @@ class Layer_MVC extends \app\Layer
 	 * @param \Exception
 	 * @param boolean layer is origin of exception?
 	 */
-	function exception(\Exception $exception, $origin = false)
+	public function exception(\Exception $exception, $origin = false)
 	{
 		if (\is_a($exception, '\\kohana4\\types\\Exception'))
 		{
@@ -134,17 +158,17 @@ class Layer_MVC extends \app\Layer
 	{
 		return isset($this->meta[$key]) ? $this->meta[$key] : $default;
 	}
-	
+		
 	/**
 	 * @param array relay configuration
 	 * @return $this
 	 */
 	public function relay_config(array $relay)
 	{
-		$this->controller($relay['controller']::instance());
-		$this->meta('action', $relay['action']);
-		$this->params($relay['route']->get_params());
-		
+		// [!!] don't do actual configuration here; do it in the execution loop;
+		// not only is it potentially unused configuration but when this is 
+		// called there is also no gurantee the Layer itself is configured
+		$this->relay = $relay;
 		return $this;
 	}
 	

@@ -17,7 +17,7 @@ class Layer_HTTP extends \app\Layer
 	/**
 	 * @var string
 	 */
-	protected static $layer_name = 'http';
+	protected static $layer_name = \kohana4\types\HTTP::LAYER_NAME;
 	
 	/**
 	 * @var string
