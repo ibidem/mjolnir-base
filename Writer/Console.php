@@ -163,7 +163,10 @@ class Writer_Console extends \app\Instantiatable
 				$otherlines = $extra.$otherlines;
 			}
 			$otherlines = \trim($otherlines);
-
+			if ($nowrap_hint)
+			{
+				$firstline = \str_replace($nowrap_hint, ' ', $firstline);
+			}
 			$this->write($firstline)->eol();
 			$indented_text = \wordwrap
 				(
