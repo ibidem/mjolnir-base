@@ -242,8 +242,6 @@ class Route_Pattern extends \app\Instantiatable
 			$uri = \str_replace($search, $replace, $uri);
 		}
 
-		
-		
 		// cycle though required paramters
 		while (\preg_match('#'.static::$REGEX_KEY.'#', $uri, $match))
 		{
@@ -252,7 +250,7 @@ class Route_Pattern extends \app\Instantiatable
 			if ( ! isset($params[$param]))
 			{
 				throw \app\Exception_NotApplicable::instance
-					("Required route paramter not passed: [$param]");
+					("Required route paramter [$param] not passed.");
 			}
 			else # paramter is set
 			{

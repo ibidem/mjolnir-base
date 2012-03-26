@@ -46,26 +46,22 @@ class Layer_MVC extends \app\Layer
 		try 
 		{
 			$relay = $this->relay;
+			$params = $relay['route']->get_params();
 			// relay configuration
 			$this->controller( $controller = $relay['controller']::instance() );
-			$this->params($relay['route']->get_params());
-			$this->meta('action', $relay['action']);
+			$this->params($params);
 			
-			// dispatch events
-			if (\is_a($relay['route'], '\kohana4\types\URLCompatible'))
+			if (isset($relay['action']))
 			{
-				$canonical_url = $relay['route']->canonical_url
-					(array('name' => $this->meta['params']->get('name')), 'http');
-
-				$this->dispatch
-					(
-						Event::instance()->contents($canonical_url)
-							->subject(\kohana4\types\Event::canonical_url)
-					);
+				$this->meta('action', $relay['action']);
+			}
+			else # action not predefined
+			{
+				$this->meta('action', 'action_'.$params->get('action'));
 			}
 			
 			// execute controller
-			$controller->params($this->meta['params']);
+			$controller->params($params);
 			$controller->layer($this);
 			$controller->before_action();
 			\call_user_func(array($controller, $this->meta['action']));
