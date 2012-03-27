@@ -122,6 +122,23 @@ class Layer_HTTP extends \app\Layer
 		return $_SERVER['SERVER_NAME'].
 			($_SERVER['SERVER_PORT'] !== 80 ? ':'.$_SERVER['SERVER_PORT'] : '');
 	}
+		
+	/**
+	 * @return string
+	 */
+	public static function request_method()
+	{
+		if (isset($_SERVER['REQUEST_METHOD']))
+		{
+			// Use the server request method
+			return \strtoupper($_SERVER['REQUEST_METHOD']);
+		}
+		else # REQUEST_METHOD not set
+		{
+			// Default to GET requests
+			return \strtoupper(\kohana4\types\HTTP::GET);
+		}
+	}
 	
 	/**
 	 * Executes non-content related tasks before main contents.
