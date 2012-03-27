@@ -20,11 +20,12 @@ trait Trait_FileBased
 	 */
 	public function file($file)
 	{
-		$file_path = \app\CFS::file('views'.DIRECTORY_SEPARATOR.$file);
+		$file_path = \app\CFS::file($file);
 		// found file?
-		if ($file_path === false)
+		if ($file_path === null)
 		{
-			throw \app\Exception_NotFound::instance("Required file [$file] not found.");
+			throw \app\Exception_NotFound::instance
+				("Required file [$file] not found.");
 		}
 		else # found file
 		{
@@ -41,6 +42,12 @@ trait Trait_FileBased
 	public function file_path($file)
 	{
 		$this->file = \realpath($file);
+		if ( ! \file_exists($this->file))
+		{
+			throw \app\Exception_NotFound::instance
+				("Required file [$file] not found.");
+		}
+		
 		return $this;
 	}
 	
