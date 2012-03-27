@@ -10,7 +10,10 @@
 class View extends \app\Instantiatable
 	implements \kohana4\types\View,	\kohana4\types\FileBased
 {
-	use \app\Trait_FileBased;
+	use \app\Trait_FileBased 
+	{
+		file as protected FileBased_file;
+	}
 	
 	/**
 	 * @var array
@@ -26,6 +29,16 @@ class View extends \app\Instantiatable
 		$instance = parent::instance();
 		$instance->file($file);
 		return $instance;
+	}
+		
+	/**
+	 * @param string file 
+	 * @return $this
+	 */
+	public function file($file)
+	{
+		$this->FileBased_file('views'.DIRECTORY_SEPARATOR.$file);
+		return $this;
 	}
 	
 	/**
