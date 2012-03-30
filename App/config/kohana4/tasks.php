@@ -25,6 +25,55 @@
 		* in the command's documentation (ie. description). Preferably use flags though
 		* and/or have that only as a shorthand and not as the only way.
 		*/
+		'versions' => array
+			(
+				'description' => array
+					(
+						'Print version info, as defined by modules.'
+					),
+			),
+		'honeypot' => array
+			(
+				'description' => array
+					(
+						'Generate honeypot files.',
+						'Honeypot files allow for IDEs to understand the app namespace and hence the connection between file hirarchies and calls.',
+						'Namespace modules do not need honeypot files; attempting to generate one will result in errors. You should not have \app\Some_Namespace calls, as namespaces SHOULD always be final.'
+					),
+				'flags' => array
+					(
+						'namespace' => array
+							(
+								'description' => 'Namespace of target module.',
+								'short' => 'n',
+								'type' => '\kohana4\base\Flags::text',
+							),
+					),
+			),
+		'migrate' => array
+			(
+				'description' => array
+					(
+						'Database migrations.'
+					),
+				'flags' => array
+					(
+						'install' => array
+							(
+								'description' => 'Initialize and migrate to latest versions.',
+								'short' => 'i',
+							),
+						'uninstall' => array
+							(
+								'description' => 'Uninstall everything and cleanup.',
+								'short' => 'u',
+							),
+						'list' => array
+							(
+								'description' => 'List all versions. (default)',
+							),
+					),
+			),
 		'make:config' => array
 			(
 				'description' => array
