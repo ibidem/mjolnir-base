@@ -45,16 +45,6 @@ class Layer_TaskRunner extends \app\Layer
 	/**
 	 * @var string
 	 */
-	protected static $cliname = 'Minion';
-	
-	/**
-	 * @var string
-	 */
-	protected static $version = '1.0';
-	
-	/**
-	 * @var string
-	 */
 	protected static $commandname = 'minion';
 	
 	/**
@@ -260,6 +250,11 @@ class Layer_TaskRunner extends \app\Layer
 	 */
 	public function exception(\Exception $exception, $origin = false)
 	{
+		if (\is_a($exception, '\kohana4\types\Exception'))
+		{
+			$this->writer->error($exception->message())->eol();
+		}
+		
 		parent::exception($exception, $origin);
 	}
 	
@@ -269,7 +264,11 @@ class Layer_TaskRunner extends \app\Layer
 	public function helptext()
 	{	
 		$stdout = $this->writer;
-		$stdout->header(static::$cliname.' v'.static::$version);
+		$v = \app\CFS::config('version')['minion'];
+		$version = $v['major'].'.'.$v['minor']
+			. ($v['hotfix'] !== '0' ? '.'.$v['hotfix'] : '')
+			. ($v['tag'] !== null ? '-'.$v['tag'] : '');
+		$stdout->header('minion v'.$version);
 		$stdout->write("    USAGE: ".static::$commandname." [command] [flags]")->eol();
 		$stdout->write("       eg. ".static::$commandname." example:cmd -i Joe --greeting \"Greetings, Mr.\" --date")->eol()->eol();
 		$stdout->write("     Help: ".static::$commandname." [command] -h")->eol()->eol()->eol();
@@ -282,7 +281,7 @@ class Layer_TaskRunner extends \app\Layer
 			$cli[$command] = static::normalize($commandinfo);
 		}
 		// sort commands
-		\ksort($cli);
+		# \ksort($cli);
 		// determine max length
 		$max_command_length = 4;
 		foreach (\array_keys($cli) as $command)
@@ -292,7 +291,7 @@ class Layer_TaskRunner extends \app\Layer
 				$max_command_length = \strlen($command);
 			}
 		}
-		$command_format = '  %-'.$max_command_length.'s  - ';
+		$command_format = '  %'.$max_command_length.'s  - ';
 		// internal help command
 		$stdout
 			->writef($command_format, 'help')
@@ -458,14 +457,14 @@ class Layer_TaskRunner extends \app\Layer
 		$flagkeys = null, 
 		$descriptionkey = 'description'
 	)
-	{		
+	{
 		if ($flagkeys === null)
 		{
 			$flagkeys = \array_keys($command['flags']);
 		}
 		
 		// detect maximum flag length
-		$max_flag_length = 0;		
+		$max_flag_length = 0;
 		foreach ($flagkeys as $flag)
 		{
 			$length = \strlen($flag);
