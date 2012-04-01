@@ -1,21 +1,21 @@
-<?php namespace kohana4\base;
+<?php namespace ibidem\base;
 
 /** 
- * @package    Kohana4
+ * @package    ibidem
  * @category   Base
- * @author     Kohana Team
- * @copyright  (c) 2008-2012 Kohana Team
- * @license    http://kohanaframework.org/license
+ * @author     Ibidem Team
+ * @copyright  (c) 2008-2012 Ibidem Team
+ * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 class Layer_HTTP extends \app\Layer 
-	implements \kohana4\types\Meta,	\kohana4\types\HTTP
+	implements \ibidem\types\Meta,	\ibidem\types\HTTP
 {
 	use \app\Trait_Meta;
 	
 	/**
 	 * @var string
 	 */
-	protected static $layer_name = \kohana4\types\HTTP::LAYER_NAME;
+	protected static $layer_name = \ibidem\types\HTTP::LAYER_NAME;
 	
 	/**
 	 * @var string
@@ -23,12 +23,12 @@ class Layer_HTTP extends \app\Layer
 	protected $status;
 	
 	/**
-	 * @return \kohana4\types\Layer
+	 * @return \ibidem\types\Layer
 	 */
 	public static function instance()
 	{
 		$instance = parent::instance();
-		$http = \app\CFS::config('kohana4/http');
+		$http = \app\CFS::config('ibidem/http');
 		$instance->meta = $http['meta'];
 		$instance->status = $http['status'];
 		return $instance;
@@ -90,7 +90,7 @@ class Layer_HTTP extends \app\Layer
 				return $detected_uri = null;
 			}
 
-			$config = \app\CFS::config('kohana4/base');
+			$config = \app\CFS::config('ibidem/base');
 			
 			if ($config['url_base'] !== null)
 			{
@@ -136,7 +136,7 @@ class Layer_HTTP extends \app\Layer
 		else # REQUEST_METHOD not set
 		{
 			// Default to GET requests
-			return \strtoupper(\kohana4\types\HTTP::GET);
+			return \strtoupper(\ibidem\types\HTTP::GET);
 		}
 	}
 	
@@ -180,8 +180,8 @@ class Layer_HTTP extends \app\Layer
 	 */
 	private function is_notfound_exception(\Exception $exception)
 	{
-		return \is_a($exception, '\\kohana4\\types\\Exception') 
-			&& $exception->get_type() === \kohana4\types\Exception::NotFound;
+		return \is_a($exception, '\\ibidem\\types\\Exception') 
+			&& $exception->get_type() === \ibidem\types\Exception::NotFound;
 	}
 	
 	
@@ -197,11 +197,11 @@ class Layer_HTTP extends \app\Layer
 	{
 		if (self::is_notfound_exception($exception))
 		{
-			$this->status(\kohana4\types\HTTP::STATUS_NotFound);
+			$this->status(\ibidem\types\HTTP::STATUS_NotFound);
 		}
 		else # some error we don't know about
 		{
-			$this->status(\kohana4\types\HTTP::STATUS_InternalServerError);
+			$this->status(\ibidem\types\HTTP::STATUS_InternalServerError);
 		}
 		
 		// default execution from Layer

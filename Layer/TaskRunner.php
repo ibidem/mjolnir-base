@@ -1,18 +1,18 @@
-<?php namespace kohana4\base;
+<?php namespace ibidem\base;
 
 /** 
- * @package    Kohana4
+ * @package    ibidem
  * @category   Base
- * @author     Kohana Team
- * @copyright  (c) 2008-2012 Kohana Team
- * @license    http://kohanaframework.org/license
+ * @author     Ibidem Team
+ * @copyright  (c) 2008-2012 Ibidem Team
+ * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 class Layer_TaskRunner extends \app\Layer 
 {
 	/**
 	 * @var string
 	 */
-	protected static $layer_name = \kohana4\types\Layer::DEFAULT_LAYER_NAME;
+	protected static $layer_name = \ibidem\types\Layer::DEFAULT_LAYER_NAME;
 	
 	/**
 	 * @var array
@@ -48,7 +48,7 @@ class Layer_TaskRunner extends \app\Layer
 	protected static $commandname = 'minion';
 	
 	/**
-	 * @var \kohana4\types\Writer
+	 * @var \ibidem\types\Writer
 	 */
 	protected $writer;
 	
@@ -82,7 +82,7 @@ class Layer_TaskRunner extends \app\Layer
 	}
 	
 	/**
-	 * @param \kohana4\types\Writer writer
+	 * @param \ibidem\types\Writer writer
 	 */
 	public function writer($writer)
 	{
@@ -91,11 +91,11 @@ class Layer_TaskRunner extends \app\Layer
 	}
 	
 	/**
-	 * @param \kohana4\types\Layer layer
-	 * @param \kohana4\types\Layer parent
-	 * @return \kohana4\types\Layer 
+	 * @param \ibidem\types\Layer layer
+	 * @param \ibidem\types\Layer parent
+	 * @return \ibidem\types\Layer 
 	 */
-	public function register(\kohana4\types\Layer $layer)
+	public function register(\ibidem\types\Layer $layer)
 	{
 		// Note: In this implementation we treat MVC as a self contained pattern
 		// for the sake of purity of the pattern so we don't support sub layers.
@@ -133,7 +133,7 @@ class Layer_TaskRunner extends \app\Layer
 			}
 
 			// load configuration
-			$tasks = \app\CFS::config('kohana4/tasks');
+			$tasks = \app\CFS::config('ibidem/tasks');
 			// get command
 			$command = \strtolower($this->argv[1]);
 			// help command? (handle internally)
@@ -217,7 +217,7 @@ class Layer_TaskRunner extends \app\Layer
 			{
 				$this->writer
 					->error('Missing required flags. Command terminated.')->eol()->eol()
-					->status('Help', 'For help type: '.static::$commandname.' '.$command.' -h', \kohana4\types\Enum_Color::Yellow)->eol()
+					->status('Help', 'For help type: '.static::$commandname.' '.$command.' -h', \ibidem\types\Enum_Color::Yellow)->eol()
 					->eol()
 					->subheader('Missing Flags');
 				$this->render_flags($tasks[$command], $missing_flags);
@@ -250,7 +250,7 @@ class Layer_TaskRunner extends \app\Layer
 	 */
 	public function exception(\Exception $exception, $origin = false)
 	{
-		if (\is_a($exception, '\kohana4\types\Exception'))
+		if (\is_a($exception, '\ibidem\types\Exception'))
 		{
 			$this->writer->error($exception->message())->eol();
 		}
@@ -274,7 +274,7 @@ class Layer_TaskRunner extends \app\Layer
 		$stdout->write("     Help: ".static::$commandname." [command] -h")->eol()->eol()->eol();
 		$stdout->subheader('Commands');
 		// load config
-		$cli = \app\CFS::config('kohana4/tasks');
+		$cli = \app\CFS::config('ibidem/tasks');
 		// normalize
 		foreach ($cli as $command => $commandinfo)
 		{
@@ -323,7 +323,7 @@ class Layer_TaskRunner extends \app\Layer
 		$stdout = $this->writer;
 		$stdout->header('Help for '.$commandname);
 		// configuration
-		$cli = \app\CFS::config('kohana4/tasks');
+		$cli = \app\CFS::config('ibidem/tasks');
 		// normalize
 		$command = static::normalize($cli[$commandname]);
 

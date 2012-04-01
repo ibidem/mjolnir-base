@@ -1,14 +1,14 @@
-<?php namespace kohana4\base;
+<?php namespace ibidem\base;
 
 class Trait_DocumentTest_Mockup extends \app\Instantiatable
 	{ use Trait_Document; }
 
 /** 
- * @package    Kohana4
+ * @package    ibidem
  * @category   Base
- * @author     Kohana Team
- * @copyright  (c) 2008-2012 Kohana Team
- * @license    http://kohanaframework.org/license
+ * @author     Ibidem Team
+ * @copyright  (c) 2008-2012 Ibidem Team
+ * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 class Trait_DocumentTest extends \PHPUnit_Framework_TestCase
 {

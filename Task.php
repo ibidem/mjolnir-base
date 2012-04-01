@@ -1,14 +1,14 @@
-<?php namespace kohana4\base;
+<?php namespace ibidem\base;
 
 /**
- * @package    Kohana4
+ * @package    ibidem
  * @category   Base
- * @author     Kohana Team
- * @copyright  (c) 2008-2012 Kohana Team
- * @license    http://kohanaframework.org/license
+ * @author     Ibidem Team
+ * @copyright  (c) 2008-2012 Ibidem Team
+ * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 class Task extends \app\Instantiatable
-	implements \kohana4\types\Task
+	implements \ibidem\types\Task
 {
 	/**
 	 * @var array 
@@ -16,7 +16,7 @@ class Task extends \app\Instantiatable
 	protected $config;
 	
 	/**
-	 * @var \kohana4\types\Writer 
+	 * @var \ibidem\types\Writer 
 	 */
 	protected $writer;
 	
@@ -25,7 +25,7 @@ class Task extends \app\Instantiatable
 	 * \app\Task_Class_Name_Example
 	 * 
 	 * @param string encoded task
-	 * @return \kohana4\types\Task
+	 * @return \ibidem\types\Task
 	 */
 	public static function instance($encoded_task = null)
 	{
@@ -60,7 +60,7 @@ class Task extends \app\Instantiatable
 	 * @param array config
 	 * @return $this
 	 */
-	public function writer(\kohana4\types\Writer $writer)
+	public function writer(\ibidem\types\Writer $writer)
 	{
 		$this->writer = $writer;
 		return $this;

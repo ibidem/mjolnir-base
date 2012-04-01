@@ -46,7 +46,7 @@
 							(
 								'description' => 'Namespace of target module.',
 								'short' => 'n',
-								'type' => '\kohana4\base\Flags::text',
+								'type' => '\ibidem\base\Flags::text',
 							),
 					),
 			),
@@ -87,7 +87,7 @@
 							(
 								'description' => 'Configuration path.',
 								'short' => 'c',
-								'type' => '\kohana4\base\Flags::text',
+								'type' => '\ibidem\base\Flags::text',
 							),
 						'forced' => array
 							(
@@ -104,13 +104,13 @@
 							(
 								'description' => 'Path to match files to.',
 								'short' => 'p',
-								'type' => '\kohana4\base\Flags::text',
+								'type' => '\ibidem\base\Flags::text',
 							),
 						'ext' => array
 							(
 								'description' => 'File extention',
 								'short' => 'e',
-								'type' => '\kohana4\base\Flags::text',
+								'type' => '\ibidem\base\Flags::text',
 								'default' => EXT,
 							),
 					)
@@ -124,7 +124,7 @@
 							(
 								'description' => 'Class name for which to find files on the system.',
 								'short' => 'c',
-								'type' => '\kohana4\base\Flags::text',
+								'type' => '\ibidem\base\Flags::text',
 							)
 					)
 			),

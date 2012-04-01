@@ -1,16 +1,16 @@
-<?php namespace kohana4\base;
+<?php namespace ibidem\base;
 
-// Because the kohana4\base doesn't have proper support for database persistence
+// Because the ibidem\base doesn't have proper support for database persistence
 // the per version migrations is added in when you enable the database module.
 // This version will only handle basic install/uninstall which do not require 
 // the current version to be stored in the database.
 
 /**
- * @package    Kohana4
+ * @package    ibidem
  * @category   Base
- * @author     Kohana Team
- * @copyright  (c) 2008-2012 Kohana Team
- * @license    http://kohanaframework.org/license
+ * @author     Ibidem Team
+ * @copyright  (c) 2008-2012 Ibidem Team
+ * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 class Task_Migrate extends \app\Task
 {
@@ -19,7 +19,7 @@ class Task_Migrate extends \app\Task
 	 */
 	protected function list_versions()
 	{
-		$versions = \array_keys(\app\CFS::config('kohana4/migrations'));
+		$versions = \array_keys(\app\CFS::config('ibidem/migrations'));
 		\sort($versions);
 		$this->writer->write(' Migrations: '.\implode(', ', $versions));
 	}
@@ -35,7 +35,7 @@ class Task_Migrate extends \app\Task
 		}
 		else if ($this->config['install'])
 		{
-			$migrations = \app\CFS::config('kohana4/migrations');
+			$migrations = \app\CFS::config('ibidem/migrations');
 			\ksort($migrations);
 			foreach ($migrations as $version => $migrations)
 			{
@@ -45,7 +45,7 @@ class Task_Migrate extends \app\Task
 		}
 		else if ($this->config['uninstall'])
 		{
-			$migrations = \app\CFS::config('kohana4/migrations');
+			$migrations = \app\CFS::config('ibidem/migrations');
 			\krsort($migrations);
 			foreach ($migrations as $version => $migrations)
 			{

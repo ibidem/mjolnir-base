@@ -1,7 +1,7 @@
 <?php return array
 	(
 	// general
-		'doctype' => \kohana4\types\HTML::DOCTYPE,
+		'doctype' => \ibidem\types\HTML::DOCTYPE,
 		'appcache' => null,
 		'sitemap' => null,
 		'prefetch_domains' => array(),

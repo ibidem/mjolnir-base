@@ -1,14 +1,14 @@
-<?php namespace kohana4\base;
+<?php namespace ibidem\base;
 
 /**
- * @package    Kohana4
+ * @package    ibidem
  * @category   Base
- * @author     Kohana Team
- * @copyright  (c) 2008-2012 Kohana Team
- * @license    http://kohanaframework.org/license
+ * @author     Ibidem Team
+ * @copyright  (c) 2008-2012 Ibidem Team
+ * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 class Writer_Console extends \app\Instantiatable 
-	implements \kohana4\types\Writer
+	implements \ibidem\types\Writer
 {
 	/**
 	 * @var boolean
@@ -41,12 +41,12 @@ class Writer_Console extends \app\Instantiatable
 	protected $shell;
 	
 	/**
-	 * @return \kohana4\types\Writer
+	 * @return \ibidem\types\Writer
 	 */
 	public static function instance()
 	{
 		$instance = parent::instance();
-		$config = \app\CFS::config('kohana4/writer/console');
+		$config = \app\CFS::config('ibidem/writer/console');
 		$instance->highlight = $config['highlight'];
 		$instance->width = $config['width'];
 
@@ -222,7 +222,7 @@ class Writer_Console extends \app\Instantiatable
 		{
 			if ($highlight === null || ! isset($this->highlight[$highlight]))
 			{
-				$highlight = $this->highlight[\kohana4\types\Enum_Color::Green];
+				$highlight = $this->highlight[\ibidem\types\Enum_Color::Green];
 			}
 			else # got highlight
 			{
@@ -272,8 +272,8 @@ class Writer_Console extends \app\Instantiatable
 	{
 		if ($this->highlight_support)
 		{
-			$this->highlight(' '.$title, \kohana4\types\Enum_Color::Brown)->eol();
-			$this->highlight(' '.\str_repeat('-', $this->width-1), \kohana4\types\Enum_Color::DarkGray);
+			$this->highlight(' '.$title, \ibidem\types\Enum_Color::Brown)->eol();
+			$this->highlight(' '.\str_repeat('-', $this->width-1), \ibidem\types\Enum_Color::DarkGray);
 			$this->eol()->eol();
 		}
 		else # no highlighting
@@ -292,9 +292,9 @@ class Writer_Console extends \app\Instantiatable
 	{
 		if ($this->highlight_support)
 		{
-			$this->highlight(' ===[ ', \kohana4\types\Enum_Color::DarkGray);
+			$this->highlight(' ===[ ', \ibidem\types\Enum_Color::DarkGray);
 			$this->write($title);
-			$this->highlight(' ]'.\str_repeat('=', $this->width-8-\strlen($title)), \kohana4\types\Enum_Color::DarkGray);
+			$this->highlight(' ]'.\str_repeat('=', $this->width-8-\strlen($title)), \ibidem\types\Enum_Color::DarkGray);
 			$this->eol()->eol();
 		}
 		else # no highlighting
@@ -348,7 +348,7 @@ class Writer_Console extends \app\Instantiatable
 	{	
 		if ($this->shell || $this->highlight_support)
 		{
-			$this->status('Error', $text, \kohana4\types\Enum_Color::Red);
+			$this->status('Error', $text, \ibidem\types\Enum_Color::Red);
 		}
 		else # plain text shell
 		{

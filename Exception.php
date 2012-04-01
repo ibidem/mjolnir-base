@@ -1,14 +1,14 @@
-<?php namespace kohana4\base;
+<?php namespace ibidem\base;
 
 /** 
- * @package    Kohana4
+ * @package    ibidem
  * @category   Base
- * @author     Kohana Team
- * @copyright  (c) 2008-2012 Kohana Team
- * @license    http://kohanaframework.org/license
+ * @author     Ibidem Team
+ * @copyright  (c) 2008-2012 Ibidem Team
+ * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 class Exception extends \Exception
-	implements \kohana4\types\Instantiatable, \kohana4\types\Exception
+	implements \ibidem\types\Instantiatable, \ibidem\types\Exception
 {
 	/**
 	 * @var string
@@ -30,7 +30,7 @@ class Exception extends \Exception
 	}
 	
 	/**
-	 * @return \kohana4\types\Exception
+	 * @return \ibidem\types\Exception
 	 */
 	public static function instance($message = null, $title = null)
 	{

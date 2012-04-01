@@ -1,32 +1,32 @@
-<?php namespace kohana4\base;
+<?php namespace ibidem\base;
 
 /** 
- * @package    Kohana4
+ * @package    ibidem
  * @category   Base
- * @author     Kohana Team
- * @copyright  (c) 2008-2012 Kohana Team
- * @license    http://kohanaframework.org/license
+ * @author     Ibidem Team
+ * @copyright  (c) 2008-2012 Ibidem Team
+ * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 abstract class Layer extends \app\Instantiatable 
-	implements \kohana4\types\Layer
+	implements \ibidem\types\Layer
 {	
 	/**
-	 * @var \kohana4\types\Layer
+	 * @var \ibidem\types\Layer
 	 */
 	protected static $top;
 	
 	/**
 	 * @var string
 	 */
-	protected static $layer_name = \kohana4\types\Layer::DEFAULT_LAYER_NAME;
+	protected static $layer_name = \ibidem\types\Layer::DEFAULT_LAYER_NAME;
 	
 	/**
-	 * @var \kohana4\types\Layer
+	 * @var \ibidem\types\Layer
 	 */
 	protected $layer;
 
 	/**
-	 * @var \kohana4\types\Layer 
+	 * @var \ibidem\types\Layer 
 	 */
 	protected $parent;
 
@@ -44,11 +44,11 @@ abstract class Layer extends \app\Instantiatable
 	}
 	
 	/**
-	 * @param \kohana4\types\Layer layer
-	 * @param \kohana4\types\Layer parent
-	 * @return \kohana4\types\Layer 
+	 * @param \ibidem\types\Layer layer
+	 * @param \ibidem\types\Layer parent
+	 * @return \ibidem\types\Layer 
 	 */
-	public function register(\kohana4\types\Layer $layer)
+	public function register(\ibidem\types\Layer $layer)
 	{
 		if ($this->layer)
 		{
@@ -65,10 +65,10 @@ abstract class Layer extends \app\Instantiatable
 	}
 	
 	/**
-	 * @param \kohana4\types\Layer $parent
-	 * @return \kohana4\base\Layer
+	 * @param \ibidem\types\Layer $parent
+	 * @return \ibidem\base\Layer
 	 */
-	public function parent_layer(\kohana4\types\Layer $parent)
+	public function parent_layer(\ibidem\types\Layer $parent)
 	{
 		$this->parent = $parent;
 		return $this;
@@ -133,8 +133,8 @@ abstract class Layer extends \app\Instantiatable
 	 * from each component.
 	 * 
 	 * @param string layer name
-	 * @return \kohana4\types\Layer
-	 * @throws \kohana4\types\Exception
+	 * @return \ibidem\types\Layer
+	 * @throws \ibidem\types\Exception
 	 */
 	public function get_layer($layer_name)
 	{
@@ -157,15 +157,15 @@ abstract class Layer extends \app\Instantiatable
 	/**
 	 * Register the top layer of the system
 	 * 
-	 * @param \kohana4\types\Layer top layer
+	 * @param \ibidem\types\Layer top layer
 	 */
-	public static function top(\kohana4\types\Layer $top_layer)
+	public static function top(\ibidem\types\Layer $top_layer)
 	{
 		static::$top = $top_layer;
 	}
 	
 	/**
-	 * @return \kohana4\types\Layer top layer
+	 * @return \ibidem\types\Layer top layer
 	 */
 	public static function get_top()
 	{
@@ -206,9 +206,9 @@ abstract class Layer extends \app\Instantiatable
 	/**
 	 * Captures a broadcast Event.
 	 * 
-	 * @param \kohana4\types\Event
+	 * @param \ibidem\types\Event
 	 */
-	public function capture(\kohana4\types\Event $event)
+	public function capture(\ibidem\types\Event $event)
 	{
 		if ($this->layer)
 		{
@@ -219,9 +219,9 @@ abstract class Layer extends \app\Instantiatable
 	/**
 	 * Sends an Event to the parent of the current layer.
 	 * 
-	 * @param \kohana4\types\Event
+	 * @param \ibidem\types\Event
 	 */
-	public function dispatch(\kohana4\types\Event $event)
+	public function dispatch(\ibidem\types\Event $event)
 	{
 		if ($this->parent)
 		{
@@ -232,9 +232,9 @@ abstract class Layer extends \app\Instantiatable
 	/**
 	 * Send an Event to the top layer and then down
 	 * 
-	 * @param \kohana4\types\Event
+	 * @param \ibidem\types\Event
 	 */
-	public static function broadcast(\kohana4\types\Event $event)
+	public static function broadcast(\ibidem\types\Event $event)
 	{
 		static::$top->capture($event);
 	}
@@ -244,8 +244,8 @@ abstract class Layer extends \app\Instantiatable
 	 * invokes get.
 	 * 
 	 * @param string layer name
-	 * @return \kohana4\types\Layer
-	 * @throws \kohana4\types\Exception
+	 * @return \ibidem\types\Layer
+	 * @throws \ibidem\types\Exception
 	 */
 	public static function find($layer_name)
 	{
@@ -267,7 +267,7 @@ abstract class Layer extends \app\Instantiatable
 				echo $contents;
 			}
 		}
-		catch (\kohana4\types\Exception $exception)
+		catch (\ibidem\types\Exception $exception)
 		{
 			$contents = static::$top->get_contents();
 			static::$top->headerinfo();
@@ -284,7 +284,7 @@ abstract class Layer extends \app\Instantiatable
 	
 	/**
 	 * Shortcut method for setting up a stack.
-	 * @param \kohana4\types\Layer $args
+	 * @param \ibidem\types\Layer $args
 	 */
 	public static function stack($args)
 	{

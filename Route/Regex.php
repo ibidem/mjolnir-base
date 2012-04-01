@@ -1,19 +1,19 @@
-<?php namespace kohana4\base;
+<?php namespace ibidem\base;
 
 /** 
  * Very simple Regex route. Simply matches to pattern.
  * 
- * @package    Kohana4
+ * @package    ibidem
  * @category   Base
- * @author     Kohana Team
- * @copyright  (c) 2008-2012 Kohana Team
- * @license    http://kohanaframework.org/license
+ * @author     Ibidem Team
+ * @copyright  (c) 2008-2012 Ibidem Team
+ * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 class Route_Regex extends \app\Instantiatable 
 	implements 
-		\kohana4\types\Matcher, 
-		\kohana4\types\RelayCompatible,
-		\kohana4\types\Parameterized
+		\ibidem\types\Matcher, 
+		\ibidem\types\RelayCompatible,
+		\ibidem\types\Parameterized
 {
 	/**
 	 * @var string
@@ -27,7 +27,7 @@ class Route_Regex extends \app\Instantiatable
 	
 	/**
 	 * @param string $regex
-	 * @return \kohana4\base\Route_Regex
+	 * @return \ibidem\base\Route_Regex
 	 */
 	public static function instance($uri = null)
 	{
@@ -77,7 +77,7 @@ class Route_Regex extends \app\Instantiatable
 	}
 	
 	/**
-	 * @return \kohana4\types\Params
+	 * @return \ibidem\types\Params
 	 */
 	public function get_params()
 	{

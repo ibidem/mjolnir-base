@@ -1,18 +1,18 @@
-<?php namespace kohana4\base;
+<?php namespace ibidem\base;
 
 /** 
- * @package    Kohana4
+ * @package    ibidem
  * @category   Base
- * @author     Kohana Team
- * @copyright  (c) 2008-2012 Kohana Team
- * @license    http://kohanaframework.org/license
+ * @author     Ibidem Team
+ * @copyright  (c) 2008-2012 Ibidem Team
+ * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 class Route_Path extends \app\Instantiatable 
 	implements 
-		\kohana4\types\Matcher, 
-		\kohana4\types\RelayCompatible,
-		\kohana4\types\Parameterized,
-		\kohana4\types\URLCompatible
+		\ibidem\types\Matcher, 
+		\ibidem\types\RelayCompatible,
+		\ibidem\types\Parameterized,
+		\ibidem\types\URLCompatible
 {
 	/**
 	 * @var string
@@ -25,13 +25,13 @@ class Route_Path extends \app\Instantiatable
 	protected $url_base;
 	
 	/**
-	 * @var \kohana4\types\Params
+	 * @var \ibidem\types\Params
 	 */
 	protected $params;
 	
 	/**
 	 * @param string $regex
-	 * @return \kohana4\base\Route_Path
+	 * @return \ibidem\base\Route_Path
 	 */
 	public static function instance($uri = null)
 	{
@@ -84,7 +84,7 @@ class Route_Path extends \app\Instantiatable
 	}
 	
 	/**
-	 * @return \kohana4\types\Params
+	 * @return \ibidem\types\Params
 	 */
 	public function get_params()
 	{
@@ -125,7 +125,7 @@ class Route_Path extends \app\Instantiatable
 			// relative protocol?
 			($protocol === null ? '//' : $protocol.'://').
 			// url_base is set?
-			($this->url_base ? $this->url_base : \app\CFS::config('kohana4/base')['url_base']).
+			($this->url_base ? $this->url_base : \app\CFS::config('ibidem/base')['url_base']).
 			// append the uri
 			'/'.$this->path;		
 	}
@@ -141,7 +141,7 @@ class Route_Path extends \app\Instantiatable
 	}
 	
 	/**
-	 * Base for the url, if not defined should retrieve kohana4/base value.
+	 * Base for the url, if not defined should retrieve ibidem/base value.
 	 * 
 	 * @param string url base
 	 * @return $this

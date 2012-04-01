@@ -1,14 +1,14 @@
-<?php namespace kohana4\base;
+<?php namespace ibidem\base;
 
 /**
- * @package    Kohana4
+ * @package    ibidem
  * @category   Base
- * @author     Kohana Team
- * @copyright  (c) 2008-2012 Kohana Team
- * @license    http://kohanaframework.org/license
+ * @author     Ibidem Team
+ * @copyright  (c) 2008-2012 Ibidem Team
+ * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 class Event extends \app\Instantiatable 
-	implements \kohana4\types\Event
+	implements \ibidem\types\Event
 {
 	/**
 	 * @var string
@@ -68,7 +68,7 @@ class Event extends \app\Instantiatable
 	 * 
 	 * eg.
 	 * 
-	 *     GET:\kohana4\types\Writer
+	 *     GET:\ibidem\types\Writer
 	 *     rel=canonical
 	 *     rel=description
 	 *     rel=tags

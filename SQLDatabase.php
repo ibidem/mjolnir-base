@@ -1,14 +1,14 @@
-<?php namespace kohana4\base;
+<?php namespace ibidem\base;
 
 /**
- * @package    Kohana4
+ * @package    ibidem
  * @category   Base
- * @author     Kohana Team
- * @copyright  (c) 2008-2012 Kohana Team
- * @license    http://kohanaframework.org/license
+ * @author     Ibidem Team
+ * @copyright  (c) 2008-2012 Ibidem Team
+ * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 class SQLDatabase extends \app\Instantiatable
-	implements \kohana4\types\SQLDatabase
+	implements \ibidem\types\SQLDatabase
 {
 	/**
 	 * @var array
@@ -46,7 +46,7 @@ class SQLDatabase extends \app\Instantiatable
 			try 
 			{
 				// attempt to load configuration
-				$pdo = \app\CFS::config('kohana4/database')[$database];
+				$pdo = \app\CFS::config('ibidem/database')[$database];
 				if (empty($pdo))
 				{
 					throw \app\Exception_NotFound::instance
@@ -106,17 +106,17 @@ class SQLDatabase extends \app\Instantiatable
 	
 	/**
 	 * @param string key
-	 * @return \kohana4\types\SQLStatement
+	 * @return \ibidem\types\SQLStatement
 	 */
 	protected function run_stored_statement($key)
 	{
-		$splitter = \strpos($key, \kohana4\types\SQLDatabase::KEYSPLIT);
+		$splitter = \strpos($key, \ibidem\types\SQLDatabase::KEYSPLIT);
 		$file = \substr($key, 0, $splitter);
 		$key = \substr($key, $splitter+1);
 		$statements = \app\CFS::config('sql/'.$this->dialect_target.'/'.$file);
 		if ( ! isset($statements[$key]))
 		{
-			$file = \kohana4\cfs\CFSCompatible::CNFDIR
+			$file = \ibidem\cfs\CFSCompatible::CNFDIR
 				. '/sql/'.$this->dialect_target.'/'.$file;
 			
 			throw \app\Exception_NotFound::instance
@@ -130,7 +130,7 @@ class SQLDatabase extends \app\Instantiatable
 	 * @param string key
 	 * @param string statement
 	 * @param string language of statement
-	 * @return \kohana4\types\SQLStatement
+	 * @return \ibidem\types\SQLStatement
 	 */
 	public function prepare($key, $statement = null, $lang = null)
 	{

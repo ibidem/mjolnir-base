@@ -1,14 +1,14 @@
-<?php namespace kohana4\base;
+<?php namespace ibidem\base;
 
 /** 
- * @package    Kohana4
+ * @package    ibidem
  * @category   Base
- * @author     Kohana Team
- * @copyright  (c) 2008-2012 Kohana Team
- * @license    http://kohanaframework.org/license
+ * @author     Ibidem Team
+ * @copyright  (c) 2008-2012 Ibidem Team
+ * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 class Layer_PlainText extends \app\Layer 
-	implements \kohana4\types\Document
+	implements \ibidem\types\Document
 {	
 	use Trait_Document 
 	{
@@ -18,7 +18,7 @@ class Layer_PlainText extends \app\Layer
 	/**
 	 * @var string
 	 */
-	protected static $layer_name = \kohana4\types\Layer::DEFAULT_LAYER_NAME;
+	protected static $layer_name = \ibidem\types\Layer::DEFAULT_LAYER_NAME;
 	
 	/**
 	 * Set the document's body.
@@ -31,7 +31,7 @@ class Layer_PlainText extends \app\Layer
 		if ($this->layer !== null)
 		{
 			throw \app\Exception::instance("Can't have both a body and contents.")
-				->type(\kohana4\types\Exception::NotApplicable);
+				->type(\ibidem\types\Exception::NotApplicable);
 		}
 		
 		$this->Document_body($body);

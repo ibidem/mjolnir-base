@@ -1,32 +1,32 @@
-<?php namespace kohana4\base;
+<?php namespace ibidem\base;
 
 /** 
- * @package    Kohana4
+ * @package    ibidem
  * @category   Base
- * @author     Kohana Team
- * @copyright  (c) 2008-2012 Kohana Team
- * @license    http://kohanaframework.org/license
+ * @author     Ibidem Team
+ * @copyright  (c) 2008-2012 Ibidem Team
+ * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 class Controller extends \app\Instantiatable
-	implements \kohana4\types\Document, \kohana4\types\Controller
+	implements \ibidem\types\Document, \ibidem\types\Controller
 {
 	use \app\Trait_Document;
 	
 	/**
-	 * @var \kohana4\types\Params
+	 * @var \ibidem\types\Params
 	 */
 	protected $params;
 	
 	/**
-	 * @var \kohana4\types\Layer
+	 * @var \ibidem\types\Layer
 	 */
 	protected $layer;
 	
 	/**
-	 * @param \kohana4\types\Layer
+	 * @param \ibidem\types\Layer
 	 * @return $this
 	 */
-	public function layer(\kohana4\types\Layer $layer)
+	public function layer(\ibidem\types\Layer $layer)
 	{
 		$this->layer = $layer;
 	}
@@ -48,10 +48,10 @@ class Controller extends \app\Instantiatable
 	}
 	
 	/**
-	 * @param \kohana4\types\Params
+	 * @param \ibidem\types\Params
 	 * @return $this
 	 */
-	public function params(\kohana4\types\Params $params)
+	public function params(\ibidem\types\Params $params)
 	{
 		$this->params = $params;
 		return $this;

@@ -1,18 +1,18 @@
-<?php namespace kohana4\base;
+<?php namespace ibidem\base;
 
 /** 
- * @package    Kohana4
+ * @package    ibidem
  * @category   Base
- * @author     Kohana Team
- * @copyright  (c) 2008-2012 Kohana Team
- * @license    http://kohanaframework.org/license
+ * @author     Ibidem Team
+ * @copyright  (c) 2008-2012 Ibidem Team
+ * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 class Exception_NotApplicable extends \app\Exception
 {
 	/**
 	 * @var string
 	 */
-	protected $type = \kohana4\types\Exception::NotApplicable;
+	protected $type = \ibidem\types\Exception::NotApplicable;
 	
 	/**
 	 * @return string title

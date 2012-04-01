@@ -1,6 +1,6 @@
 <?php return array
 	(
-		'Kohana4' => array
+		'ibidem/base' => array
 			(
 				'name' => '',
 				'major' => '1',
@@ -8,9 +8,9 @@
 				'hotfix' => '0',
 				'tag' => 'prototype',
 			),
-		'minion' => array
+		'cli/overlord' => array
 			(
-				'major' => '2',
+				'major' => '1',
 				'minor' => '0',
 				'hotfix' => '0',
 				'tag' => 'prototype',

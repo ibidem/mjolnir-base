@@ -1,17 +1,17 @@
-<?php namespace kohana4\base;
+<?php namespace ibidem\base;
 
 /** 
- * @package    Kohana4
+ * @package    ibidem
  * @category   Base
- * @author     Kohana Team
- * @copyright  (c) 2008-2012 Kohana Team
- * @license    http://kohanaframework.org/license
+ * @author     Ibidem Team
+ * @copyright  (c) 2008-2012 Ibidem Team
+ * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 class Layer_HTML extends \app\Layer 
 	implements 
-		\kohana4\types\Meta,
-		\kohana4\types\Document,
-		\kohana4\types\HTML
+		\ibidem\types\Meta,
+		\ibidem\types\Document,
+		\ibidem\types\HTML
 {
 	use \app\Trait_Meta, 
 		\app\Trait_Document;
@@ -19,15 +19,15 @@ class Layer_HTML extends \app\Layer
 	/**
 	 * @var string
 	 */
-	protected static $layer_name = \kohana4\types\HTML::LAYER_NAME;
+	protected static $layer_name = \ibidem\types\HTML::LAYER_NAME;
 	
 	/**
-	 * @return \kohana4\types\Layer
+	 * @return \ibidem\types\Layer
 	 */
 	public static function instance()
 	{
 		$instance = parent::instance();
-		$instance->meta = \app\CFS::config('kohana4/html');
+		$instance->meta = \app\CFS::config('ibidem/html');
 		return $instance;
 	}
 
@@ -49,14 +49,14 @@ class Layer_HTML extends \app\Layer
 		// head section
 		$html_before .= '<head>';
 		// load base configuration
-		$kohana4_base = \app\CFS::config('kohana4/base');
+		$ibidem_base = \app\CFS::config('ibidem/base');
 		
 		# --- Relevant to the user experience -------------------------------- #
 
 		// content type
 		$html_before .= '<meta http-equiv="content-type" content="'
 			. Layer::find('http')->get_content_type()
-			. '; charset='.$kohana4_base['charset'].'">';
+			. '; charset='.$ibidem_base['charset'].'">';
 		// Make a DNS handshake with a foreign domain, so the connection goes 
 		// faster when the user eventually needs to access it.
 		// eg. //ajax.googleapis.com 
@@ -71,7 +71,7 @@ class Layer_HTML extends \app\Layer
 		// standard favicon path
 		if ($this->meta['favicon'] === null)
 		{
-			$html_before .= '<link rel="shortcut icon" href="//'.$kohana4_base['url_base'].'/favicon.ico" type="image/x-icon">';
+			$html_before .= '<link rel="shortcut icon" href="//'.$ibidem_base['url_base'].'/favicon.ico" type="image/x-icon">';
 		}
 		else # predefined path
 		{
@@ -168,7 +168,7 @@ class Layer_HTML extends \app\Layer
 		// see: http://humanstxt.org/
 		if ($this->meta['humanstxt'])
 		{
-			$html_before .= '<link type="text/plain" rel="author" href="'.$kohana4_base['base_url'].'humans.txt">';
+			$html_before .= '<link type="text/plain" rel="author" href="'.$ibidem_base['base_url'].'humans.txt">';
 		}
 			
 		# Pin status (IE9 etc)
@@ -278,7 +278,7 @@ class Layer_HTML extends \app\Layer
 	 */
 	public function exception(\Exception $exception, $origin = false)
 	{
-		if (\is_a($exception, '\\kohana4\\types\\Exception'))
+		if (\is_a($exception, '\\ibidem\\types\\Exception'))
 		{
 			$this->title($exception->title());
 			$this->crawlers(false);
@@ -309,21 +309,21 @@ class Layer_HTML extends \app\Layer
 	/**
 	 * Sends an Event to the parent of the current layer.
 	 * 
-	 * @param \kohana4\types\Event
+	 * @param \ibidem\types\Event
 	 */
-	public function dispatch(\kohana4\types\Event $event)
+	public function dispatch(\ibidem\types\Event $event)
 	{
 		switch ($event->get_subject())
 		{
-			case \kohana4\types\Event::canonical_url:
+			case \ibidem\types\Event::canonical_url:
 				$this->canonical($event->get_contents());
 				break;
 			
-			case \kohana4\types\Event::title:
+			case \ibidem\types\Event::title:
 				$this->title($event->get_contents());
 				break;
 			
-			case \kohana4\types\Event::tags:
+			case \ibidem\types\Event::tags:
 				$this->add_keywords($event->get_contents());
 				break;
 		}
@@ -350,7 +350,7 @@ class Layer_HTML extends \app\Layer
 	}
 	
 	/**
-	 * Sets the doctype. See: \kohana4\types\HTML for constants.
+	 * Sets the doctype. See: \ibidem\types\HTML for constants.
 	 * 
 	 * @param string doctype
 	 * @return $this

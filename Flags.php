@@ -1,4 +1,4 @@
-<?php namespace kohana4\base;
+<?php namespace ibidem\base;
 
 /** 
  * General flags for command line handling.
@@ -10,11 +10,11 @@
  * 
  * This class is only meant to help avoid duplication of very basic flags.
  * 
- * @package    Kohana4
+ * @package    ibidem
  * @category   Base
- * @author     Kohana Team
- * @copyright  (c) 2008-2012 Kohana Team
- * @license    http://kohanaframework.org/license
+ * @author     Ibidem Team
+ * @copyright  (c) 2008-2012 Ibidem Team
+ * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 class Flags # static library
 {

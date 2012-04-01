@@ -1,15 +1,15 @@
-<?php namespace kohana4\base;
+<?php namespace ibidem\base;
 
 /**
  * Static library that acts as shortcut for running statements on default 
  * database. All statements are esentially equivalent to doing 
  * \app\SQLDatabase::instance() and then calling the equivalent method.
  * 
- * @package    Kohana4
+ * @package    ibidem
  * @category   Base
- * @author     Kohana Team
- * @copyright  (c) 2008-2012 Kohana Team
- * @license    http://kohanaframework.org/license
+ * @author     Ibidem Team
+ * @copyright  (c) 2008-2012 Ibidem Team
+ * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 class SQL
 {	
@@ -17,7 +17,7 @@ class SQL
 	 * @param string key
 	 * @param string statement
 	 * @param string language of statement
-	 * @return \kohana4\types\SQLStatement
+	 * @return \ibidem\types\SQLStatement
 	 */
 	public static function prepare($key, $statement = null, $lang = null)
 	{

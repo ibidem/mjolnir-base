@@ -1,22 +1,22 @@
-<?php namespace kohana4\base;
+<?php namespace ibidem\base;
 
 /** 
- * @package    Kohana4
+ * @package    ibidem
  * @category   Base
- * @author     Kohana Team
- * @copyright  (c) 2008-2012 Kohana Team
- * @license    http://kohanaframework.org/license
+ * @author     Ibidem Team
+ * @copyright  (c) 2008-2012 Ibidem Team
+ * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 class Layer_MVC extends \app\Layer 
 	implements 
-		\kohana4\types\Meta,
-		\kohana4\types\RelayCompatible,
-		\kohana4\types\Pattern_MVC
+		\ibidem\types\Meta,
+		\ibidem\types\RelayCompatible,
+		\ibidem\types\Pattern_MVC
 {
 	/**
 	 * @var string
 	 */
-	protected static $layer_name = \kohana4\types\Pattern_MVC::LAYER_NAME;
+	protected static $layer_name = \ibidem\types\Pattern_MVC::LAYER_NAME;
 	
 	/**
 	 * @var array 
@@ -29,12 +29,12 @@ class Layer_MVC extends \app\Layer
 	protected $relay;
 	
 	/**
-	 * @return \kohana4\types\Layer
+	 * @return \ibidem\types\Layer
 	 */
 	public static function instance()
 	{
 		$instance = parent::instance();
-		$instance->meta = \app\CFS::config('kohana4/mvc');
+		$instance->meta = \app\CFS::config('ibidem/mvc');
 		return $instance;
 	}	
 		
@@ -85,7 +85,7 @@ class Layer_MVC extends \app\Layer
 	 */
 	public function exception(\Exception $exception, $origin = false)
 	{
-		if (\is_a($exception, '\\kohana4\\types\\Exception'))
+		if (\is_a($exception, '\\ibidem\\types\\Exception'))
 		{
 			// note: MVC isn't necesarly HTML ;) so no html tags here
 			$this->contents(' '.$exception->title().': '.$exception->message());
@@ -96,10 +96,10 @@ class Layer_MVC extends \app\Layer
 	}
 	
 	/**
-	 * @param \kohana4\types\Controller 
+	 * @param \ibidem\types\Controller 
 	 * @return $this
 	 */
-	public function controller(\kohana4\types\Controller $controller)
+	public function controller(\ibidem\types\Controller $controller)
 	{
 		$this->meta['controller'] = $controller;
 		return $this;
@@ -108,21 +108,21 @@ class Layer_MVC extends \app\Layer
 	/**
 	 * Action paramters.
 	 * 
-	 * @param \kohana4\types\Controller 
+	 * @param \ibidem\types\Controller 
 	 * @return $this
 	 */
-	public function params(\kohana4\types\Params $params)
+	public function params(\ibidem\types\Params $params)
 	{
 		$this->meta['params'] = $params;
 		return $this;
 	}
 	
 	/**
-	 * @param \kohana4\types\Layer layer
-	 * @param \kohana4\types\Layer parent
-	 * @return \kohana4\types\Layer 
+	 * @param \ibidem\types\Layer layer
+	 * @param \ibidem\types\Layer parent
+	 * @return \ibidem\types\Layer 
 	 */
-	public function register(\kohana4\types\Layer $layer)
+	public function register(\ibidem\types\Layer $layer)
 	{
 		// Note: In this implementation we treat MVC as a self contained pattern
 		// for the sake of purity of the pattern so we don't support sub layers.

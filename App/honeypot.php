@@ -2,40 +2,40 @@
 
 // This is a IDE honeypot. :)
 
-// HowTo: minion honeypot -n "kohana4\\base"
+// HowTo: minion honeypot -n "ibidem\\base"
 
-class Controller_HTTP extends \kohana4\base\Controller_HTTP {}
-class Controller extends \kohana4\base\Controller {}
-class Event extends \kohana4\base\Event {}
-class Exception_NotApplicable extends \kohana4\base\Exception_NotApplicable {}
-class Exception_NotFound extends \kohana4\base\Exception_NotFound {}
-class Exception extends \kohana4\base\Exception {}
-class Flags extends \kohana4\base\Flags {}
-class Instantiatable extends \kohana4\base\Instantiatable {}
-class Lang extends \kohana4\base\Lang {}
-class Layer_HTML extends \kohana4\base\Layer_HTML {}
-class Layer_HTTP extends \kohana4\base\Layer_HTTP {}
-class Layer_MVC extends \kohana4\base\Layer_MVC {}
-class Layer_PlainText extends \kohana4\base\Layer_PlainText {}
-class Layer_TaskRunner extends \kohana4\base\Layer_TaskRunner {}
-class Layer extends \kohana4\base\Layer {}
-class Params extends \kohana4\base\Params {}
-class Relay extends \kohana4\base\Relay {}
-class Route_Path extends \kohana4\base\Route_Path {}
-class Route_Pattern extends \kohana4\base\Route_Pattern {}
-class Route_Regex extends \kohana4\base\Route_Regex {}
-class SQL extends \kohana4\base\SQL {}
-class SQLDatabase extends \kohana4\base\SQLDatabase {}
-class SQLStatement extends \kohana4\base\SQLStatement {}
-class Task_Find_Class extends \kohana4\base\Task_Find_Class {}
-class Task_Find_File extends \kohana4\base\Task_Find_File {}
-class Task_Honeypot extends \kohana4\base\Task_Honeypot {}
-class Task_Make_Config extends \kohana4\base\Task_Make_Config {}
-class Task_Migrate extends \kohana4\base\Task_Migrate {}
-class Task_Versions extends \kohana4\base\Task_Versions {}
-class Task extends \kohana4\base\Task {}
-trait Trait_Document { use \kohana4\base\Trait_Document; }
-trait Trait_FileBased { use \kohana4\base\Trait_FileBased; }
-trait Trait_Meta { use \kohana4\base\Trait_Meta; }
-class View extends \kohana4\base\View {}
-class Writer_Console extends \kohana4\base\Writer_Console {}
+class Controller_HTTP extends \ibidem\base\Controller_HTTP {}
+class Controller extends \ibidem\base\Controller {}
+class Event extends \ibidem\base\Event {}
+class Exception_NotApplicable extends \ibidem\base\Exception_NotApplicable {}
+class Exception_NotFound extends \ibidem\base\Exception_NotFound {}
+class Exception extends \ibidem\base\Exception {}
+class Flags extends \ibidem\base\Flags {}
+class Instantiatable extends \ibidem\base\Instantiatable {}
+class Lang extends \ibidem\base\Lang {}
+class Layer_HTML extends \ibidem\base\Layer_HTML {}
+class Layer_HTTP extends \ibidem\base\Layer_HTTP {}
+class Layer_MVC extends \ibidem\base\Layer_MVC {}
+class Layer_PlainText extends \ibidem\base\Layer_PlainText {}
+class Layer_TaskRunner extends \ibidem\base\Layer_TaskRunner {}
+class Layer extends \ibidem\base\Layer {}
+class Params extends \ibidem\base\Params {}
+class Relay extends \ibidem\base\Relay {}
+class Route_Path extends \ibidem\base\Route_Path {}
+class Route_Pattern extends \ibidem\base\Route_Pattern {}
+class Route_Regex extends \ibidem\base\Route_Regex {}
+class SQL extends \ibidem\base\SQL {}
+class SQLDatabase extends \ibidem\base\SQLDatabase {}
+class SQLStatement extends \ibidem\base\SQLStatement {}
+class Task_Find_Class extends \ibidem\base\Task_Find_Class {}
+class Task_Find_File extends \ibidem\base\Task_Find_File {}
+class Task_Honeypot extends \ibidem\base\Task_Honeypot {}
+class Task_Make_Config extends \ibidem\base\Task_Make_Config {}
+class Task_Migrate extends \ibidem\base\Task_Migrate {}
+class Task_Versions extends \ibidem\base\Task_Versions {}
+class Task extends \ibidem\base\Task {}
+trait Trait_Document { use \ibidem\base\Trait_Document; }
+trait Trait_FileBased { use \ibidem\base\Trait_FileBased; }
+trait Trait_Meta { use \ibidem\base\Trait_Meta; }
+class View extends \ibidem\base\View {}
+class Writer_Console extends \ibidem\base\Writer_Console {}

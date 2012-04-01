@@ -1,22 +1,22 @@
-<?php namespace kohana4\base;
+<?php namespace ibidem\base;
 
 /**
- * @package    Kohana4
+ * @package    ibidem
  * @category   Base
- * @author     Kohana Team
- * @copyright  (c) 2008-2012 Kohana Team
- * @license    http://kohanaframework.org/license
+ * @author     Ibidem Team
+ * @copyright  (c) 2008-2012 Ibidem Team
+ * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 class Relay
 {
 	/**
 	 * @param string key
 	 * @param function callback
-	 * @param \kohana4\types\Matcher
+	 * @param \ibidem\types\Matcher
 	 */
 	public static function process($key, $callback, $matcher = null)
 	{
-		$relays = \app\CFS::config('kohana4/relays');
+		$relays = \app\CFS::config('ibidem/relays');
 		if (isset($relays[$key]) && $relays[$key]['enabled'])
 		{
 			if (isset($relays[$key]['route']))
@@ -69,7 +69,7 @@ class Relay
 	 */
 	public static function route($key)
 	{
-		$relays = \app\CFS::config('kohana4/relays');
+		$relays = \app\CFS::config('ibidem/relays');
 		if (isset($relays[$key]))
 		{
 			return $relays[$key]['route'];

@@ -1,18 +1,18 @@
-<?php namespace kohana4\base;
+<?php namespace ibidem\base;
 
 /** 
- * @package    Kohana4
+ * @package    ibidem
  * @category   Base
- * @author     Kohana Team
- * @copyright  (c) 2008-2012 Kohana Team
- * @license    http://kohanaframework.org/license
+ * @author     Ibidem Team
+ * @copyright  (c) 2008-2012 Ibidem Team
+ * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 class Route_Pattern extends \app\Instantiatable 
 	implements 
-		\kohana4\types\Matcher, 
-		\kohana4\types\RelayCompatible,
-		\kohana4\types\Parameterized,
-		\kohana4\types\URLCompatible
+		\ibidem\types\Matcher, 
+		\ibidem\types\RelayCompatible,
+		\ibidem\types\Parameterized,
+		\ibidem\types\URLCompatible
 {
 	// Defines the pattern of a <segment>
 	protected static $REGEX_KEY     = '<([a-zA-Z0-9_]++)>';
@@ -49,7 +49,7 @@ class Route_Pattern extends \app\Instantiatable
 	protected $canonical_uri;
 	
 	/**
-	 * @var \kohana4\types\Params
+	 * @var \ibidem\types\Params
 	 */
 	protected $params;
 	
@@ -60,7 +60,7 @@ class Route_Pattern extends \app\Instantiatable
 	
 	/**
 	 * @param string $regex
-	 * @return \kohana4\base\Route_Pattern
+	 * @return \ibidem\base\Route_Pattern
 	 */
 	public static function instance($uri = null)
 	{
@@ -155,8 +155,8 @@ class Route_Pattern extends \app\Instantiatable
 	/**
 	 * @param string uri
 	 * @param string regex pattern
-	 * @param \kohana4\types\Params
-	 * @return \kohana4\types\Params
+	 * @param \ibidem\types\Params
+	 * @return \ibidem\types\Params
 	 */
 	protected static function match_params($uri, $pattern, $params)
 	{
@@ -272,7 +272,7 @@ class Route_Pattern extends \app\Instantiatable
 	}
 	
 	/**
-	 * @return \kohana4\types\Params
+	 * @return \ibidem\types\Params
 	 */
 	public function get_params()
 	{
@@ -325,7 +325,7 @@ class Route_Pattern extends \app\Instantiatable
 				// relative protocol?
 				($protocol === null ? '//' : $protocol.'://').
 				// url_base is set?
-				($this->url_base ? $this->url_base : \app\CFS::config('kohana4/base')['url_base']).
+				($this->url_base ? $this->url_base : \app\CFS::config('ibidem/base')['url_base']).
 				// append the uri
 				'/'.static::generate_uri($this->standard_uri, $params);
 		}
@@ -355,7 +355,7 @@ class Route_Pattern extends \app\Instantiatable
 				// relative or defined protocol?
 				($protocol === null ? '//' : $protocol.'://').
 				// url_base is set?
-				($this->url_base ? $this->url_base : \app\CFS::config('kohana4/base')['url_base']).
+				($this->url_base ? $this->url_base : \app\CFS::config('ibidem/base')['url_base']).
 				// append the uri
 				'/'.static::generate_uri($this->canonical_uri, $params);
 		}
@@ -368,7 +368,7 @@ class Route_Pattern extends \app\Instantiatable
 	}
 	
 	/**
-	 * Base for the url, if not defined should retrieve kohana4/base value.
+	 * Base for the url, if not defined should retrieve ibidem/base value.
 	 * 
 	 * @param string url base
 	 * @return $this

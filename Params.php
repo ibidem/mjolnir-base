@@ -1,14 +1,14 @@
-<?php namespace kohana4\base;
+<?php namespace ibidem\base;
 
 /**
- * @package    Kohana4
+ * @package    ibidem
  * @category   Base
- * @author     Kohana Team
- * @copyright  (c) 2008-2012 Kohana Team
- * @license    http://kohanaframework.org/license
+ * @author     Ibidem Team
+ * @copyright  (c) 2008-2012 Ibidem Team
+ * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 class Params extends \app\Instantiatable 
-	implements \kohana4\types\Params
+	implements \ibidem\types\Params
 {
 	/**
 	 * @var array
@@ -25,7 +25,7 @@ class Params extends \app\Instantiatable
 
 	/**
 	 * @param array associative array of key values
-	 * @return \kohana4\types\Params
+	 * @return \ibidem\types\Params
 	 */
 	public function populate_params(array $params) 
 	{
@@ -38,7 +38,7 @@ class Params extends \app\Instantiatable
 	/**
 	 * @param string key
 	 * @param mixed value
-	 * @return \kohana4\types\Params
+	 * @return \ibidem\types\Params
 	 */
 	public function set($key, $value) 
 	{

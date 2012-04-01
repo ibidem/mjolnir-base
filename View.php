@@ -1,14 +1,14 @@
-<?php namespace kohana4\base;
+<?php namespace ibidem\base;
 
 /**
- * @package    Kohana4
+ * @package    ibidem
  * @category   Base
- * @author     Kohana Team
- * @copyright  (c) 2008-2012 Kohana Team
- * @license    http://kohanaframework.org/license
+ * @author     Ibidem Team
+ * @copyright  (c) 2008-2012 Ibidem Team
+ * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 class View extends \app\Instantiatable
-	implements \kohana4\types\View,	\kohana4\types\FileBased
+	implements \ibidem\types\View,	\ibidem\types\FileBased
 {
 	use \app\Trait_FileBased 
 	{
@@ -21,7 +21,7 @@ class View extends \app\Instantiatable
 	protected $view_params = array();
 	
 	/**
-	 * @see \kohana4\types\Instantiatable
+	 * @see \ibidem\types\Instantiatable
 	 * @return $this
 	 */
 	public static function instance($file = null)
