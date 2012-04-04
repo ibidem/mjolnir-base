@@ -25,6 +25,31 @@
 		* in the command's documentation (ie. description). Preferably use flags though
 		* and/or have that only as a shorthand and not as the only way.
 		*/
+		'make:module' => array
+			(
+				'description' => array
+					(
+						'Create a basic module.'
+					),
+				'flags' => array
+					(
+						'name' => array
+							(
+								'description' => 'Name of module',
+								'type' => '\ibidem\base\Flags::text',
+							),
+						'namespace' => array
+							(
+								'description' => 'Namespace of module.',
+								'type' => '\ibidem\base\Flags::text',
+								'short' => 'n',
+							),
+						'forced' => array
+							(
+								'description' => 'Force file overwrites.'
+							),
+					),
+			),
 		'versions' => array
 			(
 				'description' => array
