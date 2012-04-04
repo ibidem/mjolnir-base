@@ -12,10 +12,7 @@ class Layer_HTML extends \app\Layer
 		\ibidem\types\Meta,
 		\ibidem\types\Document,
 		\ibidem\types\HTML
-{
-	use \app\Trait_Meta, 
-		\app\Trait_Document;
-	
+{	
 	/**
 	 * @var string
 	 */
@@ -333,23 +330,6 @@ class Layer_HTML extends \app\Layer
 	}
 	
 	/**
-	 * Set the document's body.
-	 * 
-	 * @param string document body
-	 * @return $this
-	 */
-	public function body($body)
-	{
-		if ($this->layer !== null)
-		{
-			throw \app\Exception_NotApplicable::instance("Can't have both a body and contents.");
-		}
-		
-		$this->body = $body;
-		return $this;
-	}
-	
-	/**
 	 * Sets the doctype. See: \ibidem\types\HTML for constants.
 	 * 
 	 * @param string doctype
@@ -543,5 +523,74 @@ class Layer_HTML extends \app\Layer
 	{
 		return $this->meta('application_starturl', $starturl);
 	}
+	
+# Meta trait
+	
+	/**
+	 * @var array 
+	 */
+	protected $meta;
+	
+	/**
+	 * Set metainformation for the document.
+	 * 
+	 * @param string key
+	 * @param mixed value
+	 * @return $this
+	 */
+	public function meta($key, $value)
+	{
+		$this->meta[$key] = $value;
+		
+		return $this;
+	}
+	
+	/**
+	 * @param string key
+	 * @param mixed default
+	 * @return mixed meta value for key, or default
+	 */
+	public function get_meta($key, $default = null)
+	{
+		return isset($this->meta[$key]) ? $this->meta[$key] : $default;
+	}
+	
+# /Meta trait
+	
+# Document trait
+	
+	/**
+	 * @var string 
+	 */
+	protected $body = '';
+		
+	/**
+	 * Set the document's body.
+	 * 
+	 * @param string document body
+	 * @return $this
+	 */
+	public function body($body)
+	{
+		if ($this->layer !== null)
+		{
+			throw \app\Exception_NotApplicable::instance("Can't have both a body and contents.");
+		}
+		
+		$this->body = $body;
+		return $this;
+	}
+	
+	/**
+	 * Retrieve the body.
+	 * 
+	 * @return string body of document 
+	 */
+	public function get_body()
+	{
+		return $this->body;
+	}
+	
+# /Document trait
 	
 } # class

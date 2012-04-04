@@ -49,4 +49,4 @@ class LangTest extends \PHPUnit_Framework_TestCase
 		// @see lang
 	}
 
-} # test
+} # class

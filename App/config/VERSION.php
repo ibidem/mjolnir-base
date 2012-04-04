@@ -8,7 +8,7 @@
 				'hotfix' => '0',
 				'tag' => 'prototype',
 			),
-		'cli/overlord' => array
+		'overlord' => array
 			(
 				'major' => '1',
 				'minor' => '0',

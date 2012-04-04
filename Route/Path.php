@@ -121,13 +121,21 @@ class Route_Path extends \app\Instantiatable
 	 */
 	public function url(array $params = array(), $protocol = null)
 	{
-		return
-			// relative protocol?
-			($protocol === null ? '//' : $protocol.'://').
-			// url_base is set?
-			($this->url_base ? $this->url_base : \app\CFS::config('ibidem/base')['url_base']).
-			// append the uri
-			'/'.$this->path;		
+		// relative protocol?
+		$url = ($protocol === null ? '//' : $protocol.'://'); 
+		// url_base is set?
+		if ($this->url_base)
+		{
+			$url .= $this->url_base;
+		}
+		else # no url base set
+		{
+			$base = \app\CFS::config('ibidem/base');
+			$url .= $base['url_base'];
+		}
+		
+		// append the uri
+		return $url.'/'.$this->path;		
 	}
 	
 	/**

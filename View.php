@@ -10,11 +10,6 @@
 class View extends \app\Instantiatable
 	implements \ibidem\types\View,	\ibidem\types\FileBased
 {
-	use \app\Trait_FileBased 
-	{
-		file as protected FileBased_file;
-	}
-	
 	/**
 	 * @var array
 	 */
@@ -29,16 +24,6 @@ class View extends \app\Instantiatable
 		$instance = parent::instance();
 		$instance->file($file);
 		return $instance;
-	}
-		
-	/**
-	 * @param string file 
-	 * @return $this
-	 */
-	public function file($file)
-	{
-		$this->FileBased_file('views'.DIRECTORY_SEPARATOR.$file);
-		return $this;
 	}
 	
 	/**
@@ -106,5 +91,60 @@ class View extends \app\Instantiatable
 					('Casting to string not allowed for Views.')
 			);
 	}
+	
+# FileBased trait
+	
+	/**
+	 * @var string view file
+	 */
+	protected $file;
+		
+	/**
+	 * @param string file 
+	 * @return $this
+	 */
+	public function file($file)
+	{
+		$file = 'views'.DIRECTORY_SEPARATOR.$file;
+		$file_path = \app\CFS::file($file);
+		// found file?
+		if ($file_path === null)
+		{
+			throw \app\Exception_NotFound::instance
+				("Required file [$file] not found.");
+		}
+		else # found file
+		{
+			$this->file = $file_path;
+		}
+		
+		return $this;
+	}
+	
+	/**
+	 * @param string explicit file path
+	 * @return $this
+	 */
+	public function file_path($file)
+	{
+		$this->file = \realpath($file);
+		if ( ! \file_exists($this->file))
+		{
+			throw \app\Exception_NotFound::instance
+				("Required file [$file] not found.");
+		}
+		
+		return $this;
+	}
+	
+	/**
+	 * @return string file path
+	 */
+	public function get_file()
+	{
+		return $this->file;
+	}
+	
+# /FileBased trait
 	
 } # class

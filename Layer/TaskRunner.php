@@ -264,7 +264,8 @@ class Layer_TaskRunner extends \app\Layer
 	public function helptext()
 	{	
 		$stdout = $this->writer;
-		$v = \app\CFS::config('version')['minion'];
+		$v = \app\CFS::config('version');
+		$v = $v['overlord'];
 		$version = $v['major'].'.'.$v['minor']
 			. ($v['hotfix'] !== '0' ? '.'.$v['hotfix'] : '')
 			. ($v['tag'] !== null ? '-'.$v['tag'] : '');

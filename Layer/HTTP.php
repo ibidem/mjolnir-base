@@ -9,9 +9,7 @@
  */
 class Layer_HTTP extends \app\Layer 
 	implements \ibidem\types\Meta,	\ibidem\types\HTTP
-{
-	use \app\Trait_Meta;
-	
+{	
 	/**
 	 * @var string
 	 */
@@ -238,5 +236,38 @@ class Layer_HTTP extends \app\Layer
 	{
 		return $this->meta['content-type'];
 	}
+	
+# Meta trait
+	
+	/**
+	 * @var array 
+	 */
+	protected $meta;
+	
+	/**
+	 * Set metainformation for the document.
+	 * 
+	 * @param string key
+	 * @param mixed value
+	 * @return $this
+	 */
+	public function meta($key, $value)
+	{
+		$this->meta[$key] = $value;
+		
+		return $this;
+	}
+	
+	/**
+	 * @param string key
+	 * @param mixed default
+	 * @return mixed meta value for key, or default
+	 */
+	public function get_meta($key, $default = null)
+	{
+		return isset($this->meta[$key]) ? $this->meta[$key] : $default;
+	}
+	
+# /Meta trait
 	
 } # class

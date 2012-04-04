@@ -34,8 +34,5 @@ class Task_Make_Config extends \ibidem\base\Task_Make_Config {}
 class Task_Migrate extends \ibidem\base\Task_Migrate {}
 class Task_Versions extends \ibidem\base\Task_Versions {}
 class Task extends \ibidem\base\Task {}
-trait Trait_Document { use \ibidem\base\Trait_Document; }
-trait Trait_FileBased { use \ibidem\base\Trait_FileBased; }
-trait Trait_Meta { use \ibidem\base\Trait_Meta; }
 class View extends \ibidem\base\View {}
 class Writer_Console extends \ibidem\base\Writer_Console {}

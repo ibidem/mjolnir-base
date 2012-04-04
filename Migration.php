@@ -23,7 +23,7 @@ abstract class Migration extends \app\Instantiatable
 	 */
 	protected function bind_callback()
 	{
-		return [$this, 'bind'];
+		return array($this, 'bind');
 	}
 	
 	/**

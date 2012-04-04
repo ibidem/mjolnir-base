@@ -10,8 +10,6 @@
 class Controller extends \app\Instantiatable
 	implements \ibidem\types\Document, \ibidem\types\Controller
 {
-	use \app\Trait_Document;
-	
 	/**
 	 * @var \ibidem\types\Params
 	 */
@@ -56,5 +54,36 @@ class Controller extends \app\Instantiatable
 		$this->params = $params;
 		return $this;
 	}
+	
+# Document trait
+	
+	/**
+	 * @var string 
+	 */
+	protected $body = '';
+		
+	/**
+	 * Set the document's body.
+	 * 
+	 * @param string document body
+	 * @return $this
+	 */
+	public function body($body)
+	{
+		$this->body = $body;
+		return $this;
+	}
+	
+	/**
+	 * Retrieve the body.
+	 * 
+	 * @return string body of document 
+	 */
+	public function get_body()
+	{
+		return $this->body;
+	}
+	
+# /Document trait	
 	
 } # class

@@ -321,13 +321,21 @@ class Route_Pattern extends \app\Instantiatable
 	{
 		if ($this->standard_pattern)
 		{
-			return 
-				// relative protocol?
-				($protocol === null ? '//' : $protocol.'://').
-				// url_base is set?
-				($this->url_base ? $this->url_base : \app\CFS::config('ibidem/base')['url_base']).
-				// append the uri
-				'/'.static::generate_uri($this->standard_uri, $params);
+			// relative protocol?
+			$url = ($protocol === null ? '//' : $protocol.'://'); 
+			// url_base is set?
+			if ($this->url_base)
+			{
+				$url .= $this->url_base;
+			}
+			else # no url base set
+			{
+				$base = \app\CFS::config('ibidem/base');
+				$url .= $base['url_base'];
+			}
+
+			// append the uri
+			return $url.'/'.static::generate_uri($this->standard_uri, $params);
 		}
 		else if ($this->canonical_pattern && $protocol)
 		{
@@ -351,13 +359,21 @@ class Route_Pattern extends \app\Instantiatable
 	{
 		if ($this->canonical_pattern)
 		{
-			return 
-				// relative or defined protocol?
-				($protocol === null ? '//' : $protocol.'://').
-				// url_base is set?
-				($this->url_base ? $this->url_base : \app\CFS::config('ibidem/base')['url_base']).
-				// append the uri
-				'/'.static::generate_uri($this->canonical_uri, $params);
+			// relative protocol?
+			$url = ($protocol === null ? '//' : $protocol.'://'); 
+			// url_base is set?
+			if ($this->url_base)
+			{
+				$url .= $this->url_base;
+			}
+			else # no url base set
+			{
+				$base = \app\CFS::config('ibidem/base');
+				$url .= $base['url_base'];
+			}
+
+			// append the uri
+			return $url.'/'.static::generate_uri($this->canonical_uri, $params);	
 		}
 		else if ($this->standard_pattern) 
 		{

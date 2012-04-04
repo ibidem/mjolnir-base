@@ -10,32 +10,10 @@
 class Layer_PlainText extends \app\Layer 
 	implements \ibidem\types\Document
 {	
-	use Trait_Document 
-	{
-		Trait_Document::body as private Document_body;
-	}
-	
 	/**
 	 * @var string
 	 */
 	protected static $layer_name = \ibidem\types\Layer::DEFAULT_LAYER_NAME;
-	
-	/**
-	 * Set the document's body.
-	 * 
-	 * @param string document body
-	 * @return $this
-	 */
-	public function body($body)
-	{
-		if ($this->layer !== null)
-		{
-			throw \app\Exception::instance("Can't have both a body and contents.")
-				->type(\ibidem\types\Exception::NotApplicable);
-		}
-		
-		$this->Document_body($body);
-	}
 	
 	/**
 	 * Executes non-content related tasks before main contents.
@@ -71,5 +49,42 @@ class Layer_PlainText extends \app\Layer
 			$this->exception($exception);
 		}
 	}
+	
+# Document trait
+	
+	/**
+	 * @var string 
+	 */
+	protected $body = '';
+		
+	/**
+	 * Set the document's body.
+	 * 
+	 * @param string document body
+	 * @return $this
+	 */
+	public function body($body)
+	{
+		$this->body = $body;
+		return $this;
+	}
+	
+	/**
+	 * Retrieve the body.
+	 * 
+	 * @return string body of document 
+	 */
+	public function get_body()
+	{
+		if ($this->layer !== null)
+		{
+			throw \app\Exception::instance("Can't have both a body and contents.")
+				->type(\ibidem\types\Exception::NotApplicable);
+		}
+		
+		return $this->body;
+	}
+	
+# /Document trait
 
 } # class
