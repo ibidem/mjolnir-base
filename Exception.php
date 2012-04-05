@@ -8,7 +8,7 @@
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 class Exception extends \Exception
-	implements \ibidem\types\Instantiatable, \ibidem\types\Exception
+	implements \ibidem\types\Exception
 {
 	/**
 	 * @var string
@@ -21,20 +21,28 @@ class Exception extends \Exception
 	protected $type;
 	
 	/**
-	 * @deprecated use instance method instead 
+	 * @var boolean 
 	 */
-	public function __construct($message = null, $title = null)
+	protected static $show_fileinfo = false;
+	
+	/**
+	 * Appends line and file to end of message for debug purposes. Should only
+	 * be enabled in development; in production this can lead to a path reveal
+	 * and thus various exploits.
+	 */
+	public static function enable_fileinfo()
 	{
-		$this->message = $message;
-		$this->title = $title;
+		static::$show_fileinfo = true;
 	}
 	
 	/**
-	 * @return \ibidem\types\Exception
+	 * @param string message
+	 * @param string title
 	 */
-	public static function instance($message = null, $title = null)
+	public function __construct($message = null, $title = null)
 	{
-		return new static($message, $title);
+		$this->set_message($message);
+		$this->set_title($title);
 	}
 	
 	/**
@@ -78,6 +86,12 @@ class Exception extends \Exception
 	public function set_message($message)
 	{
 		$this->message = $message;
+		if (static::$show_fileinfo)
+		{
+			$file = \str_replace(DOCROOT, '', $this->getFile());
+			$this->message .= ' ('.$file.' @ '.$this->getLine().')';
+		}
+		
 		return $this;
 	}
 	
