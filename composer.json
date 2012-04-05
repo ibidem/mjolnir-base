@@ -1,11 +1,11 @@
 {
 	"name": "ibidem/base",
 	"version": "1.0.0",
-	"description": "ibidem base module prototype",
-	"keywords": ["autoloader"],
+	"description": "ibidem base module",
+	"keywords": ["library"],
 	"homepage": "https://github.com/srcspider",
 	"type": "library",
-	"license": "BSD-3",
+	"license": "BSD-2",
 	"authors": [
 		{
 			"name": "srcspider",
@@ -13,7 +13,7 @@
 		}
 	],
 	"require": {
-		"php": ">=5.4.0"
+		"php": ">=5.3.0"
 	},
 	"autoload": {
 		"psr-0": {
