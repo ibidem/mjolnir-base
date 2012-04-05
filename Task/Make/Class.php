@@ -81,7 +81,7 @@ class Task_Make_Class extends \app\Task
 		$file .= ' */'.PHP_EOL;
 		
 		$file .= 
-			  "class {$class_name}Test".PHP_EOL
+			  "class {$class_name}Test  extends \\PHPUnit_Framework_TestCase".PHP_EOL
 			. '{'.PHP_EOL
 			. "\t// @todo".PHP_EOL
 			. PHP_EOL
