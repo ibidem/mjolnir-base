@@ -58,12 +58,12 @@ class View extends \app\Instantiatable
 	
 	/**
 	 * @param string valid PHP variable name
-	 * @param mixed variable to bind
+	 * @param array array to bind
 	 * @return $this
 	 */
-	public function bind($name, & $variable)
+	public function bind($name, array & $array)
 	{
-		$this->view_params[$name] =& $variable;
+		$this->view_params[$name] =& $array;
 		return $this;
 	}
 	
