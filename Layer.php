@@ -52,7 +52,7 @@ abstract class Layer extends \app\Instantiatable
 	{
 		if ($this->layer)
 		{
-			throw \app\Exception_NotApplicable::instance
+			throw new \app\Exception_NotApplicable
 				(
 					'Document layer already defined; layer does not accept multiple documents.'
 				);
@@ -151,7 +151,7 @@ abstract class Layer extends \app\Instantiatable
 		}
 		
 		// invalid layer name given
-		throw \app\Exception_Error::instance('Invalid layer: '.$layer_name);
+		throw new \app\Exception_Error('Invalid layer: '.$layer_name);
 	}
 	
 	/**

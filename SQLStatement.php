@@ -24,7 +24,7 @@ class SQLStatement extends \app\Instantiatable
 	{
 		if ($statement === null)
 		{
-			throw \app\Exception_NotApplicable::instance('No statement provided.');
+			throw new \app\Exception_NotApplicable('No statement provided.');
 		}
 		
 		$instance = parent::instance();

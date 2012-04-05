@@ -99,7 +99,7 @@ class Layer_TaskRunner extends \app\Layer
 	{
 		// Note: In this implementation we treat MVC as a self contained pattern
 		// for the sake of purity of the pattern so we don't support sub layers.
-		throw \app\Exception_NotApplicable::instance
+		throw new \app\Exception_NotApplicable
 			(
 				__CLASS__.' does not support sublayer.'
 			);

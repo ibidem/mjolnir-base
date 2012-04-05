@@ -19,7 +19,7 @@ abstract class Model_Factory
 	 */
 	public static function validator(array $fields)
 	{
-		throw \app\Exception_NotApplicable::instance
+		throw new \app\Exception_NotApplicable
 			('The [validator] method not implmented in ['.\called_class().'].');
 	}
 	
@@ -30,7 +30,7 @@ abstract class Model_Factory
 	 */
 	public static function assemble(array $fields)
 	{
-		throw \app\Exception_NotApplicable::instance
+		throw new \app\Exception_NotApplicable
 			('The [assemble] method not implmented in ['.\called_class().'].');
 	}
 	

@@ -249,7 +249,7 @@ class Route_Pattern extends \app\Instantiatable
 			
 			if ( ! isset($params[$param]))
 			{
-				throw \app\Exception_NotApplicable::instance
+				throw new \app\Exception_NotApplicable
 					("Required route paramter [$param] not passed.");
 			}
 			else # paramter is set
@@ -343,7 +343,7 @@ class Route_Pattern extends \app\Instantiatable
 		}
 		else # missing protocol; can't use canonical
 		{
-			throw \app\Exception_NotApplicable::instance
+			throw new \app\Exception_NotApplicable
 				('Route information missing; can not generate URL.');
 		}
 		

@@ -71,8 +71,11 @@ class Task extends \app\Instantiatable
 	 */
 	public function execute()
 	{
-		throw \app\Exception_NotApplicable::instance('Tasks is not available at this time.')
-			->title('Not implemented.');
+		throw new \app\Exception_NotApplicable
+			(
+				'Tasks is not available at this time.', # message
+				'Not implemented.' # title
+			);
 	}
 	
 } # class

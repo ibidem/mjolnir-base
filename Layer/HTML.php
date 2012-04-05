@@ -574,7 +574,8 @@ class Layer_HTML extends \app\Layer
 	{
 		if ($this->layer !== null)
 		{
-			throw \app\Exception_NotApplicable::instance("Can't have both a body and contents.");
+			throw new \app\Exception_NotApplicable
+				("Can't have both a body and contents.");
 		}
 		
 		$this->body = $body;

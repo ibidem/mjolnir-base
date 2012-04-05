@@ -50,9 +50,10 @@ class SQLDatabase extends \app\Instantiatable
 				$pdo = $pdo[$database];
 				if (empty($pdo))
 				{
-					throw \app\Exception_NotFound::instance
-						('Missing database configuration.')
-						->set_title('Database Error');
+					$exception = new \app\Exception_NotFound
+						('Missing database configuration.');
+						
+					throw $exception->set_title('Database Error');
 				}
 				// setup database handle
 				$dbh = static::$instances[$database]->dbh = new \PDO
@@ -75,8 +76,11 @@ class SQLDatabase extends \app\Instantiatable
 			}
 			catch (\PDOException $e)
 			{
-				throw \app\Exception::instance($e->getMessage())
-					->set_title('Database Error');
+				throw new \app\Exception
+					(
+						$e->getMessage(), # message
+						'Database Error' # title
+					);
 			}
 		}
 		else # is set
@@ -120,9 +124,11 @@ class SQLDatabase extends \app\Instantiatable
 			$file = \ibidem\cfs\CFSCompatible::CNFDIR
 				. '/sql/'.$this->dialect_target.'/'.$file;
 			
-			throw \app\Exception_NotFound::instance
-				('Missing key ['.$key.'] in ['.$file.'].')
-				->set_title('Database Translation Error');
+			throw new \app\Exception_NotFound
+				(
+					'Missing key ['.$key.'] in ['.$file.'].', # message
+					'Database Translation Error' # title
+				);
 		}
 		return $statements[$key]($this->dbh);
 	}

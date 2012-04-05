@@ -53,7 +53,7 @@ class Task_Honeypot extends \app\Task
 		}
 		else # namespace does not exist
 		{
-			throw \app\Exception_NotFound::instance
+			throw new \app\Exception_NotFound
 				('No such namespace registered; please check your [environment.php] file.');
 		}
 	}

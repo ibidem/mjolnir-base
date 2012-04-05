@@ -85,7 +85,7 @@ class Relay
 				}
 				else # invalid alias
 				{
-					throw \app\Exception::instance
+					throw new \app\Exception
 						('Invalid value ['.$aliases['route'][$key].'] for alias ['.$key.']');
 				}
 			}
