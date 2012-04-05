@@ -25,6 +25,13 @@
 		 * in the command's documentation (ie. description). Preferably use flags though
 		 * and/or have that only as a shorthand and not as the only way.
 		 */
+		'relays' => array
+			(
+				'desctiption' => array
+					(
+						'Lists (enabled) relays.'
+					),
+			),
 		'make:class' => array
 			(
 				'description' => array
