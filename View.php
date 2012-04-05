@@ -72,7 +72,7 @@ class View extends \app\Instantiatable
 	 * @param mixed value to set
 	 * @return $this
 	 */
-	public function constant($name, $value)
+	public function variable($name, $value)
 	{
 		$this->view_params[$name] = $value;
 		return $this;
