@@ -116,7 +116,7 @@ class Task_Make_Module extends \app\Task
 		// print notice
 		$this->writer
 			->status('Info', 'Module created!')->eol()
-			->status('Help', 'To enable it, in your modules add: MODPATH.\''.$name.'\' => \''.$namespace.'\',')->eol();
+			->status('Help', 'To enable it, in your modules add: MODPATH.\''.$name.'\' => \''.\ltrim($namespace, '\\').'\',')->eol();
 	}
 	
 } # class
