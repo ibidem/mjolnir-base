@@ -22,7 +22,10 @@ class View extends \app\Instantiatable
 	public static function instance($file = null)
 	{
 		$instance = parent::instance();
-		$instance->file($file);
+		if ($file !== null)
+		{
+			$instance->file($file);
+		}
 		return $instance;
 	}
 	
@@ -60,7 +63,7 @@ class View extends \app\Instantiatable
 	 */
 	public function bind($name, & $variable)
 	{
-		$this->view_params[$name] &= $variable;
+		$this->view_params[$name] =& $variable;
 		return $this;
 	}
 	
@@ -110,7 +113,7 @@ class View extends \app\Instantiatable
 		// found file?
 		if ($file_path === null)
 		{
-			throw \app\Exception_NotFound::instance
+			throw new \app\Exception_NotFound
 				("Required file [$file] not found.");
 		}
 		else # found file
@@ -128,9 +131,9 @@ class View extends \app\Instantiatable
 	public function file_path($file)
 	{
 		$this->file = \realpath($file);
-		if ( ! \file_exists($this->file))
+		if ($file !== null && ! \file_exists($this->file))
 		{
-			throw \app\Exception_NotFound::instance
+			throw new \app\Exception_NotFound
 				("Required file [$file] not found.");
 		}
 		
