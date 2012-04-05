@@ -45,7 +45,7 @@ class Task_Make_Class extends \app\Task
 		
 		$file .= "class $class_name".PHP_EOL
 			. '{'.PHP_EOL
-			. "\t// @todo".PHP_EOL
+			. "\t// @todo write implementation for $class_name".PHP_EOL
 			. PHP_EOL
 			. '} # class'.PHP_EOL
 			;
@@ -83,7 +83,7 @@ class Task_Make_Class extends \app\Task
 		$file .= 
 			  "class {$class_name}Test  extends \\PHPUnit_Framework_TestCase".PHP_EOL
 			. '{'.PHP_EOL
-			. "\t// @todo".PHP_EOL
+			. "\t// @todo write tests for $namespace".PHP_EOL
 			. PHP_EOL
 			. '} # class'.PHP_EOL
 			;
