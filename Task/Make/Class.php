@@ -16,26 +16,29 @@ class Task_Make_Class extends \app\Task
 	 * @param array configuration
 	 * @return string 
 	 */
-	protected function class_file($class_name, $namespace, $category, $config)
+	protected function class_file($class_name, $namespace, $category, array $config)
 	{
 		$file = "<?php namespace $namespace;".PHP_EOL.PHP_EOL;
 		
-		if ($config->disclaimer !== null)
+		if (isset($config['disclaimer']) && $config['disclaimer'])
 		{
-			$file .= '/* '.\wordwrap($config->disclaimer, 77, PHP_EOL.' * ')
+			$file .= '/* '.\wordwrap($config['disclaimer'], 77, PHP_EOL.' * ')
 				. PHP_EOL.' */'.PHP_EOL.PHP_EOL;
 		}
 		
+		// base namespace is package
+		$package = \preg_replace('#\\.*$#', '', $namespace);
+		
 		$file .= '/**'.PHP_EOL
-			. ' * @package    '.$namespace.PHP_EOL
+			. ' * @package    '.$package.PHP_EOL
 			. ' * @category   '.$category.PHP_EOL
-			. ' * @author     '.$config->author.PHP_EOL
-			. ' * @copyright  (c) '.\date('Y').', '.$config->author.PHP_EOL
+			. ' * @author     '.$config['author'].PHP_EOL
+			. ' * @copyright  (c) '.\date('Y').', '.$config['author'].PHP_EOL
 			;
 		
-		if ($config->license)
+		if (isset($config['license']) && $config['license'])
 		{
-			$file .= ' * @license    '.$config->license.PHP_EOL;
+			$file .= ' * @license    '.$config['license'].PHP_EOL;
 		}
 		
 		$file .= ' */'.PHP_EOL;
@@ -55,21 +58,24 @@ class Task_Make_Class extends \app\Task
 	 * @param string namespace
 	 * @return string
 	 */
-	protected function test_file($class_name, $namespace, $category, $config)
+	protected function test_file($class_name, $namespace, $category, array $config)
 	{
+		// base namespace is package
+		$package = \preg_replace('#\\\\.*$#', '', $namespace);
+		
 		$file 
 			= "<?php namespace $namespace;".PHP_EOL
 			. PHP_EOL
 			. '/**'.PHP_EOL
-			. ' * @package    '.$namespace.PHP_EOL
+			. ' * @package    '.$package.PHP_EOL
 			. ' * @category   '.$category.PHP_EOL
-			. ' * @author     '.$config->author.PHP_EOL
-			. ' * @copyright  (c) '.\date('Y').', '.$config->author.PHP_EOL
+			. ' * @author     '.$config['author'].PHP_EOL
+			. ' * @copyright  (c) '.\date('Y').', '.$config['author'].PHP_EOL
 			;
 		
-		if ($config->license)
+		if (isset($config['license']) && $config['license'])
 		{
-			$file .= ' * @license    '.$config->license.PHP_EOL;
+			$file .= ' * @license    '.$config['license'].PHP_EOL;
 		}
 		
 		$file .= ' */'.PHP_EOL;
@@ -97,16 +103,19 @@ class Task_Make_Class extends \app\Task
 		// normalize class
 		$class = \ltrim($class, '\\');
 		
+		// load project configuration
+		$config = \app\CFS::config('ibidem/project');
 		// does project file exist?
-		if ( ! \file_exists(DOCROOT.'project.json'))
+		if (empty($config) || ! isset($config['author']))
 		{
 			$this->writer
-				->error('The ['.DOCROOT.'project.json'.'] does not exist.')
+				->error('The [ibidem/project] configuration is empty or missing'
+					. ' required paramters.')
 				->eol();
 			
 			$this->writer
-				->status('Help', 'This module requires author and package. \
-				                  Optionally, also disclaimer and license.')
+				->status('Help', 'This module requires author. Optionally, you '
+					. 'can include also disclaimer and license.')
 				->eol();
 			
 			return;
@@ -171,8 +180,6 @@ class Task_Make_Class extends \app\Task
 		// create path
 		$full_path = $module_path.$class_path;
 		\file_exists($full_path) or \mkdir($full_path, 0777, true);
-		
-		$config = \json_decode(\file_get_contents(DOCROOT.'project.json'));
 		
 		// create class
 		\file_put_contents
