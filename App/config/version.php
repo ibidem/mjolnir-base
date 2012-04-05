@@ -2,17 +2,14 @@
 	(
 		'ibidem/base' => array
 			(
-				'name' => '',
 				'major' => '1',
 				'minor' => '0',
 				'hotfix' => '0',
-				'tag' => 'prototype',
 			),
 		'overlord' => array
 			(
 				'major' => '1',
 				'minor' => '0',
 				'hotfix' => '0',
-				'tag' => 'prototype',
 			),
 	);
