@@ -99,7 +99,7 @@ class Task_Make_Module extends \app\Task
 		\file_put_contents
 			(
 				$config_dir.$ds.'version'.EXT, 
-				static::version_file($name)
+				static::version_file(\ltrim($namespace, '\\'))
 			);
 		// create lang/README.md
 		\file_put_contents

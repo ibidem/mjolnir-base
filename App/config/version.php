@@ -1,6 +1,6 @@
 <?php return array
 	(
-		'ibidem/base' => array
+		'ibidem\base' => array
 			(
 				'major' => '1',
 				'minor' => '0',
