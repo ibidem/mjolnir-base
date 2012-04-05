@@ -171,8 +171,8 @@ class SQLDatabase extends \app\Instantiatable
 	 */
 	public function commit()
 	{
-		--SQL::$savepoint;
-		if (SQL::$savepoint == 0)
+		--$this->savepoint;
+		if ($this->savepoint == 0)
 		{
 			$this->dbh->commit();
 		}
@@ -189,14 +189,14 @@ class SQLDatabase extends \app\Instantiatable
 	 */
 	public function rollback()
 	{
-		--SQL::$savepoint;
-		if (SQL::$savepoint == 0)
+		--$this->savepoint;
+		if ($this->savepoint == 0)
 		{
 			$this->dbh->rollBack();
 		}
 		else # we are still in another transaction
 		{
-			$this->statement('transaction:rollback', 'ROLLBACK TO SAVEPOINT save'.SQL::$savepoint);
+			$this->statement('transaction:rollback', 'ROLLBACK TO SAVEPOINT save'.$this->savepoint);
 		}
 	}
 	
