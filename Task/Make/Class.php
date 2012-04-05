@@ -27,7 +27,7 @@ class Task_Make_Class extends \app\Task
 		}
 		
 		// base namespace is package
-		$package = \preg_replace('#\\.*$#', '', $namespace);
+		$package = \preg_replace('#\\\\.*$#', '', $namespace);
 		
 		$file .= '/**'.PHP_EOL
 			. ' * @package    '.$package.PHP_EOL
