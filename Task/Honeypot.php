@@ -32,7 +32,7 @@ class Task_Honeypot extends \app\Task
 				{
 					$output .= 'trait '.$file.' { use \\'.$ns.'\\'.$file.'; }'.PHP_EOL;
 				}
-				else # is not a trait
+				else if ( ! \preg_match('#^Enum_#', $file)) # not a internal enum
 				{
 					$output .= 'class '.$file.' extends \\'.$ns.'\\'.$file.' {}'.PHP_EOL;
 				}
