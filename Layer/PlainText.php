@@ -83,7 +83,7 @@ class Layer_PlainText extends \app\Layer
 					'Can\'t have both a body and contents.'
 				);
 				
-			throw exception->type(\ibidem\types\Exception::NotApplicable);
+			throw $exception->type(\ibidem\types\Exception::NotApplicable);
 		}
 		
 		return $this->body;
