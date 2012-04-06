@@ -25,7 +25,26 @@
 		 * in the command's documentation (ie. description). Preferably use flags though
 		 * and/or have that only as a shorthand and not as the only way.
 		 */
-		'relays' => array
+		'check:modules' => array
+			(
+				'description' => array
+					(
+						'Perform all environment checks.',
+						'Modules should provide tests for all their dependencies, that ensure they will function properly in their environement.'
+					),
+				'flags' => array
+					(
+						'no-stop' => array
+							(
+								'description' => 'Do not stop on errors.'
+							),
+						'strict' => array
+							(
+								'description' => 'Treat failed as errors.'
+							),
+					),
+			),
+		'check:relays' => array
 			(
 				'desctiption' => array
 					(
