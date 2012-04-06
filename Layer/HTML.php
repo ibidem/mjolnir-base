@@ -304,8 +304,6 @@ class Layer_HTML extends \app\Layer
 	}
 		
 	/**
-	 * Sends an Event to the parent of the current layer.
-	 * 
 	 * @param \ibidem\types\Event
 	 */
 	public function dispatch(\ibidem\types\Event $event)
