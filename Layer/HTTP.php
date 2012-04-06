@@ -152,6 +152,22 @@ class Layer_HTTP extends \app\Layer
 	}
 	
 	/**
+	 * @param \ibidem\types\Event
+	 */
+	public function dispatch(\ibidem\types\Event $event)
+	{
+		switch ($event->get_subject())
+		{
+			case \ibidem\types\Event::content_type:
+				$this->content_type($event->get_contents());
+				break;
+		}
+		
+		// pass to default handling
+		parent::dispatch($event);
+	}	
+	
+	/**
 	 * Execute the layer.
 	 */
 	public function execute()
