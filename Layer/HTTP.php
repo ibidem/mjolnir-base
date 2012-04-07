@@ -161,6 +161,17 @@ class Layer_HTTP extends \app\Layer
 			case \ibidem\types\Event::content_type:
 				$this->content_type($event->get_contents());
 				break;
+			
+			case \ibidem\types\Event::expires:
+				$expiration = $event->get_contents() - \time();
+				$this->meta('Pragma', 'public');
+				$this->meta('Cache-Control', 'maxage='.$expiration);
+				$this->meta
+					(
+						'Expires', 
+						\gmdate('D, d M Y H:i:s', \time() + $expiration).' GMT'
+					);
+				break;
 		}
 		
 		// pass to default handling
