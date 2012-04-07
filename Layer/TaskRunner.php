@@ -268,7 +268,7 @@ class Layer_TaskRunner extends \app\Layer
 		$v = $v['overlord'];
 		$version = $v['major'].'.'.$v['minor']
 			. ($v['hotfix'] !== '0' ? '.'.$v['hotfix'] : '')
-			. ($v['tag'] !== null ? '-'.$v['tag'] : '');
+			. ( ! empty($v['tag']) ? '-'.$v['tag'] : '');
 		$stdout->header('minion v'.$version);
 		$stdout->write("    USAGE: ".static::$commandname." [command] [flags]")->eol();
 		$stdout->write("       eg. ".static::$commandname." example:cmd -i Joe --greeting \"Greetings, Mr.\" --date")->eol()->eol();
