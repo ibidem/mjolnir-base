@@ -4,7 +4,7 @@
  * @package    ibidem
  * @category   Base
  * @author     Ibidem Team
- * @copyright  (c) 2008-2012 Ibidem Team
+ * @copyright  (c) 2012 Ibidem Team
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 abstract class Model_Factory
@@ -15,7 +15,7 @@ abstract class Model_Factory
 	 * errors that would prevent assembly.
 	 * 
 	 * @param array fields
-	 * @return Validation
+	 * @return \ibidem\types\Validator
 	 */
 	public static function validator(array $fields)
 	{
@@ -38,7 +38,7 @@ abstract class Model_Factory
 	 * Fabricate the model.
 	 * 
 	 * @param array fields required for creation
-	 * @return Validation Validator on error, NULL on success
+	 * @return \ibidem\types\Validator on error, null on success
 	 */
 	final public static function factory(array $fields)
 	{

@@ -4,7 +4,7 @@
  * @package    ibidem
  * @category   Base
  * @author     Ibidem Team
- * @copyright  (c) 2008-2012 Ibidem Team
+ * @copyright  (c) 2012 Ibidem Team
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 class Layer_MVC extends \app\Layer 
@@ -29,7 +29,7 @@ class Layer_MVC extends \app\Layer
 	protected $relay;
 	
 	/**
-	 * @return \ibidem\types\Layer
+	 * @return \ibidem\base\Layer_MVC
 	 */
 	public static function instance()
 	{
@@ -97,7 +97,7 @@ class Layer_MVC extends \app\Layer
 	
 	/**
 	 * @param \ibidem\types\Controller 
-	 * @return $this
+	 * @return \ibidem\base\Layer_MVC $this
 	 */
 	public function controller(\ibidem\types\Controller $controller)
 	{
@@ -109,7 +109,7 @@ class Layer_MVC extends \app\Layer
 	 * Action paramters.
 	 * 
 	 * @param \ibidem\types\Controller 
-	 * @return $this
+	 * @return \ibidem\base\Layer_MVC $this
 	 */
 	public function params(\ibidem\types\Params $params)
 	{
@@ -120,7 +120,7 @@ class Layer_MVC extends \app\Layer
 	/**
 	 * @param \ibidem\types\Layer layer
 	 * @param \ibidem\types\Layer parent
-	 * @return \ibidem\types\Layer 
+	 * @return \ibidem\base\Layer_MVC $this
 	 */
 	public function register(\ibidem\types\Layer $layer)
 	{
@@ -137,7 +137,7 @@ class Layer_MVC extends \app\Layer
 	 * 
 	 * @param string key
 	 * @param mixed value
-	 * @return $this
+	 * @return \ibidem\base\Layer_MVC $this
 	 */
 	public function meta($key, $value)
 	{
@@ -157,7 +157,7 @@ class Layer_MVC extends \app\Layer
 		
 	/**
 	 * @param array relay configuration
-	 * @return $this
+	 * @return \ibidem\base\Layer_MVC $this
 	 */
 	public function relay_config(array $relay)
 	{

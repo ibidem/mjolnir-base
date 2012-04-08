@@ -6,7 +6,7 @@
  * @package    ibidem
  * @category   Base
  * @author     Ibidem Team
- * @copyright  (c) 2008-2012 Ibidem Team
+ * @copyright  (c) 2012 Ibidem Team
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 class Route_Regex extends \app\Instantiatable 
@@ -47,6 +47,8 @@ class Route_Regex extends \app\Instantiatable
 	
 	/**
 	 * Pattern to match.
+	 * 
+	 * @return \ibidem\base\Route_Regex $this
 	 */
 	function regex($regex)
 	{
@@ -69,7 +71,7 @@ class Route_Regex extends \app\Instantiatable
 
 	/**
 	 * @param array relay configuration
-	 * @return $this
+	 * @return \ibidem\base\Route_Regex $this
 	 */
 	public function relay_config(array $relay)
 	{		

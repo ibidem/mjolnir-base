@@ -4,7 +4,7 @@
  * @package    ibidem
  * @category   Base
  * @author     Ibidem Team
- * @copyright  (c) 2008-2012 Ibidem Team
+ * @copyright  (c) 2012 Ibidem Team
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 class View extends \app\Instantiatable
@@ -17,7 +17,7 @@ class View extends \app\Instantiatable
 	
 	/**
 	 * @see \ibidem\types\Instantiatable
-	 * @return $this
+	 * @return \ibidem\base\View
 	 */
 	public static function instance($file = null)
 	{
@@ -59,7 +59,7 @@ class View extends \app\Instantiatable
 	/**
 	 * @param string valid PHP variable name
 	 * @param array array to bind
-	 * @return $this
+	 * @return \ibidem\base\View $this
 	 */
 	public function bind($name, array & $array)
 	{
@@ -70,7 +70,7 @@ class View extends \app\Instantiatable
 	/**
 	 * @param string valid PHP variable name
 	 * @param mixed value to set
-	 * @return $this
+	 * @return \ibidem\base\View $this
 	 */
 	public function variable($name, $value)
 	{
@@ -104,7 +104,7 @@ class View extends \app\Instantiatable
 		
 	/**
 	 * @param string file 
-	 * @return $this
+	 * @return \ibidem\base\View $this
 	 */
 	public function file($file)
 	{
@@ -126,7 +126,7 @@ class View extends \app\Instantiatable
 	
 	/**
 	 * @param string explicit file path
-	 * @return $this
+	 * @return \ibidem\base\View $this
 	 */
 	public function file_path($file)
 	{

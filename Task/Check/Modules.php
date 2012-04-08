@@ -4,11 +4,16 @@
  * @package    ibidem
  * @category   Base
  * @author     Ibidem Team
- * @copyright  (c) 2008-2012 Ibidem Team
+ * @copyright  (c) 2012 Ibidem Team
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 class Task_Check_Modules extends \app\Task
 {
+	/**
+	 * Attempt to detect php binary location.
+	 * 
+	 * @return string
+	 */
 	private function php_binary() 
 	{
 		$paths = \explode(PATH_SEPARATOR, \getenv('PATH'));
@@ -20,7 +25,7 @@ class Task_Check_Modules extends \app\Task
 			}
 		}
 		
-		return 'not found; try: which php'; // not found
+		return 'undetectable; try the command: which php'; // not found
 	}
 	
 	/**

@@ -4,7 +4,7 @@
  * @package    ibidem
  * @category   Base
  * @author     Ibidem Team
- * @copyright  (c) 2008-2012 Ibidem Team
+ * @copyright  (c) 2012 Ibidem Team
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 class Layer_HTML extends \app\Layer 
@@ -19,7 +19,7 @@ class Layer_HTML extends \app\Layer
 	protected static $layer_name = \ibidem\types\HTML::LAYER_NAME;
 	
 	/**
-	 * @return \ibidem\types\Layer
+	 * @return \ibidem\base\Layer_HTML
 	 */
 	public static function instance()
 	{
@@ -202,6 +202,8 @@ class Layer_HTML extends \app\Layer
 
 	/**
 	 * Closing html. 
+	 * 
+	 * @return string
 	 */
 	protected function html_after()
 	{
@@ -349,7 +351,7 @@ class Layer_HTML extends \app\Layer
 	 * Sets the doctype. See: \ibidem\types\HTML for constants.
 	 * 
 	 * @param string doctype
-	 * @return $this
+	 * @return \ibidem\base\Layer_HTML $this
 	 */
 	public function doctype($doctype)
 	{
@@ -360,7 +362,7 @@ class Layer_HTML extends \app\Layer
 	 * Appcache manifest location.
 	 * 
 	 * @param string url
-	 * @return $this
+	 * @return \ibidem\base\Layer_HTML $this
 	 */
 	public function appcache($url = null)
 	{
@@ -371,7 +373,7 @@ class Layer_HTML extends \app\Layer
 	 * Sitemap, be it index or simple sitemap.
 	 * 
 	 * @param string url
-	 * @return $this
+	 * @return \ibidem\base\Layer_HTML $this
 	 */
 	public function sitemap($url = null)
 	{
@@ -380,7 +382,7 @@ class Layer_HTML extends \app\Layer
 	
 	/**
 	 * @param array domains
-	 * @return $this
+	 * @return \ibidem\base\Layer_HTML $this
 	 */
 	public function add_dns_prefetch_domains(array $domains)
 	{
@@ -394,7 +396,7 @@ class Layer_HTML extends \app\Layer
 	
 	/**
 	 * @param string favicon uri
-	 * @return $this
+	 * @return \ibidem\base\Layer_HTML $this
 	 */
 	public function favicon($url = null)
 	{
@@ -403,7 +405,7 @@ class Layer_HTML extends \app\Layer
 	
 	/**
 	 * @param string title 
-	 * @return $this
+	 * @return \ibidem\base\Layer_HTML $this
 	 */
 	public function title($title)
 	{
@@ -412,7 +414,7 @@ class Layer_HTML extends \app\Layer
 	
 	/**
 	 * @param string
-	 * @return $this 
+	 * @return \ibidem\base\Layer_HTML $this
 	 */
 	public function add_stylesheet($href, $type = "text/css")
 	{
@@ -422,7 +424,7 @@ class Layer_HTML extends \app\Layer
 	
 	/**
 	 * @param string
-	 * @return $this 
+	 * @return \ibidem\base\Layer_HTML $this
 	 */
 	public function add_script($src)
 	{
@@ -432,7 +434,7 @@ class Layer_HTML extends \app\Layer
 	
 	/**
 	 * @param string description 
-	 * @return $this
+	 * @return \ibidem\base\Layer_HTML $this
 	 */
 	public function description($desc = null)
 	{
@@ -441,7 +443,7 @@ class Layer_HTML extends \app\Layer
 	
 	/**
 	 * @param array new keywards
-	 * @return $this
+	 * @return \ibidem\base\Layer_HTML $this
 	 */
 	public function add_keywords(array $keywords)
 	{
@@ -455,7 +457,7 @@ class Layer_HTML extends \app\Layer
 	
 	/**
 	 * @param string canonical url 
-	 * @return $this
+	 * @return \ibidem\base\Layer_HTML $this
 	 */
 	public function canonical($url = null)
 	{
@@ -464,7 +466,7 @@ class Layer_HTML extends \app\Layer
 	
 	/**
 	 * @param boolean enabled?
-	 * @return $this
+	 * @return \ibidem\base\Layer_HTML $this
 	 */
 	public function crawlers($enabled = true)
 	{
@@ -473,7 +475,7 @@ class Layer_HTML extends \app\Layer
 	
 	/**
 	 * @param string url
-	 * @return $this
+	 * @return \ibidem\base\Layer_HTML $this
 	 */
 	public function rssfeed($url = null)
 	{
@@ -482,7 +484,7 @@ class Layer_HTML extends \app\Layer
 	
 	/**
 	 * @param string url
-	 * @return $this
+	 * @return \ibidem\base\Layer_HTML $this
 	 */
 	public function atomfeed($url = null)
 	{
@@ -491,7 +493,7 @@ class Layer_HTML extends \app\Layer
 	
 	/**
 	 * @param string url
-	 * @return $this
+	 * @return \ibidem\base\Layer_HTML $this
 	 */
 	public function pingback($url = null)
 	{
@@ -500,7 +502,7 @@ class Layer_HTML extends \app\Layer
 	
 	/**
 	 * @param boolean enabled?
-	 * @return $this 
+	 * @return \ibidem\base\Layer_HTML $this
 	 */
 	public function humanstxt($enabled = true)
 	{
@@ -511,7 +513,7 @@ class Layer_HTML extends \app\Layer
 	 * Metadata for application running as desktop.
 	 * 
 	 * @param string name
-	 * @return $this
+	 * @return \ibidem\base\Layer_HTML $this
 	 */
 	public function application_name($name = null)
 	{
@@ -522,7 +524,7 @@ class Layer_HTML extends \app\Layer
 	 * Metadata for application running as desktop.
 	 * 
 	 * @param string tooltip
-	 * @return $this
+	 * @return \ibidem\base\Layer_HTML $this
 	 */
 	public function application_tooltip($tooltip = null)
 	{
@@ -533,7 +535,7 @@ class Layer_HTML extends \app\Layer
 	 * Metadata for application running as desktop.
 	 * 
 	 * @param string starturl
-	 * @return $this
+	 * @return \ibidem\base\Layer_HTML $this
 	 */
 	public function application_starturl($starturl = null)
 	{
@@ -552,7 +554,7 @@ class Layer_HTML extends \app\Layer
 	 * 
 	 * @param string key
 	 * @param mixed value
-	 * @return $this
+	 * @return \ibidem\base\Layer_HTML $this
 	 */
 	public function meta($key, $value)
 	{
@@ -584,7 +586,7 @@ class Layer_HTML extends \app\Layer
 	 * Set the document's body.
 	 * 
 	 * @param string document body
-	 * @return $this
+	 * @return \ibidem\base\Layer_HTML $this
 	 */
 	public function body($body)
 	{

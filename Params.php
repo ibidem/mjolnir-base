@@ -4,7 +4,7 @@
  * @package    ibidem
  * @category   Base
  * @author     Ibidem Team
- * @copyright  (c) 2008-2012 Ibidem Team
+ * @copyright  (c) 2012 Ibidem Team
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 class Params extends \app\Instantiatable 
@@ -25,7 +25,7 @@ class Params extends \app\Instantiatable
 
 	/**
 	 * @param array associative array of key values
-	 * @return \ibidem\types\Params
+	 * @return \ibidem\base\Params $this
 	 */
 	public function populate_params(array $params) 
 	{
@@ -33,12 +33,14 @@ class Params extends \app\Instantiatable
 		{
 			$this->params[$key] = $param;
 		}
+		
+		return $this;
 	}
 
 	/**
 	 * @param string key
 	 * @param mixed value
-	 * @return \ibidem\types\Params
+	 * @return \ibidem\base\Params $this
 	 */
 	public function set($key, $value) 
 	{

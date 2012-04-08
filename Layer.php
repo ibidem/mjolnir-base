@@ -4,7 +4,7 @@
  * @package    ibidem
  * @category   Base
  * @author     Ibidem Team
- * @copyright  (c) 2008-2012 Ibidem Team
+ * @copyright  (c) 2012 Ibidem Team
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 abstract class Layer extends \app\Instantiatable 
@@ -46,7 +46,7 @@ abstract class Layer extends \app\Instantiatable
 	/**
 	 * @param \ibidem\types\Layer layer
 	 * @param \ibidem\types\Layer parent
-	 * @return \ibidem\types\Layer 
+	 * @return \ibidem\base\Layer $this
 	 */
 	public function register(\ibidem\types\Layer $layer)
 	{
@@ -66,7 +66,7 @@ abstract class Layer extends \app\Instantiatable
 	
 	/**
 	 * @param \ibidem\types\Layer $parent
-	 * @return \ibidem\base\Layer
+	 * @return \ibidem\base\Layer $this
 	 */
 	public function parent_layer(\ibidem\types\Layer $parent)
 	{
@@ -109,7 +109,7 @@ abstract class Layer extends \app\Instantiatable
 	 * [!!] This method doesn't necesarly accept a string
 	 * 
 	 * @param mixed contents
-	 * @return $this
+	 * @return \ibidem\base\Layer $this
 	 */
 	protected function contents($contents = null)
 	{
@@ -133,7 +133,7 @@ abstract class Layer extends \app\Instantiatable
 	 * from each component.
 	 * 
 	 * @param string layer name
-	 * @return \ibidem\types\Layer
+	 * @return \ibidem\base\Layer $this
 	 * @throws \ibidem\types\Exception
 	 */
 	public function get_layer($layer_name)

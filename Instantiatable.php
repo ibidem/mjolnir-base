@@ -11,7 +11,7 @@
  * @package    ibidem
  * @category   Base
  * @author     Ibidem Team
- * @copyright  (c) 2008-2012 Ibidem Team
+ * @copyright  (c) 2012 Ibidem Team
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 class Instantiatable 
@@ -27,7 +27,7 @@ class Instantiatable
 	
 	/**
 	 * @see \ibidem\types\Instantiatable
-	 * @return $this instance of current class
+	 * @return static
 	 */
 	public static function instance()
 	{

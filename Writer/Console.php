@@ -4,7 +4,7 @@
  * @package    ibidem
  * @category   Base
  * @author     Ibidem Team
- * @copyright  (c) 2008-2012 Ibidem Team
+ * @copyright  (c) 2012 Ibidem Team
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 class Writer_Console extends \app\Instantiatable 
@@ -41,7 +41,7 @@ class Writer_Console extends \app\Instantiatable
 	protected $shell;
 	
 	/**
-	 * @return \ibidem\types\Writer
+	 * @return \ibidem\base\Writer_Console
 	 */
 	public static function instance()
 	{
@@ -83,7 +83,7 @@ class Writer_Console extends \app\Instantiatable
 	
 	/**
 	 * @param int width
-	 * @return $this
+	 * @return \ibidem\base\Writer_Console $this
 	 */
 	public function width($width)
 	{
@@ -92,7 +92,7 @@ class Writer_Console extends \app\Instantiatable
 	}
 	
 	/**
-	 * @return $this
+	 * @return \ibidem\base\Writer_Console $this
 	 */
 	public function eol()
 	{
@@ -110,7 +110,7 @@ class Writer_Console extends \app\Instantiatable
 	
 	/**
 	 * @param string text
-	 * @return $this
+	 * @return \ibidem\base\Writer_Console $this
 	 */
 	public function write($text, $indent = 0, $nowrap_hint = null)
 	{
@@ -140,7 +140,7 @@ class Writer_Console extends \app\Instantiatable
 	 * @param string definition
 	 * @param int indent hint
 	 * @param string no wrap hint string
-	 * @return $this
+	 * @return \ibidem\base\Writer_Console $this
 	 */
 	public function listwrite($dt, $dd, $indent_hint = null, $nowrap_hint = null)
 	{
@@ -209,7 +209,7 @@ class Writer_Console extends \app\Instantiatable
 	 * 
 	 * @param string text
 	 * @param string highlight key
-	 * @return $this
+	 * @return \ibidem\base\Writer_Console $this
 	 */
 	public function highlight($text, $highlight = null)
 	{
@@ -253,7 +253,7 @@ class Writer_Console extends \app\Instantiatable
 	
 	/**
 	 * @param $args
-	 * @return $this
+	 * @return \ibidem\base\Writer_Console $this
 	 */
 	public function writef($args)
 	{
@@ -266,7 +266,7 @@ class Writer_Console extends \app\Instantiatable
 	
 	/**
 	 * @param string title
-	 * @return $this
+	 * @return \ibidem\base\Writer_Console $this
 	 */
 	public function header($title)
 	{
@@ -286,7 +286,7 @@ class Writer_Console extends \app\Instantiatable
 	
 	/**
 	 * @param string title
-	 * @return $this
+	 * @return \ibidem\base\Writer_Console $this
 	 */
 	public function subheader($title)
 	{
@@ -311,7 +311,7 @@ class Writer_Console extends \app\Instantiatable
 	
 	/**
 	 * @param string text
-	 * @return $this
+	 * @return \ibidem\base\Writer_Console $this
 	 */
 	public function status($status, $message, $highlight_hint = null)
 	{
@@ -342,7 +342,7 @@ class Writer_Console extends \app\Instantiatable
 	
 	/**
 	 * @param string text
-	 * @return $this
+	 * @return \ibidem\base\Writer_Console $this
 	 */
 	public function error($text)
 	{	

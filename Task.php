@@ -4,7 +4,7 @@
  * @package    ibidem
  * @category   Base
  * @author     Ibidem Team
- * @copyright  (c) 2008-2012 Ibidem Team
+ * @copyright  (c) 2012 Ibidem Team
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 class Task extends \app\Instantiatable
@@ -25,7 +25,7 @@ class Task extends \app\Instantiatable
 	 * \app\Task_Class_Name_Example
 	 * 
 	 * @param string encoded task
-	 * @return \ibidem\types\Task
+	 * @return \ibidem\base\Task
 	 */
 	public static function instance($encoded_task = null)
 	{
@@ -48,7 +48,7 @@ class Task extends \app\Instantiatable
 	
 	/**
 	 * @param array config
-	 * @return $this
+	 * @return \ibidem\base\Task $this
 	 */
 	public function config(array $config)
 	{
@@ -58,7 +58,7 @@ class Task extends \app\Instantiatable
 	
 	/**
 	 * @param array config
-	 * @return $this
+	 * @return \ibidem\base\Task $this
 	 */
 	public function writer(\ibidem\types\Writer $writer)
 	{

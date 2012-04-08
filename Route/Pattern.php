@@ -4,7 +4,7 @@
  * @package    ibidem
  * @category   Base
  * @author     Ibidem Team
- * @copyright  (c) 2008-2012 Ibidem Team
+ * @copyright  (c) 2012 Ibidem Team
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 class Route_Pattern extends \app\Instantiatable 
@@ -84,7 +84,7 @@ class Route_Pattern extends \app\Instantiatable
 	/**
 	 * @param string pattern
 	 * @param array regex
-	 * @return $this
+	 * @return \ibidem\base\Route_Pattern $this
 	 */
 	public function canonical($pattern, array $regex)
 	{
@@ -97,7 +97,7 @@ class Route_Pattern extends \app\Instantiatable
 	/**
 	 * @param string pattern
 	 * @param array regex
-	 * @return $this
+	 * @return \ibidem\base\Route_Pattern $this
 	 */
 	public function standard($pattern, array $regex)
 	{
@@ -110,7 +110,7 @@ class Route_Pattern extends \app\Instantiatable
 	/**
 	 * @param string uri
 	 * @param array regex
-	 * @return $this
+	 * @return \ibidem\base\Route_Pattern $this
 	 */
 	protected static function setup_pattern($uri, array $regex)
 	{	
@@ -264,7 +264,7 @@ class Route_Pattern extends \app\Instantiatable
 
 	/**
 	 * @param array relay configuration
-	 * @return $this
+	 * @return \ibidem\base\Route_Pattern $this
 	 */
 	public function relay_config(array $relay)
 	{
@@ -387,7 +387,7 @@ class Route_Pattern extends \app\Instantiatable
 	 * Base for the url, if not defined should retrieve ibidem/base value.
 	 * 
 	 * @param string url base
-	 * @return $this
+	 * @return \ibidem\base\Route_Pattern $this
 	 */
 	public function url_base($url_base = null)
 	{

@@ -4,7 +4,7 @@
  * @package    ibidem
  * @category   Base
  * @author     Ibidem Team
- * @copyright  (c) 2008-2012 Ibidem Team
+ * @copyright  (c) 2012 Ibidem Team
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 class SQLStatement extends \app\Instantiatable
@@ -34,17 +34,18 @@ class SQLStatement extends \app\Instantiatable
 	
 	/**
 	 * @param \PDOStatement statement
-	 * @return $this
+	 * @return \ibidem\base\SQLStatement $this
 	 */
 	public function statement(\PDOStatement $statement)
 	{
 		$this->statement = $statement;
+		return $this;
 	}
 	
 	/**
 	 * @param string parameter
 	 * @param string variable
-	 * @return $this
+	 * @return \ibidem\base\SQLStatement $this
 	 */
 	public function bind($parameter, & $variable)
 	{
@@ -55,7 +56,7 @@ class SQLStatement extends \app\Instantiatable
 	/**
 	 * @param string parameter
 	 * @param int variable
-	 * @return $this
+	 * @return \ibidem\base\SQLStatement $this
 	 */
 	public function bindInt($parameter, & $variable)
 	{
@@ -68,7 +69,7 @@ class SQLStatement extends \app\Instantiatable
 	 * 
 	 * @param string parameter
 	 * @param string variable
-	 * @return $this
+	 * @return \ibidem\base\SQLStatement $this
 	 */
 	public function bindArg($parameter, & $variable)
 	{
@@ -85,7 +86,7 @@ class SQLStatement extends \app\Instantiatable
 	/**
 	 * Execute the statement.
 	 * 
-	 * @return $this
+	 * @return \ibidem\base\SQLStatement $this
 	 */
 	public function execute()
 	{
@@ -107,6 +108,8 @@ class SQLStatement extends \app\Instantiatable
 	
 	/**
 	 * Fetch associative array of row.
+	 *
+	 * @return array
 	 */
 	public function fetch_array()
 	{
@@ -117,6 +120,8 @@ class SQLStatement extends \app\Instantiatable
 	 * Retrieves all remaining rows. Rows are retrieved as arrays.
 	 * 
 	 * [!!] May be extremely memory intensive when used on large data sets.
+	 *
+	 * @return array
 	 */
 	public function fetch_all()
 	{

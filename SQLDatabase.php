@@ -4,7 +4,7 @@
  * @package    ibidem
  * @category   Base
  * @author     Ibidem Team
- * @copyright  (c) 2008-2012 Ibidem Team
+ * @copyright  (c) 2012 Ibidem Team
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 class SQLDatabase extends \app\Instantiatable
@@ -155,7 +155,7 @@ class SQLDatabase extends \app\Instantiatable
 	/**
 	 * Begin transaction.
 	 * 
-	 * @return $this
+	 * @return \ibidem\base\SQLDatabase $this
 	 */
 	public function begin()
 	{
@@ -168,12 +168,14 @@ class SQLDatabase extends \app\Instantiatable
 			$this->statement('transaction:begin', 'SAVEPOINT save'.$this->savepoint, 'mysql');
 		}
 		++$this->savepoint;
+		
+		return $this;
 	}
 	
 	/**
 	 * Commit transaction.
 	 * 
-	 * @return $this
+	 * @return \ibidem\base\SQLDatabase $this
 	 */
 	public function commit()
 	{
@@ -186,12 +188,14 @@ class SQLDatabase extends \app\Instantiatable
 		{
 			$this->statement('transaction:commit', 'RELEASE SAVEPOINT save'.$this->savepoint, 'mysql');
 		}
+		
+		return $this;
 	}
 	
 	/**
 	 * Rollback transaction.
 	 * 
-	 * @return $this
+	 * @return \ibidem\base\SQLDatabase $this
 	 */
 	public function rollback()
 	{
@@ -204,6 +208,8 @@ class SQLDatabase extends \app\Instantiatable
 		{
 			$this->statement('transaction:rollback', 'ROLLBACK TO SAVEPOINT save'.$this->savepoint);
 		}
+		
+		return $this;
 	}
 	
 } # class

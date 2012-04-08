@@ -4,7 +4,7 @@
  * @package    ibidem
  * @category   Base
  * @author     Ibidem Team
- * @copyright  (c) 2008-2012 Ibidem Team
+ * @copyright  (c) 2012 Ibidem Team
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 class Layer_HTTP extends \app\Layer 
@@ -21,7 +21,7 @@ class Layer_HTTP extends \app\Layer
 	protected $status;
 	
 	/**
-	 * @return \ibidem\types\Layer
+	 * @return \ibidem\base\Layer_HTTP
 	 */
 	public static function instance()
 	{
@@ -235,7 +235,7 @@ class Layer_HTTP extends \app\Layer
 	
 	/**
 	 * @param string status 
-	 * @return $this
+	 * @return \ibidem\base\Layer_HTTP $this
 	 */
 	public function status($status)
 	{
@@ -248,7 +248,7 @@ class Layer_HTTP extends \app\Layer
 	 * content type (or at least the correct one) is not text/html :)
 	 * 
 	 * @param string content-type
-	 * @return $this
+	 * @return \ibidem\base\Layer_HTTP $this
 	 */
 	public function content_type($content_type)
 	{
@@ -276,7 +276,7 @@ class Layer_HTTP extends \app\Layer
 	 * 
 	 * @param string key
 	 * @param mixed value
-	 * @return $this
+	 * @return \ibidem\base\Layer_HTTP $this
 	 */
 	public function meta($key, $value)
 	{

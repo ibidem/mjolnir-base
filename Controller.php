@@ -4,7 +4,7 @@
  * @package    ibidem
  * @category   Base
  * @author     Ibidem Team
- * @copyright  (c) 2008-2012 Ibidem Team
+ * @copyright  (c) 2012 Ibidem Team
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 class Controller extends \app\Instantiatable
@@ -22,7 +22,7 @@ class Controller extends \app\Instantiatable
 	
 	/**
 	 * @param \ibidem\types\Layer
-	 * @return $this
+	 * @return \ibidem\base\Controller $this
 	 */
 	public function layer(\ibidem\types\Layer $layer)
 	{
@@ -30,7 +30,7 @@ class Controller extends \app\Instantiatable
 	}
 	
 	/**
-	 * @return $this 
+	 * @return \ibidem\base\Controller $this
 	 */
 	public function before_action()
 	{
@@ -38,7 +38,7 @@ class Controller extends \app\Instantiatable
 	}
 	
 	/**
-	 * @return $this 
+	 * @return \ibidem\base\Controller $this
 	 */
 	public function after_action()
 	{
@@ -47,7 +47,7 @@ class Controller extends \app\Instantiatable
 	
 	/**
 	 * @param \ibidem\types\Params
-	 * @return $this
+	 * @return \ibidem\base\Controller $this
 	 */
 	public function params(\ibidem\types\Params $params)
 	{
@@ -66,7 +66,7 @@ class Controller extends \app\Instantiatable
 	 * Set the document's body.
 	 * 
 	 * @param string document body
-	 * @return $this
+	 * @return \ibidem\base\Controller $this
 	 */
 	public function body($body)
 	{

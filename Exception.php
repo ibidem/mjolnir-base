@@ -4,7 +4,7 @@
  * @package    ibidem
  * @category   Base
  * @author     Ibidem Team
- * @copyright  (c) 2008-2012 Ibidem Team
+ * @copyright  (c) 2012 Ibidem Team
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 class Exception extends \Exception
@@ -63,7 +63,7 @@ class Exception extends \Exception
 	
 	/**
 	 * @param string exception type
-	 * @return $this
+	 * @return \ibidem\base\Exception $this
 	 */
 	public function type($type)
 	{
@@ -81,7 +81,7 @@ class Exception extends \Exception
 	
 	/**
 	 * @param string message
-	 * @return $this 
+	 * @return \ibidem\base\Exception $this
 	 */
 	public function set_message($message)
 	{
@@ -97,7 +97,7 @@ class Exception extends \Exception
 	
 	/**
 	 * @param string title
-	 * @return $this 
+	 * @return \ibidem\base\Exception $this
 	 */
 	public function set_title($title = null)
 	{
@@ -107,7 +107,7 @@ class Exception extends \Exception
 	
 	/**
 	 * @param \Exception PHP exception 
-	 * @return $this
+	 * @return \ibidem\base\Exception $this
 	 */
 	public function based_on(\Exception $source)
 	{

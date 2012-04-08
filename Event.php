@@ -4,7 +4,7 @@
  * @package    ibidem
  * @category   Base
  * @author     Ibidem Team
- * @copyright  (c) 2008-2012 Ibidem Team
+ * @copyright  (c) 2012 Ibidem Team
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 class Event extends \app\Instantiatable 
@@ -29,7 +29,7 @@ class Event extends \app\Instantiatable
 	 * Event signature. Typically you should just pass __CLASS__
 	 * 
 	 * @param string
-	 * @return $this
+	 * @return \ibidem\base\Event $this
 	 */
 	public function signature($signature)
 	{
@@ -47,7 +47,7 @@ class Event extends \app\Instantiatable
 	
 	/**
 	 * @param mixed contents
-	 * @return $this
+	 * @return \ibidem\base\Event $this
 	 */
 	public function contents($contents)
 	{
@@ -116,7 +116,7 @@ class Event extends \app\Instantiatable
 	 * more flexible however; when applicable.
 	 * 
 	 * @param string subject of the Event
-	 * @return $this
+	 * @return \ibidem\base\Event $this
 	 */
 	public function subject($subject)
 	{

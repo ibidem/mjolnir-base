@@ -4,7 +4,7 @@
  * @package    ibidem
  * @category   Base
  * @author     Ibidem Team
- * @copyright  (c) 2008-2012 Ibidem Team
+ * @copyright  (c) 2012 Ibidem Team
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 class Layer_TaskRunner extends \app\Layer 
@@ -93,7 +93,7 @@ class Layer_TaskRunner extends \app\Layer
 	/**
 	 * @param \ibidem\types\Layer layer
 	 * @param \ibidem\types\Layer parent
-	 * @return \ibidem\types\Layer 
+	 * @return \ibidem\base\Layer_TaskRunner $this
 	 */
 	public function register(\ibidem\types\Layer $layer)
 	{
