@@ -34,7 +34,15 @@ class Task_Honeypot extends \app\Task
 				}
 				else if ( ! \preg_match('#^Enum_#', $file)) # not a internal enum
 				{
-					$output .= 'class '.$file.' extends \\'.$ns.'\\'.$file.' {}'.PHP_EOL;
+					if (\method_exists('\\'.$ns.'\\'.$file,'instance'))
+					{
+						$output .= 'class '.$file.' extends \\'.$ns.'\\'.$file.' { /** @return \\'.$ns.'\\'.$file.' */ function instance() {} }'.PHP_EOL;
+					}
+					else # class is not instantitable
+					{
+						$output .= 'class '.$file.' extends \\'.$ns.'\\'.$file.' {}'.PHP_EOL;
+					}
+						
 				}
 			}
 			$dir = $path.DIRECTORY_SEPARATOR.\app\CFS::APPDIR.DIRECTORY_SEPARATOR;
