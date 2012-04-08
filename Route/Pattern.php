@@ -213,7 +213,7 @@ class Route_Pattern extends \app\Instantiatable
 		}
 		
 		// cycle though all optional groups
-		while (\preg_match('#\([^()]++\)#', $uri, $match))
+		while (\preg_match('#\([^()]++\)#', $uri, $match)) # match is populated
 		{
 			// search for the matched value
 			$search = $match[0];
@@ -344,7 +344,7 @@ class Route_Pattern extends \app\Instantiatable
 		else # missing protocol; can't use canonical
 		{
 			throw new \app\Exception_NotApplicable
-				('Route information missing; can not generate URL.');
+				('Missing protocol; can not generate URL.');
 		}
 		
 		return null;
