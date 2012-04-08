@@ -9,11 +9,33 @@
  */
 class Task_Check_Modules extends \app\Task
 {
+	private function php_binary() 
+	{
+		$paths = \explode(PATH_SEPARATOR, \getenv('PATH'));
+		foreach ($paths as $path) 
+		{
+			$php_executable = $path . DIRECTORY_SEPARATOR . 'php' . (isset($_SERVER['WINDIR']) ? '.exe' : '');
+			if (\file_exists($php_executable) && \is_file($php_executable)) {
+				return $php_executable;
+			}
+		}
+		
+		return 'not found; try: which php'; // not found
+	}
+	
 	/**
 	 * Execute task.
 	 */
 	public function execute()
 	{
+		// PHP_BINARY is avaiable from php5.4+
+		if ( ! \defined('PHP_BINARY'))
+		{
+			\define('PHP_BINARY', self::php_binary());
+		}
+		
+		$this->writer->eol()->write(' Running: '.PHP_BINARY)->eol()->eol();
+		
 		// if the checking should stop on error
 		$no_stop = $this->config['no-stop'];
 		$strict = $this->config['strict'];
