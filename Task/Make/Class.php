@@ -45,7 +45,8 @@ class Task_Make_Class extends \app\Task
 		
 		$file .= "class $class_name".PHP_EOL
 			. '{'.PHP_EOL
-			. "\t// @todo write implementation for $class_name".PHP_EOL
+			// the extra . is to avoid IDE's picking them up
+			. "\t// @"."todo write implementation for \\{$namespace}\\{$class_name}".PHP_EOL
 			. PHP_EOL
 			. '} # class'.PHP_EOL
 			;
@@ -81,9 +82,10 @@ class Task_Make_Class extends \app\Task
 		$file .= ' */'.PHP_EOL;
 		
 		$file .= 
-			  "class {$class_name}Test  extends \\PHPUnit_Framework_TestCase".PHP_EOL
+			  "class {$class_name}Test extends \\PHPUnit_Framework_TestCase".PHP_EOL
 			. '{'.PHP_EOL
-			. "\t// @todo write tests for $namespace".PHP_EOL
+			// the extra . is to avoid IDE's picking them up
+			. "\t// @"."todo write tests for \\{$namespace}\\{$class_name}".PHP_EOL
 			. PHP_EOL
 			. '} # class'.PHP_EOL
 			;
@@ -153,6 +155,7 @@ class Task_Make_Class extends \app\Task
 		{
 			$class_path = DIRECTORY_SEPARATOR;
 			$class_file = $class_name.EXT;
+			$test_class_file = $class_name.'Test'.EXT;
 		}
 		else # found div
 		{
@@ -166,6 +169,7 @@ class Task_Make_Class extends \app\Task
 				. DIRECTORY_SEPARATOR;
 			
 			$class_file = \substr($class_name, $class_div + 1).EXT;
+			$test_class_file = \substr($class_name, $class_div + 1).'Test'.EXT;
 		}
 		// file exists?
 		if ( ! $forced && \file_exists($module_path.$class_path.$class_file))
@@ -200,7 +204,7 @@ class Task_Make_Class extends \app\Task
 
 		\file_put_contents
 			(
-				$test_path.$class_file,
+				$test_path.$test_class_file,
 				static::test_file($class_name, $namespace, $category, $config)
 			);
 		
