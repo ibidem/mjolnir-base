@@ -39,7 +39,7 @@ class Task_Check_Modules extends \app\Task
 			\define('PHP_BINARY', self::php_binary());
 		}
 		
-		$this->writer->eol()->write(' Running: '.PHP_BINARY)->eol()->eol();
+		$this->writer->eol()->header('PHP: '.PHP_BINARY);
 		
 		// if the checking should stop on error
 		$no_stop = $this->config['no-stop'];
@@ -96,8 +96,9 @@ class Task_Check_Modules extends \app\Task
 		else if ($failed > 0 && $errors === 0)
 		{
 			$this->writer->eol()
-				->write(' PASSED. But, '.$failed.' tests failed.')->eol()
-				->write(' Failed modules will run using fallbacks.')->eol();
+				->write(' PASSED, but '.$failed.' test'.( $failed == 1 ? '' : 's').' failed.')->eol()
+				->eol()
+				->write(' Failed modules will run using fallbacks; or functionality may be limited.')->eol();
 		}
 		else if ($errors > 0)
 		{
