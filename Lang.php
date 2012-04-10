@@ -38,7 +38,33 @@ class Lang
 		$config = \app\CFS::config('lang/'.static::$lang.'/'.$lang);
 		if ( ! isset($config['terms'][$term]))
 		{
-			return $addins ? \strtr($term, $addins) : $term;
+			$target_lang = static::$lang;
+			if ($addins)
+			{
+				\app\Log::message
+					(
+						'ERROR', 
+						"The term [$term] is missing a translation ($lang => {$target_lang}).", 
+						'lang/'.static::$lang.'/'.$lang
+					);
+				
+				return \strtr($term, $addins);
+			}
+			else if ($lang === static::$lang)
+			{
+				return $term;
+			}
+			else # term not set
+			{
+				\app\Log::message
+					(
+						'ERROR', 
+						"The term [$term] is missing a translation ($lang => {$target_lang}).", 
+						'lang/'.static::$lang.'/'.$lang
+					);
+				
+				return $term;
+			}
 		}
 		else if ($addins !== null)
 		{
