@@ -19,6 +19,8 @@ class Layer_MVC extends \ibidem\base\Layer_MVC { /** @return \ibidem\base\Layer_
 class Layer_PlainText extends \ibidem\base\Layer_PlainText { /** @return \ibidem\base\Layer_PlainText */ function instance() {} }
 class Layer_TaskRunner extends \ibidem\base\Layer_TaskRunner { /** @return \ibidem\base\Layer_TaskRunner */ function instance() {} }
 class Layer extends \ibidem\base\Layer { /** @return \ibidem\base\Layer */ function instance() {} }
+class Log extends \ibidem\base\Log {}
+class Make extends \ibidem\base\Make { /** @return \ibidem\base\Make */ function instance() {} }
 class Migration extends \ibidem\base\Migration { /** @return \ibidem\base\Migration */ function instance() {} }
 class Model_Factory extends \ibidem\base\Model_Factory {}
 class Params extends \ibidem\base\Params { /** @return \ibidem\base\Params */ function instance() {} }
