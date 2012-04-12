@@ -7,7 +7,7 @@
  * @copyright  (c) 2012 Ibidem Team
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
-abstract class Model_Factory
+abstract class Model_Factory extends \app\Instantiatable
 {
 	/**
 	 * Return validator for fields. Can be used in cases where all errors need
