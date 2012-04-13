@@ -114,68 +114,76 @@ class Make extends \app\Instantiatable
 	}
 	
 	/**
+	 * @return string 
+	 */
+	public function render()
+	{
+		$mockup = \app\CFS::config('ibidem\mockup');
+		switch ($this->type)
+		{
+			case 'name':
+				// names are two words
+				$family_name = self::random($mockup['family_names']);
+				$given_name = self::random($mockup['given_names']);
+				return $given_name.' '.$family_name;
+
+			case 'title':
+				$words = \rand(4, 20);
+				$title = \ucfirst($mockup['words'][\rand(1, \count($mockup['words']) - 1)]);
+
+				while ($words-- > 0)
+				{
+					$title .= ' '.$mockup['words'][\rand(1, \count($mockup['words']) - 1)];
+				}
+
+				return $title;
+
+			case 'word':
+				return $mockup['words'][\rand(1, \count($mockup['words']) - 1)];
+
+			case 'url':
+				// we just need a unique one
+				return '//localhost/'.\rand(1, 999999999);
+
+			case 'counter':
+				$id = $this->args[0];
+				// gurantee counter is initialized
+				isset(static::$counters[$id]) or static::$counters[$id] = 1;
+				return ''.static::$counters[$id]++;
+
+			case 'telephone':
+				return '('.\rand(111, 999).') '.\rand(111, 999).'-'.\rand(1111, 9999);
+
+			case 'paragraph':
+			default:
+				$sentences = \rand(5, 15);
+				$paragraph = '';
+				while ($sentences-- > 0)
+				{
+					$words = \rand(4, 20);
+					$sentence = \ucfirst($mockup['words'][\rand(1, \count($mockup['words']) - 1)]);
+
+					while ($words-- > 0)
+					{
+						$sentence .= ' '.$mockup['words'][\rand(1, \count($mockup['words']) - 1)];
+					}
+
+					$sentence .= $mockup['punctuation'][\rand(1, \count($mockup['punctuation']) - 1)];
+					$sentence .= '  ';
+					$paragraph .= $sentence;
+				}
+				return $paragraph;
+		}
+	}
+	
+	/**
 	 * @return string
 	 */
 	public function __toString()
 	{
 		try
 		{
-			$mockup = \app\CFS::config('ibidem\mockup');
-			switch ($this->type)
-			{
-				case 'name':
-					// names are two words
-					$family_name = self::random($mockup['family_names']);
-					$given_name = self::random($mockup['given_names']);
-					return $given_name.' '.$family_name;
-					
-				case 'title':
-					$words = \rand(4, 20);
-					$title = \ucfirst($mockup['words'][\rand(1, \count($mockup['words']) - 1)]);
-
-					while ($words-- > 0)
-					{
-						$title .= ' '.$mockup['words'][\rand(1, \count($mockup['words']) - 1)];
-					}
-					
-					return $title;
-					
-				case 'word':
-					return $mockup['words'][\rand(1, \count($mockup['words']) - 1)];
-					
-				case 'url':
-					// we just need a unique one
-					return '//example.com/'.\rand(1, 999999999);
-					
-				case 'counter':
-					$id = $this->args[0];
-					// gurantee counter is initialized
-					isset(static::$counters[$id]) or static::$counters[$id] = 1;
-					return ''.static::$counters[$id]++;
-					
-				case 'telephone':
-					return '('.\rand(111, 999).') '.\rand(111, 999).'-'.\rand(1111, 9999);
-					
-				case 'paragraph':
-				default:
-					$sentences = \rand(5, 15);
-					$paragraph = '';
-					while ($sentences-- > 0)
-					{
-						$words = \rand(4, 20);
-						$sentence = \ucfirst($mockup['words'][\rand(1, \count($mockup['words']) - 1)]);
-						
-						while ($words-- > 0)
-						{
-							$sentence .= ' '.$mockup['words'][\rand(1, \count($mockup['words']) - 1)];
-						}
-						
-						$sentence .= $mockup['punctuation'][\rand(1, \count($mockup['punctuation']) - 1)];
-						$sentence .= '  ';
-						$paragraph .= $sentence;
-					}
-					return $paragraph;
-			}
+			return $this->render();
 		}
 		catch (\Exception $e)
 		{
