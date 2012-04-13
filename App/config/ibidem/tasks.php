@@ -72,6 +72,15 @@
 								'short' => 'g',
 								'default' => null,
 							),
+						'no-tests' => array
+							(
+								'description' => 'Do not create tests?'
+							),
+						'library' => array
+							(
+								'description' => 'Library class? (ie. not instantiatable)',
+								'short' => 'l',
+							),
 						'forced' => array
 							(
 								'description' => 'Force file overwrites.'

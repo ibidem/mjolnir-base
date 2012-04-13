@@ -1,4 +1,5 @@
 <?php return array
 	(
-		'author' => 'Your_Company',
+		'author' => 'Ibidem',
+		'license' => 'https://github.com/ibidem/ibidem/blob/master/LICENSE.md',
 	);

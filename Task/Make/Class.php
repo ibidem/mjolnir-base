@@ -16,7 +16,7 @@ class Task_Make_Class extends \app\Task
 	 * @param array configuration
 	 * @return string 
 	 */
-	protected function class_file($class_name, $namespace, $category, array $config)
+	protected function class_file($class_name, $namespace, $category, $library, array $config)
 	{
 		$file = "<?php namespace $namespace;".PHP_EOL.PHP_EOL;
 		
@@ -33,7 +33,7 @@ class Task_Make_Class extends \app\Task
 			. ' * @package    '.$package.PHP_EOL
 			. ' * @category   '.$category.PHP_EOL
 			. ' * @author     '.$config['author'].PHP_EOL
-			. ' * @copyright  (c) '.\date('Y').', '.$config['author'].PHP_EOL
+			. ' * @copyright  (c) '.\date('Y').', '.$config['author'].' Team'.PHP_EOL
 			;
 		
 		if (isset($config['license']) && $config['license'])
@@ -43,9 +43,28 @@ class Task_Make_Class extends \app\Task
 		
 		$file .= ' */'.PHP_EOL;
 		
-		$file .= "class $class_name".PHP_EOL
-			. '{'.PHP_EOL
-			// the extra . is to avoid IDE's picking them up
+		if ($library)
+		{
+			$file .= "class $class_name".PHP_EOL;
+		}
+		else # not library
+		{
+			if (\preg_match("#^Model_.*$#", $class_name))
+			{
+				$file .= "class $class_name extends \\app\\Model_Factory".PHP_EOL;
+			}
+			else if (\preg_match("#^Controller_.*$#", $class_name))
+			{
+				$file .= "class $class_name extends \\app\\Controller".PHP_EOL;
+			}
+			else # regular class
+			{
+				$file .= "class $class_name extends \\app\\Instantiatable".PHP_EOL;
+			}
+		}
+		
+		$file .= '{'.PHP_EOL
+			// the extra . is to avoid IDE's picking this code up unintentionally
 			. "\t// @"."todo write implementation for \\{$namespace}\\{$class_name}".PHP_EOL
 			. PHP_EOL
 			. '} # class'.PHP_EOL
@@ -100,29 +119,12 @@ class Task_Make_Class extends \app\Task
 	{
 		$class = $this->config['class'];
 		$category = $this->config['category'];
+		$no_tests = $this->config['no-tests'];
+		$library = $this->config['library'];
 		$forced = $this->config['forced'];
 		
 		// normalize class
 		$class = \ltrim($class, '\\');
-		
-		// load project configuration
-		$config = \app\CFS::config('ibidem/project');
-		// does project file exist?
-		if (empty($config) || ! isset($config['author']))
-		{
-			$this->writer
-				->error('The [ibidem/project] configuration is empty or missing'
-					. ' required paramters.')
-				->eol();
-			
-			$this->writer
-				->status('Help', 'This module requires author. Optionally, you '
-					. 'can include also disclaimer and license.')
-				->eol();
-			
-			return;
-		}
-		
 		$ns_div = \strrpos($class, '\\');
 		// does class have namespace?
 		if ($ns_div === false)
@@ -147,6 +149,40 @@ class Task_Make_Class extends \app\Task
 		}
 		
 		$module_path = $namespaces[$namespace];
+		
+		// load project configuration
+		$project_file = $module_path.DIRECTORY_SEPARATOR
+			. \ibidem\cfs\CFSCompatible::APPDIR.DIRECTORY_SEPARATOR
+			. \ibidem\cfs\CFSCompatible::CNFDIR.DIRECTORY_SEPARATOR
+			. 'ibidem'.DIRECTORY_SEPARATOR.'project'.EXT
+			;
+		
+		// module specific project file?
+		if (\file_exists($project_file))
+		{
+			$config = include $project_file;
+		}
+		else # no project file; use global
+		{
+			$config = \app\CFS::config('ibidem/project');
+		}
+		
+		// does project file exist?
+		if (empty($config) || ! isset($config['author']))
+		{
+			$this->writer
+				->error('The [ibidem/project] configuration is empty or missing'
+					. ' required paramters.')
+				->eol();
+			
+			$this->writer
+				->status('Help', 'This module requires author. Optionally, you '
+					. 'can include also disclaimer and license.')
+				->eol();
+			
+			return;
+		}
+		
 		$class_div = \strrpos($class_name, '_');
 		$class_path = '';
 		$class_file = '';
@@ -189,27 +225,31 @@ class Task_Make_Class extends \app\Task
 		\file_put_contents
 			(
 				$full_path.$class_file, 
-				static::class_file($class_name, $namespace, $category, $config)
+				static::class_file($class_name, $namespace, $category, $library, $config)
 			);
 		
 		// notify
 		$this->writer->status('Info', 'Class created.')->eol();
 		
-		// create test
-		$test_path = $module_path.DIRECTORY_SEPARATOR
-			. \ibidem\cfs\CFSCompatible::APPDIR.DIRECTORY_SEPARATOR.'tests'
-			. DIRECTORY_SEPARATOR.\ltrim($class_path, '\\');
-		
-		\file_exists($test_path) or \mkdir($test_path, 0777, true);
+		// create tests?
+		if ( ! $no_tests)
+		{
+			// create test
+			$test_path = $module_path.DIRECTORY_SEPARATOR
+				. \ibidem\cfs\CFSCompatible::APPDIR.DIRECTORY_SEPARATOR.'tests'
+				. DIRECTORY_SEPARATOR.\ltrim($class_path, '\\');
 
-		\file_put_contents
-			(
-				$test_path.$test_class_file,
-				static::test_file($class_name, $namespace, $category, $config)
-			);
-		
-		// notify
-		$this->writer->status('Info', 'Test class created.')->eol();
+			\file_exists($test_path) or \mkdir($test_path, 0777, true);
+
+			\file_put_contents
+				(
+					$test_path.$test_class_file,
+					static::test_file($class_name, $namespace, $category, $config)
+				);
+
+			// notify
+			$this->writer->status('Info', 'Test class created.')->eol();
+		}
 		
 		// update honeypot
 		$this->writer->status('Info', 'Updating honeypot...')->eol();
