@@ -50,6 +50,11 @@ class Form extends \app\Instantiatable
 	private $group_end;
 	
 	/**
+	 * @var string
+	 */
+	private $classes;
+	
+	/**
 	 * @return \ibidem\base\Form 
 	 */
 	public static function instance()
@@ -120,7 +125,14 @@ class Form extends \app\Instantiatable
 	 */
 	public function open()
 	{
-		return "<form action=\"{$this->action}\" method=\"{$this->method}\">";
+		if ($this->classes)
+		{
+			return "<form class=\"{$this->classes}\" action=\"{$this->action}\" method=\"{$this->method}\">";
+		}
+		else # no classes
+		{
+			return "<form action=\"{$this->action}\" method=\"{$this->method}\">";
+		}
 	}
 	
 	/**
@@ -129,6 +141,16 @@ class Form extends \app\Instantiatable
 	public function close()
 	{
 		return "</form>";
+	}
+	
+	/**
+	 * @param string classes
+	 * @return \ibidem\base\Form 
+	 */
+	public function classes($classes)
+	{
+		$this->classes = $classes;
+		return $this;
 	}
 	
 	/**
