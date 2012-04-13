@@ -17,4 +17,14 @@ class Controller_HTTP extends \app\Controller
 		return \app\Layer_HTTP::request_method();
 	}
 	
+	/**
+	 * @param string action
+	 * @return string 
+	 */	
+	public function action($action)
+	{
+		$relay = $this->layer->get_relay();
+		return $relay['route']->url(array('action' => $action));
+	}
+	
 } # class
