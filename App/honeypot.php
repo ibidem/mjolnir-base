@@ -11,6 +11,10 @@ class Exception_NotApplicable extends \ibidem\base\Exception_NotApplicable {}
 class Exception_NotFound extends \ibidem\base\Exception_NotFound {}
 class Exception extends \ibidem\base\Exception {}
 class Flags extends \ibidem\base\Flags {}
+class Form extends \ibidem\base\Form { /** @return \ibidem\base\Form */ function instance() {} }
+class FormField_Submit extends \ibidem\base\FormField_Submit { /** @return \ibidem\base\FormField_Submit */ function instance() {} }
+class FormField_Text extends \ibidem\base\FormField_Text { /** @return \ibidem\base\FormField_Text */ function instance() {} }
+class FormField extends \ibidem\base\FormField { /** @return \ibidem\base\FormField */ function instance() {} }
 class Instantiatable extends \ibidem\base\Instantiatable { /** @return \ibidem\base\Instantiatable */ function instance() {} }
 class Lang extends \ibidem\base\Lang {}
 class Layer_HTML extends \ibidem\base\Layer_HTML { /** @return \ibidem\base\Layer_HTML */ function instance() {} }
@@ -22,7 +26,7 @@ class Layer extends \ibidem\base\Layer { /** @return \ibidem\base\Layer */ funct
 class Log extends \ibidem\base\Log {}
 class Make extends \ibidem\base\Make { /** @return \ibidem\base\Make */ function instance() {} }
 class Migration extends \ibidem\base\Migration { /** @return \ibidem\base\Migration */ function instance() {} }
-class Model_Factory extends \ibidem\base\Model_Factory {}
+class Model_Factory extends \ibidem\base\Model_Factory { /** @return \ibidem\base\Model_Factory */ function instance() {} }
 class Params extends \ibidem\base\Params { /** @return \ibidem\base\Params */ function instance() {} }
 class Relay extends \ibidem\base\Relay {}
 class Route_Path extends \ibidem\base\Route_Path { /** @return \ibidem\base\Route_Path */ function instance() {} }
