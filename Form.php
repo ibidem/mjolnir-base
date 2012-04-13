@@ -7,7 +7,7 @@
  * @copyright  (c) 2012, Ibidem Team
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
-class Form extends \app\Instantiatable
+class Form extends \app\HTMLBlockElement
 {
 	/**
 	 * @var integer 
@@ -15,9 +15,9 @@ class Form extends \app\Instantiatable
 	private static $forms_counter = 0;
 	
 	/**
-	 * @var string 
+	 * @var integer 
 	 */
-	private $action;
+	private static $tabindex;
 	
 	/**
 	 * @var boolean
@@ -25,14 +25,9 @@ class Form extends \app\Instantiatable
 	private $secure;
 	
 	/**
-	 * @return string
-	 */
-	private $method;
-	
-	/**
 	 * @var string
 	 */
-	private $id;
+	private $form_id;
 	
 	/**
 	 * @var string 
@@ -50,11 +45,6 @@ class Form extends \app\Instantiatable
 	private $group_end;
 	
 	/**
-	 * @var string
-	 */
-	private $classes;
-	
-	/**
 	 * @return \ibidem\base\Form 
 	 */
 	public static function instance()
@@ -62,13 +52,13 @@ class Form extends \app\Instantiatable
 		$config = \app\CFS::config('ibidem/form');
 		$instance = parent::instance();
 		$instance->secure = $config['secure.default'];
-		$instance->method = $config['method.default'];
 		$instance->field_template = $config['template.field'];
+		$instance->attribute('method', $config['method.default']);
 		
 		list($instance->group_start, $instance->group_end) 
 			= \explode(':fields', $config['template.group']);
 		
-		$instance->id = 'form_'.self::$forms_counter++;
+		$instance->form_id = 'form_'.self::$forms_counter++;
 		
 		return $instance;
 	}
@@ -79,7 +69,7 @@ class Form extends \app\Instantiatable
 	 */
 	public function action($action)
 	{
-		$this->action = $action;
+		$this->attribute('action', $action);
 		return $this;
 	}
 	
@@ -125,14 +115,7 @@ class Form extends \app\Instantiatable
 	 */
 	public function open()
 	{
-		if ($this->classes)
-		{
-			return "<form class=\"{$this->classes}\" action=\"{$this->action}\" method=\"{$this->method}\">";
-		}
-		else # no classes
-		{
-			return "<form action=\"{$this->action}\" method=\"{$this->method}\">";
-		}
+		return "<form{$this->render_attributes()}>";	
 	}
 	
 	/**
@@ -144,23 +127,13 @@ class Form extends \app\Instantiatable
 	}
 	
 	/**
-	 * @param string classes
-	 * @return \ibidem\base\Form 
-	 */
-	public function classes($classes)
-	{
-		$this->classes = $classes;
-		return $this;
-	}
-	
-	/**
 	 * @param string title
 	 * @param string name
 	 * @return \ibidem\base\FormField_Text
 	 */
 	public function text($title, $name)
 	{
-		return \app\FormField_Text::instance($title, $name, $this->id)
+		return \app\FormField_Text::instance($title, $name, $this->form_id)
 			->template($this->field_template);
 	}
 	
@@ -171,24 +144,14 @@ class Form extends \app\Instantiatable
 	 */
 	public function submit($title, $name = null)
 	{
-		return \app\FormField_Submit::instance($title, $name, $this->id)
+		return \app\FormField_Submit::instance($title, $name, $this->form_id)
 			->template($this->field_template)
 			->value($title);
 	}
 	
-	/**
-	 * @return string 
-	 */
-	public function __toString()
+	public static function tabindex()
 	{
-		try
-		{
-			return $this->open();
-		}
-		catch (\Exception $e)
-		{
-			return '[ERROR: '.$e->getMessage().']';
-		}
+		return self::$tabindex++;
 	}
 
 } # class

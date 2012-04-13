@@ -15,6 +15,8 @@ class Form extends \ibidem\base\Form { /** @return \ibidem\base\Form */ function
 class FormField_Submit extends \ibidem\base\FormField_Submit { /** @return \ibidem\base\FormField_Submit */ function instance() {} }
 class FormField_Text extends \ibidem\base\FormField_Text { /** @return \ibidem\base\FormField_Text */ function instance() {} }
 class FormField extends \ibidem\base\FormField { /** @return \ibidem\base\FormField */ function instance() {} }
+class HTMLBlockElement extends \ibidem\base\HTMLBlockElement { /** @return \ibidem\base\HTMLBlockElement */ function instance() {} }
+class HTMLElement extends \ibidem\base\HTMLElement { /** @return \ibidem\base\HTMLElement */ function instance() {} }
 class Instantiatable extends \ibidem\base\Instantiatable { /** @return \ibidem\base\Instantiatable */ function instance() {} }
 class Lang extends \ibidem\base\Lang {}
 class Layer_HTML extends \ibidem\base\Layer_HTML { /** @return \ibidem\base\Layer_HTML */ function instance() {} }

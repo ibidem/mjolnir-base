@@ -7,7 +7,7 @@
  * @copyright  (c) 2012, Ibidem Team
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
-class FormField extends \app\Instantiatable
+class FormField extends \app\HTMLElement
 {
 	/**
 	 * @var string 
@@ -17,7 +17,12 @@ class FormField extends \app\Instantiatable
 	/**
 	 * @var string
 	 */
-	private $css_class;
+	protected $name = 'input';
+	
+	/**
+	 * @var type 
+	 */
+	private $tabindex;
 	
 	/**
 	 * @var string
@@ -30,11 +35,6 @@ class FormField extends \app\Instantiatable
 	private $form;
 	
 	/**
-	 * @var string 
-	 */
-	private $value = '';
-	
-	/**
 	 * @param string title
 	 * @param string name
 	 * @param string form
@@ -42,21 +42,15 @@ class FormField extends \app\Instantiatable
 	 */
 	public static function instance($title = null, $name = null, $form = 'global')
 	{
-		$instance = parent::instance();
+		$instance = parent::instance('input');
 		$instance->title = $title;
-		$instance->name = $name;
+		$instance->attribute('name', $name);
+		$instance->attribute('type', $instance->type);
+		$instance->tabindex = \app\Form::tabindex();
+		$instance->attribute('tabindex', $instance->tabindex);
 		$instance->form = $form;
+		
 		return $instance;
-	}
-	
-	/**
-	 * @param string classes
-	 * @return \ibidem\base\FormField $this 
-	 */
-	public function css_class($classes)
-	{
-		$this->css_class;
-		return $this;
 	}
 	
 	/**
@@ -65,7 +59,7 @@ class FormField extends \app\Instantiatable
 	 */
 	public function value($value)
 	{
-		$this->value = $value;
+		$this->attribute('value', $value);
 		return $this;
 	}
 	
@@ -84,22 +78,9 @@ class FormField extends \app\Instantiatable
 	 */
 	public function render_name()
 	{
-		return "<label for=\"{$this->form}_{$this->name}\">{$this->title}</label>";
-	}
-	
-	/**
-	 * @return string
-	 */
-	public function render_field()
-	{
-		if ($this->name)
-		{
-			return "<input id=\"{$this->form}_{$this->name}\" type=\"{$this->type}\" name=\"{$this->name}\" value=\"{$this->value}\" />";
-		}
-		else # no name (does not appear in queries)
-		{
-			return "<input id=\"{$this->form}_{$this->name}\" type=\"{$this->type}\" value=\"{$this->value}\" />";
-		}
+		
+		return \app\HTMLBlockElement::instance('label', $this->title)
+			->attribute('for', $this->form.'_'.$this->tabindex)->render();
 	}
 	
 	/**
@@ -113,7 +94,7 @@ class FormField extends \app\Instantiatable
 				array
 				(
 					':name' => $this->render_name(),
-					':field' => $this->render_field() 
+					':field' => parent::render()
 				)
 			);
 	}
