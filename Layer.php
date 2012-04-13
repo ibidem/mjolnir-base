@@ -298,5 +298,13 @@ abstract class Layer extends \app\Instantiatable
 		}
 		static::run();
 	}
+		
+	/**
+	 * @return array
+	 */
+	public function get_relay()
+	{
+		return $this->relay;
+	}
 	
 } # class
