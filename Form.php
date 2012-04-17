@@ -64,6 +64,16 @@ class Form extends \app\HTMLBlockElement
 	}
 	
 	/**
+	 * @param string template
+	 * @return \ibidem\base\Form $this
+	 */
+	public function field_template($template)
+	{
+		$this->field_template = $template;
+		return $this;
+	}
+	
+	/**
 	 * @param string $method
 	 * @return \ibidem\base\Form $this
 	 */
