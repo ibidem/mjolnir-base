@@ -89,6 +89,11 @@ class Make extends \app\Instantiatable
 		return static::instance('address');
 	}
 	
+	public static function city()
+	{
+		return static::instance('city');
+	}
+	
 	/**
 	 * @return \ibidem\base\Make
 	 */
@@ -185,6 +190,9 @@ class Make extends \app\Instantiatable
 
 			case 'telephone':
 				return '('.\rand(111, 999).') '.\rand(111, 999).'-'.\rand(1111, 9999);
+				
+			case 'city':
+				return self::random($mockup['cities']);
 				
 			case 'email':
 				return \strtolower(self::random($mockup['given_names'])).'@'.self::random(array('gmail', 'yahoo', 'hotmail')).'.com';
