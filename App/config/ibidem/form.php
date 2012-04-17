@@ -4,4 +4,7 @@
 		'method.default' => 'GET',
 		'template.field' => '<dt>:name</dt><dd>:field</dd>',
 		'template.group' => '<fieldset><legend>:legend</legend><dl>:fields</dl></fieldset>',
+	
+		'textarea.rows.default' => 3,
+		'textarea.cols.default' => 80,
 	);

@@ -12,8 +12,12 @@ class Exception_NotFound extends \ibidem\base\Exception_NotFound {}
 class Exception extends \ibidem\base\Exception {}
 class Flags extends \ibidem\base\Flags {}
 class Form extends \ibidem\base\Form { /** @return \ibidem\base\Form */ function instance() {} }
+class FormField_Email extends \ibidem\base\FormField_Email { /** @return \ibidem\base\FormField_Email */ function instance() {} }
+class FormField_Radio extends \ibidem\base\FormField_Radio { /** @return \ibidem\base\FormField_Radio */ function instance() {} }
 class FormField_Submit extends \ibidem\base\FormField_Submit { /** @return \ibidem\base\FormField_Submit */ function instance() {} }
+class FormField_Telephone extends \ibidem\base\FormField_Telephone { /** @return \ibidem\base\FormField_Telephone */ function instance() {} }
 class FormField_Text extends \ibidem\base\FormField_Text { /** @return \ibidem\base\FormField_Text */ function instance() {} }
+class FormField_TextArea extends \ibidem\base\FormField_TextArea { /** @return \ibidem\base\FormField_TextArea */ function instance() {} }
 class FormField extends \ibidem\base\FormField { /** @return \ibidem\base\FormField */ function instance() {} }
 class HTMLBlockElement extends \ibidem\base\HTMLBlockElement { /** @return \ibidem\base\HTMLBlockElement */ function instance() {} }
 class HTMLElement extends \ibidem\base\HTMLElement { /** @return \ibidem\base\HTMLElement */ function instance() {} }

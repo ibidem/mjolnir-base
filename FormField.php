@@ -12,6 +12,11 @@ class FormField extends \app\HTMLElement
 	/**
 	 * @var string 
 	 */
+	protected static $tag_name = 'input';
+	
+	/**
+	 * @var string 
+	 */
 	protected $type = 'text';
 	
 	/**
@@ -22,17 +27,18 @@ class FormField extends \app\HTMLElement
 	/**
 	 * @var type 
 	 */
-	private $tabindex;
+	protected $tabindex;
+	
+	/**
+	 * @var string
+	 */
+	protected $form;	
 	
 	/**
 	 * @var string
 	 */
 	private $template;
-	
-	/**
-	 * @var string
-	 */
-	private $form;
+
 	
 	/**
 	 * @param string title
@@ -42,10 +48,13 @@ class FormField extends \app\HTMLElement
 	 */
 	public static function instance($title = null, $name = null, $form = 'global')
 	{
-		$instance = parent::instance('input');
+		$instance = parent::instance(static::$tag_name);
 		$instance->title = $title;
 		$instance->attribute('name', $name);
-		$instance->attribute('type', $instance->type);
+		if ($instance->type)
+		{
+			$instance->attribute('type', $instance->type);
+		}
 		$instance->tabindex = \app\Form::tabindex();
 		$instance->attribute('tabindex', $instance->tabindex);
 		$instance->form = $form;
@@ -64,6 +73,15 @@ class FormField extends \app\HTMLElement
 	}
 	
 	/**
+	 * @return \ibidem\base\FormField $this
+	 */
+	public function disabled()
+	{
+		$this->attribute('disabled');
+		return $this;
+	}
+	
+	/**
 	 * @param string template
 	 * @return \ibidem\base\FormField
 	 */
@@ -76,11 +94,24 @@ class FormField extends \app\HTMLElement
 	/**
 	 * @return string 
 	 */
-	public function render_name()
+	public function get_template()
 	{
-		
+		return $this->template;
+	}
+	
+	/**
+	 * @return string 
+	 */
+	protected function render_name()
+	{
 		return \app\HTMLBlockElement::instance('label', $this->title)
-			->attribute('for', $this->form.'_'.$this->tabindex)->render();
+			->attribute('for', $this->form.'_'.$this->tabindex)
+			->render();
+	}
+	
+	protected function render_field()
+	{
+		return '<'.$this->name.' id="'.$this->form.'_'.$this->tabindex.'"'.$this->render_attributes().'/>';
 	}
 	
 	/**
@@ -94,7 +125,7 @@ class FormField extends \app\HTMLElement
 				array
 				(
 					':name' => $this->render_name(),
-					':field' => parent::render()
+					':field' => $this->render_field()
 				)
 			);
 	}

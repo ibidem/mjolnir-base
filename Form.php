@@ -17,7 +17,7 @@ class Form extends \app\HTMLBlockElement
 	/**
 	 * @var integer 
 	 */
-	private static $tabindex;
+	private static $tabindex = 1;
 	
 	/**
 	 * @var boolean
@@ -45,7 +45,7 @@ class Form extends \app\HTMLBlockElement
 	private $group_end;
 	
 	/**
-	 * @return \ibidem\base\Form 
+	 * @return \ibidem\base\Form $this
 	 */
 	public static function instance()
 	{
@@ -61,6 +61,16 @@ class Form extends \app\HTMLBlockElement
 		$instance->form_id = 'form_'.self::$forms_counter++;
 		
 		return $instance;
+	}
+	
+	/**
+	 * @param string $method
+	 * @return \ibidem\base\Form $this
+	 */
+	public function method($method)
+	{
+		$this->attribute('method', $method);
+		return $this;
 	}
 	
 	/**
@@ -97,7 +107,7 @@ class Form extends \app\HTMLBlockElement
 	 */
 	public function group($legend)
 	{
-		return \strtr($this->group_start, ':legend', $legend);
+		return \strtr($this->group_start, array(':legend' => $legend));
 	}
 	
 	/**
@@ -140,6 +150,54 @@ class Form extends \app\HTMLBlockElement
 	/**
 	 * @param string title
 	 * @param string name
+	 * @return \ibidem\base\FormField_Text
+	 */
+	public function telephone($title, $name)
+	{
+		return \app\FormField_Text::instance($title, $name, $this->form_id)
+			->template($this->field_template);
+	}
+	
+	/**
+	 * @param string title
+	 * @param string name
+	 * @return \ibidem\base\FormField_Text
+	 */
+	public function email($title, $name)
+	{
+		return \app\FormField_Text::instance($title, $name, $this->form_id)
+			->template($this->field_template);
+	}
+	
+	/**
+	 * @param string title
+	 * @param string name
+	 * @return string 
+	 */
+	public function textarea($title, $name)
+	{
+		return \app\FormField_TextArea::instance($title, $name, $this->form_id)
+			->template($this->field_template);
+	}
+	
+	/**
+	 * @param string title
+	 * @param string name
+	 * @param array values
+	 * @param string default
+	 * @return string
+	 */
+	public function radio($title, $name, array $values, $default)
+	{
+		return \app\FormField_Radio::instance($title, $name, $this->form_id)
+			->template($this->field_template)
+			->default_value($default)
+			->values($values);
+	}
+	
+	/**
+	 * @param string title
+	 * @param string name
 	 * @return \ibidem\base\FormField_Submit
 	 */
 	public function submit($title, $name = null)
@@ -149,6 +207,9 @@ class Form extends \app\HTMLBlockElement
 			->value($title);
 	}
 	
+	/**
+	 * @return integer 
+	 */
 	public static function tabindex()
 	{
 		return self::$tabindex++;

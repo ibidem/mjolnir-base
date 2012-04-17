@@ -60,9 +60,17 @@ class HTMLElement extends \app\Instantiatable
 	 * @param string value 
 	 * @return \ibidem\base\HTMLElement
 	 */
-	public function attribute($name, $value)
+	public function attribute($name, $value = null)
 	{
-		$this->attributes[$name] = $value;
+		if ($value)
+		{
+			$this->attributes[$name] = $value;
+		}
+		else # no value; assume single tag
+		{
+			$this->attributes[$name] = $name;
+		}
+		
 		return $this;
 	}
 	
