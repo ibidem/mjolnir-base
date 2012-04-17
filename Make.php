@@ -68,6 +68,38 @@ class Make extends \app\Instantiatable
 	/**
 	 * @return \ibidem\base\Make
 	 */
+	public static function email()
+	{
+		return static::instance('email');
+	}
+	
+	/**
+	 * @return \ibidem\base\Make
+	 */
+	public static function ssn()
+	{
+		return static::instance('ssn');
+	}
+	
+	/**
+	 * @return \ibidem\base\Make
+	 */
+	public static function address()
+	{
+		return static::instance('address');
+	}
+	
+	/**
+	 * @return \ibidem\base\Make
+	 */
+	public static function paragraph()
+	{
+		return static::instance('paragraph');
+	}
+	
+	/**
+	 * @return \ibidem\base\Make
+	 */
 	public static function url()
 	{
 		return static::instance('url');
@@ -153,6 +185,26 @@ class Make extends \app\Instantiatable
 
 			case 'telephone':
 				return '('.\rand(111, 999).') '.\rand(111, 999).'-'.\rand(1111, 9999);
+				
+			case 'email':
+				return \strtolower(self::random($mockup['given_names'])).'@'.self::random(array('gmail', 'yahoo', 'hotmail')).'.com';
+				
+			case 'ssn':
+				$month = \rand(1, 12);
+				$day = \rand(1, 30);
+				$sector = \rand(1, 52);
+				return ''.\rand(1, 9).\rand(0, 99)
+					. ($month < 10 ? '0'.$month : $month)
+					. ($day < 10 ? '0'.$day : $day)
+					. ($sector < 10 ? '0'.$sector : $sector);
+				
+			case 'address':
+				return 'Str. '.self::random($mockup['family_names'])
+					. ', Nr. '.\rand(11, 35)
+					. ', Bl. '.\rand(51, 956)
+					. ', Ap. '.\rand(1, 25)
+					. ', '.self::random($mockup['cities'])
+					;
 
 			case 'paragraph':
 			default:
@@ -195,7 +247,7 @@ class Make extends \app\Instantiatable
 	/**
 	 * @return mixed
 	 */
-	private function random(array $collection)
+	private static function random(array $collection)
 	{
 		return $collection[\rand(0, \count($collection) - 1)];
 	}

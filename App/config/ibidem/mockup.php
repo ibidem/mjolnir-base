@@ -56,4 +56,17 @@
 				'id', 'varius', 'nulla', 'nulla', 'vitae', 'magna', 'elit', 'vestibulum', 'vitae', 'ullamcorper', 'elit', 'sed', 
 				'eu', 'enim', 'sem', 'at', 'mattis'
 			),
+	
+		'cities' => array
+			(
+				'Bucharest', 'Cluj-Napoca', 'Timișoara', 'Iași', 'Constanța', 
+				'Craiova', 'Galați', 'Brașov', 'Ploiești', 'Oradea', 'Brăila', 
+				'Pitești', 'Arad', 'Sibiu', 'Bacău', 'Târgu Mureș', 'Baia Mare', 
+				'Buzău', 'Botoșani', 'Satu Mare', 'Râmnicu Vâlcea', 
+				'Drobeta-Turnu Severin', 'Suceava', 'Târgu Jiu', 'Piatra Neamț',  
+				'Târgoviște', 'Focșani', 'Bistrița', 'Tulcea', 'Reșița', 
+				'Slatina', 'Alba Iulia',  'Călărași', 'Deva', 'Hunedoara', 
+				'Giurgiu', 'Sfântu Gheorghe', 'Zalău'
+			),
+	
 	);
