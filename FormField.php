@@ -104,9 +104,20 @@ class FormField extends \app\HTMLElement
 	 */
 	protected function render_name()
 	{
-		return \app\HTMLBlockElement::instance('label', $this->title)
-			->attribute('for', $this->form.'_'.$this->tabindex)
-			->render();
+		$classes = $this->get_classes();
+		if ($classes)
+		{
+			return \app\HTMLBlockElement::instance('label', $this->title)
+				->attribute('for', $this->form.'_'.$this->tabindex)
+				->classes($this->get_classes())
+				->render();
+		}
+		else # has no classes
+		{
+			return \app\HTMLBlockElement::instance('label', $this->title)
+				->attribute('for', $this->form.'_'.$this->tabindex)
+				->render();
+		}
 	}
 	
 	protected function render_field()

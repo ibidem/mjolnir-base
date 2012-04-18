@@ -57,6 +57,14 @@ class HTMLElement extends \app\Instantiatable
 	}
 	
 	/**
+	 * @return array 
+	 */
+	public function get_classes()
+	{
+		return $this->classes;
+	}
+	
+	/**
 	 * @param string name
 	 * @param string value 
 	 * @return \ibidem\base\HTMLElement
