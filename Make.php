@@ -135,12 +135,22 @@ class Make extends \app\Instantiatable
 	}
 	
 	/**
+	 * @param integer count
+	 * @return \ibidem\base\Make
+	 */
+	public static function words($count = 10)
+	{
+		return static::instance('words', \func_get_args());
+	}
+	
+	/**
 	 * @param mixed source
 	 * @param integer copies
 	 * @return array
 	 */
-	public static function copies($source, $count = 25)
+	public static function copies($source, $count = null)
 	{
+		$count !== null or $count = \rand(5, 25);
 		$copies = array();
 		while ($count-- > 0)
 		{
@@ -187,6 +197,15 @@ class Make extends \app\Instantiatable
 				// gurantee counter is initialized
 				isset(static::$counters[$id]) or static::$counters[$id] = 1;
 				return ''.static::$counters[$id]++;
+				
+			case 'words':
+				$count = $this->args[0];
+				$words = '';
+				while ($count-- > 0)
+				{
+					$words .= self::random($mockup['words']).' ';
+				}
+				return \rtrim($words, ' ');
 
 			case 'telephone':
 				return '('.\rand(111, 999).') '.\rand(111, 999).'-'.\rand(1111, 9999);
