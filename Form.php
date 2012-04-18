@@ -218,6 +218,15 @@ class Form extends \app\HTMLBlockElement
 	}
 	
 	/**
+	 * @param string name
+	 * @return \ibidem\base\FormField_Hidden
+	 */
+	public function hidden($name)
+	{
+		return \app\FormField_Hidden::instance($name, $this->form_id);
+	}
+	
+	/**
 	 * @return integer 
 	 */
 	public static function tabindex()
