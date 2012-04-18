@@ -35,7 +35,7 @@ class Lang
 	 */
 	public static function tr($term, array $addins = null, $lang = 'en-us')
 	{
-		$config = \app\CFS::config('lang/'.static::$lang.'/'.$lang);
+		$config = \app\CFS::config('lang/'.$lang.'/'.static::$lang);
 		if ( ! isset($config['terms'][$term]))
 		{
 			$target_lang = static::$lang;
@@ -45,7 +45,7 @@ class Lang
 					(
 						'ERROR', 
 						"The term [$term] is missing a translation ($lang => {$target_lang}).", 
-						'lang/'.static::$lang.'/'.$lang
+						'lang/'.$lang.'/'.static::$lang
 					);
 				
 				return \strtr($term, $addins);
@@ -60,7 +60,7 @@ class Lang
 					(
 						'ERROR', 
 						"The term [$term] is missing a translation ($lang => {$target_lang}).", 
-						'lang/'.static::$lang.'/'.$lang
+						'lang/'.$lang.'/'.static::$lang
 					);
 				
 				return $term;
@@ -91,7 +91,7 @@ class Lang
 	 */
 	public static function msg($key, array $addins = null, $lang = 'en-us')
 	{
-		$config = \app\CFS::config('lang/'.static::$lang.'/'.$lang);
+		$config = \app\CFS::config('lang/'.$lang.'/'.static::$lang);
 		if ($addins !== null)
 		{
 			// if we have addins, the term matches to a lambda
