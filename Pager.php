@@ -8,6 +8,7 @@
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 class Pager extends \app\Instantiatable
+	implements \ibidem\types\Renderable
 {
 	/**
 	 * @var string 
@@ -43,16 +44,21 @@ class Pager extends \app\Instantiatable
 		return '[todo pager]';
 	}
 	
-	public function __toString()
+	/**
+	 * @deprecated use render always; so exceptions will work properly
+	 */
+	public final function __toString()
 	{
-		try
-		{
-			return $this->render();
-		}
-		catch (\Exception $e)
-		{
-			return '[ERROR: '.$e->getMessage().']';
-		}
+		// pagers may contain logic, by allowing __toString not only does 
+		// Exception handling become unnecesarily complicated because of how
+		// this special method can't throw exceptions, it also ruins the entire
+		// stack by throwing the exception in a completely undefined manner, 
+		// ie. whenever it decides to convert to a string. It's not worth it.
+		\app\Layer::get_top()->exception
+			(
+				\app\Exception_NotApplicable::instance
+					('Casting to string not allowed for Pagers.')
+			);
 	}
 
 } # class

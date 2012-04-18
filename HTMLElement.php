@@ -8,6 +8,7 @@
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 class HTMLElement extends \app\Instantiatable
+	implements \ibidem\types\Renderable
 {	
 	/**
 	 * @var string

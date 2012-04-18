@@ -8,7 +8,10 @@
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 class View extends \app\Instantiatable
-	implements \ibidem\types\View,	\ibidem\types\FileBased
+	implements 
+		\ibidem\types\View,	
+		\ibidem\types\FileBased, 
+		\ibidem\types\Renderable
 {
 	/**
 	 * @var array
