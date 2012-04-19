@@ -65,6 +65,39 @@ class SQLStatement extends \app\Instantiatable
 	}
 	
 	/**
+	 * @param string parameter
+	 * @param string constant
+	 * @return \ibidem\base\SQLStatement $this 
+	 */
+	public function set($parameter, $constant)
+	{
+		$this->statement->bindValue($parameter, $constant, \PDO::PARAM_STR);
+		return $this;
+	}
+	
+	/**
+	 * @param string parameter
+	 * @param string constant
+	 * @return \ibidem\base\SQLStatement $this 
+	 */
+	public function setInt($parameter, $constant)
+	{
+		$this->statement->bindValue($parameter, $constant, \PDO::PARAM_INT);
+		return $this;
+	}
+	
+	/**
+	 * @param string parameter
+	 * @param string constant
+	 * @return \ibidem\base\SQLStatement $this 
+	 */
+	public function setBool($parameter, $constant)
+	{
+		$this->statement->bindValue($parameter, $constant, \PDO::PARAM_BOOL);
+		return $this;
+	}
+	
+	/**
 	 * Stored procedure argument.
 	 * 
 	 * @param string parameter

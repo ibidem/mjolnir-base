@@ -153,6 +153,15 @@ class SQLDatabase extends \app\Instantiatable
 	}
 	
 	/**
+	 * @param string 
+	 * @return mixed
+	 */
+	public function last_inserted_id($name = null)
+	{
+		return $this->dbh->lastInsertId($name);
+	}
+	
+	/**
 	 * Begin transaction.
 	 * 
 	 * @return \ibidem\base\SQLDatabase $this
