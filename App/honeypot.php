@@ -32,6 +32,7 @@ class Layer_TaskRunner extends \ibidem\base\Layer_TaskRunner { /** @return \ibid
 class Layer extends \ibidem\base\Layer { /** @return \ibidem\base\Layer */ function instance() {} }
 class Log extends \ibidem\base\Log {}
 class Make extends \ibidem\base\Make { /** @return \ibidem\base\Make */ function instance() {} }
+class Migration_Template_MySQL extends \ibidem\base\Migration_Template_MySQL { /** @return \ibidem\base\Migration_Template_MySQL */ function instance() {} }
 class Migration extends \ibidem\base\Migration { /** @return \ibidem\base\Migration */ function instance() {} }
 class Model_Factory extends \ibidem\base\Model_Factory { /** @return \ibidem\base\Model_Factory */ function instance() {} }
 class Pager extends \ibidem\base\Pager { /** @return \ibidem\base\Pager */ function instance() {} }

@@ -25,6 +25,53 @@ class SQL
 	}
 	
 	/**
+	 * @param string key
+	 * @param array values
+	 * @param string table
+	 * @return array 
+	 */
+	public static function insert($key, array $values, $table)
+	{
+		$database = \app\SQLDatabase::instance();
+		$keys = \array_keys($values);
+		$values = \array_values($values);
+		
+		$fields = array();
+		$idx = 0;
+		foreach ($values as $value)
+		{
+			$fields[] = ':field_'.$idx++;
+		}
+		
+		$statement = static::prepare
+			(
+				'ibidem/base:SQL_insert',
+				'
+					INSERT INTO `'.$table.'`
+						('.\implode(', ', $keys).')
+					VALUES
+						('.\implode(', ', $fields).')
+				',
+				'mysql'
+			);
+		
+		$idx = 0;
+		foreach ($values as $value)
+		{
+			if (\is_int($value))
+			{
+				$statement->bindInt(':field_'.$idx++, $value);
+			}
+			else # not int
+			{
+				$statement->bind(':field_'.$idx++, $value);
+			}
+		}
+		
+		return $statement->execute();
+	}
+	
+	/**
 	 * Begin transaction.
 	 * 
 	 * @return \ibidem\types\SQLDatabase

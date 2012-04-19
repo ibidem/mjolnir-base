@@ -15,7 +15,7 @@
 								 * string   password    database password
 								 * boolean  persistent  use persistent connections?
 								 */
-								'dsn'        => 'mysql:host=localhost;dbname=kohana',
+								'dsn'        => 'mysql:host=localhost;dbname=ibidem',
 								'username'   => 'root',
 								'password'   => '',
 								'persistent' => false,
