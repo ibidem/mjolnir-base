@@ -55,5 +55,6 @@ class Task_Migrate extends \ibidem\base\Task_Migrate { /** @return \ibidem\base\
 class Task_Relays extends \ibidem\base\Task_Relays { /** @return \ibidem\base\Task_Relays */ function instance() {} }
 class Task_Versions extends \ibidem\base\Task_Versions { /** @return \ibidem\base\Task_Versions */ function instance() {} }
 class Task extends \ibidem\base\Task { /** @return \ibidem\base\Task */ function instance() {} }
+class Validator extends \ibidem\base\Validator { /** @return \ibidem\base\Validator */ function instance() {} }
 class View extends \ibidem\base\View { /** @return \ibidem\base\View */ function instance() {} }
 class Writer_Console extends \ibidem\base\Writer_Console { /** @return \ibidem\base\Writer_Console */ function instance() {} }
