@@ -47,7 +47,7 @@ class SQLDatabase extends \app\Instantiatable
 			{
 				// attempt to load configuration
 				$pdo = \app\CFS::config('ibidem/database');
-				$pdo = $pdo[$database];
+				$pdo = $pdo['databases'][$database];
 				if (empty($pdo))
 				{
 					$exception = new \app\Exception_NotFound
