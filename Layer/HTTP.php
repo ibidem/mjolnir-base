@@ -113,6 +113,47 @@ class Layer_HTTP extends \app\Layer
 	}
 	
 	/**
+	 * @return string 
+	 */
+	public static function detect_ip()
+	{
+		if 
+		(
+			isset($_SERVER['HTTP_X_FORWARDED_FOR'])
+			&& isset($_SERVER['REMOTE_ADDR'])
+			&& \in_array($_SERVER['REMOTE_ADDR'], array('127.0.0.1', 'localhost', 'localhost.localdomain'))
+		)
+		{
+			// Use the forwarded IP address, typically set when the
+			// client is using a proxy server.
+			// Format: "X-Forwarded-For: client1, proxy1, proxy2"
+			$client_ips = \explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
+
+			return \array_shift($client_ips);
+		}
+		elseif 
+		(
+			isset($_SERVER['HTTP_CLIENT_IP'])
+			&& isset($_SERVER['REMOTE_ADDR'])
+			&& \in_array($_SERVER['REMOTE_ADDR'], array('127.0.0.1', 'localhost', 'localhost.localdomain'))
+		)
+		{
+			// use the forwarded IP address, typically set when the
+			// client is using a proxy server.
+			$client_ips = \explode(',', $_SERVER['HTTP_CLIENT_IP']);
+
+			return \array_shift($client_ips);
+		}
+		elseif (isset($_SERVER['REMOTE_ADDR']))
+		{
+			// the remote IP address
+			return $_SERVER['REMOTE_ADDR'];
+		}
+		
+		return '0.0.0.0';
+	}
+	
+	/**
 	 * @return string url base
 	 */
 	public static function detect_url_base()
