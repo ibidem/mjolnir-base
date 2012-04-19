@@ -35,6 +35,12 @@ class Pager extends \app\Instantiatable
 					'entry'  => 0,
 				),
 		
+			'buttons' => array
+				(
+					'next' => 'Next',
+					'prev' => 'Previous'
+				),
+		
 			// computed
 			'pagecount' => 0,
 			'startpoint' => 0,
@@ -59,6 +65,20 @@ class Pager extends \app\Instantiatable
 		$instance->options['pagelimit'] = $pagelimit;
 		
 		return $instance;
+	}
+	
+	/**
+	 * @param array buttons 
+	 * @return \ibidem\base\Pager $this
+	 */
+	public function buttons(array $buttons)
+	{
+		foreach ($buttons as $button => $text)
+		{
+			$this->options['buttons'][$button] = $text;
+		}
+		
+		return $this;
 	}
 		
 	/**
