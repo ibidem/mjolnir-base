@@ -8,7 +8,7 @@
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 class Layer_HTTP extends \app\Layer 
-	implements \ibidem\types\Meta,	\ibidem\types\HTTP
+	implements \ibidem\types\Meta, \ibidem\types\HTTP
 {	
 	/**
 	 * @var string
