@@ -139,7 +139,7 @@ abstract class Layer extends \app\Instantiatable
 	public function get_layer($layer_name)
 	{
 		// this layer?
-		if ($layer_name === static::LAYER_NAME)
+		if ($layer_name === static::$layer_name)
 		{
 			return $this;
 		}
@@ -147,11 +147,10 @@ abstract class Layer extends \app\Instantiatable
 		// a layer we know?
 		if ($this->layer !== null)
 		{
-			return $this->layer->get($layer_name);
+			return $this->layer->get_layer($layer_name);
 		}
 		
-		// invalid layer name given
-		throw new \app\Exception_Error('Invalid layer: '.$layer_name);
+		return null;
 	}
 	
 	/**
