@@ -11,7 +11,7 @@
  * This class is only meant to help avoid duplication of very basic flags.
  * 
  * @package    ibidem
- * @category   Base
+ * @category   Library
  * @author     Ibidem Team
  * @copyright  (c) 2012 Ibidem Team
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
