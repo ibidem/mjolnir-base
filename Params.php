@@ -36,6 +36,14 @@ class Params extends \app\Instantiatable
 		
 		return $this;
 	}
+	
+	/**
+	 * @return array 
+	 */
+	public function to_array()
+	{
+		return $this->params;
+	}
 
 	/**
 	 * @param string key
