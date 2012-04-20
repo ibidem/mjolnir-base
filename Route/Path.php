@@ -12,7 +12,8 @@ class Route_Path extends \app\Instantiatable
 		\ibidem\types\Matcher, 
 		\ibidem\types\RelayCompatible,
 		\ibidem\types\Parameterized,
-		\ibidem\types\URLCompatible
+		\ibidem\types\URLCompatible,
+		\ibidem\types\Contextual
 {
 	/**
 	 * @var string
@@ -160,6 +161,15 @@ class Route_Path extends \app\Instantiatable
 	{
 		$this->url_base = $url_base;
 		return $this;
+	}
+	
+	/**
+	 * @return array context information 
+	 */
+	function get_context()
+	{
+		// path route has no context of it's own
+		return array();
 	}
 	
 } # class

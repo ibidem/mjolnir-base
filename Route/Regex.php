@@ -13,7 +13,8 @@ class Route_Regex extends \app\Instantiatable
 	implements 
 		\ibidem\types\Matcher, 
 		\ibidem\types\RelayCompatible,
-		\ibidem\types\Parameterized
+		\ibidem\types\Parameterized,
+		\ibidem\types\Contextual
 {
 	/**
 	 * @var string
@@ -84,6 +85,15 @@ class Route_Regex extends \app\Instantiatable
 	public function get_params()
 	{
 		return \app\Params::instance();
+	}
+	
+	/**
+	 * @return array context information 
+	 */
+	public function get_context()
+	{
+		// regex route is just a fancier path route, and has no context to it
+		return array();
 	}
 	
 } # class

@@ -12,7 +12,8 @@ class Route_Pattern extends \app\Instantiatable
 		\ibidem\types\Matcher, 
 		\ibidem\types\RelayCompatible,
 		\ibidem\types\Parameterized,
-		\ibidem\types\URLCompatible
+		\ibidem\types\URLCompatible,
+		\ibidem\types\Contextual
 {
 	// Defines the pattern of a <segment>
 	protected static $REGEX_KEY     = '<([a-zA-Z0-9_]++)>';
@@ -393,6 +394,14 @@ class Route_Pattern extends \app\Instantiatable
 	{
 		$this->url_base = $url_base;
 		return $this;
+	}
+	
+	/**
+	 * @return array context information 
+	 */
+	public function get_context()
+	{
+		return $this->params->to_array();
 	}
 	
 } # class
