@@ -32,7 +32,7 @@ class Relay
 			$matcher->relay_config($relays[$key]);
 			if ($matcher->check())
 			{
-				$callback($relays[$key]);
+				$callback($relays[$key], $key);
 				exit;
 			}
 		}
