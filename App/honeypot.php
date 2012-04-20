@@ -7,6 +7,7 @@
 class Controller_HTTP extends \ibidem\base\Controller_HTTP { /** @return \ibidem\base\Controller_HTTP */ function instance() {} }
 class Controller extends \ibidem\base\Controller { /** @return \ibidem\base\Controller */ function instance() {} }
 class Event extends \ibidem\base\Event { /** @return \ibidem\base\Event */ function instance() {} }
+class Exception_NotAllowed extends \ibidem\base\Exception_NotAllowed { /** @return \ibidem\base\Exception_NotAllowed */ function instance() {} }
 class Exception_NotApplicable extends \ibidem\base\Exception_NotApplicable {}
 class Exception_NotFound extends \ibidem\base\Exception_NotFound {}
 class Exception extends \ibidem\base\Exception {}
@@ -28,6 +29,7 @@ class Layer_HTML extends \ibidem\base\Layer_HTML { /** @return \ibidem\base\Laye
 class Layer_HTTP extends \ibidem\base\Layer_HTTP { /** @return \ibidem\base\Layer_HTTP */ function instance() {} }
 class Layer_MVC extends \ibidem\base\Layer_MVC { /** @return \ibidem\base\Layer_MVC */ function instance() {} }
 class Layer_PlainText extends \ibidem\base\Layer_PlainText { /** @return \ibidem\base\Layer_PlainText */ function instance() {} }
+class Layer_Sandbox extends \ibidem\base\Layer_Sandbox { /** @return \ibidem\base\Layer_Sandbox */ function instance() {} }
 class Layer_TaskRunner extends \ibidem\base\Layer_TaskRunner { /** @return \ibidem\base\Layer_TaskRunner */ function instance() {} }
 class Layer extends \ibidem\base\Layer { /** @return \ibidem\base\Layer */ function instance() {} }
 class Log extends \ibidem\base\Log {}
@@ -56,5 +58,6 @@ class Task_Relays extends \ibidem\base\Task_Relays { /** @return \ibidem\base\Ta
 class Task_Versions extends \ibidem\base\Task_Versions { /** @return \ibidem\base\Task_Versions */ function instance() {} }
 class Task extends \ibidem\base\Task { /** @return \ibidem\base\Task */ function instance() {} }
 class Validator extends \ibidem\base\Validator { /** @return \ibidem\base\Validator */ function instance() {} }
+class ValidatorRules extends \ibidem\base\ValidatorRules {}
 class View extends \ibidem\base\View { /** @return \ibidem\base\View */ function instance() {} }
 class Writer_Console extends \ibidem\base\Writer_Console { /** @return \ibidem\base\Writer_Console */ function instance() {} }
