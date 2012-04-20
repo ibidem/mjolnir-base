@@ -160,6 +160,17 @@ class Form extends \app\HTMLBlockElement
 	/**
 	 * @param string title
 	 * @param string name
+	 * @return \ibidem\base\FormField_Password
+	 */
+	public function password($title, $name)
+	{
+		return \app\FormField_Password::instance($title, $name, $this->form_id)
+			->template($this->field_template);
+	}
+	
+	/**
+	 * @param string title
+	 * @param string name
 	 * @return \ibidem\base\FormField_Text
 	 */
 	public function telephone($title, $name)
