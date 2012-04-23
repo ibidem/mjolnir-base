@@ -5,6 +5,7 @@
 		':key_foreign' => "bigint(20) unsigned",
 		':counter' => "bigint(20) unsigned NOT NULL DEFAULT '0'",
 		':title' => "varchar(255)",
+		':description' => "varchar(1000)",
 		':block' => "varchar(10000)",
 		':datetime_required' => 'datetime NOT NULL',
 		':datetime_optional' => 'datetime',
