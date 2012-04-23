@@ -38,7 +38,6 @@ class FormField extends \app\HTMLElement
 	 * @var string
 	 */
 	private $template;
-
 	
 	/**
 	 * @param string title
@@ -100,6 +99,15 @@ class FormField extends \app\HTMLElement
 	}
 	
 	/**
+	 * @return \ibidem\base\FormField $this
+	 */
+	public function field()
+	{
+		$this->template = ':field';
+		return $this;
+	}
+	
+	/**
 	 * @return string 
 	 */
 	protected function render_name()
@@ -120,6 +128,9 @@ class FormField extends \app\HTMLElement
 		}
 	}
 	
+	/**
+	 * @return string 
+	 */
 	protected function render_field()
 	{
 		return '<'.$this->name.' id="'.$this->form.'_'.$this->tabindex.'"'.$this->render_attributes().'/>';
