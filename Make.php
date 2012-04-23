@@ -143,17 +143,41 @@ class Make extends \app\Instantiatable
 		return static::instance('words', \func_get_args());
 	}
 	
+	public static function rand(array $values)
+	{
+		$instance = static::instance('rand');
+		$instance->args = $values;
+		
+		return $instance;
+	}
+	
 	/**
 	 * @param mixed source
 	 * @param integer copies
 	 * @return array
 	 */
-	public static function copies($source, $count = null)
+	public static function copies($source, $count = null, array $counters = null)
 	{
 		$count !== null or $count = \rand(5, 25);
 		$copies = array();
 		while ($count-- > 0)
 		{
+			// resolve various counter fields (id, views, time, etc)
+			if ($counters)
+			{
+				foreach ($counters as $counter => & $count_type)
+				{
+					if (\is_array($count_type)) # random (viewcount, etc)
+					{
+						$source[$counter] = \rand($count_type[0], $count_type[1]);
+					}
+					else # incremental counter (index, etc)
+					{
+						$source[$counter] = $count_type++;
+					}
+				}
+			}
+			
 			$copies[] = $source;
 		}
 		
@@ -206,6 +230,10 @@ class Make extends \app\Instantiatable
 					$words .= self::random($mockup['words']).' ';
 				}
 				return \rtrim($words, ' ');
+				
+			case 'rand':
+				$idx = \rand(0, \count($this->args) - 1);
+				return $this->args[$idx];
 
 			case 'telephone':
 				return '('.\rand(111, 999).') '.\rand(111, 999).'-'.\rand(1111, 9999);
