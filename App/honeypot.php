@@ -40,6 +40,7 @@ class Make extends \ibidem\base\Make { /** @return \ibidem\base\Make */ function
 class Migration_Template_MySQL extends \ibidem\base\Migration_Template_MySQL { /** @return \ibidem\base\Migration_Template_MySQL */ function instance() {} }
 class Migration extends \ibidem\base\Migration { /** @return \ibidem\base\Migration */ function instance() {} }
 class Model_Factory extends \ibidem\base\Model_Factory { /** @return \ibidem\base\Model_Factory */ function instance() {} }
+class Model_SQL_Factory extends \ibidem\base\Model_SQL_Factory { /** @return \ibidem\base\Model_SQL_Factory */ function instance() {} }
 class Pager extends \ibidem\base\Pager { /** @return \ibidem\base\Pager */ function instance() {} }
 class Params extends \ibidem\base\Params { /** @return \ibidem\base\Params */ function instance() {} }
 class Relay extends \ibidem\base\Relay {}
