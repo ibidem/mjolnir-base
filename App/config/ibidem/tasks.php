@@ -155,6 +155,11 @@
 								'description' => 'Uninstall everything and cleanup.',
 								'short' => 'u',
 							),
+						'refresh' => array
+							(
+								'description' => 'Re-install; Uninstall + Install.',
+								'short' => 'r',
+							),
 						'list' => array
 							(
 								'description' => 'List all versions. (default)',

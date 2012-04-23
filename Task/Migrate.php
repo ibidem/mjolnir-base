@@ -32,30 +32,35 @@ class Task_Migrate extends \app\Task
 		if ($this->config['list'])
 		{
 			$this->list_versions();
+			return;
 		}
-		else if ($this->config['install'])
+		
+		$migrations = \app\CFS::config('ibidem/migrations');
+		\ksort($migrations);
+		
+		if ($this->config['uninstall'] || $this->config['refresh'])
 		{
-			$migrations = \app\CFS::config('ibidem/migrations');
-			\ksort($migrations);
-			foreach ($migrations as $version => $migrations)
-			{
-				$this->writer->status('Info', 'Migrations for v'.$version)->eol();
-				$this->migrations_up($migrations);
-			}
-		}
-		else if ($this->config['uninstall'])
-		{
-			$migrations = \app\CFS::config('ibidem/migrations');
-			\krsort($migrations);
+			$this->writer->subheader('Uninstalling');
 			foreach ($migrations as $version => $migrations)
 			{
 				$this->writer->status('Info', 'Migrations for v'.$version)->eol();
 				$this->migrations_down($migrations);
 			}
+			$this->writer->eol();
 		}
-		else # unknown, list versions
+			
+		$migrations = \app\CFS::config('ibidem/migrations');
+		\ksort($migrations);
+		
+		if ($this->config['install'] || $this->config['refresh'])
 		{
-			$this->list_versions();
+			$this->writer->subheader('Installing');
+			foreach ($migrations as $version => $migrations)
+			{
+				$this->writer->status('Info', 'Migrations for v'.$version)->eol();
+				$this->migrations_up($migrations);
+			}
+			$this->writer->eol();
 		}
 	}
 	
@@ -70,14 +75,14 @@ class Task_Migrate extends \app\Task
 			// perform basic migration
 			foreach ($migrations as $migration)
 			{
-				$this->writer->status('Info', '  up: '.$migration.'... ');
+				$this->writer->status('Info', '   up: '.$migration.'... ');
 				$constraints[$migration] = $migration::instance()->up();
 				$this->writer->write('done.')->eol();
 			}
 			// bind all constraints
 			foreach ($constraints as $migration => $constraint)
 			{
-				$this->writer->status('Info', 'bind: '.$migration.'... ');
+				$this->writer->status('Info', ' bind: '.$migration.'... ');
 				if ($constraint !== NULL)
 				{
 					\call_user_func($constraint);
@@ -87,6 +92,13 @@ class Task_Migrate extends \app\Task
 				{
 					$this->writer->write('skipped.')->eol();
 				}
+			}
+			// build all
+			foreach ($migrations as $migration)
+			{
+				$this->writer->status('Info', 'build: '.$migration.'... ');
+				$constraints[$migration] = $migration::instance()->build();
+				$this->writer->write('done.')->eol();
 			}
 		} 
 		catch (\Exception $exception)
@@ -107,7 +119,7 @@ class Task_Migrate extends \app\Task
 			// perform basic migration
 			foreach ($migrations as $migration)
 			{
-				$this->writer->status('Info', 'down: '.$migration.'... ');
+				$this->writer->status('Info', ' down: '.$migration.'... ');
 				$constraints[$migration] = $migration::instance()->down();
 				$this->writer->write('done.')->eol();
 			}

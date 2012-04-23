@@ -37,6 +37,14 @@ abstract class Migration extends \app\Instantiatable
 	}
 	
 	/**
+	 * Assemble defaults 
+	 */
+	public function build()
+	{
+		// do nothing
+	}
+	
+	/**
 	 * Undo migration.
 	 */
 	public function down()
