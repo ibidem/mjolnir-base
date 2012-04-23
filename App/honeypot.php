@@ -13,10 +13,12 @@ class Exception_NotFound extends \ibidem\base\Exception_NotFound {}
 class Exception extends \ibidem\base\Exception {}
 class Flags extends \ibidem\base\Flags {}
 class Form extends \ibidem\base\Form { /** @return \ibidem\base\Form */ function instance() {} }
+class FormField_Checkbox extends \ibidem\base\FormField_Checkbox { /** @return \ibidem\base\FormField_Checkbox */ function instance() {} }
 class FormField_Email extends \ibidem\base\FormField_Email { /** @return \ibidem\base\FormField_Email */ function instance() {} }
 class FormField_Hidden extends \ibidem\base\FormField_Hidden { /** @return \ibidem\base\FormField_Hidden */ function instance() {} }
 class FormField_Password extends \ibidem\base\FormField_Password { /** @return \ibidem\base\FormField_Password */ function instance() {} }
 class FormField_Radio extends \ibidem\base\FormField_Radio { /** @return \ibidem\base\FormField_Radio */ function instance() {} }
+class FormField_Select extends \ibidem\base\FormField_Select { /** @return \ibidem\base\FormField_Select */ function instance() {} }
 class FormField_Submit extends \ibidem\base\FormField_Submit { /** @return \ibidem\base\FormField_Submit */ function instance() {} }
 class FormField_Telephone extends \ibidem\base\FormField_Telephone { /** @return \ibidem\base\FormField_Telephone */ function instance() {} }
 class FormField_Text extends \ibidem\base\FormField_Text { /** @return \ibidem\base\FormField_Text */ function instance() {} }

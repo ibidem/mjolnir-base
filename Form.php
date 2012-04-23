@@ -219,6 +219,30 @@ class Form extends \app\HTMLBlockElement
 	/**
 	 * @param string title
 	 * @param string name
+	 * @return string
+	 */
+	public function checkbox($title, $name)
+	{
+		return \app\FormField_Checkbox::instance($title, $name, $this->form_id)
+			->template($this->field_template);
+	}
+	
+	/**
+	 * @param string title
+	 * @param string name
+	 * @param array values
+	 * @return string
+	 */
+	public function select($title, $name, array $values)
+	{
+		return \app\FormField_Select::instance($title, $name, $this->form_id)
+			->template($this->field_template)
+			->values($values);
+	}
+	
+	/**
+	 * @param string title
+	 * @param string name
 	 * @return \ibidem\base\FormField_Submit
 	 */
 	public function submit($title, $name = null)
