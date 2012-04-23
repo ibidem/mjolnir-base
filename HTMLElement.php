@@ -71,7 +71,7 @@ class HTMLElement extends \app\Instantiatable
 	 */
 	public function attribute($name, $value = null)
 	{
-		if ($value)
+		if ($value !== null)
 		{
 			$this->attributes[$name] = $value;
 		}
