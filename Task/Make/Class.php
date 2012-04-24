@@ -49,18 +49,17 @@ class Task_Make_Class extends \app\Task
 		}
 		else # not library
 		{
-			if (\preg_match("#^Model_.*$#", $class_name))
+			$conventions_config = \app\CFS::config('ibidem/conventions');
+			$extention = '\\app\\Instantiatable';
+			foreach ($conventions_config['base_classes'] as $regex => $class_extention)
 			{
-				$file .= "class $class_name extends \\app\\Model_Factory".PHP_EOL;
+				if (\preg_match($regex, $class_name))
+				{
+					$extention = $class_extention;
+				}
 			}
-			else if (\preg_match("#^Controller_.*$#", $class_name))
-			{
-				$file .= "class $class_name extends \\app\\Controller".PHP_EOL;
-			}
-			else # regular class
-			{
-				$file .= "class $class_name extends \\app\\Instantiatable".PHP_EOL;
-			}
+			
+			$file .= "class $class_name extends $extention".PHP_EOL;
 		}
 		
 		$file .= '{'.PHP_EOL
@@ -118,7 +117,7 @@ class Task_Make_Class extends \app\Task
 	public function execute()
 	{
 		$class = $this->config['class'];
-		$category = $this->config['category'];
+		$category = $this->config['category'] ? $this->config['category'] : null;
 		$no_tests = $this->config['no-tests'];
 		$library = $this->config['library'];
 		$forced = $this->config['forced'];
@@ -136,6 +135,36 @@ class Task_Make_Class extends \app\Task
 		
 		$namespace = \substr($class, 0, $ns_div);
 		$class_name = \substr($class, $ns_div + 1);
+		
+		if ($category === null)
+		{
+			if ($library)
+			{
+				$category = 'Library';
+			}
+			else # non-library
+			{
+				if (($class_div = \strpos($class, '_')) !== false)
+				{
+					// use class name as category
+					$category = \substr($class, 0, $class_div);
+				}
+				else # class doesn't have underscore
+				{
+					// use last segment of namespace as category
+					if (($namespace_div = \strrpos($namespace, '\\')) !== false)
+					{
+						$category = \ucfirst(\substr($namespace, $namespace_div + 1));
+					}
+					else # did not find '\\'
+					{
+						// use entire namespace; these are special cases--you 
+						// typically (should) have two segments
+						$category = \ucfirst($namespace);
+					}
+				}
+			}
+		}
 		
 		$modules = \app\CFS::get_modules();
 		$namespaces = \array_flip($modules);

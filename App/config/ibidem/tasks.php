@@ -70,7 +70,7 @@
 								'description' => 'Class category.',
 								'type' => '\ibidem\base\Flags::text',
 								'short' => 'g',
-								'default' => null,
+								'default' => false,
 							),
 						'no-tests' => array
 							(
