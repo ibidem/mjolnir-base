@@ -154,6 +154,17 @@ class Layer_HTTP extends \app\Layer
 	}
 	
 	/**
+	 * @param string relay
+	 * @param array params 
+	 */
+	public static function redirect($relay, array $params = null)
+	{
+		$access_config = \app\CFS::config('ibidem/relays');
+		\header('Location: '.$access_config[$relay]['route']->url($params));
+		die;
+	}
+	
+	/**
 	 * @return string url base
 	 */
 	public static function detect_url_base()
