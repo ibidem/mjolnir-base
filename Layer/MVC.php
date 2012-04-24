@@ -51,7 +51,7 @@ class Layer_MVC extends \app\Layer
 			$this->controller( $controller = $relay['controller']::instance() );
 			$this->params($params);
 			
-			if (isset($relay['action']))
+			if ($params->get('action') === null && isset($relay['action']))
 			{
 				$this->meta('action', $relay['action']);
 			}
