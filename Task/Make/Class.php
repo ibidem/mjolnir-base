@@ -144,10 +144,10 @@ class Task_Make_Class extends \app\Task
 			}
 			else # non-library
 			{
-				if (($class_div = \strpos($class, '_')) !== false)
+				if (($class_div = \strpos($class_name, '_')) !== false)
 				{
 					// use class name as category
-					$category = \substr($class, 0, $class_div);
+					$category = \substr($class_name, 0, $class_div);
 				}
 				else # class doesn't have underscore
 				{
