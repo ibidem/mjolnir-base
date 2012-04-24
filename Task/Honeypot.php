@@ -36,7 +36,7 @@ class Task_Honeypot extends \app\Task
 				{
 					if (\method_exists('\\'.$ns.'\\'.$file,'instance'))
 					{
-						$output .= 'class '.$file.' extends \\'.$ns.'\\'.$file.' { /** @return \\'.$ns.'\\'.$file.' */ function instance() {} }'.PHP_EOL;
+						$output .= 'class '.$file.' extends \\'.$ns.'\\'.$file.' { /** @return \\'.$ns.'\\'.$file.' */ function instance() { return parent::instance(); } }'.PHP_EOL;
 					}
 					else # class is not instantitable
 					{
