@@ -11,11 +11,6 @@ class Session_Native extends \app\Instantiatable
 	implements \ibidem\types\Params
 {
 	/**
-	 * @var string 
-	 */
-	private $name = 'session';	
-	
-	/**
 	 * @var boolean 
 	 */
 	private $destroyed = false;
@@ -31,7 +26,20 @@ class Session_Native extends \app\Instantiatable
 		if ($instance === null)
 		{
 			$instance = parent::instance();
-		
+			
+			// load session configuration
+			$session_config = \app\CFS::config('ibidem/sessions');
+			$base_config = \app\CFS::config('ibidem/base');
+			\session_set_cookie_params
+				(
+					$session_config['lifetime'], # lifetime (seconds)
+					$base_config['path'],        # path
+					$base_config['domain'],      # domain
+					true,                        # secure
+					$base_config['httponly']     # httponly
+				);
+			
+			// start session
 			\session_start();
 			
 			// write the session at shutdown
@@ -75,17 +83,10 @@ class Session_Native extends \app\Instantiatable
 	{
 		// destroy the current session
 		\session_destroy();
+		
+		$this->destroyed = true;
 
-		// did destruction work?
-		$status = ! \session_id();
-
-		if ($status)
-		{
-			// make sure the session cannot be restarted
-			Cookie::delete($this->name);
-		}
-
-		return $status;
+		return true;
 	}
 
 	/**

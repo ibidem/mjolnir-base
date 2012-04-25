@@ -30,7 +30,6 @@ class Session
 	/**
 	 * @param string key
 	 * @param mixed value
-	 * @return \ibidem\types\Params $this
 	 */
 	public static function set($key, $value)
 	{
@@ -39,7 +38,20 @@ class Session
 			self::$session = \app\Session_Native::instance();
 		}
 		
-		return self::$session->set($key, $value);
+		self::$session->set($key, $value);
+	}
+	
+	/**
+	 * Destroy the session. 
+	 */
+	public static function destroy()
+	{
+		if (self::$session === null)
+		{
+			self::$session = \app\Session_Native::instance();
+		}
+		
+		self::$session->destroy();
 	}
 
 } # class
