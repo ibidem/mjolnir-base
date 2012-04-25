@@ -1,6 +1,6 @@
 # Ignore temporary/contextual files
-App/logs/*
-App/cache/*
++App/logs/*
++App/cache/*
 
 # Composer junk
 plugins/*
