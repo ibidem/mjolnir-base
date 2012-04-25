@@ -35,8 +35,8 @@ class Session_Native extends \app\Instantiatable
 					$session_config['lifetime'], # lifetime (seconds)
 					$base_config['path'],        # path
 					$base_config['domain'],      # domain
-					true,                        # secure
-					$base_config['httponly']     # httponly
+					$session_config['secure'],   # secure
+					$session_config['httponly']  # httponly
 				);
 			
 			// start session
