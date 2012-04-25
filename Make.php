@@ -60,6 +60,22 @@ class Make extends \app\Instantiatable
 	/**
 	 * @return \ibidem\base\Make
 	 */
+	public static function given_name()
+	{
+		return static::instance('given_name');
+	}
+	
+	/**
+	 * @return \ibidem\base\Make
+	 */
+	public static function family_name()
+	{
+		return static::instance('family_name');
+	}	
+	
+	/**
+	 * @return \ibidem\base\Make
+	 */
 	public static function telephone()
 	{
 		return static::instance('telephone');
@@ -192,6 +208,12 @@ class Make extends \app\Instantiatable
 		$mockup = \app\CFS::config('ibidem\mockup');
 		switch ($this->type)
 		{
+			case 'given_name':
+				return self::random($mockup['given_names']);
+				
+			case 'family_name':
+				return self::random($mockup['family_names']);
+			
 			case 'name':
 				// names are two words
 				$family_name = self::random($mockup['family_names']);
