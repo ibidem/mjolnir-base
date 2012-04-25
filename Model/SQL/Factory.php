@@ -24,5 +24,20 @@ class Model_SQL_Factory extends \app\Model_Factory
 		$database_config = \app\CFS::config('ibidem/database');
 		return $database_config['table_prefix'].static::$table;
 	}
+	
+	/**
+	 * @param string resource id 
+	 * @param array config
+	 */
+	public static function dependencies($id, array $config = null)
+	{
+		if ($config && isset($config['dependencies']))
+		{
+			foreach ($config['dependencies'] as $dependency)
+			{
+				$dependency::inject($id);
+			}
+		}
+	}
 
 } # class
