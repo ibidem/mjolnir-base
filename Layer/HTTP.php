@@ -92,19 +92,19 @@ class Layer_HTTP extends \app\Layer
 			
 			if ($config['url_base'] !== null)
 			{
-				// Get the path from the base URL, including the index file
-				$base_url = \parse_url($config['url_base'], PHP_URL_PATH);
+				// get the path from the base URL, including the index file
+				$url_base = \parse_url($config['domain'].$config['path'], PHP_URL_PATH);
 
-				if (\strpos($uri, $base_url) === 0)
+				if (\strpos($uri, $url_base) === 0)
 				{
-					// Remove the base URL from the URI
-					$uri = (string) \substr($uri, \strlen($base_url));
+					// remove the base URL from the URI
+					$uri = (string) \substr($uri, \strlen($url_base));
 				}
 			}
 
 			if ($config['index_file'] && \strpos($uri, $config['index_file']) === 0)
 			{
-				// Remove the index file from the URI
+				// remove the index file from the URI
 				$uri = (string) \substr($uri, \strlen($config['index_file']));
 			}
 		}

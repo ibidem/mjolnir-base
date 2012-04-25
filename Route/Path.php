@@ -134,7 +134,7 @@ class Route_Path extends \app\Instantiatable
 		else # no url base set
 		{
 			$base = \app\CFS::config('ibidem/base');
-			$url .= $base['url_base'];
+			$url .= $base['domain'].$base['path'];
 		}
 		
 		// append the uri

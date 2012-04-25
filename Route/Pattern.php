@@ -332,11 +332,11 @@ class Route_Pattern extends \app\Instantiatable
 			else # no url base set
 			{
 				$base = \app\CFS::config('ibidem/base');
-				$url .= $base['url_base'];
+				$url .= $base['domain'].$base['path'];
 			}
 
 			// append the uri
-			return $url.'/'.static::generate_uri($this->standard_uri, $params);
+			return $url.static::generate_uri($this->standard_uri, $params);
 		}
 		else if ($this->canonical_pattern && $protocol)
 		{
@@ -370,11 +370,11 @@ class Route_Pattern extends \app\Instantiatable
 			else # no url base set
 			{
 				$base = \app\CFS::config('ibidem/base');
-				$url .= $base['url_base'];
+				$url .= $base['domain'].$base['path'];
 			}
 
 			// append the uri
-			return $url.'/'.static::generate_uri($this->canonical_uri, $params);	
+			return $url.static::generate_uri($this->canonical_uri, $params);	
 		}
 		else if ($this->standard_pattern) 
 		{
