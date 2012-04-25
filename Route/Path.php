@@ -138,7 +138,7 @@ class Route_Path extends \app\Instantiatable
 		}
 		
 		// append the uri
-		return $url.'/'.$this->path;		
+		return $url.$this->path;		
 	}
 	
 	/**
