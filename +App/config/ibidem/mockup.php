@@ -32,7 +32,7 @@
 				// UK
 				'Brown', 'Smith', 'Patel', 'Roberts', 'Khan', 'Cox', 'Davis', 'Clarke', 'Hall', 'Thompson', 'Jenkins', 'Griffiths', 'Morgan', 'Evans', 'Hughes',
 				// France
-				'Dubois', 'Durand', 'Bernard', 'Martin', '	Lefebvre', 'Leroy', 'Laurent', 'Lefèvre', 'André', 'Roux', 'Vincent', 'Fournier', 'Moreau',
+				'Dubois', 'Durand', 'Bernard', 'Martin', 'Lefebvre', 'Leroy', 'Laurent', 'Lefèvre', 'André', 'Roux', 'Vincent', 'Fournier', 'Moreau',
 				// Germany
 				'Müller', 'Schmidt', 'Schneider', 'Fischer', 'Weber', 'Meyer', 'Schulz', 'Wagner', 'Becker', 'Hoffmann',
 				// Italy
