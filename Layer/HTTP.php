@@ -37,7 +37,7 @@ class Layer_HTTP extends \app\Layer
 	 */
 	public static function detect_uri()
 	{
-		static $detected_uri;
+		static $detected_uri = null;
 		
 		// did we do this already?
 		if (isset($detected_uri))
@@ -90,22 +90,13 @@ class Layer_HTTP extends \app\Layer
 
 			$config = \app\CFS::config('ibidem/base');
 			
-			if ($config['url_base'] !== null)
-			{
-				// get the path from the base URL, including the index file
-				$url_base = \parse_url($config['domain'].$config['path'], PHP_URL_PATH);
+			// get the path from the base URL
+			$url_base = \parse_url($config['domain'].$config['path'], PHP_URL_PATH);
 
-				if (\strpos($uri, $url_base) === 0)
-				{
-					// remove the base URL from the URI
-					$uri = (string) \substr($uri, \strlen($url_base));
-				}
-			}
-
-			if ($config['index_file'] && \strpos($uri, $config['index_file']) === 0)
+			if (\strpos($uri, $url_base) === 0)
 			{
-				// remove the index file from the URI
-				$uri = (string) \substr($uri, \strlen($config['index_file']));
+				// remove the base URL from the URI
+				$uri = (string) \substr($uri, \strlen($url_base));
 			}
 		}
 
