@@ -108,6 +108,16 @@ class FormField extends \app\HTMLElement
 	}
 	
 	/**
+	 * @return \ibidem\base\FormField $this
+	 */
+	public function unnamed()
+	{
+		$this->remove_attribute('name');
+		
+		return $this;
+	}
+	
+	/**
 	 * @return string 
 	 */
 	protected function render_name()

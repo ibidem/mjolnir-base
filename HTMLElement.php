@@ -57,6 +57,17 @@ class HTMLElement extends \app\Instantiatable
 	}
 	
 	/**
+	 * @param string attribute 
+	 * @return \ibidem\base\HTMLBlockElement $this
+	 */
+	public function remove_attribute($attribute)
+	{
+		unset($this->attributes[$attribute]);
+		
+		return $this;
+	}
+	
+	/**
 	 * @return array 
 	 */
 	public function get_classes()
