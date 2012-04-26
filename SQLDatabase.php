@@ -72,6 +72,19 @@ class SQLDatabase extends \app\Instantiatable
 				static::$instances[$database]->dialect_default = $pdo['dialect_default'];
 				static::$instances[$database]->dialect_target = $pdo['dialect_target'];
 				
+				$base_config = \app\CFS::config('ibidem/base');
+				// set charset
+				static::$instances[$database]->dbh->exec("SET CHARACTER SET '{$base_config['charset']}'");
+				// set timezone
+				$now = new \DateTime();  
+				$mins = $now->getOffset() / 60;  
+				$sgn = ($mins < 0 ? -1 : 1);  
+				$mins = \abs($mins);  
+				$hrs = \floor($mins / 60);
+				$mins -= $hrs * 60;
+				$offset = \sprintf('%+d:%02d', $hrs*$sgn, $mins);
+				static::$instances[$database]->dbh->exec("SET time_zone='$offset';");  
+				
 				return static::$instances[$database];
 			}
 			catch (\PDOException $e)

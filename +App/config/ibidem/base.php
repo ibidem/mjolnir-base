@@ -2,6 +2,7 @@
 	(
 		'domain' => null,
 		'path' => '/',
-		'index_file' => '',
-		'charset' => 'utf-8',
+		'timezone' => 'Europe/Bucharest',
+		'charset' => 'UTF8',
+		'locale.lang' => 'en_US',
 	);
