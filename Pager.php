@@ -22,10 +22,12 @@ class Pager extends \app\Instantiatable
 			'has_ruler'   => null,  # show ruler on pager
 			'order'       => \ibidem\types\Pager::ascending,
 		
-			'entry_name' => array
+			'lang' => array
 				(
-					'plural' => 'Entries',
-					'singular' => 'Entry'
+					'entries_to_entries' => 'Entries :number to :number_end.',
+					'bookmark_at_entry' => 'Bookmark at Entry #:bookmark.',
+					'page_x' => 'Entry :number.',
+					'page_x_bookmarked' => 'Entry :number. Bookmarked.',
 				),
 		
 			'bookmark' => array
@@ -142,11 +144,12 @@ class Pager extends \app\Instantiatable
 	 * @param string singular version; assumed plural if not specified
 	 * @return \ibidem\base\Pager $this
 	 */
-	public function entry_name($plural, $singular = null)
+	public function lang(array $lang)
 	{
-		$singular or $singular = $plural;
-		$this->options['entry_name']['plural'] = $plural;
-		$this->options['entry_name']['singular'] = $singular;
+		foreach ($lang as $key => $lang)
+		{
+			$this->options['lang'][$key] = $lang;
+		}
 		
 		return $this;
 	}
