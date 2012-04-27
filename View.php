@@ -93,7 +93,7 @@ class View extends \app\Instantiatable
 		// ie. whenever it decides to convert to a string. It's not worth it.
 		\app\Layer::get_top()->exception
 			(
-				\app\Exception_NotApplicable::instance
+				new \app\Exception_NotApplicable
 					('Casting to string not allowed for Views.')
 			);
 	}
