@@ -47,6 +47,9 @@ class Pager extends \app\Instantiatable
 			'endpoint' => 0,
 			'startellipsis' => 0,
 			'endellipsis' => 0,
+		
+			'show_jumpto' => true,
+			'show_pageindex' => true,
 		);
 	
 	/**
@@ -65,6 +68,26 @@ class Pager extends \app\Instantiatable
 		$instance->options['pagelimit'] = $pagelimit;
 		
 		return $instance;
+	}
+	
+	/**
+	 * @param boolean settings
+	 * @return \ibidem\base\Pager $this
+	 */
+	public function show_jumpto($setting)
+	{
+		$this->options['show_jumpto'] = $setting;
+		return $this;
+	}
+	
+	/**
+	 * @param boolean settings
+	 * @return \ibidem\base\Pager $this
+	 */
+	public function show_pageindex($settings)
+	{
+		$this->options['show_pageindex'] = $settings;
+		return $this;
 	}
 	
 	/**
