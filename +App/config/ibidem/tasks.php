@@ -44,13 +44,6 @@
 							),
 					),
 			),
-		'check:relays' => array
-			(
-				'desctiption' => array
-					(
-						'Lists (enabled) relays.'
-					),
-			),
 		'make:class' => array
 			(
 				'description' => array
