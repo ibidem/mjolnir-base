@@ -10,6 +10,7 @@
 		':datetime_required' => 'datetime NOT NULL',
 		':datetime_optional' => 'datetime',
 		':timestamp' => 'timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP',
+		':boolean' => 'boolean',
 	
 	// uncommon
 		# RFC 5321; we subtract 2 characters for angle brackets -- yes it''s not (64 + 1 + 255 =) 320
@@ -23,6 +24,12 @@
 		':secure_hash' => 'char(128) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL',
 		# telephone number
 		':telephone' => 'varchar(255)',
+		# sex as m / f
+		':sex' => 'varchar(1)',
+		# universal social security number field; use of localized ssn's is not 
+		# advised since a lot of the time the systems in question need to allow
+		# foreigners to register as well, and the ssn format is inconsistent
+		':ssn' => 'varchar(20)', 
 	
 	// general
 		':engine' => 'InnoDB',
