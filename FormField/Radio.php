@@ -30,7 +30,6 @@ class FormField_Radio extends \app\FormField
 	 */
 	public function value($default_value)
 	{
-		echo "$default_value<br>";
 		// default value can only be set once
 		if ($this->default_value === null)
 		{
