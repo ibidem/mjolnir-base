@@ -27,10 +27,10 @@ class FormField_TextArea extends \app\FormField
 	/**
 	 * @param string title
 	 * @param string name
-	 * @param string form
+	 * @param \ibidem\types\Form form
 	 * @return \ibidem\base\FormField_TextArea
 	 */
-	public static function instance($title = null, $name = null, $form = 'global')
+	public static function instance($title = null, $name = null, \ibidem\types\Form $form = null)
 	{
 		$form_config = \app\CFS::config('ibidem/form');
 		$instance = parent::instance($title, $name, $form);
@@ -55,7 +55,7 @@ class FormField_TextArea extends \app\FormField
 	 */
 	protected function render_field()
 	{
-		return '<'.$this->name.' id="'.$this->form.'_'.$this->tabindex.'"'.$this->render_attributes().'>'
+		return '<'.$this->name.' id="'.$this->form->form_id().'_'.$this->tabindex.'"'.$this->render_attributes().'>'
 			. $this->body
 			. '</'.$this->name.'>';
 	}

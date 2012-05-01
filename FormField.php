@@ -42,10 +42,10 @@ class FormField extends \app\HTMLElement
 	/**
 	 * @param string title
 	 * @param string name
-	 * @param string form
+	 * @param \ibidem\types\Form form
 	 * @return \ibidem\base\FormField
 	 */
-	public static function instance($title = null, $name = null, $form = 'global')
+	public static function instance($title = null, $name = null, \ibidem\types\Form $form = null)
 	{
 		$instance = parent::instance(static::$tag_name);
 		$instance->title = $title;
@@ -57,6 +57,11 @@ class FormField extends \app\HTMLElement
 		$instance->tabindex = \app\Form::tabindex();
 		$instance->attribute('tabindex', $instance->tabindex);
 		$instance->form = $form;
+			
+		if ($instance->type !== 'hidden' && ($field_value = $form->field_value($name)) !== null)
+		{
+			$instance->value($field_value);
+		}
 		
 		return $instance;
 	}
@@ -126,14 +131,14 @@ class FormField extends \app\HTMLElement
 		if ($classes)
 		{
 			return \app\HTMLBlockElement::instance('label', $this->title)
-				->attribute('for', $this->form.'_'.$this->tabindex)
+				->attribute('for', $this->form->form_id().'_'.$this->tabindex)
 				->classes($this->get_classes())
 				->render();
 		}
 		else # has no classes
 		{
 			return \app\HTMLBlockElement::instance('label', $this->title)
-				->attribute('for', $this->form.'_'.$this->tabindex)
+				->attribute('for', $this->form->form_id().'_'.$this->tabindex)
 				->render();
 		}
 	}
@@ -143,7 +148,18 @@ class FormField extends \app\HTMLElement
 	 */
 	protected function render_field()
 	{
-		return '<'.$this->name.' id="'.$this->form.'_'.$this->tabindex.'"'.$this->render_attributes().'/>';
+		$field = '<'.$this->name.' id="'.$this->form->form_id().'_'.$this->tabindex.'"'.$this->render_attributes().'/>';
+		if ($errors = $this->form->errors_for($this->get_attribute('name')))
+		{
+			$field .= '<ul class="errors">';
+			foreach ($errors as $error)
+			{
+				$field .= "<li>$error</li>";
+			}
+			$field .= '</ul>';
+		}
+		
+		return $field;
 	}
 	
 	/**

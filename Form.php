@@ -8,6 +8,7 @@
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 class Form extends \app\HTMLBlockElement
+	implements \ibidem\types\Form
 {
 	/**
 	 * @var integer 
@@ -27,7 +28,7 @@ class Form extends \app\HTMLBlockElement
 	/**
 	 * @var string
 	 */
-	private $form_id;
+	private $form_id = 'global';
 	
 	/**
 	 * @var string 
@@ -43,6 +44,21 @@ class Form extends \app\HTMLBlockElement
 	 * @var string 
 	 */
 	private $group_end;
+
+	/**
+	 * @var boolean
+	 */
+	private $auto_complete;
+	
+	/**
+	 * @var array 
+	 */
+	private $registerd_hidden = array();
+	
+	/**
+	 * @var null|array
+	 */
+	private $errors;
 	
 	/**
 	 * @return \ibidem\base\Form $this
@@ -60,7 +76,93 @@ class Form extends \app\HTMLBlockElement
 		
 		$instance->form_id = 'form_'.self::$forms_counter++;
 		
+		// register hidden field for when form is opened and method not GET
+		if ($config['method.default'] !== \ibidem\types\HTTP::GET)
+		{
+			$instance->registerd_hidden['form'] = $instance->form_id;
+		}
+		
+		// check if this form was previously submitted
+		if (isset($_POST['form']) && $_POST['form'] == $instance->form_id)
+		{
+			$instance->auto_complete = & $_POST;
+		}
+		else # not post, or not this form
+		{
+			$instance->auto_complete = null;
+		}
+		
 		return $instance;
+	}
+	
+	/**
+	 * @param array fields
+	 * @return \ibidem\base\Form $this
+	 */
+	public function auto_complte(array $fields = null)
+	{
+		if ($fields === null)
+		{
+			return $this;
+		}
+		
+		if ($this->auto_complete === null)
+		{
+			$this->auto_complete = array();
+		}
+		
+		foreach ($fields as $key => $field)
+		{
+			$this->auto_complete[$key] = $field;
+		}
+		
+		return $this;
+	}
+	
+	/**
+	 * @param string name
+	 * @return mixed|null 
+	 */
+	public function field_value($name)
+	{
+		if ($this->auto_complete !== null && isset($this->auto_complete[$name]))
+		{
+			return $this->auto_complete[$name];
+		}
+		else # no auto_complte for field
+		{
+			return null;
+		}
+	}
+	
+	/**
+	 * @return string 
+	 */
+	public function form_id()
+	{
+		return $this->form_id;
+	}
+	
+	/**
+	 * @param string key 
+	 * @return array|null errors
+	 */
+	public function errors_for($key)
+	{
+		if ($this->errors !== null)
+		{
+			if (isset($this->errors[$key]))
+			{
+				return $this->errors[$key];
+			}
+			else # not set
+			{
+				return null;
+			}
+		}
+		
+		// no errors
+		return null;
 	}
 	
 	/**
@@ -74,12 +176,28 @@ class Form extends \app\HTMLBlockElement
 	}
 	
 	/**
+	 * @param array field errors
+	 * @return \ibidem\base\Form $this
+	 */
+	public function errors(array & $errors = null)
+	{
+		$this->errors = & $errors;
+		return $this;
+	}
+	
+	/**
 	 * @param string $method
 	 * @return \ibidem\base\Form $this
 	 */
 	public function method($method)
 	{
 		$this->attribute('method', $method);
+		
+		if ($method === \ibidem\types\HTTP::GET)
+		{
+			unset($this->registerd_hidden['form']);
+		}
+		
 		return $this;
 	}
 	
@@ -135,7 +253,18 @@ class Form extends \app\HTMLBlockElement
 	 */
 	public function open()
 	{
-		return "<form{$this->render_attributes()}>";	
+		$output = "<form{$this->render_attributes()}>";	
+		if ( ! empty($this->registerd_hidden))
+		{
+			$output .= '<div class="hidden-fields">';
+			foreach ($this->registerd_hidden as $key => $value)
+			{
+				$output .= $this->hidden($key)->value($value)->render();
+			}
+			$output .= '</div>';
+		}
+		
+		return $output;
 	}
 	
 	/**
@@ -153,7 +282,7 @@ class Form extends \app\HTMLBlockElement
 	 */
 	public function text($title, $name)
 	{
-		return \app\FormField_Text::instance($title, $name, $this->form_id)
+		return \app\FormField_Text::instance($title, $name, $this)
 			->template($this->field_template);
 	}
 	
@@ -164,7 +293,7 @@ class Form extends \app\HTMLBlockElement
 	 */
 	public function password($title, $name)
 	{
-		return \app\FormField_Password::instance($title, $name, $this->form_id)
+		return \app\FormField_Password::instance($title, $name, $this)
 			->template($this->field_template);
 	}
 	
@@ -175,7 +304,7 @@ class Form extends \app\HTMLBlockElement
 	 */
 	public function telephone($title, $name)
 	{
-		return \app\FormField_Text::instance($title, $name, $this->form_id)
+		return \app\FormField_Text::instance($title, $name, $this)
 			->template($this->field_template);
 	}
 	
@@ -186,7 +315,7 @@ class Form extends \app\HTMLBlockElement
 	 */
 	public function email($title, $name)
 	{
-		return \app\FormField_Text::instance($title, $name, $this->form_id)
+		return \app\FormField_Text::instance($title, $name, $this)
 			->template($this->field_template);
 	}
 	
@@ -197,7 +326,7 @@ class Form extends \app\HTMLBlockElement
 	 */
 	public function textarea($title, $name)
 	{
-		return \app\FormField_TextArea::instance($title, $name, $this->form_id)
+		return \app\FormField_TextArea::instance($title, $name, $this)
 			->template($this->field_template);
 	}
 	
@@ -210,9 +339,9 @@ class Form extends \app\HTMLBlockElement
 	 */
 	public function radio($title, $name, array $values, $default)
 	{
-		return \app\FormField_Radio::instance($title, $name, $this->form_id)
+		return \app\FormField_Radio::instance($title, $name, $this)
 			->template($this->field_template)
-			->default_value($default)
+			->value($default)
 			->values($values);
 	}
 	
@@ -223,7 +352,7 @@ class Form extends \app\HTMLBlockElement
 	 */
 	public function checkbox($title, $name)
 	{
-		return \app\FormField_Checkbox::instance($title, $name, $this->form_id)
+		return \app\FormField_Checkbox::instance($title, $name, $this)
 			->template($this->field_template);
 	}
 	
@@ -235,7 +364,7 @@ class Form extends \app\HTMLBlockElement
 	 */
 	public function select($title, $name, array $values)
 	{
-		return \app\FormField_Select::instance($title, $name, $this->form_id)
+		return \app\FormField_Select::instance($title, $name, $this)
 			->template($this->field_template)
 			->values($values);
 	}
@@ -247,7 +376,7 @@ class Form extends \app\HTMLBlockElement
 	 */
 	public function submit($title, $name = null)
 	{
-		return \app\FormField_Submit::instance($title, $name, $this->form_id)
+		return \app\FormField_Submit::instance($title, $name, $this)
 			->template($this->field_template)
 			->value($title);
 	}
@@ -258,7 +387,7 @@ class Form extends \app\HTMLBlockElement
 	 */
 	public function hidden($name)
 	{
-		return \app\FormField_Hidden::instance($name, $this->form_id);
+		return \app\FormField_Hidden::instance($name, $this);
 	}
 	
 	/**

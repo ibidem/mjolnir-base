@@ -88,10 +88,19 @@ class HTMLElement extends \app\Instantiatable
 		}
 		else # no value; assume single tag
 		{
-			$this->attributes[$name] = $name;
+			$this->attributes[$name] = '';
 		}
 		
 		return $this;
+	}
+	
+	/**
+	 * @param string name
+	 * @return string
+	 */
+	public function get_attribute($name)
+	{
+		return isset($this->attributes[$name]) ? $this->attributes[$name] : null;
 	}
 	
 	/**

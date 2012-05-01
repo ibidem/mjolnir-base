@@ -43,7 +43,7 @@ class FormField_Select extends \app\FormField
 	 */
 	protected function render_field()
 	{
-		$field = '<'.$this->name.' id="'.$this->form.'_'.$this->tabindex.'"'.$this->render_attributes().'>';
+		$field = '<'.$this->name.' id="'.$this->form->form_id().'_'.$this->tabindex.'"'.$this->render_attributes().'>';
 		foreach ($this->values as $title => $key)
 		{
 			$field .= '<option value="'.$key.'">'.$title.'</option>';

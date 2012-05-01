@@ -28,9 +28,15 @@ class FormField_Radio extends \app\FormField
 	 * @param string default
 	 * @return \ibidem\base\FormField_Radio $this
 	 */
-	public function default_value($default_value)
+	public function value($default_value)
 	{
-		$this->default_value = $default_value;
+		echo "$default_value<br>";
+		// default value can only be set once
+		if ($this->default_value === null)
+		{
+			$this->default_value = $default_value;
+		}
+		
 		return $this;
 	}
 	
@@ -51,11 +57,11 @@ class FormField_Radio extends \app\FormField
 	{
 		$field = '';
 		
-		$field_id = $this->form.'_'.$this->tabindex;
+		$field_id = $this->form->form_id().'_'.$this->tabindex;
 		
 		foreach ($this->values as $value => $title)
 		{
-			$field .= ' <label for="'.$field_id.'_'.$value.'"><span class="label-title">'.$title.'</span> <'.$this->name.' id="'.$field_id.'_'.$value.'"'.$this->render_attributes().($this->default_value === $value ? ' checked="checked"' : '').'/></label>';
+			$field .= ' <label for="'.$field_id.'_'.$value.'"><span class="label-title">'.$title.'</span> <'.$this->name.' id="'.$field_id.'_'.$value.'"'.$this->render_attributes().($this->default_value === $value ? ' checked="checked"' : '').' value="'.$value.'"/></label>';
 		}
 		
 		return $field;
