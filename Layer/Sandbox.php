@@ -41,6 +41,7 @@ class Layer_Sandbox extends \app\Layer
 		}
 		catch (\Exception $exception)
 		{
+			$this->contents($exception->getMessage());
 			$this->exception($exception);
 		}
 	}
