@@ -10,6 +10,11 @@
 abstract class Model_Factory extends \app\Instantiatable
 {
 	/**
+	 * @var int|null 
+	 */
+	private static $last_id;
+	
+	/**
 	 * Return validator for fields. Can be used in cases where all errors need
 	 * to be reported for a form even though we already know there are some
 	 * errors that would prevent assembly.
@@ -20,18 +25,19 @@ abstract class Model_Factory extends \app\Instantiatable
 	public static function validator(array $fields)
 	{
 		throw new \app\Exception_NotApplicable
-			('The [validator] method not implmented in ['.\called_class().'].');
+			('[validator] method not implmented in ['.\called_class().'].');
 	}
 	
 	/**
 	 * Assemble fields after validation.
 	 * 
 	 * @param array fields
+	 * @return int|null id of inserted element when applicable
 	 */
 	public static function assemble(array $fields)
 	{
 		throw new \app\Exception_NotApplicable
-			('The [assemble] method not implmented in ['.\called_class().'].');
+			('[assemble] method not implmented in ['.\called_class().'].');
 	}
 	
 	/**
@@ -44,9 +50,9 @@ abstract class Model_Factory extends \app\Instantiatable
 	{
 		$validator = static::validator($fields);
 		
-		if ($validator === null || $validator->check())
+		if ($validator === null || $validator->validate() === null)
 		{
-			static::assemble($fields);
+			self::$last_id = static::assemble($fields);
 		}
 		else # did not pass validation
 		{
@@ -54,6 +60,14 @@ abstract class Model_Factory extends \app\Instantiatable
 		}
 		
 		return null;
+	}
+	
+	/**
+	 * @return type 
+	 */
+	final public static function last_inserted_id()
+	{
+		return self::$last_id;
 	}
 	
 } # class
