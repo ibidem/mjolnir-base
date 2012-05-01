@@ -104,7 +104,7 @@ class Migration_Template_MySQL extends \app\Migration
 				"SET foreign_key_checks = :check",
 				'mysql'
 			)
-			->bindInt(':check', $state)
+			->bind_int(':check', $state)
 			->execute();
 		
 		foreach ($tables as $table)
@@ -125,7 +125,7 @@ class Migration_Template_MySQL extends \app\Migration
 				"SET foreign_key_checks = :check",
 				'mysql'
 			)
-			->bindInt(':check', $state)
+			->bind_int(':check', $state)
 			->execute();
 	}
 	
