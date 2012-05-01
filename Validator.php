@@ -78,48 +78,54 @@ class Validator extends \app\Instantiatable
 	 */
 	public function validate()
 	{
-		$errors = array();
-		foreach ($this->rules as $args)
-		{
-			$field = \array_shift($args);
-			$callback = \array_shift($args);
-			\array_unshift($args, $this->fields[$field]);
-			
-			if (\strpos($callback, '::') === false)
-			{
-				// default to generic rule set
-				$callfunc = '\app\ValidatorRules::'.$callback;
-			}
-			else
-			{
-				$callfunc = $callback;
-			}
-			
+		static $errors = null;
 
-			if ( ! \call_user_func_array($callfunc, $args))
+		// calculated?
+		if ($errors === null)
+		{
+			$errors = array();
+			foreach ($this->rules as $args)
 			{
-				// gurantee error field exists as an array
-				isset($errors[$field]) or $errors[$field] = array();
-				
-				if ( ! isset($this->errors[$field]))
+				$field = \array_shift($args);
+				$callback = \array_shift($args);
+				\array_unshift($args, $this->fields[$field]);
+
+				if (\strpos($callback, '::') === false)
 				{
-					throw new \app\Exception_NotFound
-						("Missing error messages for [$field].");
+					// default to generic rule set
+					$callfunc = '\app\ValidatorRules::'.$callback;
 				}
-				
-				if ( ! isset($this->errors[$field][$callback]))
+				else
 				{
-				
-					// generic rules won't work since everything will just look
-					// wrong if we print the same message two or three times as
-					// a consequence of the user getting several things wrong 
-					// for the same field
-					throw new \app\Exception_NotFound
-						("Missing error message for when [$field] fails [$callback].");
+					$callfunc = $callback;
 				}
-				
-				// add errors based on error field
-				$errors[$field][$callback] = $this->errors[$field][$callback];
+
+
+				if ( ! \call_user_func_array($callfunc, $args))
+				{
+					// gurantee error field exists as an array
+					isset($errors[$field]) or $errors[$field] = array();
+
+					if ( ! isset($this->errors[$field]))
+					{
+						throw new \app\Exception_NotFound
+							("Missing error messages for [$field].");
+					}
+
+					if ( ! isset($this->errors[$field][$callback]))
+					{
+
+						// generic rules won't work since everything will just look
+						// wrong if we print the same message two or three times as
+						// a consequence of the user getting several things wrong 
+						// for the same field
+						throw new \app\Exception_NotFound
+							("Missing error message for when [$field] fails [$callback].");
+					}
+
+					// add errors based on error field
+					$errors[$field][$callback] = $this->errors[$field][$callback];
+				}
 			}
 		}
 		
