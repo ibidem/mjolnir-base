@@ -250,8 +250,16 @@ class Route_Pattern extends \app\Instantiatable
 			
 			if ( ! isset($params[$param]))
 			{
+				$params_err = array();
+				foreach ($params as $key => $value)
+				{
+					$params_err[] = "$key => $value";
+				}
+				
+				$uri = \htmlspecialchars($uri);
+				$params_err = \implode(', ', $params_err);
 				throw new \app\Exception_NotApplicable
-					("Required route paramter [$param] not passed.");
+					("Required route paramter [$param] not passed when trying to generate uri [$uri] with params [$params_err]");
 			}
 			else # paramter is set
 			{
