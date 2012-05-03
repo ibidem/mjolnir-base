@@ -220,7 +220,7 @@ class Pager extends \app\Instantiatable
 		\extract($this->options, EXTR_REFS);
 		
 		// is the ruler showed?
-		$has_ruler !== null or $has_ruler = (empty($currentpage) ? false : true);
+		$has_ruler !== null or $has_ruler = ! empty($currentpage);
 	
 		// calculate page count
 		$pagecount = \ceil($totalitems / $pagelimit);
