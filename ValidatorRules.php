@@ -40,5 +40,10 @@ class ValidatorRules
 	{
 		return \strlen($field) >= $minlength;
 	}
+	
+	public static function equal_to($field, $other)
+	{
+		return $field == $other;
+	}
 
 } # class

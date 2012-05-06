@@ -58,7 +58,7 @@ class FormField extends \app\HTMLElement
 		$instance->attribute('tabindex', $instance->tabindex);
 		$instance->form = $form;
 			
-		if ($instance->type !== 'hidden' && ($field_value = $form->field_value($name)) !== null)
+		if ($instance->type !== 'hidden' && $instance->type !== 'password' && ($field_value = $form->field_value($name)) !== null)
 		{
 			$instance->value($field_value);
 		}
