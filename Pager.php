@@ -205,6 +205,14 @@ class Pager extends \app\Instantiatable
 	}
 	
 	/**
+	 * @return int 
+	 */
+	public function page_count()
+	{
+		return \ceil($this->options['totalitems'] / $this->options['pagelimit']);
+	}
+	
+	/**
 	 * Setup pager 
 	 */
 	private function setup()
