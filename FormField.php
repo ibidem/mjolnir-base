@@ -154,7 +154,7 @@ class FormField extends \app\HTMLElement
 			$field .= '<ul class="errors">';
 			foreach ($errors as $error)
 			{
-				$field .= "<li>$error</li>";
+				$field .= '<li>'.\app\Lang::tr($error).'</li>';
 			}
 			$field .= '</ul>';
 		}
