@@ -279,7 +279,7 @@ class Writer_Console extends \app\Instantiatable
 		else # no highlighting
 		{
 			\fprintf($this->stdout, ' '.$title.PHP_EOL);
-			\fprintf($this->stdout, ' '.\str_repeat('-', $this->width-1).PHP_EOL.PHP_EOL);
+			\fprintf($this->stdout, ' '.\str_repeat('-', $this->width-2).PHP_EOL.PHP_EOL);
 		}
 		return $this;
 	}
@@ -294,7 +294,7 @@ class Writer_Console extends \app\Instantiatable
 		{
 			$this->highlight(' ===[ ', \ibidem\types\Enum_Color::DarkGray);
 			$this->write($title);
-			$this->highlight(' ]'.\str_repeat('=', $this->width-8-\strlen($title)), \ibidem\types\Enum_Color::DarkGray);
+			$this->highlight(' ]'.\str_repeat('=', $this->width-9-\strlen($title)), \ibidem\types\Enum_Color::DarkGray);
 			$this->eol()->eol();
 		}
 		else # no highlighting
