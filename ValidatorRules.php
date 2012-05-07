@@ -41,9 +41,24 @@ class ValidatorRules
 		return \strlen($field) >= $minlength;
 	}
 	
+	/**
+	 * @param string field
+	 * @param string other
+	 * @return boolean 
+	 */
 	public static function equal_to($field, $other)
-	{
+	{		
 		return $field == $other;
+	}
+	
+	/**
+	 * @param string field
+	 * @param array values
+	 * @return boolean 
+	 */
+	public static function only_values($field, array $values)
+	{
+		return \in_array($field, $values);
 	}
 
 } # class
