@@ -14,6 +14,7 @@ class Exception extends \ibidem\base\Exception {}
 class Flags extends \ibidem\base\Flags {}
 class Form extends \ibidem\base\Form { /** @return \ibidem\base\Form */ function instance() { return parent::instance(); } }
 class FormField_Checkbox extends \ibidem\base\FormField_Checkbox { /** @return \ibidem\base\FormField_Checkbox */ function instance() { return parent::instance(); } }
+class FormField_DateTime extends \ibidem\base\FormField_DateTime { /** @return \ibidem\base\FormField_DateTime */ function instance() { return parent::instance(); } }
 class FormField_Email extends \ibidem\base\FormField_Email { /** @return \ibidem\base\FormField_Email */ function instance() { return parent::instance(); } }
 class FormField_Hidden extends \ibidem\base\FormField_Hidden { /** @return \ibidem\base\FormField_Hidden */ function instance() { return parent::instance(); } }
 class FormField_Password extends \ibidem\base\FormField_Password { /** @return \ibidem\base\FormField_Password */ function instance() { return parent::instance(); } }

@@ -322,6 +322,17 @@ class Form extends \app\HTMLBlockElement
 	/**
 	 * @param string title
 	 * @param string name
+	 * @return \ibidem\base\FormField_DateTime
+	 */
+	public function datetime($title, $name)
+	{
+		return \app\FormField_DateTime::instance($title, $name, $this)
+			->template($this->field_template);
+	}
+	
+	/**
+	 * @param string title
+	 * @param string name
 	 * @return string 
 	 */
 	public function textarea($title, $name)
