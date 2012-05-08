@@ -21,6 +21,7 @@ class Pager extends \app\Instantiatable
 			'currentpage' => null,  # selected page
 			'has_ruler'   => null,  # show ruler on pager
 			'order'       => \ibidem\types\Pager::ascending,
+			'querie'      => '?',
 		
 			'lang' => array
 				(
@@ -181,6 +182,21 @@ class Pager extends \app\Instantiatable
 	public function url_base($url_base)
 	{
 		$this->options['url_base'] = $url_base;
+		return $this;
+	}
+	
+	public function querie(array $querie)
+	{
+		if (isset($querie['page']))
+		{
+			unset($querie['page']);
+		}
+		
+		if ( ! empty($querie))
+		{
+			$this->options['querie'] .= \http_build_query($querie, '', '&amp;').'&amp;';
+		}
+		
 		return $this;
 	}
 
