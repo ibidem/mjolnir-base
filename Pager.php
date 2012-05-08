@@ -134,7 +134,7 @@ class Pager extends \app\Instantiatable
 	 * @param string anchor
 	 * @return \ibidem\types\Pager $this
 	 */
-	function bookmark_anchor($anchor)
+	public function bookmark_anchor($anchor)
 	{
 		$this->options['bookmark']['anchor'] = $anchor;
 		return $this;
