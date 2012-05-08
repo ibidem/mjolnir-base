@@ -98,6 +98,17 @@ class SQLStatement extends \app\Instantiatable
 	}
 	
 	/**
+	 * @param string parameter
+	 * @param string constant
+	 * @return \ibidem\base\SQLStatement $this 
+	 */
+	public function set_date($parameter, $constant)
+	{
+		$this->statement->bindValue($parameter, $constant, \PDO::PARAM_STR);
+		return $this;
+	}
+	
+	/**
 	 * Stored procedure argument.
 	 * 
 	 * @param string parameter
