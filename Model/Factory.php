@@ -15,6 +15,16 @@ abstract class Model_Factory extends \app\Instantiatable
 	private static $last_id;
 	
 	/**
+	 * Reset caches.
+	 * 
+	 * @param array fields 
+	 */
+	public static function cache_reset(array $fields)
+	{
+		// no default cache resets
+	}
+	
+	/**
 	 * Return validator for fields. Can be used in cases where all errors need
 	 * to be reported for a form even though we already know there are some
 	 * errors that would prevent assembly.
@@ -39,7 +49,7 @@ abstract class Model_Factory extends \app\Instantiatable
 		throw new \app\Exception_NotApplicable
 			('[assemble] method not implmented in ['.\called_class().'].');
 	}
-	
+
 	/**
 	 * Fabricate the model.
 	 * 
@@ -53,6 +63,9 @@ abstract class Model_Factory extends \app\Instantiatable
 		if ($validator === null || $validator->validate() === null)
 		{
 			self::$last_id = static::assemble($fields);
+			
+			// invalidate caches
+			static::cache_reset($fields);
 		}
 		else # did not pass validation
 		{
