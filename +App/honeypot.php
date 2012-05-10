@@ -4,6 +4,7 @@
 
 // HowTo: minion honeypot -n "ibidem\\base"
 
+class Collection extends \ibidem\base\Collection {}
 class Controller_HTTP extends \ibidem\base\Controller_HTTP { /** @return \ibidem\base\Controller_HTTP */ function instance() { return parent::instance(); } }
 class Controller extends \ibidem\base\Controller { /** @return \ibidem\base\Controller */ function instance() { return parent::instance(); } }
 class Event extends \ibidem\base\Event { /** @return \ibidem\base\Event */ function instance() { return parent::instance(); } }
