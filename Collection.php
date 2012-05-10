@@ -20,7 +20,8 @@ class Collection
 	 * @param callback func
 	 * @return string 
 	 */
-	function implode($glue, array $list, $func) {
+	static function implode($glue, array $list, $func) 
+	{
 		$glued = '';
 		
 		$list_count = \count($list);
@@ -36,7 +37,7 @@ class Collection
 		
 		for ($i = 1; $i < $list_count; ++$i)
 		{
-			$glued .= $glue.$func($list[0]);
+			$glued .= $glue.$func($list[$i]);
 		}
 		
 		return $glued;
