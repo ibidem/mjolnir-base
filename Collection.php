@@ -22,25 +22,23 @@ class Collection
 	 */
 	static function implode($glue, array $list, $func) 
 	{
-		$glued = '';
-		
-		$list_count = \count($list);
-		
-		if ($list_count != 0)
+		\reset($list);
+		if ($value = \current($list))
 		{
-			$glued = $func($list[0]);
+			$glued = $func(\key($list), $list[\value($list)]);
+			
+			\next($list);
+			while ($value = \current($list))
+			{
+				$glued .= $glue.$func(\key($list), $value);
+			}
+
+			return $glued;
 		}
 		else # no items
 		{
-			return $glued;
+			return '';
 		}
-		
-		for ($i = 1; $i < $list_count; ++$i)
-		{
-			$glued .= $glue.$func($list[$i]);
-		}
-		
-		return $glued;
 	}
 
 } # class
