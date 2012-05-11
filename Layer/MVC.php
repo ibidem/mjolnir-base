@@ -87,8 +87,12 @@ class Layer_MVC extends \app\Layer
 	{
 		if (\is_a($exception, '\\ibidem\\types\\Exception'))
 		{
-			// note: MVC isn't necesarly HTML ;) so no html tags here
-			$this->contents(' '.$exception->title().': '.$exception->message());
+			$error = ' '.$exception->title().': '.$exception->message().'\n';
+			if (\app\Layer::find('html') !== null) {
+				$error .= '<pre>';
+			}
+			$error .= \str_replace(DOCROOT, '', $exception->getTraceAsString());
+			$this->contents($error);
 		}
 		
 		// default execution from Layer
