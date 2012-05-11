@@ -36,6 +36,11 @@ class Form extends \app\HTMLBlockElement
 	private $field_template;
 	
 	/**
+	 * @var array
+	 */
+	private $targetted_field_template;
+	
+	/**
 	 * @var string
 	 */
 	private $group_start;
@@ -69,6 +74,7 @@ class Form extends \app\HTMLBlockElement
 		$instance = parent::instance();
 		$instance->secure = $config['secure.default'];
 		$instance->field_template = $config['template.field'];
+		$instance->targetted_field_template = array();
 		$instance->attribute('method', $config['method.default']);
 		
 		list($instance->group_start, $instance->group_end) 
@@ -169,9 +175,30 @@ class Form extends \app\HTMLBlockElement
 	 * @param string template
 	 * @return \ibidem\base\Form $this
 	 */
-	public function field_template($template)
+	public function field_template($template, array $targets = null)
 	{
-		$this->field_template = $template;
+		if ($targets === null)
+		{
+			$this->field_template = $template;
+		}
+		else # targetted template
+		{
+			if ($template === null)
+			{
+				foreach ($targets as $target)
+				{
+					unset($this->targetted_field_template[$target]);
+				}
+			}
+			else # template not null
+			{	
+				foreach ($targets as $target)
+				{
+					$this->targetted_field_template[$target] = $template;
+				}
+			}
+		}
+		
 		return $this;
 	}
 	
@@ -275,6 +302,18 @@ class Form extends \app\HTMLBlockElement
 		return "</form>";
 	}
 	
+	public function get_field_template($name)
+	{
+		if (isset($this->targetted_field_template[$name]))
+		{
+			return $this->targetted_field_template[$name];
+		}
+		else # not targetted
+		{
+			return $this->field_template;
+		}
+	}
+	
 	/**
 	 * @param string title
 	 * @param string name
@@ -283,7 +322,7 @@ class Form extends \app\HTMLBlockElement
 	public function text($title, $name)
 	{
 		return \app\FormField_Text::instance($title, $name, $this)
-			->template($this->field_template);
+			->template($this->get_field_template('text'));
 	}
 	
 	/**
@@ -294,7 +333,7 @@ class Form extends \app\HTMLBlockElement
 	public function password($title, $name)
 	{
 		return \app\FormField_Password::instance($title, $name, $this)
-			->template($this->field_template);
+			->template($this->get_field_template('password'));
 	}
 	
 	/**
@@ -305,7 +344,7 @@ class Form extends \app\HTMLBlockElement
 	public function telephone($title, $name)
 	{
 		return \app\FormField_Text::instance($title, $name, $this)
-			->template($this->field_template);
+			->template($this->get_field_template('telephone'));
 	}
 	
 	/**
@@ -316,7 +355,7 @@ class Form extends \app\HTMLBlockElement
 	public function email($title, $name)
 	{
 		return \app\FormField_Text::instance($title, $name, $this)
-			->template($this->field_template);
+			->template($this->get_field_template('email'));
 	}
 	
 	/**
@@ -327,7 +366,7 @@ class Form extends \app\HTMLBlockElement
 	public function datetime($title, $name)
 	{
 		return \app\FormField_DateTime::instance($title, $name, $this)
-			->template($this->field_template);
+			->template($this->get_field_template('datetime'));
 	}
 	
 	/**
@@ -338,7 +377,7 @@ class Form extends \app\HTMLBlockElement
 	public function textarea($title, $name)
 	{
 		return \app\FormField_TextArea::instance($title, $name, $this)
-			->template($this->field_template);
+			->template($this->get_field_template('textarea'));
 	}
 	
 	/**
@@ -351,7 +390,7 @@ class Form extends \app\HTMLBlockElement
 	public function radio($title, $name, array $values, $default)
 	{
 		return \app\FormField_Radio::instance($title, $name, $this)
-			->template($this->field_template)
+			->template($this->get_field_template('radio'))
 			->value($default)
 			->values($values);
 	}
@@ -364,7 +403,7 @@ class Form extends \app\HTMLBlockElement
 	public function checkbox($title, $name)
 	{
 		return \app\FormField_Checkbox::instance($title, $name, $this)
-			->template($this->field_template);
+			->template($this->get_field_template('checkbox'));
 	}
 	
 	/**
@@ -376,7 +415,7 @@ class Form extends \app\HTMLBlockElement
 	public function select($title, $name, array $values)
 	{
 		return \app\FormField_Select::instance($title, $name, $this)
-			->template($this->field_template)
+			->template($this->get_field_template('select'))
 			->values($values);
 	}
 	
@@ -388,7 +427,7 @@ class Form extends \app\HTMLBlockElement
 	public function submit($title, $name = null)
 	{
 		return \app\FormField_Submit::instance($title, $name, $this)
-			->template($this->field_template)
+			->template($this->get_field_template('submit'))
 			->value($title);
 	}
 	
