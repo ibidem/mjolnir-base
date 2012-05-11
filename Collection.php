@@ -25,7 +25,7 @@ class Collection
 		\reset($list);
 		if ($value = \current($list))
 		{
-			$glued = $func(\key($list), $list[\value($list)]);
+			$glued = $func(\key($list), $value);
 			
 			\next($list);
 			while ($value = \current($list))
