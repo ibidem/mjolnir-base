@@ -148,10 +148,18 @@ class Layer_HTTP extends \app\Layer
 	 * @param string relay
 	 * @param array params 
 	 */
-	public static function redirect($relay, array $params = null)
+	public static function redirect($relay, array $params = null, array $query = null)
 	{
 		$access_config = \app\CFS::config('ibidem/relays');
-		\header('Location: '.$access_config[$relay]['route']->url($params));
+		if ($query == null)
+		{
+			\header('Location: '.$access_config[$relay]['route']->url($params));
+		}
+		else # non-null query
+		{
+			$query = \http_build_query($query);
+			\header('Location: '.$access_config[$relay]['route']->url($params).'?'.$query);
+		}
 		die;
 	}
 	
