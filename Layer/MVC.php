@@ -87,7 +87,7 @@ class Layer_MVC extends \app\Layer
 	{
 		if (\is_a($exception, '\\ibidem\\types\\Exception'))
 		{
-			$error = ' '.$exception->title().': '.$exception->message().'\n';
+			$error = ' '.$exception->title().': '.$exception->message()."\n";
 			if (\app\Layer::find('html') !== null) {
 				$error .= '<pre>';
 			}
