@@ -31,6 +31,7 @@ class Collection
 			while ($value = \current($list))
 			{
 				$glued .= $glue.$func(\key($list), $value);
+				\next($list);
 			}
 
 			return $glued;
