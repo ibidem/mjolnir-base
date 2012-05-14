@@ -65,7 +65,7 @@ class Relay
 	
 	/**
 	 * @param string route key or alias
-	 * @return mixed
+	 * @return \ibidem\types\URLCompatible
 	 */
 	public static function route($key)
 	{
