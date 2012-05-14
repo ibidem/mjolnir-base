@@ -68,7 +68,7 @@ class Form extends \app\HTMLBlockElement
 	/**
 	 * @return \ibidem\base\Form $this
 	 */
-	public static function instance()
+	public static function instance($id = null)
 	{
 		$config = \app\CFS::config('ibidem/form');
 		$instance = parent::instance();
@@ -80,7 +80,14 @@ class Form extends \app\HTMLBlockElement
 		list($instance->group_start, $instance->group_end) 
 			= \explode(':fields', $config['template.group']);
 		
-		$instance->form_id = 'form_'.self::$forms_counter++;
+		if ($id !== null)
+		{
+			$instance->form_id = $id;
+		}
+		else # null id, annonymous form
+		{
+			$instance->form_id = 'form_'.self::$forms_counter++;
+		}
 		
 		// register hidden field for when form is opened and method not GET
 		if ($config['method.default'] !== \ibidem\types\HTTP::GET)

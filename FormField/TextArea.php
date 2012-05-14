@@ -28,7 +28,7 @@ class FormField_TextArea extends \app\FormField
 	 * @param string title
 	 * @param string name
 	 * @param \ibidem\types\Form form
-	 * @return \ibidem\base\FormField_TextArea
+	 * @return \ibidem\base\FormField_TextArea instance
 	 */
 	public static function instance($title = null, $name = null, \ibidem\types\Form $form = null)
 	{
@@ -38,6 +38,11 @@ class FormField_TextArea extends \app\FormField
 		$instance->attribute('cols', $form_config['textarea.cols.default']);
 		
 		return $instance;
+	}
+	
+	public function value($body = '')
+	{
+		return $this->body($body);
 	}
 	
 	/**

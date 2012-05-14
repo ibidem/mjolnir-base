@@ -23,6 +23,11 @@ class FormField_Select extends \app\FormField
 	 * @var array 
 	 */
 	protected $values = array();
+	
+	/**
+	 * @var string 
+	 */
+	protected $active;
 
 	/**
 	 * @param array values 
@@ -39,6 +44,16 @@ class FormField_Select extends \app\FormField
 	}
 	
 	/**
+	 * @param string id
+	 * @return \ibidem\base\FormField_Select $this
+	 */
+	public function value($id)
+	{
+		$this->active = $id;
+		return $this;
+	}
+	
+	/**
 	 * @return string 
 	 */
 	protected function render_field()
@@ -46,7 +61,14 @@ class FormField_Select extends \app\FormField
 		$field = '<'.$this->name.' id="'.$this->form->form_id().'_'.$this->tabindex.'"'.$this->render_attributes().'>';
 		foreach ($this->values as $title => $key)
 		{
-			$field .= '<option value="'.$key.'">'.$title.'</option>';
+			if ($key == $this->active)
+			{
+				$field .= '<option value="'.$key.'" selected="selected">'.$title.'</option>';
+			}
+			else
+			{
+				$field .= '<option value="'.$key.'">'.$title.'</option>';
+			}
 		}
 		$field .= '</'.$this->name.'>';
 		return $field;
