@@ -259,7 +259,7 @@ class Route_Pattern extends \app\Instantiatable
 				$uri = \htmlspecialchars($uri);
 				$params_err = \implode(', ', $params_err);
 				throw new \app\Exception_NotApplicable
-					("Required route paramter [$param] not passed when trying to generate uri [$uri] with params [$params_err]");
+					("Required route parameter [$param] not passed when trying to generate uri [$uri] with params [$params_err]");
 			}
 			else # paramter is set
 			{
