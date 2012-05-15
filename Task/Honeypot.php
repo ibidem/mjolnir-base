@@ -34,9 +34,42 @@ class Task_Honeypot extends \app\Task
 				}
 				else if ( ! \preg_match('#^Enum_#', $file)) # not a internal enum
 				{
-					if (\method_exists('\\'.$ns.'\\'.$file,'instance'))
+					if (\method_exists('\\'.$ns.'\\'.$file, 'instance'))
 					{
-						$output .= 'class '.$file.' extends \\'.$ns.'\\'.$file.' { /** @return \\'.$ns.'\\'.$file.' */ static function instance() { return parent::instance(); } }'.PHP_EOL;
+						// get method parameters
+						$reflection = new \ReflectionMethod('\\'.$ns.'\\'.$file, 'instance');
+						$params = \app\Collection::implode(', ', $reflection->getParameters(), function ($key, $param) {
+							$param_str = '';
+							if ($param->isArray())
+							{
+								$param_str .= 'array ';
+							}
+							if ($param->isPassedByReference())
+							{
+								$param_str .= ' & ';
+							}
+							$param_str .= '$'.$param->getName();
+							if ($param->isDefaultValueAvailable())
+							{
+								$default = $param->getDefaultValue();
+								if (\is_null($default))
+								{
+									$param_str .= ' = null';
+								}
+								else # not null
+								{
+									$param_str .= ' = '.\var_export($default, true);
+								}
+							}
+							
+							return $param_str;
+						});
+						
+						$naked_params = \app\Collection::implode(', ', $reflection->getParameters(), function ($key, $param) {
+							return '$'.$param->getName();
+						});
+
+						$output .= 'class '.$file.' extends \\'.$ns.'\\'.$file.' { /** @return \\'.$ns.'\\'.$file.' */ static function instance('.$params.') { return parent::instance('.$naked_params.'); } }'.PHP_EOL;
 					}
 					else # class is not instantitable
 					{
