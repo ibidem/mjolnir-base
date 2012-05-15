@@ -30,7 +30,7 @@ class FormField extends \app\HTMLElement
 	protected $tabindex;
 	
 	/**
-	 * @var string
+	 * @var \app\Form
 	 */
 	protected $form;	
 	
