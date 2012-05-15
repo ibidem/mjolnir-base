@@ -12,7 +12,7 @@ abstract class Model_Factory extends \app\Instantiatable
 	/**
 	 * @var int|null 
 	 */
-	private static $last_id;
+	protected static $last_inserted_id;
 	
 	/**
 	 * Reset caches.
@@ -80,7 +80,7 @@ abstract class Model_Factory extends \app\Instantiatable
 	 */
 	final public static function last_inserted_id()
 	{
-		return self::$last_id;
+		return self::$last_inserted_id;
 	}
 	
 } # class

@@ -326,8 +326,12 @@ class Route_Pattern extends \app\Instantiatable
 	 * @param string protocol
 	 * @return string
 	 */
-	public function url(array $params = array(), $protocol = null)
+	public function url(array $params = null, $protocol = null)
 	{
+		if ($params == null)
+		{
+			$params = array();
+		}
 		if ($this->standard_pattern)
 		{
 			// relative protocol?
