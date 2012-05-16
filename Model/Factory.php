@@ -62,7 +62,7 @@ abstract class Model_Factory extends \app\Instantiatable
 		
 		if ($validator === null || $validator->validate() === null)
 		{
-			self::$last_id = static::assemble($fields);
+			static::assemble($fields);
 			
 			// invalidate caches
 			static::cache_reset($fields);
