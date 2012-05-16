@@ -62,7 +62,7 @@ class Layer_HTML extends \app\Layer
 			'<link rel="dns-prefetch" href="'.$prefetch_domain.'">';
 		}
 		// mobile viewport optimized: h5bp.com/viewport
-		$html_before .= '<meta name="viewport" content="width=device-width">';
+		$html_before .= '<meta name="viewport" content="'.$this->meta['viewport'].'">';
 		// helps a little with compatibility; unnecesary \w .htaccess
 		$html_before .= '<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">';
 		// standard favicon path
