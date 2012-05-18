@@ -419,7 +419,7 @@ class Form extends \app\HTMLBlockElement
 	 * @param array values
 	 * @return string
 	 */
-	public function select($title, $name, array $values)
+	public function select($title, $name, array $values = null)
 	{
 		return \app\FormField_Select::instance($title, $name, $this)
 			->template($this->get_field_template('select'))

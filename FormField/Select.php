@@ -33,11 +33,26 @@ class FormField_Select extends \app\FormField
 	 * @param array values 
 	 * @return \ibidem\base\FormField_Select $this
 	 */
-	public function values(array $values)
+	public function values(array $values = null, $key = null, $valueKey = null)
 	{
-		foreach ($values as $key => $value)
+		if ($values === null) {
+			$this->values = array();
+			return $this;
+		}
+		
+		if ($key === null)
 		{
-			$this->values[$key] = $value;
+			foreach ($values as $key => $value)
+			{
+				$this->values[$key] = $value;
+			}
+		}
+		else # not null
+		{
+			foreach ($values as $entry)
+			{
+				$this->values[$entry[$valueKey]] = $entry[$key];
+			}
 		}
 		
 		return $this;
