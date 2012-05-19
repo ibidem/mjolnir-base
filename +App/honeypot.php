@@ -42,6 +42,7 @@ class Make extends \ibidem\base\Make { /** @return \ibidem\base\Make */ static f
 class Migration_Template_MySQL extends \ibidem\base\Migration_Template_MySQL { /** @return \ibidem\base\Migration_Template_MySQL */ static function instance() { return parent::instance(); } }
 class Migration extends \ibidem\base\Migration { /** @return \ibidem\base\Migration */ static function instance() { return parent::instance(); } }
 class Model_Factory extends \ibidem\base\Model_Factory { /** @return \ibidem\base\Model_Factory */ static function instance() { return parent::instance(); } }
+class Model_Instantiatable extends \ibidem\base\Model_Instantiatable { /** @return \ibidem\base\Model_Instantiatable */ static function instance() { return parent::instance(); } }
 class Model_SQL_Factory extends \ibidem\base\Model_SQL_Factory { /** @return \ibidem\base\Model_SQL_Factory */ static function instance() { return parent::instance(); } }
 class Pager extends \ibidem\base\Pager { /** @return \ibidem\base\Pager */ static function instance($totalitems = 0, $url_base = '', $pagediff = 4, $pagelimit = 20) { return parent::instance($totalitems, $url_base, $pagediff, $pagelimit); } }
 class Params extends \ibidem\base\Params { /** @return \ibidem\base\Params */ static function instance() { return parent::instance(); } }

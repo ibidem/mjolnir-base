@@ -122,12 +122,30 @@ class SQLDatabase extends \app\Instantiatable
 			|| $statement === null;
 	}
 	
+	protected static function normalize_key($key)
+	{
+		// convert :: to :
+		// convert \ to /
+		// remove trailing /
+		return \trim
+			(
+				\str_replace
+					(
+						'::', 
+						':', 
+						\str_replace('\\', '/', Testing::test())
+					), 
+				'/'
+			);
+	}
+	
 	/**
 	 * @param string key
 	 * @return \ibidem\types\SQLStatement
 	 */
 	protected function run_stored_statement($key)
 	{
+		$key = static::normalize_key($key);
 		$splitter = \strpos($key, \ibidem\types\SQLDatabase::KEYSPLIT);
 		$file = \substr($key, 0, $splitter);
 		$key = \substr($key, $splitter+1);

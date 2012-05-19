@@ -32,7 +32,7 @@ class FormField extends \app\HTMLElement
 	/**
 	 * @var \app\Form
 	 */
-	protected $form;	
+	protected $form;
 	
 	/**
 	 * @var string

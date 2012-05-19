@@ -147,11 +147,11 @@ class SQLStatement extends \app\Instantiatable
 	 * @param array values
 	 * @return \ibidem\types\SQLStatement $this 
 	 */
-	public function mass_int(array $keys, array $values)
+	public function mass_int(array $keys, array $values, $default = null)
 	{
 		foreach ($keys as $key)
 		{
-			$this->set_int(':'.$key, isset($values[$key]) ? $values[$key] : null);
+			$this->set_int(':'.$key, isset($values[$key]) ? $values[$key] : $default);
 		}
 		
 		return $this;
@@ -180,7 +180,7 @@ class SQLStatement extends \app\Instantiatable
 		
 		foreach ($keys as $key)
 		{
-			$this->set_bool(':'.$key, isset($values[$key]) ? $map[$values[$key]] : null);
+			$this->set_bool(':'.$key, isset($values[$key]) ? $map[$values[$key]] : false);
 		}
 		
 		return $this;
