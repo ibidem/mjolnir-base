@@ -172,6 +172,11 @@ class SQLDatabase extends \app\Instantiatable
 	 */
 	public function prepare($key, $statement = null, $lang = null)
 	{
+		if ($statement !== null)
+		{
+			$statement = \preg_replace('#[\t]{6,}#uD', "\t\t\t\t\t", $statement);
+		}
+		
 		if ($this->requires_translation($statement, $lang))
 		{
 			return $this->run_stored_statement($key);
