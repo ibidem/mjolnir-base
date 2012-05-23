@@ -17,23 +17,27 @@ class Relay
 	public static function process($key, $callback, $matcher = null)
 	{
 		$relays = \app\CFS::config('ibidem/relays');
-		if (isset($relays[$key]) && $relays[$key]['enabled'])
+		if (isset($relays[$key]))
 		{
-			if (isset($relays[$key]['route']))
+			// if enabled is not provided we assume true
+			if ( ! isset($relays[$key]['enabled']) || $relays[$key]['enabled'])
 			{
-				$matcher = $relays[$key]['route'];
-			}
-			else if ($matcher === null)
-			{
-				// no matcher provided; fail relay
-				return;
-			}
-			
-			$matcher->relay_config($relays[$key]);
-			if ($matcher->check())
-			{
-				$callback($relays[$key], $key);
-				exit;
+				if (isset($relays[$key]['route']))
+				{
+					$matcher = $relays[$key]['route'];
+				}
+				else if ($matcher === null)
+				{
+					// no matcher provided; fail relay
+					return;
+				}
+
+				$matcher->relay_config($relays[$key]);
+				if ($matcher->check())
+				{
+					$callback($relays[$key], $key);
+					exit;
+				}
 			}
 		}
 	}

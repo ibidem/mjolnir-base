@@ -57,15 +57,42 @@ class Layer_MVC extends \app\Layer
 			}
 			else # action not predefined
 			{
-				$this->meta('action', 'action_'.$params->get('action'));
+				if (isset($relay['prefix']))
+				{
+					$action = $params->get('action', null);
+					if ($action !== null)
+					{
+						$action = \str_replace('-', '_', $action);
+						$this->meta('action', $relay['prefix'].$action);
+					}
+					else # $action === null
+					{
+						throw new \app\Exception_NotApplicable
+							('Undefined default action for matched route.');
+					}
+				}
+				else # prefix not set
+				{
+					$action = $params->get('action', null);
+					if ($action !== null)
+					{
+						$action = \str_replace('-', '_', $action);
+						$this->meta('action', 'action_'.$action);
+					}
+					else # $action === null
+					{
+						throw new \app\Exception_NotApplicable
+							('Undefined default action for matched route.');
+					}
+				}
 			}
 			
 			// execute controller
 			$controller->params($params);
 			$controller->layer($this);
-			$controller->before_action();
+			$controller->before();
 			\call_user_func(array($controller, $this->meta['action']));
-			$controller->after_action();
+			$controller->after();
 
 			$this->contents($controller->get_body());
 		}

@@ -32,7 +32,7 @@ class Controller extends \app\Instantiatable
 	/**
 	 * @return \ibidem\base\Controller $this
 	 */
-	public function before_action()
+	public function before()
 	{
 		return $this;
 	}
@@ -40,7 +40,7 @@ class Controller extends \app\Instantiatable
 	/**
 	 * @return \ibidem\base\Controller $this
 	 */
-	public function after_action()
+	public function after()
 	{
 		return $this;
 	}
