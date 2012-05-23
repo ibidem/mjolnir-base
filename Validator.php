@@ -87,6 +87,13 @@ class Validator extends \app\Instantiatable
 			foreach ($this->rules as $args)
 			{
 				$field = \array_shift($args);
+				
+				if ( ! isset($this->fields[$field]))
+				{
+					throw new \app\Exception_NotAllowed
+						('Inconsistent fields passed to validation. Missing field: '.$field);
+				}
+				
 				$callback = \array_shift($args);
 				\array_unshift($args, $this->fields[$field]);
 
