@@ -65,9 +65,10 @@
 								'short' => 'g',
 								'default' => false,
 							),
-						'no-tests' => array
+						'with-tests' => array
 							(
-								'description' => 'Do not create tests?'
+								'description' => 'Create tests.',
+								'short' => 't',
 							),
 						'library' => array
 							(

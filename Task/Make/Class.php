@@ -97,6 +97,7 @@ class Task_Make_Class extends \app\Task
 			$file .= ' * @license    '.$config['license'].PHP_EOL;
 		}
 		
+		$file .= " * @see \\{$namespace}\\{$class_name}".PHP_EOL;
 		$file .= ' */'.PHP_EOL;
 		
 		$file .= 
@@ -118,7 +119,7 @@ class Task_Make_Class extends \app\Task
 	{
 		$class = $this->config['class'];
 		$category = $this->config['category'] ? $this->config['category'] : null;
-		$no_tests = $this->config['no-tests'];
+		$with_tests = $this->config['with-tests'];
 		$library = $this->config['library'];
 		$forced = $this->config['forced'];
 		
@@ -261,7 +262,7 @@ class Task_Make_Class extends \app\Task
 		$this->writer->status('Info', 'Class created.')->eol();
 		
 		// create tests?
-		if ( ! $no_tests)
+		if ($with_tests)
 		{
 			// create test
 			$test_path = $module_path.DIRECTORY_SEPARATOR
