@@ -9,6 +9,15 @@
  */
 class CollectionTest extends \PHPUnit_Framework_TestCase
 {
-	// @todo write tests for \ibidem\base\Collection
+	/**
+	 * @test
+	 */
+	function implode()
+	{
+		$result = \app\Collection::implode(', ', array( 1 => 'a', 2 => 'b', 3 => 'c'), function ($key, $value) {
+			return '['.$value.$key.']';
+		});
+		$this->assertEquals('[a1], [b2], [c3]', $result);
+	}
 
 } # class
