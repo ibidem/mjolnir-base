@@ -210,7 +210,7 @@ class SQLDatabase extends \app\Instantiatable
 		}
 		else # we are in a transaction
 		{
-			$this->statement('transaction:begin', 'SAVEPOINT save'.$this->savepoint, 'mysql');
+			$this->prepare(__METHOD__, 'SAVEPOINT save'.$this->savepoint, 'mysql');
 		}
 		++$this->savepoint;
 		
@@ -231,7 +231,7 @@ class SQLDatabase extends \app\Instantiatable
 		}
 		else # we are still in another transaction
 		{
-			$this->statement('transaction:commit', 'RELEASE SAVEPOINT save'.$this->savepoint, 'mysql');
+			$this->prepare(__METHOD__, 'RELEASE SAVEPOINT save'.$this->savepoint, 'mysql');
 		}
 		
 		return $this;
@@ -251,7 +251,7 @@ class SQLDatabase extends \app\Instantiatable
 		}
 		else # we are still in another transaction
 		{
-			$this->statement('transaction:rollback', 'ROLLBACK TO SAVEPOINT save'.$this->savepoint);
+			$this->prepare(__METHOD__, 'ROLLBACK TO SAVEPOINT save'.$this->savepoint, 'mysql');
 		}
 		
 		return $this;
