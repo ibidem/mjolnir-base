@@ -180,7 +180,6 @@ class Validator extends \app\Instantiatable
 
 			if ( ! isset($this->errors[$field][$callback]))
 			{
-
 				// generic rules won't work since everything will just look
 				// wrong if we print the same message two or three times as
 				// a consequence of the user getting several things wrong 
