@@ -379,7 +379,7 @@ class Form extends \app\HTMLBlockElement
 	/**
 	 * @param string title
 	 * @param string name
-	 * @return string 
+	 * @return \app\FormField_TextArea 
 	 */
 	public function textarea($title, $name)
 	{
@@ -392,7 +392,7 @@ class Form extends \app\HTMLBlockElement
 	 * @param string name
 	 * @param array values
 	 * @param string default
-	 * @return string
+	 * @return \app\FormField_Radio
 	 */
 	public function radio($title, $name, array $values, $default)
 	{
@@ -405,7 +405,7 @@ class Form extends \app\HTMLBlockElement
 	/**
 	 * @param string title
 	 * @param string name
-	 * @return string
+	 * @return \ibidem\base\FormField_Checkbox
 	 */
 	public function checkbox($title, $name)
 	{
@@ -417,7 +417,7 @@ class Form extends \app\HTMLBlockElement
 	 * @param string title
 	 * @param string name
 	 * @param array values
-	 * @return string
+	 * @return \ibidem\base\FormField_Select
 	 */
 	public function select($title, $name, array $values = null)
 	{
