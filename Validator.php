@@ -140,6 +140,8 @@ class Validator extends \app\Instantiatable
 	}
 	
 	/**
+	 * This method is designed for unit testing.
+	 * 
 	 * @return array 
 	 */
 	public function all_errors()
@@ -190,7 +192,19 @@ class Validator extends \app\Instantiatable
 
 			// add errors based on error field
 			$errors[$field][$callback] = $this->errors[$field][$callback];
-
+			
+			// check if rule is callable
+			$class_method = \explode('::', $callback);
+			if (\count($class_method) == 1) 
+			{
+				\array_unshift($class_method, '\app\ValidatorRules');
+			}
+			
+			if ( ! \method_exists($class_method[0], $class_method[1]))
+			{
+				throw new \app\Exception_NotApplicable
+					('The method ['.$callback.'] is not defined.');
+			}
 		}
 		
 		return $errors;
