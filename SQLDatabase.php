@@ -75,6 +75,7 @@ class SQLDatabase extends \app\Instantiatable
 				$base_config = \app\CFS::config('ibidem/base');
 				// set charset
 				static::$instances[$database]->dbh->exec("SET CHARACTER SET '{$base_config['charset']}'");
+				static::$instances[$database]->dbh->exec("SET NAMES '{$base_config['charset']}'");
 				// set timezone
 				$now = new \DateTime();  
 				$mins = $now->getOffset() / 60;  
