@@ -13,7 +13,7 @@ class Lang
 	/**
 	 * @var string
 	 */
-	protected static $lang = 'en-us';
+	private static $current_lang = 'en-us';
 	
 	/**
 	 * Translate a given term. The translation may not necesarily be from one
@@ -33,24 +33,29 @@ class Lang
 	 * @param string source language
 	 * @return string
 	 */
-	public static function tr($term, array $addins = null, $lang = 'en-us')
+	public static function tr($term, array $addins = null, $from_lang = 'en-us')
 	{
-		$config = \app\CFS::config('lang/'.$lang.'/'.static::$lang);
-		if ( ! isset($config['terms'][$term]))
+		// lang/en-us/messages => translate to en-us using messages
+		// lang/en-us/ro-ro => translate to en-us from ro-ro
+		// lang/ro-ro/messages
+		// lang/ro-ro/en-us
+		
+		$config = \app\CFS::config('lang/'.self::$current_lang.'/'.$from_lang);
+		if ( ! isset($config[$term]))
 		{
-			$target_lang = static::$lang;
+			$target_lang = self::$current_lang;
 			if ($addins)
 			{
 				\app\Log::message
 					(
 						'ERROR', 
-						"The term [$term] is missing a translation ($lang => {$target_lang}).", 
-						'lang/'.$lang.'/'.static::$lang
+						"The term [$term] is missing a translation ($from_lang => {$target_lang}).", 
+						'lang/'.self::$current_lang.'/'.$from_lang
 					);
 				
 				return \strtr($term, $addins);
 			}
-			else if ($lang === static::$lang)
+			else if ($from_lang === self::$current_lang)
 			{
 				return $term;
 			}
@@ -59,8 +64,8 @@ class Lang
 				\app\Log::message
 					(
 						'ERROR', 
-						"The term [$term] is missing a translation ($lang => {$target_lang}).", 
-						'lang/'.$lang.'/'.static::$lang
+						"The term [$term] is missing a translation ($from_lang => {$target_lang}).", 
+						'lang/'.self::$current_lang.'/'.$from_lang
 					);
 				
 				return $term;
@@ -69,12 +74,12 @@ class Lang
 		else if ($addins !== null)
 		{
 			// if we have addins, the term matches to a lambda
-			return $config['terms'][$term]($addins);
+			return $config[$term]($addins);
 		}
 		else # no addins
 		{
 			// if there are no addins, the key maps to a string
-			return $config['terms'][$term];
+			return $config[$term];
 		}
 	}
 	
@@ -89,18 +94,24 @@ class Lang
 	 * @param string source language
 	 * @return string
 	 */
-	public static function msg($key, array $addins = null, $lang = 'en-us')
+	public static function msg($key, array $addins = null)
 	{
-		$config = \app\CFS::config('lang/'.$lang.'/'.static::$lang);
+		$config = \app\CFS::config('lang/'.self::$current_lang.'/messages');
+		
+		if ( ! isset($config[$key]))
+		{
+			throw new \app\Exception_NotFound('Missing message ['.$key.'] for language ['.self::$current_lang.'].');
+		}
+		
 		if ($addins !== null)
 		{
 			// if we have addins, the term matches to a lambda
-			return $config['messages'][$key]($addins);
+			return $config[$key]($addins);
 		}
 		else # no addins
 		{
 			// if there are no addins, the key maps to a string
-			return $config['messages'][$key];
+			return $config[$key];
 		}
 	}
 			
@@ -109,7 +120,7 @@ class Lang
 	 */
 	public static function lang($lang)
 	{
-		static::$lang = $lang;
+		self::$current_lang = $lang;
 	}
 	
 	/**
@@ -117,7 +128,7 @@ class Lang
 	 */
 	public static function get_lang()
 	{
-		return static::$lang;
+		return self::$current_lang;
 	}
 	
 } # class
