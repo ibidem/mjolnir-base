@@ -1,4 +1,4 @@
 <?php return array
 	(
-		'view.default' => 'ibidem/pager',
+		'view.default' => 'views/ibidem/pager',
 	);
