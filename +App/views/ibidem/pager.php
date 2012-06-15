@@ -19,7 +19,7 @@
 	<div class="pager-pagenav">
 	
 		<? if ($currentpage != 1): ?>
-			<div class="previous-page">
+			<div class="previous-page enabled">
 				<a href="<?= $url_base.$querie ?>page=<?= $currentpage - 1 ?>" rel="prev"><span><?= $buttons['prev'] ?></span></a>
 			</div>
 		<? else: # current page is 1 ?>
@@ -136,7 +136,7 @@
 <? # ---- /Pager ---------------------------------------------------------- # ?>		
 	
 		<? if ($currentpage != $pagecount): ?>
-			<div class="next-page">
+			<div class="next-page enabled">
 				<a href="<?= $url_base.$querie ?>page=<?= $currentpage + 1 ?>" rel="next"><span><?= $buttons['next'] ?></span></a>
 			</div>	
 		<? else: # last page ?>

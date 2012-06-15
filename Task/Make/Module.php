@@ -88,8 +88,6 @@ class Task_Make_Module extends \app\Task
 		\file_exists($app_dir) or \mkdir($app_dir, 0777, true); # App dir
 		$config_dir = $app_dir.$ds.\ibidem\cfs\CFSCompatible::CNFDIR;
 		\file_exists($config_dir) or \mkdir($config_dir, 0777, true); # App/config
-		$sql_dir = $config_dir.$ds.'sql';
-		\file_exists($sql_dir) or \mkdir($sql_dir, 0777, true); # App/config/sql
 		$lang_dir = $config_dir.$ds.'lang';
 		\file_exists($lang_dir) or \mkdir($lang_dir, 0777, true); # App/config/lang
 		$test_dir = $app_dir.$ds.'tests';
@@ -107,6 +105,7 @@ class Task_Make_Module extends \app\Task
 				$lang_dir.$ds.'README.md', 
 				static::lang_readme_file()
 			);
+		
 		// create honeypot
 		\file_put_contents
 			(
