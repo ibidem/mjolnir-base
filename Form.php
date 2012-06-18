@@ -64,7 +64,7 @@ class Form extends \app\HTMLBlockElement
 	 * @var null|array
 	 */
 	private $errors;
-	
+
 	/**
 	 * @return \ibidem\base\Form $this
 	 */
@@ -176,6 +176,16 @@ class Form extends \app\HTMLBlockElement
 		
 		// no errors
 		return null;
+	}
+	
+	/**
+	 * @param string id
+	 * @return string unique id namespaced to form
+	 */
+	public function for_label($id)
+	{
+		// add form namespace
+		return $this->form_id.'-'.$id;
 	}
 	
 	/**
