@@ -94,7 +94,8 @@ class View extends \app\Instantiatable
 		\app\Layer::get_top()->exception
 			(
 				new \app\Exception_NotApplicable
-					('Casting to string not allowed for Views.')
+					('Casting to string not allowed for Views.'),
+				true # no throw
 			);
 	}
 	

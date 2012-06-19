@@ -321,8 +321,9 @@ class Pager extends \app\Instantiatable
 		// ie. whenever it decides to convert to a string. It's not worth it.
 		\app\Layer::get_top()->exception
 			(
-				\app\Exception_NotApplicable::instance
-					('Casting to string not allowed for Pagers.')
+				new \app\Exception_NotApplicable
+					('Casting to string not allowed for Pagers.'),
+				true # no throw
 			);
 	}
 	

@@ -118,7 +118,16 @@ class FormField extends \app\HTMLElement
 	public function unnamed()
 	{
 		$this->remove_attribute('name');
-		
+		return $this;
+	}
+	
+	/**
+	 * @param bool switch
+	 * @return \ibidem\base\FormField $this
+	 */
+	public function autocomplete($switch = true)
+	{
+		$this->attribute('autocomplete', $switch ? 'on' : 'off');
 		return $this;
 	}
 	

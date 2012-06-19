@@ -248,14 +248,14 @@ class Layer_TaskRunner extends \app\Layer
 	 * @param \Exception
 	 * @param boolean layer is origin of exception?
 	 */
-	public function exception(\Exception $exception, $origin = false)
+	public function exception(\Exception $exception, $no_throw = false, $origin = false)
 	{
 		if (\is_a($exception, '\ibidem\types\Exception'))
 		{
 			$this->writer->error($exception->message())->eol();
 		}
 		
-		parent::exception($exception, $origin);
+		parent::exception($exception, $no_throw, $origin);
 	}
 	
 	/**

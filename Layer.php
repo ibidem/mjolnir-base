@@ -179,7 +179,7 @@ abstract class Layer extends \app\Instantiatable
 	 * @param \Exception
 	 * @param boolean layer is origin of exception?
 	 */
-	public function exception(\Exception $exception, $origin = false)
+	public function exception(\Exception $exception, $no_throw = false, $origin = false)
 	{
 		// propagate contents; contents should not be set unless they were set
 		// by an overwrite on this method... because setting the contents should
@@ -197,8 +197,22 @@ abstract class Layer extends \app\Instantiatable
 		}
 		else # no parent
 		{
-			// we can't do anything about it anymore
-			throw $exception;
+			if ( ! $no_throw)
+			{
+				// we can't do anything about it anymore
+				throw $exception;
+			}
+			else # no throw
+			{
+				if (\app\Layer::find('http'))
+				{
+					echo "<pre>\n";
+				}
+				
+				echo $exception->getMessage()."\n"
+					. \str_replace(DOCROOT, '', $exception->getTraceAsString());
+				exit(1);
+			}
 		}
 	}
 	

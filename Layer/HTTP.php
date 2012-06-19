@@ -277,7 +277,7 @@ class Layer_HTTP extends \app\Layer
 	 * @param \Exception
 	 * @param boolean layer is origin of exception?
 	 */
-	function exception(\Exception $exception, $origin = false)
+	function exception(\Exception $exception, $no_throw = false, $origin = false)
 	{
 		if (self::is_notfound_exception($exception))
 		{
@@ -289,7 +289,7 @@ class Layer_HTTP extends \app\Layer
 		}
 		
 		// default execution from Layer
-		parent::exception($exception);
+		parent::exception($exception, $no_throw);
 	}	
 	
 	/**
