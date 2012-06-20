@@ -89,6 +89,8 @@ class Form extends \app\HTMLBlockElement
 			$instance->form_id = 'form_'.self::$forms_counter++;
 		}
 		
+		$instance->attribute('id', $instance->form_id);
+		
 		// register hidden field for when form is opened and method not GET
 		if ($config['method.default'] !== \ibidem\types\HTTP::GET)
 		{
