@@ -57,6 +57,11 @@ class Make extends \app\Instantiatable
 		return static::instance('name');
 	}
 	
+	public static function img($width, $height)
+	{
+		return 'http://placehold.it/'.$width.'x'.$height;
+	}
+	
 	/**
 	 * @return \ibidem\base\Make
 	 */
