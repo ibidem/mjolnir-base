@@ -82,7 +82,7 @@ class Layer_HTML extends \app\Layer
 			$html_before .= '<link rel="stylesheet" type="'.$style['type'].'" href="'.$style['href'].'">';
 		}
 		// kill IE6's pop-up-on-mouseover toolbar for images
-		$html_before .= '<meta http-equiv="imagetoolbar" content="false">';
+		$html_before .= '<meta http-equiv="imagetoolbar" content="no">';
 		
 		# --- Relevant to search engine results ------------------------------ #
 		
