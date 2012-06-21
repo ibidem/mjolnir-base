@@ -7,7 +7,7 @@
  * @copyright  (c) 2012, Ibidem Team
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
-class Model_SQL_Factory extends \app\Model_Factory
+abstract class Model_SQL_Factory extends \app\Model_Factory
 {
 	/**
 	 * @var string
@@ -15,9 +15,7 @@ class Model_SQL_Factory extends \app\Model_Factory
 	protected static $table;
 	
 	/**
-	 * Table for model.
-	 * 
-	 * @return string 
+	 * @return string table for the model
 	 */
 	public static function table()
 	{
