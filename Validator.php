@@ -25,6 +25,11 @@ class Validator extends \app\Instantiatable
 	private $rules;
 	
 	/**
+	 * @var array 
+	 */
+	private $errors_cache = null;
+	
+	/**
 	 * @param string config with errors (should contain "errors" on route)
 	 * @param array fields
 	 * @return \ibidem\base\Validator 
@@ -33,8 +38,24 @@ class Validator extends \app\Instantiatable
 	{
 		$instance = parent::instance();
 		$instance->rules = array();
-		$errors and $instance->errors($errors);
-		$fields and $instance->fields($fields);
+		
+		if ($errors === null)
+		{
+			$instance->errors(array());
+		}
+		else # errors not null
+		{
+			$instance->errors($errors);
+		}
+		
+		if ($errors === null)
+		{
+			$instance->fields(array());
+		}
+		else # errors not null
+		{
+			$instance->fields($fields);
+		}
 		
 		return $instance;
 	}
@@ -78,12 +99,10 @@ class Validator extends \app\Instantiatable
 	 */
 	public function validate()
 	{
-		static $errors = null;
-
 		// calculated?
-		if ($errors === null)
+		if ($this->errors_cache === null)
 		{
-			$errors = array();
+			$this->errors_cache = array();
 			foreach ($this->rules as $args)
 			{
 				$field = \array_shift($args);
@@ -110,33 +129,41 @@ class Validator extends \app\Instantiatable
 				if ( ! \call_user_func_array($callfunc, $args))
 				{
 					// gurantee error field exists as an array
-					isset($errors[$field]) or $errors[$field] = array();
-
-					if ( ! isset($this->errors[$field]))
-					{
-						throw new \app\Exception_NotFound
-							("Missing error messages for [$field].");
-					}
-
+					isset($this->errors_cache[$field]) or $this->errors_cache[$field] = array();
+					
 					if ( ! isset($this->errors[$field][$callback]))
 					{
-
-						// generic rules won't work since everything will just look
-						// wrong if we print the same message two or three times as
-						// a consequence of the user getting several things wrong 
-						// for the same field
-						throw new \app\Exception_NotFound
-							("Missing error message for when [$field] fails [$callback].");
+						// try to use general ruleset
+						$general_errors = \app\CFS::config('ibidem/general-errors');
+						if (isset($general_errors[$callback]))
+						{
+							// get the general message
+							$this->errors_cache[$field][$callback] = $general_errors[$callback];
+						}
+						else # not a general rule
+						{
+							// generic rules won't work since everything will just look
+							// wrong if we print the same message two or three times as
+							// a consequence of the user getting several things wrong 
+							// for the same field
+							throw new \app\Exception_NotFound
+								("Missing error message for when [$field] fails [$callback].");
+						}
+					}
+					else # errors are set
+					{
+						$this->errors_cache[$field][$callback] = $this->errors[$field][$callback];
 					}
 
+					
 					// add errors based on error field
-					$errors[$field][$callback] = $this->errors[$field][$callback];
+					//$this->errors_cache[$field][$callback] = $errors[$field][$callback];
 				}
 			}
 		}
 		
 		// return null if no errors or array with error messages
-		return empty($errors) ? null : $errors;
+		return empty($this->errors_cache) ? null : $this->errors_cache;
 	}
 	
 	/**
@@ -174,25 +201,33 @@ class Validator extends \app\Instantiatable
 			// gurantee error field exists as an array
 			isset($errors[$field]) or $errors[$field] = array();
 
-			if ( ! isset($this->errors[$field]))
-			{
-				throw new \app\Exception_NotFound
-					("Missing error messages for [$field].");
-			}
+			isset($this->errors[$field]) or $this->errors[$field] = array();
 
 			if ( ! isset($this->errors[$field][$callback]))
 			{
-				// generic rules won't work since everything will just look
-				// wrong if we print the same message two or three times as
-				// a consequence of the user getting several things wrong 
-				// for the same field
-				throw new \app\Exception_NotFound
-					("Missing error message for when [$field] fails [$callback].");
+				// try to use general ruleset
+				$general_errors = \app\CFS::config('ibidem/general-errors');
+				if (isset($general_errors[$callback]))
+				{
+					// get the general message
+					$errors[$field][$callback] = $general_errors[$callback];
+				}
+				else # not a general rule
+				{
+					// generic rules won't work since everything will just look
+					// wrong if we print the same message two or three times as
+					// a consequence of the user getting several things wrong 
+					// for the same field
+					throw new \app\Exception_NotFound
+						("Missing error message for when [$field] fails [$callback].");
+				}
+			}
+			else # callback is defined
+			{
+				// add errors based on error field
+				$errors[$field][$callback] = $this->errors[$field][$callback];
 			}
 
-			// add errors based on error field
-			$errors[$field][$callback] = $this->errors[$field][$callback];
-			
 			// check if rule is callable
 			$class_method = \explode('::', $callback);
 			if (\count($class_method) == 1) 

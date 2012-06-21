@@ -47,7 +47,7 @@ class ValidatorRules
 	 * @return bool
 	 */
 	public static function equal_to($field, $other)
-	{		
+	{
 		return $field == $other;
 	}
 	
