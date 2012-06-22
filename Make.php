@@ -57,9 +57,35 @@ class Make extends \app\Instantiatable
 		return static::instance('name');
 	}
 	
+	/**
+	 * @param type $width
+	 * @param type $height
+	 * @return type
+	 */
 	public static function img($width, $height)
 	{
 		return 'http://placehold.it/'.$width.'x'.$height;
+	}
+	
+	/**
+	 * Similar to Make::img, only produces real life images.
+	 * 
+	 * Categories: abstract, animals, city, food, nightlife, fashion, people, 
+	 * nature, sports, technics, transport
+	 * 
+	 * @param type $width
+	 * @param type $height
+	 * @param type $category
+	 * @param type $grayscale
+	 */
+	public static function lorempixel($width, $height, $category = 'technics', $grayscale = true)
+	{
+		return static::instance('lorempixel', [
+			'width' => $width,
+			'height' => $height,
+			'category' => $category,
+			'grayscale' => $grayscale,
+		]);
 	}
 	
 	/**
@@ -213,6 +239,28 @@ class Make extends \app\Instantiatable
 		$mockup = \app\CFS::config('ibidem\mockup');
 		switch ($this->type)
 		{
+			case 'lorempixel':
+				$width = $this->args['width'];
+				$height = $this->args['height'];
+				$category = $this->args['category'];
+				$grayscale = $this->args['grayscale'];
+				
+				$url = 'http://lorempixel.com/';
+		
+				if ($grayscale)
+				{
+					$url .= 'g/';
+				}
+
+				$url .= $width.'/'.$height.'/';
+
+				if ($category != null)
+				{
+					$url .= $category.'/';
+				}
+
+				return $url.'?cache_bust='.\uniqid();
+				
 			case 'given_name':
 				return self::random($mockup['given_names']);
 				
