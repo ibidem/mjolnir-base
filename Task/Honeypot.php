@@ -21,9 +21,10 @@ class Task_Honeypot extends \app\Task
 			$path = $modules[$ns];
 			$files = static::files($path);
 			$output = '<?php namespace app;';
-			$output .= PHP_EOL.PHP_EOL.'// This is a IDE honeypot. :)';
-			$output .= PHP_EOL.PHP_EOL.'// HowTo: minion honeypot -n "'.
-					\str_replace('\\', '\\\\', $this->config['namespace']).'"'.
+			$output .= PHP_EOL.PHP_EOL.'// This is an IDE honeypot. It tells IDEs the class hirarchy, but otherwise has'
+					. PHP_EOL.'// no effect on your application. :)';
+			$output .= PHP_EOL.PHP_EOL.'// HowTo: minion honeypot -n \''.
+					$this->config['namespace'].'\''.
 					PHP_EOL.PHP_EOL;
 			
 			foreach ($files as $file)
