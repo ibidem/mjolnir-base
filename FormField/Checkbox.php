@@ -13,5 +13,23 @@ class FormField_Checkbox extends \app\FormField
 	 * @var string 
 	 */
 	protected $type = 'checkbox';
+	
+	/**
+	 * @param bool checked
+	 * @return \ibidem\base\FormField_Checkbox $this
+	 */
+	function checked($checked = true)
+	{
+		if ($checked)
+		{
+			$this->attribute('checked', 'checked');
+		}
+		else # not checked
+		{
+			$this->remove_attribute('checked');
+		}
+		
+		return $this;
+	}
 
 } # class
