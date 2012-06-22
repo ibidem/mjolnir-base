@@ -1,6 +1,7 @@
 <?php namespace app;
 
-// This is a IDE honeypot. :)
+// This is a IDE honeypot. It tells IDEs the class hirarchy, but otherwise has
+// no effect on your application. :)
 
 // HowTo: minion honeypot -n "ibidem\\base"
 
