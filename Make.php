@@ -270,10 +270,10 @@ class Make extends \app\Instantiatable
 
 				if ($category != 'random')
 				{
-					$url .= $category.'/';
+					$url .= $category.'/'.\rand(1, 10).'/';
 				}
 
-				return $url.'?cache_bust='.\uniqid();
+				return $url;
 				
 			case 'given_name':
 				return self::random($mockup['given_names']);
