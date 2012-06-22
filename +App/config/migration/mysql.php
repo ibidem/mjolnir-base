@@ -13,6 +13,8 @@
 		':boolean' => 'boolean',
 	
 	// uncommon
+		# systems usually handle paths of 32,000, but 260 is the recomended safe limit for cross-platform compatibility
+		':path' => 'varchar(260)', 
 		# RFC 5321; we subtract 2 characters for angle brackets -- yes it''s not (64 + 1 + 255 =) 320
 		':email' => 'varchar(254) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL',
 		# close to the shorhand version of the longest name on record
