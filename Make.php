@@ -73,13 +73,27 @@ class Make extends \app\Instantiatable
 	 * Categories: abstract, animals, city, food, nightlife, fashion, people, 
 	 * nature, sports, technics, transport
 	 * 
+	 * Set category to random to get random categories.
+	 * 
 	 * @param type $width
 	 * @param type $height
 	 * @param type $category
 	 * @param type $grayscale
 	 */
-	public static function lorempixel($width, $height, $category = 'technics', $grayscale = true)
+	public static function lorempixel($width, $height, $category = null, $grayscale = null)
 	{
+		if ($category == null)
+		{
+			$config = \app\CFS::config('ibidem/mockup');
+			$category = $config['lorempixel:defaults']['category'];
+		}
+		
+		if ($grayscale == null)
+		{
+			$config = \app\CFS::config('ibidem/mockup');
+			$grayscale = $config['lorempixel:defaults']['grayscale'];
+		}
+		
 		return static::instance('lorempixel', [
 			'width' => $width,
 			'height' => $height,
@@ -254,7 +268,7 @@ class Make extends \app\Instantiatable
 
 				$url .= $width.'/'.$height.'/';
 
-				if ($category != null)
+				if ($category != 'random')
 				{
 					$url .= $category.'/';
 				}

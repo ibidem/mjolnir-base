@@ -1,5 +1,10 @@
 <?php return array
 	(
+		'lorempixel:defaults' => array
+			(
+				'category' => 'technics',
+				'grayscale' => true,
+			),
 		'given_names' => array
 			(
 				//// male
