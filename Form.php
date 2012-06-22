@@ -111,6 +111,17 @@ class Form extends \app\HTMLBlockElement
 	}
 	
 	/**
+	 * Optimizes form for file upload.
+	 * 
+	 * @return \ibidem\base\Form $this
+	 */
+	public function file_uploader()
+	{
+		$this->attribute('enctype', 'multipart/form-data');
+		return $this;
+	}
+	
+	/**
 	 * @param array fields
 	 * @return \ibidem\base\Form $this
 	 */
@@ -375,6 +386,17 @@ class Form extends \app\HTMLBlockElement
 	{
 		return \app\FormField_Text::instance($title, $name, $this)
 			->template($this->get_field_template('email'));
+	}
+	
+	/**
+	 * @param string title
+	 * @param string name
+	 * @return \ibidem\base\FormField_Text
+	 */
+	public function file($title, $name)
+	{
+		return \app\FormField_File::instance($title, $name, $this)
+			->template($this->get_field_template('file'));
 	}
 	
 	/**

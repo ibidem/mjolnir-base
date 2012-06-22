@@ -1,9 +1,9 @@
 <?php namespace app;
 
-// This is a IDE honeypot. It tells IDEs the class hirarchy, but otherwise has
+// This is an IDE honeypot. It tells IDEs the class hirarchy, but otherwise has
 // no effect on your application. :)
 
-// HowTo: minion honeypot -n "ibidem\\base"
+// HowTo: minion honeypot -n 'ibidem\base'
 
 class Collection extends \ibidem\base\Collection {}
 class Controller_HTTP extends \ibidem\base\Controller_HTTP { /** @return \ibidem\base\Controller_HTTP */ static function instance() { return parent::instance(); } }
@@ -19,6 +19,7 @@ class Form extends \ibidem\base\Form { /** @return \ibidem\base\Form */ static f
 class FormField_Checkbox extends \ibidem\base\FormField_Checkbox { /** @return \ibidem\base\FormField_Checkbox */ static function instance($title = null, $name = null, $form = null) { return parent::instance($title, $name, $form); } }
 class FormField_DateTime extends \ibidem\base\FormField_DateTime { /** @return \ibidem\base\FormField_DateTime */ static function instance($title = null, $name = null, $form = null) { return parent::instance($title, $name, $form); } }
 class FormField_Email extends \ibidem\base\FormField_Email { /** @return \ibidem\base\FormField_Email */ static function instance($title = null, $name = null, $form = null) { return parent::instance($title, $name, $form); } }
+class FormField_File extends \ibidem\base\FormField_File { /** @return \ibidem\base\FormField_File */ static function instance() { return parent::instance(); } }
 class FormField_Hidden extends \ibidem\base\FormField_Hidden { /** @return \ibidem\base\FormField_Hidden */ static function instance($name = null, $form = null) { return parent::instance($name, $form); } }
 class FormField_Password extends \ibidem\base\FormField_Password { /** @return \ibidem\base\FormField_Password */ static function instance($title = null, $name = null, $form = null) { return parent::instance($title, $name, $form); } }
 class FormField_Radio extends \ibidem\base\FormField_Radio { /** @return \ibidem\base\FormField_Radio */ static function instance($title = null, $name = null, $form = null) { return parent::instance($title, $name, $form); } }
