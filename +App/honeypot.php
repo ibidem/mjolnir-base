@@ -19,7 +19,7 @@ class Form extends \ibidem\base\Form { /** @return \ibidem\base\Form */ static f
 class FormField_Checkbox extends \ibidem\base\FormField_Checkbox { /** @return \ibidem\base\FormField_Checkbox */ static function instance($title = null, $name = null, $form = null) { return parent::instance($title, $name, $form); } }
 class FormField_DateTime extends \ibidem\base\FormField_DateTime { /** @return \ibidem\base\FormField_DateTime */ static function instance($title = null, $name = null, $form = null) { return parent::instance($title, $name, $form); } }
 class FormField_Email extends \ibidem\base\FormField_Email { /** @return \ibidem\base\FormField_Email */ static function instance($title = null, $name = null, $form = null) { return parent::instance($title, $name, $form); } }
-class FormField_File extends \ibidem\base\FormField_File { /** @return \ibidem\base\FormField_File */ static function instance() { return parent::instance(); } }
+class FormField_File extends \ibidem\base\FormField_File { /** @return \ibidem\base\FormField_File */ static function instance($title = null, $name = null, $form = null) { return parent::instance($title, $name, $form); } }
 class FormField_Hidden extends \ibidem\base\FormField_Hidden { /** @return \ibidem\base\FormField_Hidden */ static function instance($name = null, $form = null) { return parent::instance($name, $form); } }
 class FormField_Password extends \ibidem\base\FormField_Password { /** @return \ibidem\base\FormField_Password */ static function instance($title = null, $name = null, $form = null) { return parent::instance($title, $name, $form); } }
 class FormField_Radio extends \ibidem\base\FormField_Radio { /** @return \ibidem\base\FormField_Radio */ static function instance($title = null, $name = null, $form = null) { return parent::instance($title, $name, $form); } }
@@ -47,6 +47,7 @@ class Migration extends \ibidem\base\Migration { /** @return \ibidem\base\Migrat
 class Model_Factory extends \ibidem\base\Model_Factory {}
 class Model_Instantiatable extends \ibidem\base\Model_Instantiatable { /** @return \ibidem\base\Model_Instantiatable */ static function instance($id = null) { return parent::instance($id); } }
 class Model_SQL_Factory extends \ibidem\base\Model_SQL_Factory {}
+class Module extends \ibidem\base\Module { /** @return \ibidem\base\Module */ static function instance() { return parent::instance(); } }
 class Pager extends \ibidem\base\Pager { /** @return \ibidem\base\Pager */ static function instance($totalitems = 0, $url_base = '', $pagediff = 4, $pagelimit = 20) { return parent::instance($totalitems, $url_base, $pagediff, $pagelimit); } }
 class Params extends \ibidem\base\Params { /** @return \ibidem\base\Params */ static function instance() { return parent::instance(); } }
 class Relay extends \ibidem\base\Relay {}
@@ -56,6 +57,7 @@ class Route_Regex extends \ibidem\base\Route_Regex { /** @return \ibidem\base\Ro
 class SQL extends \ibidem\base\SQL {}
 class SQLDatabase extends \ibidem\base\SQLDatabase { /** @return \ibidem\base\SQLDatabase */ static function instance($database = 'default') { return parent::instance($database); } }
 class SQLStatement extends \ibidem\base\SQLStatement { /** @return \ibidem\base\SQLStatement */ static function instance($statement = null) { return parent::instance($statement); } }
+class Sandbox extends \ibidem\base\Sandbox { /** @return \ibidem\base\Sandbox */ static function instance() { return parent::instance(); } }
 class Session_Native extends \ibidem\base\Session_Native { /** @return \ibidem\base\Session_Native */ static function instance() { return parent::instance(); } }
 class Session extends \ibidem\base\Session {}
 class Task_Check_Modules extends \ibidem\base\Task_Check_Modules { /** @return \ibidem\base\Task_Check_Modules */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
@@ -69,6 +71,8 @@ class Task_Migrate extends \ibidem\base\Task_Migrate { /** @return \ibidem\base\
 class Task_Relays extends \ibidem\base\Task_Relays { /** @return \ibidem\base\Task_Relays */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
 class Task_Versions extends \ibidem\base\Task_Versions { /** @return \ibidem\base\Task_Versions */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
 class Task extends \ibidem\base\Task { /** @return \ibidem\base\Task */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
+trait Trait_Document { use \ibidem\base\Trait_Document; }
+trait Trait_Params { use \ibidem\base\Trait_Params; }
 class Validator extends \ibidem\base\Validator { /** @return \ibidem\base\Validator */ static function instance(array $errors = null, array $fields = null) { return parent::instance($errors, $fields); } }
 class ValidatorRules extends \ibidem\base\ValidatorRules {}
 class View extends \ibidem\base\View { /** @return \ibidem\base\View */ static function instance($file = null) { return parent::instance($file); } }
