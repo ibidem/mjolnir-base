@@ -8,7 +8,7 @@ return array
 			(
 				 'PHP 5.3 or higher' => function ()
 					{
-						if (PHP_VERSION_ID >= 50300)
+						if (PHP_VERSION_ID >= 50400)
 						{
 							return Requirement::available;
 						}
