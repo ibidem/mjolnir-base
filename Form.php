@@ -313,12 +313,10 @@ class Form extends \app\HTMLBlockElement
 		$output = "<form{$this->render_attributes()}>";	
 		if ( ! empty($this->registerd_hidden))
 		{
-			$output .= '<div class="hidden-fields">';
 			foreach ($this->registerd_hidden as $key => $value)
 			{
 				$output .= $this->hidden($key)->value($value)->render();
 			}
-			$output .= '</div>';
 		}
 		
 		return $output;
