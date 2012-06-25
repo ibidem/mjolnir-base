@@ -9,7 +9,12 @@
  */
 class Layer_PlainText extends \app\Layer 
 	implements \ibidem\types\Document
-{	
+{
+	use \app\Trait_Document
+		{
+			\app\Trait_Document::body as document_body;
+		}
+	
 	/**
 	 * @var string
 	 */
@@ -51,30 +56,14 @@ class Layer_PlainText extends \app\Layer
 	}
 	
 # Document trait
-	
-	/**
-	 * @var string 
-	 */
-	protected $body = '';
-		
+
 	/**
 	 * Set the document's body.
 	 * 
 	 * @param string document body
 	 * @return \ibidem\base\Layer_PlainText $this
 	 */
-	public function body($body)
-	{
-		$this->body = $body;
-		return $this;
-	}
-	
-	/**
-	 * Retrieve the body.
-	 * 
-	 * @return string body of document 
-	 */
-	public function get_body()
+	public function body($body)	
 	{
 		if ($this->layer !== null)
 		{
@@ -86,9 +75,11 @@ class Layer_PlainText extends \app\Layer
 			throw $exception->type(\ibidem\types\Exception::NotApplicable);
 		}
 		
-		return $this->body;
+		$this->document_body($body);
+		
+		return $this;
 	}
-	
+
 # /Document trait
 
 } # class

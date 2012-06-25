@@ -8,8 +8,12 @@
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 class Layer_HTTP extends \app\Layer 
-	implements \ibidem\types\Meta, \ibidem\types\HTTP
-{	
+	implements 
+		\ibidem\types\Params, 
+		\ibidem\types\HTTP
+{
+	use \app\Trait_Params;
+	
 	/**
 	 * @var string
 	 */
@@ -27,7 +31,7 @@ class Layer_HTTP extends \app\Layer
 	{
 		$instance = parent::instance();
 		$http = \app\CFS::config('ibidem/http');
-		$instance->meta = $http['meta'];
+		$instance->params = $http['meta'];
 		$instance->status = $http['status'];
 		return $instance;
 	}	
@@ -204,7 +208,7 @@ class Layer_HTTP extends \app\Layer
 	{
 		\header($this->status);
 		// process meta
-		foreach ($this->meta as $key => $value)
+		foreach ($this->params as $key => $value)
 		{
 			\header("$key: $value");
 		}
@@ -223,9 +227,9 @@ class Layer_HTTP extends \app\Layer
 			
 			case \ibidem\types\Event::expires:
 				$expiration = $event->get_contents() - \time();
-				$this->meta('Pragma', 'public');
-				$this->meta('Cache-Control', 'maxage='.$expiration);
-				$this->meta
+				$this->set('Pragma', 'public');
+				$this->set('Cache-Control', 'maxage='.$expiration);
+				$this->set
 					(
 						'Expires', 
 						\gmdate('D, d M Y H:i:s', \time() + $expiration).' GMT'
@@ -311,7 +315,7 @@ class Layer_HTTP extends \app\Layer
 	 */
 	public function content_type($content_type)
 	{
-		$this->meta['content-type'] = $content_type;
+		$this->params['content-type'] = $content_type;
 		return $this;
 	}
 	
@@ -320,40 +324,7 @@ class Layer_HTTP extends \app\Layer
 	 */
 	public function get_content_type()
 	{
-		return $this->meta['content-type'];
+		return $this->params['content-type'];
 	}
-	
-# Meta trait
-	
-	/**
-	 * @var array 
-	 */
-	protected $meta;
-	
-	/**
-	 * Set metainformation for the document.
-	 * 
-	 * @param string key
-	 * @param mixed value
-	 * @return \ibidem\base\Layer_HTTP $this
-	 */
-	public function meta($key, $value)
-	{
-		$this->meta[$key] = $value;
-		
-		return $this;
-	}
-	
-	/**
-	 * @param string key
-	 * @param mixed default
-	 * @return mixed meta value for key, or default
-	 */
-	public function get_meta($key, $default = null)
-	{
-		return isset($this->meta[$key]) ? $this->meta[$key] : $default;
-	}
-	
-# /Meta trait
 	
 } # class

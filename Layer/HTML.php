@@ -9,10 +9,16 @@
  */
 class Layer_HTML extends \app\Layer 
 	implements 
-		\ibidem\types\Meta,
+		\ibidem\types\Params,
 		\ibidem\types\Document,
 		\ibidem\types\HTML
-{	
+{
+	use \app\Trait_Params;
+	use \app\Trait_Document
+		{
+			\app\Trait_Document::body as document_body;
+		}
+
 	/**
 	 * @var string
 	 */
@@ -24,7 +30,7 @@ class Layer_HTML extends \app\Layer
 	public static function instance()
 	{
 		$instance = parent::instance();
-		$instance->meta = \app\CFS::config('ibidem/html');
+		$instance->params = \app\CFS::config('ibidem/html');
 		return $instance;
 	}
 
@@ -33,11 +39,11 @@ class Layer_HTML extends \app\Layer
 	 */
 	protected function html_before()
 	{
-		$html_before = $this->meta['doctype']."\n";
+		$html_before = $this->params['doctype']."\n";
 		// appcache manifest
-		if ($this->meta['appcache'] !== null)
+		if ($this->params['appcache'] !== null)
 		{
-			$html_before .= '<html manifest="'.$this->meta['appcache'].'">';
+			$html_before .= '<html manifest="'.$this->params['appcache'].'">';
 		}
 		else # no appcache
 		{
@@ -57,27 +63,27 @@ class Layer_HTML extends \app\Layer
 		// Make a DNS handshake with a foreign domain, so the connection goes 
 		// faster when the user eventually needs to access it.
 		// eg. //ajax.googleapis.com 
-		foreach ($this->meta['prefetch_domains'] as $prefetch_domain)
+		foreach ($this->params['prefetch_domains'] as $prefetch_domain)
 		{
 			'<link rel="dns-prefetch" href="'.$prefetch_domain.'">';
 		}
 		// mobile viewport optimized: h5bp.com/viewport
-		$html_before .= '<meta name="viewport" content="'.$this->meta['viewport'].'">';
+		$html_before .= '<meta name="viewport" content="'.$this->params['viewport'].'">';
 		// helps a little with compatibility; unnecesary \w .htaccess
 		$html_before .= '<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">';
 		// standard favicon path
-		if ($this->meta['favicon'] === null)
+		if ($this->params['favicon'] === null)
 		{
 			$html_before .= '<link rel="shortcut icon" href="//'.$ibidem_base['domain'].$ibidem_base['path'].'favicon.ico" type="image/x-icon">';
 		}
 		else # predefined path
 		{
-			$html_before .= '<link rel="shortcut icon" href="'.$this->meta['favicon'].'" type="image/x-icon">';
+			$html_before .= '<link rel="shortcut icon" href="'.$this->params['favicon'].'" type="image/x-icon">';
 		}
 		// title
-		$html_before .= '<title>'.$this->meta['title'].'</title>';
+		$html_before .= '<title>'.$this->params['title'].'</title>';
 		// stylesheets
-		foreach ($this->meta['stylesheets'] as $style)
+		foreach ($this->params['stylesheets'] as $style)
 		{
 			$html_before .= '<link rel="stylesheet" type="'.$style['type'].'" href="'.$style['href'].'">';
 		}
@@ -86,31 +92,31 @@ class Layer_HTML extends \app\Layer
 		
 		# --- Relevant to search engine results ------------------------------ #
 		
-		if ($this->meta['description'] !== null)
+		if ($this->params['description'] !== null)
 		{
 			// note: it is not guranteed search engines will use it; and they
 			// won't if the content of the page is nonexistent, or this 
 			// description is not unique enough over multiple pages.
-			$html_before .= '<meta name="description" content="'.$this->meta['description'].'">';
+			$html_before .= '<meta name="description" content="'.$this->params['description'].'">';
 		}
 		
 		// extra garbage: keywords, generator, author
-		if ( ! empty($this->meta['keywords']))
+		if ( ! empty($this->params['keywords']))
 		{
 			$keywords = '';
-			foreach ($this->meta['keywords'] as $keyword)
+			foreach ($this->params['keywords'] as $keyword)
 			{
 				$keywords .= ' '.$keyword;
 			}
 			$html_before .= '<meta name="keywords" content="'.$keywords.'">';
 		}
-		if ($this->meta['generator'] !== null)
+		if ($this->params['generator'] !== null)
 		{
-			$html_before .= '<meta name="generator" content="'.$this->meta['generator'].'">';
+			$html_before .= '<meta name="generator" content="'.$this->params['generator'].'">';
 		}
-		if ($this->meta['author'] !== null)
+		if ($this->params['author'] !== null)
 		{
-			$html_before .= '<meta name="author" content="'.$this->meta['author'].'">';
+			$html_before .= '<meta name="author" content="'.$this->params['author'].'">';
 		}
 		
 		# --- Relevant to crawlers ------------------------------------------- #
@@ -118,20 +124,20 @@ class Layer_HTML extends \app\Layer
 		// A canonical route is the route by which search engines should  
 		// identify the current page; ragerdless of what the current url might 
 		// look like.
-		if ($this->meta['canonical'] !== null)
+		if ($this->params['canonical'] !== null)
 		{
-			$html_before .= '<link rel="canonical" href="'.$this->meta['canonical'].'">';
+			$html_before .= '<link rel="canonical" href="'.$this->params['canonical'].'">';
 		}
 		
 		// sitemap, for search engines. 
 		// see: http://www.sitemaps.org/protocol.html 
-		if ($this->meta['sitemap'] !== null)
+		if ($this->params['sitemap'] !== null)
 		{
-			$html_before .= '<link rel="sitemap" type="application/xml" title="Sitemap" href="'.$this->meta['sitemap'].'">';
+			$html_before .= '<link rel="sitemap" type="application/xml" title="Sitemap" href="'.$this->params['sitemap'].'">';
 		}
 		
 		// block search engines from viewing the page
-		if ($this->meta['crawlers'])
+		if ($this->params['crawlers'])
 		{
 			$html_before .= '<meta name="robots" content="index, follow" />';
 		}
@@ -143,27 +149,27 @@ class Layer_HTML extends \app\Layer
 		# --- Feed and callbacks --------------------------------------------- #
 
 		// http://www.rssboard.org/rss-specification
-		if ($this->meta['rssfeed'] !== null)
+		if ($this->params['rssfeed'] !== null)
 		{
-			$html_before .= '<link rel="alternate" type="application/rss+xml" title="RSS" href="'.$this->meta['rssfeed'].'">';
+			$html_before .= '<link rel="alternate" type="application/rss+xml" title="RSS" href="'.$this->params['rssfeed'].'">';
 		}
 		
 		// http://www.atomenabled.org/developers/syndication/
-		if ($this->meta['atomfeed'] !== null)
+		if ($this->params['atomfeed'] !== null)
 		{
-			$html_before .= '<link rel="alternate" type="application/atom+xml" title="Atom" href="'.$this->meta['atomfeed'].'">';
+			$html_before .= '<link rel="alternate" type="application/atom+xml" title="Atom" href="'.$this->params['atomfeed'].'">';
 		}
 		
 		// http://codex.wordpress.org/Introduction_to_Blogging#Pingbacks
-		if ($this->meta['pingback'] !== null)
+		if ($this->params['pingback'] !== null)
 		{
-			$html_before .= '<link rel="pingback" href="'.$this->meta['pingback'].'">';
+			$html_before .= '<link rel="pingback" href="'.$this->params['pingback'].'">';
 		}
 		
 		# --- Extras --------------------------------------------------------- #
 
 		// see: http://humanstxt.org/
-		if ($this->meta['humanstxt'])
+		if ($this->params['humanstxt'])
 		{
 			$html_before .= '<link type="text/plain" rel="author" href="'.$ibidem_base['base_url'].'humans.txt">';
 		}
@@ -171,24 +177,24 @@ class Layer_HTML extends \app\Layer
 		# Pin status (IE9 etc)
 		
 		// name to use when pinned
-		if ($this->meta['application_name'] !== null)
+		if ($this->params['application_name'] !== null)
 		{		
-			$html_before .= '<meta name="application-name" content="'.$this->meta['application_name'].'">';
+			$html_before .= '<meta name="application-name" content="'.$this->params['application_name'].'">';
 		}
 		
 		// tooltip to use when pinned
-		if ($this->meta['application_tooltip'] !== null)
+		if ($this->params['application_tooltip'] !== null)
 		{
-			$html_before .= '<meta name="msapplication-tooltip" content="'.$this->meta['application_tooltip'].'">';
+			$html_before .= '<meta name="msapplication-tooltip" content="'.$this->params['application_tooltip'].'">';
 		}
 		
 		// page to go to when pinned
-		if ($this->meta['application_starturl'] !== null)
+		if ($this->params['application_starturl'] !== null)
 		{
-			$html_before .= '<meta name="msapplication-starturl" content="'.$this->meta['application_starturl'].'">';
+			$html_before .= '<meta name="msapplication-starturl" content="'.$this->params['application_starturl'].'">';
 		}
 		
-		if ( ! empty($this->meta['scripts']))
+		if ( ! empty($this->params['scripts']))
 		{
 			// javascript loader
 			$html_before .= '<script type="text/javascript" src="//'.$ibidem_base['domain'].$ibidem_base['path'].'media/static/yepnope.latest-min.js"></script>';
@@ -197,7 +203,7 @@ class Layer_HTML extends \app\Layer
 		// close head section
 		$html_before .= '</head><body>';
 		// css switch for more streamline style transitions
-		if ($this->meta['javascript_switch'])
+		if ($this->params['javascript_switch'])
 		{
 			$html_before .= '<script type="text/javascript">document.body.id = "javascript-enabled";</script>';
 		}
@@ -214,10 +220,10 @@ class Layer_HTML extends \app\Layer
 	protected function html_after()
 	{
 		$body = "\n\n";
-		if ( ! empty($this->meta['scripts']))
+		if ( ! empty($this->params['scripts']))
 		{
 			$body .= '<script type="text/javascript">yepnope({ load: [';
-			$scripts = $this->meta['scripts'];
+			$scripts = $this->params['scripts'];
 			$body .= '\''.\addslashes(\array_shift($scripts)).'\'';
 			foreach ($scripts as $script)
 			{
@@ -290,7 +296,7 @@ class Layer_HTML extends \app\Layer
 	 */
 	public function exception(\Exception $exception, $no_throw = false, $origin = false)
 	{
-		if (\is_a($exception, '\\ibidem\\types\\Exception'))
+		if (\is_a($exception, '\ibidem\types\Exception'))
 		{
 			$this->title($exception->title());
 			$this->crawlers(false);
@@ -358,7 +364,7 @@ class Layer_HTML extends \app\Layer
 	 */
 	public function doctype($doctype)
 	{
-		return $this->meta('doctype', $doctype);
+		return $this->set('doctype', $doctype);
 	}
 	
 	/**
@@ -369,7 +375,7 @@ class Layer_HTML extends \app\Layer
 	 */
 	public function appcache($url = null)
 	{
-		return $this->meta('appcache', $url);
+		return $this->set('appcache', $url);
 	}
 	
 	/**
@@ -380,7 +386,7 @@ class Layer_HTML extends \app\Layer
 	 */
 	public function sitemap($url = null)
 	{
-		return $this->meta('sitemap', $url);
+		return $this->set('sitemap', $url);
 	}
 	
 	/**
@@ -391,7 +397,7 @@ class Layer_HTML extends \app\Layer
 	{
 		foreach ($domains as $domain)
 		{
-			$this->meta['prefetch_domains'][] = $domain;
+			$this->params['prefetch_domains'][] = $domain;
 		}
 		
 		return $this;
@@ -403,7 +409,7 @@ class Layer_HTML extends \app\Layer
 	 */
 	public function favicon($url = null)
 	{
-		return $this->meta('favicon', $url);
+		return $this->set('favicon', $url);
 	}
 	
 	/**
@@ -412,7 +418,7 @@ class Layer_HTML extends \app\Layer
 	 */
 	public function title($title)
 	{
-		return $this->meta('title', $title);
+		return $this->set('title', $title);
 	}
 	
 	/**
@@ -421,7 +427,7 @@ class Layer_HTML extends \app\Layer
 	 */
 	public function add_stylesheet($href, $type = "text/css")
 	{
-		$this->meta['stylesheets'][] = array('href' => $href, 'type' => $type);
+		$this->params['stylesheets'][] = array('href' => $href, 'type' => $type);
 		return $this;
 	}
 	
@@ -431,7 +437,7 @@ class Layer_HTML extends \app\Layer
 	 */
 	public function add_script($src)
 	{
-		$this->meta['scripts'][] = $src;
+		$this->params['scripts'][] = $src;
 		return $this;
 	}
 	
@@ -441,7 +447,7 @@ class Layer_HTML extends \app\Layer
 	 */
 	public function description($desc = null)
 	{
-		return $this->meta('description', $desc);
+		return $this->set('description', $desc);
 	}
 	
 	/**
@@ -452,7 +458,7 @@ class Layer_HTML extends \app\Layer
 	{
 		foreach ($keywords as $keyword)
 		{
-			$this->meta['keywords'][] = $keyword;
+			$this->params['keywords'][] = $keyword;
 		}
 		
 		return $this;
@@ -464,7 +470,7 @@ class Layer_HTML extends \app\Layer
 	 */
 	public function canonical($url = null)
 	{
-		return $this->meta('canonical', $url);
+		return $this->set('canonical', $url);
 	}
 	
 	/**
@@ -473,7 +479,7 @@ class Layer_HTML extends \app\Layer
 	 */
 	public function crawlers($enabled = true)
 	{
-		return $this->meta('crawlers', $enabled);
+		return $this->set('crawlers', $enabled);
 	}
 	
 	/**
@@ -482,7 +488,7 @@ class Layer_HTML extends \app\Layer
 	 */
 	public function rssfeed($url = null)
 	{
-		return $this->meta('rssfeed', $url);
+		return $this->set('rssfeed', $url);
 	}
 	
 	/**
@@ -491,7 +497,7 @@ class Layer_HTML extends \app\Layer
 	 */
 	public function atomfeed($url = null)
 	{
-		return $this->meta('atomfeed', $url);
+		return $this->set('atomfeed', $url);
 	}
 	
 	/**
@@ -500,7 +506,7 @@ class Layer_HTML extends \app\Layer
 	 */
 	public function pingback($url = null)
 	{
-		return $this->meta('pingback', $url);
+		return $this->set('pingback', $url);
 	}
 	
 	/**
@@ -509,7 +515,7 @@ class Layer_HTML extends \app\Layer
 	 */
 	public function humanstxt($enabled = true)
 	{
-		return $this->meta('humanstxt', $enabled);
+		return $this->set('humanstxt', $enabled);
 	}
 	
 	/**
@@ -520,7 +526,7 @@ class Layer_HTML extends \app\Layer
 	 */
 	public function application_name($name = null)
 	{
-		return $this->meta('application_name', $name);
+		return $this->set('application_name', $name);
 	}
 	
 	/**
@@ -531,7 +537,7 @@ class Layer_HTML extends \app\Layer
 	 */
 	public function application_tooltip($tooltip = null)
 	{
-		return $this->meta('application_tooltip', $tooltip);
+		return $this->set('application_tooltip', $tooltip);
 	}
 	
 	/**
@@ -542,49 +548,11 @@ class Layer_HTML extends \app\Layer
 	 */
 	public function application_starturl($starturl = null)
 	{
-		return $this->meta('application_starturl', $starturl);
+		return $this->set('application_starturl', $starturl);
 	}
-	
-# Meta trait
-	
-	/**
-	 * @var array 
-	 */
-	protected $meta;
-	
-	/**
-	 * Set metainformation for the document.
-	 * 
-	 * @param string key
-	 * @param mixed value
-	 * @return \ibidem\base\Layer_HTML $this
-	 */
-	public function meta($key, $value)
-	{
-		$this->meta[$key] = $value;
-		
-		return $this;
-	}
-	
-	/**
-	 * @param string key
-	 * @param mixed default
-	 * @return mixed meta value for key, or default
-	 */
-	public function get_meta($key, $default = null)
-	{
-		return isset($this->meta[$key]) ? $this->meta[$key] : $default;
-	}
-	
-# /Meta trait
 	
 # Document trait
-	
-	/**
-	 * @var string 
-	 */
-	protected $body = '';
-		
+
 	/**
 	 * Set the document's body.
 	 * 
@@ -599,18 +567,9 @@ class Layer_HTML extends \app\Layer
 				("Can't have both a body and contents.");
 		}
 		
-		$this->body = $body;
+		$this->document_body($body);
+		
 		return $this;
-	}
-	
-	/**
-	 * Retrieve the body.
-	 * 
-	 * @return string body of document 
-	 */
-	public function get_body()
-	{
-		return $this->body;
 	}
 	
 # /Document trait

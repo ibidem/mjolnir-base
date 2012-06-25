@@ -9,19 +9,16 @@
  */
 class Layer_MVC extends \app\Layer 
 	implements 
-		\ibidem\types\Meta,
+		\ibidem\types\Params,
 		\ibidem\types\RelayCompatible,
 		\ibidem\types\Pattern_MVC
 {
+	use \app\Trait_Params;
+	
 	/**
 	 * @var string
 	 */
 	protected static $layer_name = \ibidem\types\Pattern_MVC::LAYER_NAME;
-	
-	/**
-	 * @var array 
-	 */
-	protected $meta;
 	
 	/**
 	 * @var array
@@ -34,7 +31,7 @@ class Layer_MVC extends \app\Layer
 	public static function instance()
 	{
 		$instance = parent::instance();
-		$instance->meta = \app\CFS::config('ibidem/mvc');
+		$instance->params = \app\CFS::config('ibidem/mvc');
 		return $instance;
 	}	
 		
@@ -53,7 +50,7 @@ class Layer_MVC extends \app\Layer
 			
 			if ($params->get('action') === null && isset($relay['action']))
 			{
-				$this->meta('action', $relay['action']);
+				$this->set('action', $relay['action']);
 			}
 			else # action not predefined
 			{
@@ -63,7 +60,7 @@ class Layer_MVC extends \app\Layer
 					if ($action !== null)
 					{
 						$action = \str_replace('-', '_', $action);
-						$this->meta('action', $relay['prefix'].$action);
+						$this->set('action', $relay['prefix'].$action);
 					}
 					else # $action === null
 					{
@@ -77,7 +74,7 @@ class Layer_MVC extends \app\Layer
 					if ($action !== null)
 					{
 						$action = \str_replace('-', '_', $action);
-						$this->meta('action', 'action_'.$action);
+						$this->set('action', 'action_'.$action);
 					}
 					else # $action === null
 					{
@@ -91,7 +88,7 @@ class Layer_MVC extends \app\Layer
 			$controller->params($params);
 			$controller->layer($this);
 			$controller->before();
-			\call_user_func(array($controller, $this->meta['action']));
+			\call_user_func(array($controller, $this->params['action']));
 			$controller->after();
 
 			$this->contents($controller->get_body());
@@ -132,7 +129,7 @@ class Layer_MVC extends \app\Layer
 	 */
 	public function controller(\ibidem\types\Controller $controller)
 	{
-		$this->meta['controller'] = $controller;
+		$this->params['controller'] = $controller;
 		return $this;
 	}
 	
@@ -144,7 +141,7 @@ class Layer_MVC extends \app\Layer
 	 */
 	public function params(\ibidem\types\Params $params)
 	{
-		$this->meta['params'] = $params;
+		$this->params['params'] = $params;
 		return $this;
 	}
 	
@@ -161,29 +158,6 @@ class Layer_MVC extends \app\Layer
 			(
 				__CLASS__.' does not support sublayer.'
 			);
-	}
-	
-	/**
-	 * Set metainformation for the document.
-	 * 
-	 * @param string key
-	 * @param mixed value
-	 * @return \ibidem\base\Layer_MVC $this
-	 */
-	public function meta($key, $value)
-	{
-		$this->meta[$key] = $value;
-		return $this;
-	}
-	
-	/**
-	 * @param string key
-	 * @param mixed default
-	 * @return mixed meta value for key, or default
-	 */
-	public function get_meta($key, $default = null)
-	{
-		return isset($this->meta[$key]) ? $this->meta[$key] : $default;
 	}
 		
 	/**

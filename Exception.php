@@ -21,21 +21,6 @@ class Exception extends \Exception
 	protected $type;
 	
 	/**
-	 * @var boolean 
-	 */
-	protected static $show_fileinfo = false;
-	
-	/**
-	 * Appends line and file to end of message for debug purposes. Should only
-	 * be enabled in development; in production this can lead to a path reveal
-	 * and thus various exploits.
-	 */
-	public static function enable_fileinfo()
-	{
-		static::$show_fileinfo = true;
-	}
-	
-	/**
 	 * @param string message
 	 * @param string title
 	 */
@@ -86,11 +71,6 @@ class Exception extends \Exception
 	public function set_message($message)
 	{
 		$this->message = $message;
-		if (static::$show_fileinfo)
-		{
-			$file = \str_replace(DOCROOT, '', $this->getFile());
-			$this->message .= ' ('.$file.' @ '.$this->getLine().')';
-		}
 		
 		return $this;
 	}
