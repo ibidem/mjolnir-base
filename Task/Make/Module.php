@@ -30,32 +30,81 @@ class Task_Make_Module extends \app\Task
 	/**
 	 * @return string language file readme
 	 */
-	protected function lang_readme_file()
-	{
-		return 
-			  'Format Help'.PHP_EOL
-			. '==========='.PHP_EOL
-			. PHP_EOL
-			. 'The format for lang directories is:'.PHP_EOL
-			. PHP_EOL
-			. '<pre>lang/source_lang/target_lang.php</pre>'.PHP_EOL
-			. PHP_EOL
-			;	
-	}
-	
-	/**
-	 * @return string language file readme
-	 */
 	protected function honeypot_file($namespace)
-	{
-		$namespace = \str_replace('\\', '\\\\', $namespace);
-		
+	{		
 		return 
 			  '<?php namespace app;'.PHP_EOL
 			. PHP_EOL
 			. '// This is a IDE honeypot. :)'.PHP_EOL
 			. PHP_EOL
-			. '// HowTo: minion honeypot -n "'.$namespace.'"'
+			. '// HowTo: minion honeypot -n \''.$namespace.'\''
+			. PHP_EOL
+			;
+	}
+	
+	protected function mockup_file($namespace)
+	{		
+		$namespace = \trim($namespace, '\\');
+		
+		return 
+			  '<?php namespace '.$namespace.';'.PHP_EOL
+			. PHP_EOL
+			. 'class Mockup extends \app\Instantiatable'.PHP_EOL
+			. '{'.PHP_EOL
+			. PHP_EOL
+			. '} # class'.PHP_EOL
+			. PHP_EOL
+			;
+	}
+	
+	protected function access_file()
+	{
+		return 
+			  '<?php return array'.PHP_EOL
+			. "\t(".PHP_EOL
+			. "\t\t'aliaslist' => array".PHP_EOL
+			. "\t\t\t(".PHP_EOL
+			. "\t\t\t\t\app\A12n::guest() => [ '+admin', '+mockup' ],".PHP_EOL
+			. "\t\t\t)".PHP_EOL
+			. "\t);"
+			. PHP_EOL
+			;
+	}
+	
+	protected function mockup_relays_file()
+	{
+		return 
+			  '<?php return array'.PHP_EOL
+			. "\t(".PHP_EOL
+			. "\t\t".'\'\ibidem\theme\mockup\'      => [ \'enabled\' => true ],'.PHP_EOL
+			. "\t\t".'\'\ibidem\theme\mockup-form\' => [ \'enabled\' => true ],'.PHP_EOL
+			. "\t);"
+			. PHP_EOL
+			;
+	}
+	
+	protected function sandbox_relays_file()
+	{
+		return 
+			  '<?php return array'.PHP_EOL
+			. "\t(".PHP_EOL
+			. "\t\t".'\'\ibidem\sandbox\' => [ \'enabled\' => true ],'.PHP_EOL
+			. "\t);"
+			. PHP_EOL
+			;
+	}
+	
+	protected function sandbox_file()
+	{
+		return 
+			  '<?php namespace ibidem\sandbox;'.PHP_EOL
+			. PHP_EOL
+			. 'function tester()'.PHP_EOL
+			. '{'.PHP_EOL
+			. "\techo 'hello, sandbox';".PHP_EOL
+			. '}'.PHP_EOL
+			. PHP_EOL
+			. "\app\Sandbox::process('\\ibidem\\sandbox\\tester');".PHP_EOL
 			. PHP_EOL
 			;
 	}
@@ -68,6 +117,8 @@ class Task_Make_Module extends \app\Task
 		$name = $this->config['name'];
 		$namespace = $this->config['namespace'];
 		$forced = $this->config['forced'];
+		$mockup_template = $this->config['mockup-template'];
+		$sandbox_template = $this->config['sandbox-template'];
 		
 		// module exists?
 		$module_name = MODPATH.$name;
@@ -88,10 +139,14 @@ class Task_Make_Module extends \app\Task
 		\file_exists($app_dir) or \mkdir($app_dir, 0777, true); # App dir
 		$config_dir = $app_dir.$ds.\ibidem\cfs\CFSCompatible::CNFDIR;
 		\file_exists($config_dir) or \mkdir($config_dir, 0777, true); # App/config
-		$lang_dir = $config_dir.$ds.'lang';
-		\file_exists($lang_dir) or \mkdir($lang_dir, 0777, true); # App/config/lang
-		$test_dir = $app_dir.$ds.'tests';
-		\file_exists($test_dir) or \mkdir($test_dir, 0777, true); # App/test
+		
+		if ( ! $mockup_template && ! $sandbox_template)
+		{
+			$lang_dir = $config_dir.$ds.'lang';
+			\file_exists($lang_dir) or \mkdir($lang_dir, 0777, true); # App/config/lang
+			$test_dir = $app_dir.$ds.'tests';
+			\file_exists($test_dir) or \mkdir($test_dir, 0777, true); # App/test
+		}
 		
 		// create App/config/version
 		\file_put_contents
@@ -99,12 +154,53 @@ class Task_Make_Module extends \app\Task
 				$config_dir.$ds.'version'.EXT, 
 				static::version_file(\ltrim($namespace, '\\'))
 			);
-		// create lang/README.md
-		\file_put_contents
-			(
-				$lang_dir.$ds.'README.md', 
-				static::lang_readme_file()
-			);
+		
+		if ($mockup_template)
+		{		
+			// create Mockup class
+			\file_put_contents
+				(
+					$dir.$ds.'Mockup'.EXT, 
+					static::mockup_file($namespace)
+				);
+			
+			$ibidem_config_dir = $config_dir.$ds.'ibidem';
+			\file_exists($ibidem_config_dir) or \mkdir($ibidem_config_dir, 0777, true); # App/config
+			
+			// allow admin and mockup access to guest
+			\file_put_contents
+				(
+					$ibidem_config_dir.$ds.'access'.EXT, 
+					static::access_file()
+				);
+			
+			// enable mockup route
+			\file_put_contents
+				(
+					$ibidem_config_dir.$ds.'relays'.EXT, 
+					static::mockup_relays_file()
+				);
+		}
+		
+		if ($sandbox_template)
+		{
+			// create sandbox relay
+			\file_put_contents
+				(
+					$app_dir.$ds.'relays'.EXT, 
+					static::sandbox_file()
+				);
+			
+			$ibidem_config_dir = $config_dir.$ds.'ibidem';
+			\file_exists($ibidem_config_dir) or \mkdir($ibidem_config_dir, 0777, true); # App/config
+			
+			// enable mockup route
+			\file_put_contents
+				(
+					$ibidem_config_dir.$ds.'relays'.EXT, 
+					static::sandbox_relays_file()
+				);
+		}
 		
 		// create honeypot
 		\file_put_contents

@@ -104,6 +104,14 @@
 							(
 								'description' => 'Force file overwrites.'
 							),
+						'mockup-template' => array
+							(
+								'description' => 'Fills in module for mocking.'
+							),
+						'sandbox-template' => array
+							(
+								'description' => 'Fills in module for sandbox testing.'
+							),
 					),
 			),
 		'versions' => array
