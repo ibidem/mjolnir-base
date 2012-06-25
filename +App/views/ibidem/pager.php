@@ -1,19 +1,19 @@
 <? namespace app; ?>
 
 <nav class="pager">
-
+	
 	<? if ($pagecount > 0 && $show_pageindex): ?>
-	<div class="pager-currentnav">
-		<?= Lang::msg
-			(
-				'pager.pages', 
-				array
-					(
-						':currentpage' => $currentpage != null ? $currentpage : 1,
-						':pagecount'   => $pagecount
-					)
-			) ?>
-	</div>
+		<div class="pager-currentnav">
+			<?= Lang::msg
+				(
+					'pager.pages', 
+					array
+						(
+							':currentpage' => $currentpage != null ? $currentpage : 1,
+							':pagecount'   => $pagecount
+						)
+				) ?>
+		</div>
 	<? endif; ?>
 	
 	<div class="pager-pagenav">

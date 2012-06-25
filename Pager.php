@@ -12,16 +12,17 @@ class Pager extends \app\Instantiatable
 		\ibidem\types\Renderable, 
 		\ibidem\types\FileBased,
 		\ibidem\types\Pager
-{	
+{
 	/**
 	 * @var array 
 	 */
 	private $options = array
-		(
+		(	
 			'currentpage' => null,  # selected page
 			'has_ruler'   => null,  # show ruler on pager
 			'order'       => \ibidem\types\Pager::ascending,
 			'querie'      => '?',
+			
 		
 			'lang' => array
 				(
@@ -277,6 +278,16 @@ class Pager extends \app\Instantiatable
 			$endpoint = $pagecount - ($pagediff * 3 - 3);
 			$endellipsis = 0;
 		}
+	}
+	
+	/**
+	 * Renders standardized pager. Twitter Bootstrap friendly. :)
+	 */
+	function standard($standard)
+	{
+		$pager_config = \app\CFS::config('ibidem/pager');
+		$this->file($pager_config['view.standards'][$standard]);
+		return $this;
 	}
 	
 	/**
