@@ -60,9 +60,21 @@ class FormField_TextArea extends \app\FormField
 	 */
 	protected function render_field()
 	{
-		return '<'.$this->name.' id="'.$this->form->form_id().'_'.$this->tabindex.'"'.$this->render_attributes().'>'
+		$field = '<'.$this->name.' id="'.$this->form->form_id().'_'.$this->tabindex.'"'.$this->render_attributes().'>'
 			. $this->body
 			. '</'.$this->name.'>';
+		
+		if ($errors = $this->form->errors_for($this->get_attribute('name')))
+		{
+			$field .= '<ul class="errors">';
+			foreach ($errors as $error)
+			{
+				$field .= '<li>'.\app\Lang::tr($error).'</li>';
+			}
+			$field .= '</ul>';
+		}
+		
+		return $field;
 	}
 
 } # class

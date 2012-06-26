@@ -86,6 +86,17 @@ class FormField_Select extends \app\FormField
 			}
 		}
 		$field .= '</'.$this->name.'>';
+		
+		if ($errors = $this->form->errors_for($this->get_attribute('name')))
+		{
+			$field .= '<ul class="errors">';
+			foreach ($errors as $error)
+			{
+				$field .= '<li>'.\app\Lang::tr($error).'</li>';
+			}
+			$field .= '</ul>';
+		}
+		
 		return $field;
 	}
 	
