@@ -196,8 +196,18 @@ class SQLStatement extends \app\Instantiatable
 	 */
 	public function page($page, $limit, $offset = 0)
 	{
-		$this->set_int(':offset', $limit * ($page - 1) + $offset);
-		$this->set_int(':limit', $limit);
+		if ($page == null)
+		{
+			// retrieve all rows
+			$this->set_int(':offset', $offset);
+			$this->set_int(':limit', PHP_INT_MAX);
+		}
+		else # $page != null
+		{
+			$this->set_int(':offset', $limit * ($page - 1) + $offset);
+			$this->set_int(':limit', $limit);
+		}
+		
 		return $this;
 	}
 	
