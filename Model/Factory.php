@@ -117,6 +117,9 @@ abstract class Model_Factory
 		{
 			static::assemble($fields);
 			
+			// store last inserted id
+			self::$last_inserted_id = \app\SQL::last_inserted_id();
+			
 			// invalidate caches
 			static::cache_reset($fields);
 		}
@@ -189,6 +192,35 @@ abstract class Model_Factory
 			->execute()
 			->fetch_array()
 			['COUNT(1)'];
+	}
+	
+	/**
+	 * Checks if a value exists in the table, given a key. By default the title
+	 * key is assumed.
+	 * 
+	 * @param mixed value
+	 * @param string key
+	 * @return bool
+	 */
+	static function exists($value, $key = 'title')
+	{
+		$count = \app\SQL::prepare
+			(
+				__METHOD__,
+				'
+					SELECT COUNT(1)
+					  FROM `'.static::table().'` tbl
+					 WHERE tbl.'.$key.' = :value
+					 LIMIT 1
+				',
+				'mysql'
+			)
+			->set(':value', $value)
+			->execute()
+			->fetch_array()
+			['COUNT(1)'];
+		
+		return ((int) $count) != 0;
 	}
 	
 } # class
