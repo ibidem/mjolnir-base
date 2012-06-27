@@ -134,7 +134,7 @@ class SQLDatabase extends \app\Instantiatable
 					(
 						'::', 
 						':', 
-						\str_replace('\\', '/', Testing::test())
+						\str_replace('\\', '/', $key)
 					), 
 				'/'
 			);
