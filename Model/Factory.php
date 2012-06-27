@@ -223,4 +223,16 @@ abstract class Model_Factory
 		return ((int) $count) != 0;
 	}
 	
+	/**
+	 * Tests if a value is unique; opposite of exists.
+	 * 
+	 * @param mixed value
+	 * @param string key
+	 * @return bool
+	 */
+	static function not_exists($value, $key = 'title')
+	{
+		return ! static::exists($value, $key);
+	}
+	
 } # class
