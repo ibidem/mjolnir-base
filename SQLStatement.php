@@ -93,7 +93,33 @@ class SQLStatement extends \app\Instantiatable
 	 */
 	public function set_bool($parameter, $constant)
 	{
-		$this->statement->bindValue($parameter, $constant, \PDO::PARAM_BOOL);
+		if ($constant === true || $constant === false)
+		{
+			$this->statement->bindValue($parameter, $constant, \PDO::PARAM_BOOL);
+		}
+		else 
+		{
+			static $map = array
+				(
+					'true' => true,
+					'on' => true,
+					'yes' => true,
+					'false' => false,
+					'off' => false,
+					'no' => false,
+				);
+			
+			if (isset($map[$constant]))
+			{
+				$this->statement->bindValue($parameter, $map[$constant], \PDO::PARAM_BOOL);
+			}
+			else
+			{
+				throw new \app\Exception_NotApplicable('Unrecognized boolean value passed.');
+			}
+			
+		}
+		
 		return $this;
 	}
 	
