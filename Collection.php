@@ -41,5 +41,27 @@ class Collection
 			return '';
 		}
 	}
+	
+	/**
+	 * Given an array of unique values, mirrors the array so they keys and 
+	 * values are identical. 
+	 * 
+	 * eg.
+	 *  
+	 *  'alice' => 'alice',
+	 *  'bob' => 'bob',
+	 * 
+	 * This is useful for populating select fields.
+	 */
+	static function mirror(array $array)
+	{
+		$new_array = [];
+		foreach ($array as $value)
+		{
+			$new_array[$value] = $value;
+		}
+		
+		return $new_array;
+	}
 
 } # class
