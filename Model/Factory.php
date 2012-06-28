@@ -235,4 +235,35 @@ abstract class Model_Factory
 		return ! static::exists($value, $key);
 	}
 	
+	/**
+	 * not_exists but applies to specified entry; used in updates, etc
+	 * 
+	 * @param mixed value
+	 * @param int entry id
+	 * @param string key
+	 * @return bool
+	 */
+	static function unique_for($value, $id, $key = 'title')
+	{
+		$count = \app\SQL::prepare
+			(
+				__METHOD__,
+				'
+					SELECT COUNT(1)
+					  FROM `'.static::table().'` row
+					 WHERE row.'.$key.' = :value
+					   AND NOT row.id = :id
+					 LIMIT 1
+				',
+				'mysql'
+			)
+			->set_int(':id', $id)
+			->set(':value', $value)
+			->execute()
+			->fetch_array()
+			['COUNT(1)'];
+		
+		return ((int) $count) == 0;
+	}
+	
 } # class
