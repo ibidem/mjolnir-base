@@ -11,6 +11,7 @@ class Pager extends \app\Instantiatable
 	implements 
 		\ibidem\types\Renderable, 
 		\ibidem\types\FileBased,
+		\ibidem\types\Standardized,
 		\ibidem\types\Pager
 {
 	/**
