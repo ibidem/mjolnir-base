@@ -42,14 +42,15 @@ class Layer_TaskRunner extends \ibidem\base\Layer_TaskRunner { /** @return \ibid
 class Layer extends \ibidem\base\Layer { /** @return \ibidem\base\Layer */ static function instance() { return parent::instance(); } }
 class Log extends \ibidem\base\Log {}
 class Make extends \ibidem\base\Make { /** @return \ibidem\base\Make */ static function instance($type = 'paragraph', array $args = null) { return parent::instance($type, $args); } }
+class Migration_Register extends \ibidem\base\Migration_Register { /** @return \ibidem\base\Migration_Register */ static function instance() { return parent::instance(); } }
 class Migration_Template_MySQL extends \ibidem\base\Migration_Template_MySQL { /** @return \ibidem\base\Migration_Template_MySQL */ static function instance() { return parent::instance(); } }
 class Migration extends \ibidem\base\Migration { /** @return \ibidem\base\Migration */ static function instance() { return parent::instance(); } }
 class Model_Factory extends \ibidem\base\Model_Factory {}
 class Model_Instantiatable extends \ibidem\base\Model_Instantiatable { /** @return \ibidem\base\Model_Instantiatable */ static function instance($id = null) { return parent::instance($id); } }
 class Model_SQL_Factory extends \ibidem\base\Model_SQL_Factory {}
-class Module extends \ibidem\base\Module { /** @return \ibidem\base\Module */ static function instance() { return parent::instance(); } }
 class Pager extends \ibidem\base\Pager { /** @return \ibidem\base\Pager */ static function instance($totalitems = 0, $url_base = '', $pagediff = 4, $pagelimit = 20) { return parent::instance($totalitems, $url_base, $pagediff, $pagelimit); } }
 class Params extends \ibidem\base\Params { /** @return \ibidem\base\Params */ static function instance() { return parent::instance(); } }
+class Register extends \ibidem\base\Register {}
 class Relay extends \ibidem\base\Relay {}
 class Route_Path extends \ibidem\base\Route_Path { /** @return \ibidem\base\Route_Path */ static function instance($uri = null) { return parent::instance($uri); } }
 class Route_Pattern extends \ibidem\base\Route_Pattern { /** @return \ibidem\base\Route_Pattern */ static function instance($uri = null) { return parent::instance($uri); } }
