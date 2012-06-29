@@ -200,6 +200,14 @@ class Layer_HTML extends \app\Layer
 			$html_before .= '<script type="text/javascript" src="//'.$ibidem_base['domain'].$ibidem_base['path'].'media/static/yepnope.latest-min.js"></script>';
 		}
 		
+		if ( ! empty($this->params['extra_markup']))
+		{
+			foreach ($this->params['extra_markup'] as $markup)
+			{
+				$html_before .= $markup;
+			}
+		}
+		
 		// close head section
 		$html_before .= '</head><body>';
 		// css switch for more streamline style transitions
@@ -350,6 +358,9 @@ class Layer_HTML extends \app\Layer
 			case \ibidem\types\Event::js_script:
 				$this->add_script($event->get_contents());
 				break;
+			
+			case \ibidem\types\Event::head_tag:
+				$this->add_extra_markup($event->get_contents());
 		}
 		
 		// pass to default handling
@@ -428,6 +439,16 @@ class Layer_HTML extends \app\Layer
 	public function add_stylesheet($href, $type = "text/css")
 	{
 		$this->params['stylesheets'][] = array('href' => $href, 'type' => $type);
+		return $this;
+	}
+	
+	/**
+	 * @param string markup
+	 * @return \ibidem\base\Layer_HTML $this
+	 */
+	public function add_extra_markup($markup)
+	{
+		$this->params['extra_markup'][] = $markup;
 		return $this;
 	}
 	
