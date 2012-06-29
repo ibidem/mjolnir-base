@@ -1,18 +1,19 @@
 <?php return array
 	(
+		'extra_markup' => [],
 	// general
 		'doctype' => \ibidem\types\HTML::DOCTYPE,
 		'appcache' => null,
 		'sitemap' => null,
-		'prefetch_domains' => array(),
+		'prefetch_domains' => [],
 		'favicon' => null,
-		'stylesheets' => array(),
-		'scripts' => array(),
+		'stylesheets' => [],
+		'scripts' => [],
 		'viewport' => 'width=device-width, initial-scale=1.0, maximum-scale=1.0',
 	// search
 		'title' => 'Untitled',
 		'description' => null,
-		'keywords' => array(),
+		'keywords' => [],
 		'generator' => null,
 		'author' => null,
 	// crawlers
