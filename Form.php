@@ -8,7 +8,9 @@
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 class Form extends \app\HTMLBlockElement
-	implements \ibidem\types\Form
+	implements 
+		\ibidem\types\Form,
+		\ibidem\types\Standardized
 {
 	/**
 	 * @var integer 
@@ -108,6 +110,17 @@ class Form extends \app\HTMLBlockElement
 		}
 		
 		return $instance;
+	}
+	
+	/**
+	 * @param string standard (defined in ibidem/form[standards]
+	 * @return \ibidem\base\Form $this
+	 */
+	public function standard($standard)
+	{
+		$standard = \app\CFS::config('ibidem/form')['standards'][$standard];
+		$standard($this);
+		return $this;
 	}
 	
 	/**
