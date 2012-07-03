@@ -68,6 +68,28 @@ class Make extends \app\Instantiatable
 	}
 	
 	/**
+	 * @param int width
+	 * @param int height
+	 * @param bool grayscale
+	 * @return string kitten!
+	 */
+	public static function placekitten($width, $height, $grayscale = false)
+	{
+		return 'http://placekitten.com/'.($grayscale ? 'g/' : '').$width.'/'.$height;
+	}
+	
+	/**
+	 * @param int width
+	 * @param int height
+	 * @param bool grayscale
+	 * @return string zombie~grrr~brainsss
+	 */
+	public static function placezombie($width, $height, $grayscale = false)
+	{
+		return 'http://placezombies.com/'.($grayscale ? 'g/' : '').$width.'x'.$height;
+	}
+	
+	/**
 	 * Similar to Make::img, only produces real life images.
 	 * 
 	 * Categories: abstract, animals, city, food, nightlife, fashion, people, 
