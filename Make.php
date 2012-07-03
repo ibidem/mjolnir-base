@@ -75,7 +75,11 @@ class Make extends \app\Instantiatable
 	 */
 	public static function placekitten($width, $height, $grayscale = false)
 	{
-		return 'http://placekitten.com/'.($grayscale ? 'g/' : '').$width.'/'.$height;
+		return static::instance('placekitten', [
+			'width' => $width,
+			'height' => $height,
+			'grayscale' => $grayscale,
+		]);
 	}
 	
 	/**
@@ -86,7 +90,11 @@ class Make extends \app\Instantiatable
 	 */
 	public static function placezombie($width, $height, $grayscale = false)
 	{
-		return 'http://placezombies.com/'.($grayscale ? 'g/' : '').$width.'x'.$height;
+		return static::instance('placezombie', [
+			'width' => $width,
+			'height' => $height,
+			'grayscale' => $grayscale,
+		]);
 	}
 	
 	/**
@@ -295,6 +303,38 @@ class Make extends \app\Instantiatable
 					$url .= $category.'/'.\rand(1, 10).'/';
 				}
 
+				return $url;
+				
+			case 'placekitten':
+				$width = $this->args['width'];
+				$height = $this->args['height'];
+				$grayscale = $this->args['grayscale'];
+				
+				$url = 'http://placekitten.com/';
+		
+				if ($grayscale)
+				{
+					$url .= 'g/';
+				}
+				
+				$url .= $width.'/'.$height.'?image='.\rand(1, 16);
+				
+				return $url;
+				
+			case 'placezombie':
+				$width = $this->args['width'];
+				$height = $this->args['height'];
+				$grayscale = $this->args['grayscale'];
+				
+				$url = 'http://placezombies.com/';
+		
+				if ($grayscale)
+				{
+					$url .= 'g/';
+				}
+				
+				$url .= $width.'x'.$height.'?image='.\rand(1, 10);
+				
 				return $url;
 				
 			case 'given_name':
