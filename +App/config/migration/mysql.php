@@ -13,6 +13,7 @@
 		':boolean' => 'boolean',
 	
 	// uncommon
+	
 		# systems usually handle paths of 32,000, but 260 is the recomended safe limit for cross-platform compatibility
 		':path' => 'varchar(260)', 
 		# RFC 5321; we subtract 2 characters for angle brackets -- yes it''s not (64 + 1 + 255 =) 320
@@ -20,10 +21,11 @@
 		# close to the shorhand version of the longest name on record
 		':name' => 'varchar(80)',
 		':username' => 'varchar(80) NOT NULL',
+		':titlename' => 'varchar(80)',
 		# IPv6 length 39 + tunneling IPv4 = 45
-		':ipaddress' => 'varchar(45) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL',
+		':ipaddress' => 'varchar(45) CHARACTER SET latin1 COLLATE latin1_bin',
 		# Secure Hash Algorthm (sha512)
-		':secure_hash' => 'char(128) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL',
+		':secure_hash' => 'char(128) CHARACTER SET latin1 COLLATE latin1_bin',
 		# telephone number
 		':telephone' => 'varchar(255)',
 		# sex as m / f
@@ -34,6 +36,7 @@
 		':ssn' => 'varchar(20)', 
 	
 	// general
+	
 		':engine' => 'InnoDB',
 		':default_charset' => 'utf8',
 	);

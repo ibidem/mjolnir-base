@@ -15,9 +15,20 @@ class Session
 	private static $session = null;
 	
 	/**
+	 * Starts the session.
+	 */
+	static function start()
+	{
+		if (self::$session === null)
+		{
+			self::$session = \app\Session_Native::instance();
+		}
+	}
+	
+	/**
 	 * @return mixed parameter or default 
 	 */
-	public static function get($key, $default = null)
+	static function get($key, $default = null)
 	{
 		if (self::$session === null)
 		{
@@ -30,8 +41,9 @@ class Session
 	/**
 	 * @param string key
 	 * @param mixed value
+	 * @return mixed value
 	 */
-	public static function set($key, $value)
+	static function set($key, $value)
 	{
 		if (self::$session === null)
 		{
@@ -39,12 +51,14 @@ class Session
 		}
 		
 		self::$session->set($key, $value);
+		
+		return $value;
 	}
 	
 	/**
 	 * Destroy the session. 
 	 */
-	public static function destroy()
+	static function destroy()
 	{
 		if (self::$session === null)
 		{

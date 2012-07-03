@@ -44,7 +44,7 @@ class Migration_Register extends \app\Migration_Template_MySQL
 			->bind(':key', $key)
 			->bind(':value', $value);
 		
-		foreach (\app\CFS::config_file('ibidem\register')['keys'] as $target => $default)
+		foreach (\app\CFS::config_file('ibidem/register')['keys'] as $target => $default)
 		{
 			$key = $target;
 			$value = $default;
