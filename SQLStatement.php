@@ -187,6 +187,31 @@ class SQLStatement extends \app\Instantiatable
 	}
 	
 	/**
+	 * Automatically sets the :offset and :limit varaibles.
+	 * 
+	 * @param int page
+	 * @param int limit
+	 * @param int offset
+	 * @return \ibidem\base\SQLStatement $thiss
+	 */
+	public function page($page, $limit, $offset = 0)
+	{
+		if ($page == null)
+		{
+			// retrieve all rows
+			$this->set_int(':offset', $offset);
+			$this->set_int(':limit', PHP_INT_MAX);
+		}
+		else # $page != null
+		{
+			$this->set_int(':offset', $limit * ($page - 1) + $offset);
+			$this->set_int(':limit', $limit);
+		}
+		
+		return $this;
+	}
+	
+	/**
 	 * Execute the statement.
 	 * 
 	 * @return \ibidem\base\SQLStatement $this
