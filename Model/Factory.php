@@ -35,7 +35,7 @@ abstract class Model_Factory
 	public static function validator(array $fields)
 	{
 		throw new \app\Exception_NotApplicable
-			('[validator] method not implmented in ['.\called_class().'].');
+			('[validator] method not implmented in ['.\get_called_class().'].');
 	}
 	
 	/**
@@ -47,7 +47,7 @@ abstract class Model_Factory
 	public static function assemble(array $fields)
 	{
 		throw new \app\Exception_NotApplicable
-			('[assemble] method not implmented in ['.\called_class().'].');
+			('[assemble] method not implmented in ['.\get_called_class().'].');
 	}
 
 	/**
