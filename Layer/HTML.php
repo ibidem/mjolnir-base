@@ -82,6 +82,8 @@ class Layer_HTML extends \app\Layer
 		}
 		// title
 		$html_before .= '<title>'.$this->params['title'].'</title>';
+		// add fix for IE
+		$html_before .= '<!--[if lt IE 9]><script src="//'.$ibidem_base['domain'].$ibidem_base['path'].'media/static/html5shiv.js"></script><![endif]-->';
 		// stylesheets
 		foreach ($this->params['stylesheets'] as $style)
 		{
