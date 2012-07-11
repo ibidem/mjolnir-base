@@ -18,7 +18,7 @@ class Migration_Template_MySQL extends \app\Migration
 	 * @param string table (with prefix)
 	 * @param array constraints 
 	 */
-	protected function constraints($table, array $constraints)
+	function constraints($table, array $constraints)
 	{
 		$query = "ALTER TABLE `".$table."` ";
 		
@@ -57,7 +57,7 @@ class Migration_Template_MySQL extends \app\Migration
 	/**
 	 * @return \ibidem\base\Migration_Template_MySQL
 	 */
-	public static function instance()
+	static function instance()
 	{
 		$instance = parent::instance();
 		
@@ -70,7 +70,7 @@ class Migration_Template_MySQL extends \app\Migration
 	 * @param string table
 	 * @param string fields 
 	 */
-	protected function createtable($table, $fields)
+	function createtable($table, $fields)
 	{
 		\app\SQL::prepare
 			(
@@ -95,7 +95,7 @@ class Migration_Template_MySQL extends \app\Migration
 	/**
 	 * @param array tables 
 	 */
-	protected function droptables(array $tables)
+	function droptables(array $tables)
 	{
 		$state = 0;
 		\app\SQL::prepare
