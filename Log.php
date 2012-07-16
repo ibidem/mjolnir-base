@@ -54,7 +54,7 @@ class Log
 	 */
 	private static function append_to_file($path, $file, $message)
 	{
-		\file_exists($path) or \mkdir($path, 0700, true);
+		\file_exists($path) or \mkdir($path, 0600, true);
 		\file_put_contents($path.$file, PHP_EOL.$message, FILE_APPEND);
 	}
 	
