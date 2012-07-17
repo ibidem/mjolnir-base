@@ -185,11 +185,11 @@ class Pager extends \app\Instantiatable
 		return $this;
 	}
 	
-	public function querie(array $querie)
+	public function querie(array $querie, $page_key = 'page')
 	{
-		if (isset($querie['page']))
+		if (isset($querie[$page_key]))
 		{
-			unset($querie['page']);
+			unset($querie[$page_key]);
 		}
 		
 		if ( ! empty($querie))
