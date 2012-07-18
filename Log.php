@@ -53,9 +53,23 @@ class Log
 	 * @param string message 
 	 */
 	private static function append_to_file($path, $file, $message)
-	{
-		\file_exists($path) or \mkdir($path, 0600, true);
-		\file_put_contents($path.$file, PHP_EOL.$message, FILE_APPEND);
+	{		
+		if ( ! \file_exists($path))
+		{
+			@\mkdir($path, 02777, true);
+			@\chmod($path, 02777);
+					
+			if ( ! file_exists($path.$file))
+			{
+				// Create the log file
+				@\file_put_contents($path.$file, PHP_EOL);
+				
+				// Allow anyone to write to log files
+				@\chmod($path.$file, 0666);
+			}
+		}
+		
+		@\file_put_contents($path.$file, PHP_EOL.$message, FILE_APPEND);
 	}
 	
 } # class

@@ -50,7 +50,7 @@ class Lang
 					(
 						'ERROR', 
 						"The term [$term] is missing a translation ($from_lang => {$target_lang}).", 
-						'lang/'.self::$current_lang.'/'.$from_lang
+						'lang/'.$from_lang.'/'.self::$current_lang.'/'
 					);
 				
 				return \strtr($term, $addins);
@@ -65,7 +65,7 @@ class Lang
 					(
 						'ERROR', 
 						"The term [$term] is missing a translation ($from_lang => {$target_lang}).", 
-						'lang/'.self::$current_lang.'/'.$from_lang
+						'lang/'.$from_lang.'/'.self::$current_lang.'/'
 					);
 				
 				return $term;
