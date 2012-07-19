@@ -30,7 +30,7 @@ class Route_Regex extends \app\Instantiatable
 	 * @param string $regex
 	 * @return \ibidem\base\Route_Regex
 	 */
-	public static function instance($uri = null)
+	static function instance($uri = null)
 	{
 		$instance = parent::instance();
 		
@@ -60,10 +60,10 @@ class Route_Regex extends \app\Instantiatable
 	/**
 	 * @return boolean defined route matches? 
 	 */
-	public function check() 
-	{
-		if ($this->uri)
-		{		
+	function check() 
+	{		
+		if ($this->uri !== null)
+		{
 			return \preg_match($this->regex, $this->uri);
 		}
 		
@@ -74,7 +74,7 @@ class Route_Regex extends \app\Instantiatable
 	 * @param array relay configuration
 	 * @return \ibidem\base\Route_Regex $this
 	 */
-	public function relay_config(array $relay)
+	function relay_config(array $relay)
 	{		
 		return $this;
 	}
@@ -82,7 +82,7 @@ class Route_Regex extends \app\Instantiatable
 	/**
 	 * @return \ibidem\types\Params
 	 */
-	public function get_params()
+	function get_params()
 	{
 		return \app\Params::instance();
 	}
@@ -90,7 +90,7 @@ class Route_Regex extends \app\Instantiatable
 	/**
 	 * @return array context information 
 	 */
-	public function get_context()
+	function get_context()
 	{
 		// regex route is just a fancier path route, and has no context to it
 		return array();

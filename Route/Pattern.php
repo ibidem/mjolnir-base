@@ -63,7 +63,7 @@ class Route_Pattern extends \app\Instantiatable
 	 * @param string $regex
 	 * @return \ibidem\base\Route_Pattern
 	 */
-	public static function instance($uri = null)
+	static function instance($uri = null)
 	{
 		$instance = parent::instance();
 		
@@ -87,7 +87,7 @@ class Route_Pattern extends \app\Instantiatable
 	 * @param array regex
 	 * @return \ibidem\base\Route_Pattern $this
 	 */
-	public function canonical($pattern, array $regex)
+	function canonical($pattern, array $regex)
 	{
 		$this->canonical_uri = $pattern;
 		$this->canonical_pattern = static::setup_pattern($pattern, $regex);
@@ -100,7 +100,7 @@ class Route_Pattern extends \app\Instantiatable
 	 * @param array regex
 	 * @return \ibidem\base\Route_Pattern $this
 	 */
-	public function standard($pattern, array $regex)
+	function standard($pattern, array $regex)
 	{
 		$this->standard_uri = $pattern;
 		$this->standard_pattern = static::setup_pattern($pattern, $regex);
@@ -182,14 +182,14 @@ class Route_Pattern extends \app\Instantiatable
 	/**
 	 * @return boolean defined route matches? 
 	 */
-	public function check()
+	function check()
 	{	
 		if ($this->canonical_pattern !== null && \preg_match($this->canonical_pattern, $this->uri))
 		{
 			$this->matched_pattern =& $this->canonical_pattern;
 			return true;
 		}
-		
+
 		if ($this->standard_pattern !== null && \preg_match($this->standard_pattern, $this->uri))
 		{
 			$this->matched_pattern =& $this->standard_pattern;
@@ -275,7 +275,7 @@ class Route_Pattern extends \app\Instantiatable
 	 * @param array relay configuration
 	 * @return \ibidem\base\Route_Pattern $this
 	 */
-	public function relay_config(array $relay)
+	function relay_config(array $relay)
 	{
 		return $this;
 	}
@@ -283,7 +283,7 @@ class Route_Pattern extends \app\Instantiatable
 	/**
 	 * @return \ibidem\types\Params
 	 */
-	public function get_params()
+	function get_params()
 	{
 		if ($this->matched_pattern === null)
 		{
@@ -326,7 +326,7 @@ class Route_Pattern extends \app\Instantiatable
 	 * @param string protocol
 	 * @return string
 	 */
-	public function url(array $params = null, $protocol = null)
+	function url(array $params = null, $protocol = null)
 	{
 		if ($params == null)
 		{
@@ -368,7 +368,7 @@ class Route_Pattern extends \app\Instantiatable
 	 * @param string protocol
 	 * @return string
 	 */
-	public function canonical_url(array $params, $protocol)
+	function canonical_url(array $params, $protocol)
 	{
 		if ($this->canonical_pattern)
 		{
@@ -402,7 +402,7 @@ class Route_Pattern extends \app\Instantiatable
 	 * @param string url base
 	 * @return \ibidem\base\Route_Pattern $this
 	 */
-	public function url_base($url_base = null)
+	function url_base($url_base = null)
 	{
 		$this->url_base = $url_base;
 		return $this;
@@ -411,7 +411,7 @@ class Route_Pattern extends \app\Instantiatable
 	/**
 	 * @return array context information 
 	 */
-	public function get_context()
+	function get_context()
 	{
 		return $this->params->to_array();
 	}
