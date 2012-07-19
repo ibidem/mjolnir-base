@@ -267,7 +267,16 @@ class SQLStatement extends \app\Instantiatable
 	 */
 	public function fetch_array()
 	{
-		return $this->statement->fetch(\PDO::FETCH_ASSOC);
+		$statement = $this->statement->fetch(\PDO::FETCH_ASSOC);
+		
+		if ($statement === false)
+		{
+			return null;
+		}
+		else # succesfully retrieved statement
+		{
+			return $statement;
+		}
 	}
 	
 	/**
