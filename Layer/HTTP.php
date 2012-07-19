@@ -27,7 +27,7 @@ class Layer_HTTP extends \app\Layer
 	/**
 	 * @return \ibidem\base\Layer_HTTP
 	 */
-	public static function instance()
+	static function instance()
 	{
 		$instance = parent::instance();
 		$http = \app\CFS::config('ibidem/http');
@@ -39,7 +39,7 @@ class Layer_HTTP extends \app\Layer
 	/**
 	 * @return string location identifier (null if not found)
 	 */
-	public static function detect_uri()
+	static function detect_uri()
 	{
 		static $detected_uri = null;
 		
@@ -103,14 +103,29 @@ class Layer_HTTP extends \app\Layer
 				$uri = (string) \substr($uri, \strlen($url_base));
 			}
 		}
-
+		
+		// remove path
+		$base_config = \app\CFS::config('ibidem/base');
+		if (\substr($uri, 0, \strlen($base_config['path']) ) == $base_config['path']) 
+		{
+			if (\strlen($base_config['path']) == \strlen($uri))
+			{
+				$uri = '';
+			}
+			else # uri is larger
+			{
+				$uri = \substr($uri, \strlen($base_config['path']), \strlen($uri));
+			}
+			
+		}
+		
 		return $detected_uri = $uri;
 	}
 	
 	/**
 	 * @return string 
 	 */
-	public static function detect_ip()
+	static function detect_ip()
 	{
 		if 
 		(
@@ -151,7 +166,7 @@ class Layer_HTTP extends \app\Layer
 	/**
 	 * @param string url 
 	 */
-	public static function redirect_to_url($url)
+	static function redirect_to_url($url)
 	{
 		\header('Location: '.$url);
 		die;
@@ -161,7 +176,7 @@ class Layer_HTTP extends \app\Layer
 	 * @param string relay
 	 * @param array params 
 	 */
-	public static function redirect($relay, array $params = null, array $query = null)
+	static function redirect($relay, array $params = null, array $query = null)
 	{
 		$access_config = \app\CFS::config('ibidem/relays');
 		if ($query == null)
@@ -178,7 +193,7 @@ class Layer_HTTP extends \app\Layer
 	/**
 	 * @return string url base
 	 */
-	public static function detect_url_base()
+	static function detect_url_base()
 	{
 		return $_SERVER['SERVER_NAME'].
 			($_SERVER['SERVER_PORT'] !== 80 ? ':'.$_SERVER['SERVER_PORT'] : '');
@@ -187,7 +202,7 @@ class Layer_HTTP extends \app\Layer
 	/**
 	 * @return string
 	 */
-	public static function request_method()
+	static function request_method()
 	{
 		if (isset($_SERVER['REQUEST_METHOD']))
 		{
@@ -204,7 +219,7 @@ class Layer_HTTP extends \app\Layer
 	/**
 	 * Executes non-content related tasks before main contents.
 	 */
-	public function headerinfo()
+	function headerinfo()
 	{
 		\header($this->status);
 		// process meta
@@ -217,7 +232,7 @@ class Layer_HTTP extends \app\Layer
 	/**
 	 * @param \ibidem\types\Event
 	 */
-	public function dispatch(\ibidem\types\Event $event)
+	function dispatch(\ibidem\types\Event $event)
 	{
 		switch ($event->get_subject())
 		{
@@ -244,7 +259,7 @@ class Layer_HTTP extends \app\Layer
 	/**
 	 * Execute the layer.
 	 */
-	public function execute()
+	function execute()
 	{
 		try
 		{
@@ -300,7 +315,7 @@ class Layer_HTTP extends \app\Layer
 	 * @param string status 
 	 * @return \ibidem\base\Layer_HTTP $this
 	 */
-	public function status($status)
+	function status($status)
 	{
 		$this->status = $status;
 		return $this;
@@ -313,7 +328,7 @@ class Layer_HTTP extends \app\Layer
 	 * @param string content-type
 	 * @return \ibidem\base\Layer_HTTP $this
 	 */
-	public function content_type($content_type)
+	function content_type($content_type)
 	{
 		$this->params['content-type'] = $content_type;
 		return $this;
@@ -322,7 +337,7 @@ class Layer_HTTP extends \app\Layer
 	/**
 	 * @return string
 	 */
-	public function get_content_type()
+	function get_content_type()
 	{
 		return $this->params['content-type'];
 	}
