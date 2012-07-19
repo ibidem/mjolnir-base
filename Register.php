@@ -11,7 +11,7 @@
  */
 class Register
 {
-	protected static $table = 'register';
+	protected static $table = 'registery';
 	
 	static function table()
 	{
