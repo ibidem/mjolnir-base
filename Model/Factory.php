@@ -19,7 +19,7 @@ abstract class Model_Factory
 	 * 
 	 * @param array fields 
 	 */
-	public static function cache_reset(array $fields)
+	static function cache_reset(array $fields)
 	{
 		// no default cache resets
 	}
@@ -27,7 +27,7 @@ abstract class Model_Factory
 	/**
 	 * @return type 
 	 */
-	final public static function last_inserted_id()
+	final static function last_inserted_id()
 	{
 		return self::$last_inserted_id;
 	}	
@@ -40,7 +40,7 @@ abstract class Model_Factory
 	 * @param array fields
 	 * @return \ibidem\types\Validator
 	 */
-	public static function validator(array $fields)
+	static function validator(array $fields)
 	{
 		throw new \app\Exception_NotApplicable
 			('[validator] method not implmented in ['.\get_called_class().'].');
@@ -54,7 +54,7 @@ abstract class Model_Factory
 	 * @param array fields
 	 * @return \ibidem\types\Validator
 	 */
-	public static function update_validator($id, array $fields)
+	static function update_validator($id, array $fields)
 	{
 		throw new \app\Exception_NotApplicable
 			('[update_validator] method not implmented in ['.\get_called_class().'].');
@@ -65,7 +65,7 @@ abstract class Model_Factory
 	 * 
 	 * @param array fields
 	 */
-	public static function assemble(array $fields)
+	static function assemble(array $fields)
 	{
 		throw new \app\Exception_NotApplicable
 			('[assemble] method not implmented in ['.\get_called_class().'].');
@@ -76,7 +76,7 @@ abstract class Model_Factory
 	 * 
 	 * @param array fields
 	 */
-	public static function update_assemble($id, array $fields)
+	static function update_assemble($id, array $fields)
 	{
 		throw new \app\Exception_NotApplicable
 			('[update_assemble] method not implmented in ['.\get_called_class().'].');
@@ -87,7 +87,7 @@ abstract class Model_Factory
 	 * @param array fields
 	 * @return \app\Validator|null
 	 */
-	final public static function update($id, array $fields)
+	final static function update($id, array $fields)
 	{
 		$validator = static::update_validator($id, $fields);
 		
@@ -109,7 +109,7 @@ abstract class Model_Factory
 	 * @param array fields required for creation
 	 * @return \ibidem\types\Validator on error, null on success
 	 */
-	final public static function factory(array $fields)
+	final static function factory(array $fields)
 	{
 		$validator = static::validator($fields);
 		
@@ -134,7 +134,7 @@ abstract class Model_Factory
 	/**
 	 * @param array user id's 
 	 */
-	public static function delete(array $IDs)
+	static function delete(array $IDs)
 	{
 		$entry = null;
 		$statement = \app\SQL::prepare
@@ -158,19 +158,40 @@ abstract class Model_Factory
 	/**
 	 * @return array public entry data
 	 */
-	public static function entry($id)
+	static function entry($id)
 	{
-		throw new \app\Exception_NotApplicable
-			('[entry] method not implmented in ['.\get_called_class().'].');
+		return \app\SQL::prepare
+			(
+				__METHOD__,
+				'
+					SELECT *
+					  FROM `'.static::table().'`
+					 WHERE id = :id
+					 LIMIT 1
+				'
+			)
+			->set_int(':id', $id)
+			->execute()
+			->fetch_array();
 	}
 	
 	/**
 	 * @return array public entry data
 	 */
-	public static function entries($page, $limit, $offset = 0)
+	static function entries($page, $limit, $offset = 0) 
 	{
-		throw new \app\Exception_NotApplicable
-			('[entries] method not implmented in ['.\get_called_class().'].');
+		return \app\SQL::prepare
+			(
+				__METHOD__,
+				'
+					SELECT *
+					  FROM `'.static::table().'`
+					 LIMIT :limit OFFSET :offset
+				'
+			)
+			->page($page, $limit, $offset)
+			->execute()
+			->fetch_all();
 	}
 	
 	/**
@@ -178,7 +199,7 @@ abstract class Model_Factory
 	 * 
 	 * @return int count
 	 */
-	public static function count()
+	static function count()
 	{
 		return (int) \app\SQL::prepare
 			(
