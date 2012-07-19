@@ -31,10 +31,5 @@ class FormField_Checkbox extends \app\FormField
 		
 		return $this;
 	}
-	
-	function value($checked)
-	{
-		return $this->checked($checked);
-	}
 
 } # class
