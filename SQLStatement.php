@@ -286,9 +286,42 @@ class SQLStatement extends \app\Instantiatable
 	 *
 	 * @return array
 	 */
-	public function fetch_all()
+	public function fetch_all(array $format = null)
 	{
-		return $this->statement->fetchAll(\PDO::FETCH_ASSOC);
+		if ($format === null)
+		{
+			return $this->statement->fetchAll(\PDO::FETCH_ASSOC);
+		}
+		else # format not null
+		{
+			$result = $this->statement->fetchAll(\PDO::FETCH_ASSOC);
+			foreach ($result as & $entry)
+			{
+				foreach ($format as $field => $operation)
+				{
+					if (\is_string($operation))
+					{
+						// preset operation
+						switch ($operation)
+						{
+							case 'datetime':
+								$entry[$field] = new \DateTime($entry[$field]);
+								break;
+							
+							default:
+								throw new \app\Exception_NotApplicable
+									('Unknown post formatting operation.');
+						}
+					}
+					else
+					{
+						$entry[$field] = $operation($entry[$field]);
+					}
+				}
+			}
+			
+			return $result;
+		}
 	}
 	
 } # class
