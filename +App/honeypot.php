@@ -72,6 +72,7 @@ class Task_Migrate extends \ibidem\base\Task_Migrate { /** @return \ibidem\base\
 class Task_Relays extends \ibidem\base\Task_Relays { /** @return \ibidem\base\Task_Relays */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
 class Task_Versions extends \ibidem\base\Task_Versions { /** @return \ibidem\base\Task_Versions */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
 class Task extends \ibidem\base\Task { /** @return \ibidem\base\Task */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
+class Text extends \ibidem\base\Text { /** @return \ibidem\base\Text */ static function instance() { return parent::instance(); } }
 trait Trait_Document { use \ibidem\base\Trait_Document; }
 trait Trait_Params { use \ibidem\base\Trait_Params; }
 class Validator extends \ibidem\base\Validator { /** @return \ibidem\base\Validator */ static function instance(array $errors = null, array $fields = null) { return parent::instance($errors, $fields); } }
