@@ -196,9 +196,9 @@ class Make extends \app\Instantiatable
 	/**
 	 * @return \ibidem\base\Make
 	 */
-	public static function url()
+	public static function url($mockup = null)
 	{
-		return static::instance('url');
+		return static::instance('url', ['mockup' => $mockup]);
 	}
 	
 	/**
@@ -364,8 +364,18 @@ class Make extends \app\Instantiatable
 				return $mockup['words'][\rand(1, \count($mockup['words']) - 1)];
 
 			case 'url':
-				// we just need a unique one
-				return '//localhost/'.\rand(1, 999999999);
+				if ($this->args['mockup'] !== null)
+				{
+					return \app\Relay::route('\ibidem\theme\mockup')->url
+						(
+							['target' => $this->args['mockup']]
+						).$_SERVER['QUERY_STRING'];
+				}
+				else # no mockup target
+				{
+					// we generate an unique one so links don't show as seen
+					return '//localhost/'.\rand(1, 999999999);
+				}
 
 			case 'counter':
 				$id = $this->args[0];
