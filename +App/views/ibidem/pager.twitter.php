@@ -82,7 +82,7 @@
 							?>title="<?= Lang::tr($title, array(':number' => $number, ':number_end' => $number_end, ':bookmark' => $bookmark)) ?>"><?= $i ?></a><?
 						?></li><?
 					endif;
-					?><li class="ellipsis">&#8230;</li><?
+					?><li class="ellipsis"><a href="#">&#8230;</a></li><?
 
 				elseif ($i == $bookmark['page']):
 

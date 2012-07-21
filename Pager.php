@@ -23,8 +23,7 @@ class Pager extends \app\Instantiatable
 			'has_ruler'   => null,  # show ruler on pager
 			'order'       => \ibidem\types\Pager::ascending,
 			'querie'      => '?',
-			
-		
+
 			'lang' => array
 				(
 					'entries_to_entries' => 'Entries :number to :number_end.',
@@ -64,7 +63,7 @@ class Pager extends \app\Instantiatable
 	 * @param integer pagelimit 
 	 * @return \ibidem\base\Pager instance
 	 */
-	public static function instance($totalitems = 0, $url_base = '', $pagediff = 4, $pagelimit = 20)
+	public static function instance($totalitems = 0, $url_base = '', $pagediff = 3, $pagelimit = 20)
 	{
 		$instance = parent::instance();
 		$instance->options['totalitems'] = $totalitems;
