@@ -2,7 +2,7 @@
 
 // This is a IDE honeypot. :)
 
-// HowTo: minion honeypot -n "ibidem\\base"
+// HowTo: order honeypot -n 'ibidem\base'
 
 class Collection extends \ibidem\base\Collection {}
 class Controller_HTTP extends \ibidem\base\Controller_HTTP { /** @return \ibidem\base\Controller_HTTP */ static function instance() { return parent::instance(); } }
@@ -18,6 +18,7 @@ class Form extends \ibidem\base\Form { /** @return \ibidem\base\Form */ static f
 class FormField_Checkbox extends \ibidem\base\FormField_Checkbox { /** @return \ibidem\base\FormField_Checkbox */ static function instance($title = null, $name = null, $form = null) { return parent::instance($title, $name, $form); } }
 class FormField_DateTime extends \ibidem\base\FormField_DateTime { /** @return \ibidem\base\FormField_DateTime */ static function instance($title = null, $name = null, $form = null) { return parent::instance($title, $name, $form); } }
 class FormField_Email extends \ibidem\base\FormField_Email { /** @return \ibidem\base\FormField_Email */ static function instance($title = null, $name = null, $form = null) { return parent::instance($title, $name, $form); } }
+class FormField_File extends \ibidem\base\FormField_File { /** @return \ibidem\base\FormField_File */ static function instance($title = null, $name = null, $form = null) { return parent::instance($title, $name, $form); } }
 class FormField_Hidden extends \ibidem\base\FormField_Hidden { /** @return \ibidem\base\FormField_Hidden */ static function instance($name = null, $form = null) { return parent::instance($name, $form); } }
 class FormField_Password extends \ibidem\base\FormField_Password { /** @return \ibidem\base\FormField_Password */ static function instance($title = null, $name = null, $form = null) { return parent::instance($title, $name, $form); } }
 class FormField_Radio extends \ibidem\base\FormField_Radio { /** @return \ibidem\base\FormField_Radio */ static function instance($title = null, $name = null, $form = null) { return parent::instance($title, $name, $form); } }
@@ -40,8 +41,6 @@ class Layer_TaskRunner extends \ibidem\base\Layer_TaskRunner { /** @return \ibid
 class Layer extends \ibidem\base\Layer { /** @return \ibidem\base\Layer */ static function instance() { return parent::instance(); } }
 class Log extends \ibidem\base\Log {}
 class Make extends \ibidem\base\Make { /** @return \ibidem\base\Make */ static function instance($type = 'paragraph', array $args = null) { return parent::instance($type, $args); } }
-class Migration_Template_MySQL extends \ibidem\base\Migration_Template_MySQL { /** @return \ibidem\base\Migration_Template_MySQL */ static function instance() { return parent::instance(); } }
-class Migration extends \ibidem\base\Migration { /** @return \ibidem\base\Migration */ static function instance() { return parent::instance(); } }
 class Model_Factory extends \ibidem\base\Model_Factory {}
 class Model_Instantiatable extends \ibidem\base\Model_Instantiatable { /** @return \ibidem\base\Model_Instantiatable */ static function instance($id = null) { return parent::instance($id); } }
 class Model_SQL_Factory extends \ibidem\base\Model_SQL_Factory {}
@@ -63,7 +62,6 @@ class Task_Honeypot extends \ibidem\base\Task_Honeypot { /** @return \ibidem\bas
 class Task_Make_Class extends \ibidem\base\Task_Make_Class { /** @return \ibidem\base\Task_Make_Class */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
 class Task_Make_Config extends \ibidem\base\Task_Make_Config { /** @return \ibidem\base\Task_Make_Config */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
 class Task_Make_Module extends \ibidem\base\Task_Make_Module { /** @return \ibidem\base\Task_Make_Module */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
-class Task_Migrate extends \ibidem\base\Task_Migrate { /** @return \ibidem\base\Task_Migrate */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
 class Task_Relays extends \ibidem\base\Task_Relays { /** @return \ibidem\base\Task_Relays */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
 class Task_Versions extends \ibidem\base\Task_Versions { /** @return \ibidem\base\Task_Versions */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
 class Task extends \ibidem\base\Task { /** @return \ibidem\base\Task */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }

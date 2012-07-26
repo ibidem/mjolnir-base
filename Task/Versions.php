@@ -27,6 +27,7 @@ class Task_Versions extends \app\Task
 	public function execute()
 	{
 		$versions = \app\CFS::config('version');
+		\ksort($versions);
 		$length = 10;
 		foreach (\array_keys($versions) as $key)
 		{
@@ -35,7 +36,7 @@ class Task_Versions extends \app\Task
 				$length = \strlen($key);
 			}
 		}
-		$format = ' %'.$length.'s - %s';
+		$format = ' %-'.$length.'s - %s';
 		foreach ($versions as $key => $info)
 		{
 			$v = \app\CFS::merge(static::$defaults, $info);

@@ -22,8 +22,8 @@ class Task_Honeypot extends \app\Task
 			$files = static::files($path);
 			$output = '<?php namespace app;';
 			$output .= PHP_EOL.PHP_EOL.'// This is a IDE honeypot. :)';
-			$output .= PHP_EOL.PHP_EOL.'// HowTo: minion honeypot -n "'.
-					\str_replace('\\', '\\\\', $this->config['namespace']).'"'.
+			$output .= PHP_EOL.PHP_EOL.'// HowTo: '.\app\Layer_TaskRunner::get_commandname().' honeypot -n \''.
+					$this->config['namespace'].'\''.
 					PHP_EOL.PHP_EOL;
 			
 			foreach ($files as $file)

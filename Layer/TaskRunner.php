@@ -45,7 +45,7 @@ class Layer_TaskRunner extends \app\Layer
 	/**
 	 * @var string
 	 */
-	protected static $commandname = 'minion';
+	static $commandname = 'order';
 	
 	/**
 	 * @var \ibidem\types\Writer
@@ -65,26 +65,30 @@ class Layer_TaskRunner extends \app\Layer
 	/**
 	 * @param array args
 	 */
-	public function args(array $args)
+	function args(array $args)
 	{
 		$this->argv = $args;
 		$this->argc = \count($args);
 		return $this;
 	}
 	
+	static function get_commandname()
+	{
+		return static::$commandname;
+	}
+	
 	/**
 	 * @param string command name
 	 */
-	public function commandname($commandname)
+	static function commandname($commandname)
 	{
-		$this->commandname = $commandname;
-		return $this;
+		static::$commandname = $commandname;
 	}
 	
 	/**
 	 * @param \ibidem\types\Writer writer
 	 */
-	public function writer($writer)
+	function writer($writer)
 	{
 		$this->writer = $writer;
 		return $this;
@@ -95,7 +99,7 @@ class Layer_TaskRunner extends \app\Layer
 	 * @param \ibidem\types\Layer parent
 	 * @return \ibidem\base\Layer_TaskRunner $this
 	 */
-	public function register(\ibidem\types\Layer $layer)
+	function register(\ibidem\types\Layer $layer)
 	{
 		// Note: In this implementation we treat MVC as a self contained pattern
 		// for the sake of purity of the pattern so we don't support sub layers.
@@ -108,7 +112,7 @@ class Layer_TaskRunner extends \app\Layer
 	/**
 	 * Execute the layer.
 	 */
-	public function execute()
+	function execute()
 	{
 		try
 		{
@@ -248,7 +252,7 @@ class Layer_TaskRunner extends \app\Layer
 	 * @param \Exception
 	 * @param boolean layer is origin of exception?
 	 */
-	public function exception(\Exception $exception, $origin = false)
+	function exception(\Exception $exception, $origin = false)
 	{
 		if (\is_a($exception, '\ibidem\types\Exception'))
 		{
@@ -261,7 +265,7 @@ class Layer_TaskRunner extends \app\Layer
 	/**
 	 * General help information.
 	 */
-	public function helptext()
+	function helptext()
 	{	
 		$stdout = $this->writer;
 		$v = \app\CFS::config('version');
@@ -276,6 +280,7 @@ class Layer_TaskRunner extends \app\Layer
 		$stdout->subheader('Commands');
 		// load config
 		$cli = \app\CFS::config('ibidem/tasks');
+		\ksort($cli);
 		// normalize
 		foreach ($cli as $command => $commandinfo)
 		{
@@ -292,7 +297,7 @@ class Layer_TaskRunner extends \app\Layer
 				$max_command_length = \strlen($command);
 			}
 		}
-		$command_format = '  %'.$max_command_length.'s  - ';
+		$command_format = '  %-'.$max_command_length.'s  - ';
 		// internal help command
 		$stdout
 			->writef($command_format, 'help')
@@ -325,6 +330,7 @@ class Layer_TaskRunner extends \app\Layer
 		$stdout->header('Help for '.$commandname);
 		// configuration
 		$cli = \app\CFS::config('ibidem/tasks');
+		\ksort($cli);
 		// normalize
 		$command = static::normalize($cli[$commandname]);
 
