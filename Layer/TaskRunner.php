@@ -45,7 +45,7 @@ class Layer_TaskRunner extends \app\Layer
 	/**
 	 * @var string
 	 */
-	protected static $commandname = 'minion';
+	protected static $commandname = 'order';
 	
 	/**
 	 * @var \ibidem\types\Writer
@@ -276,6 +276,7 @@ class Layer_TaskRunner extends \app\Layer
 		$stdout->subheader('Commands');
 		// load config
 		$cli = \app\CFS::config('ibidem/tasks');
+		\ksort($cli);
 		// normalize
 		foreach ($cli as $command => $commandinfo)
 		{
@@ -292,7 +293,7 @@ class Layer_TaskRunner extends \app\Layer
 				$max_command_length = \strlen($command);
 			}
 		}
-		$command_format = '  %'.$max_command_length.'s  - ';
+		$command_format = '  %-'.$max_command_length.'s  - ';
 		// internal help command
 		$stdout
 			->writef($command_format, 'help')
