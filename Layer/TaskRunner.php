@@ -485,7 +485,7 @@ class Layer_TaskRunner extends \app\Layer
 			}
 		}
 		$displaycount = 0;
-		$format_dt = ' %4s %-'.$max_flag_length.'s  - ';
+		$format_dt = ' %4s %-'.($max_flag_length+1).'s  - ';
 		foreach ($flagkeys as $flag)
 		{
 			$flaginfo = $command['flags'][$flag];
