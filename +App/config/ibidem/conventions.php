@@ -5,6 +5,6 @@
 				'#^Model_.*$#' => '\app\Model_SQL_Factory',
 				'#^Controller_.*$#' => '\app\Controller_HTTP',
 				'#^Migration_.*$#' => '\app\Migration_Template_MySQL',
-				'#^Task_.*$' => '\app\Task',
+				'#^Task_.*$#' => '\app\Task',
 			),
 	);
