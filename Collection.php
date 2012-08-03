@@ -10,6 +10,26 @@
 class Collection
 {
 	/**
+	 * Given an array converts it to an associative array based on the key 
+	 * and value reference provided.
+	 * 
+	 * @param array array
+	 * @param string key reference
+	 * @param string value reference
+	 * @return array
+	 */
+	static function associative_from(array & $array, $key_ref = 'id', $value_ref = 'title')
+	{
+		$new_array = [];
+		foreach ($array as $row)
+		{
+			$new_array[$row[$key_ref]] = $row[$value_ref];
+		}
+		
+		return $new_array;
+	}
+	
+	/**
 	 * Same as \imlode only has an extra processing function.
 	 * 
 	 * The function is mandatory; just use plain old \implode when you don't 
@@ -43,7 +63,7 @@ class Collection
 	}
 	
 	/**
-	 * Given an array of unique values, mirrors the array so they keys and 
+	 * Given an array of unique values, mirrors the array so the keys and 
 	 * values are identical. 
 	 * 
 	 * eg.
