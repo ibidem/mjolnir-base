@@ -2,21 +2,24 @@
 
 /**
  * @package    ibidem
- * @category   Migration
+ * @category   Schematic
  * @author     Ibidem
  * @copyright  (c) 2012, Ibidem Team
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
-class Migration_Register extends \app\Migration_Template_MySQL
+class Schematic_Default_Ibidem_Base_Registry extends \app\Schematic_Base
 {
-	function bind() 
+	function down()
 	{
-		// no binding
+		\app\Schematic::destroy
+			(
+				\app\Register::table()
+			);
 	}
 	
-	public function up() 
+	function up()
 	{
-		$this->createtable
+		\app\Schematic::table
 			(
 				\app\Register::table(),
 				'
@@ -26,7 +29,10 @@ class Migration_Register extends \app\Migration_Template_MySQL
 					PRIMARY KEY (`key`)
 				'
 			);
-		
+	}
+	
+	function build()
+	{
 		// populate register
 		$key = null;
 		$value = null;
@@ -50,18 +56,6 @@ class Migration_Register extends \app\Migration_Template_MySQL
 			$value = $default;
 			$statement->execute();
 		}
-		
-		return parent::up();
-	}
-	
-	public function down() 
-	{
-		$this->droptables
-			(
-				[
-					\app\Register::table(),
-				]
-			);
 	}
 
 } # class

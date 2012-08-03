@@ -57,6 +57,7 @@ class SQL extends \ibidem\base\SQL {}
 class SQLDatabase extends \ibidem\base\SQLDatabase { /** @return \ibidem\base\SQLDatabase */ static function instance($database = 'default') { return parent::instance($database); } }
 class SQLStatement extends \ibidem\base\SQLStatement { /** @return \ibidem\base\SQLStatement */ static function instance($statement = null) { return parent::instance($statement); } }
 class Sandbox extends \ibidem\base\Sandbox { /** @return \ibidem\base\Sandbox */ static function instance() { return parent::instance(); } }
+class Schematic_Default_Ibidem_Base_Registry extends \ibidem\base\Schematic_Default_Ibidem_Base_Registry { /** @return \ibidem\base\Schematic_Default_Ibidem_Base_Registry */ static function instance() { return parent::instance(); } }
 class Session_Native extends \ibidem\base\Session_Native { /** @return \ibidem\base\Session_Native */ static function instance() { return parent::instance(); } }
 class Session extends \ibidem\base\Session {}
 class Task_Check_Modules extends \ibidem\base\Task_Check_Modules { /** @return \ibidem\base\Task_Check_Modules */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
