@@ -3,7 +3,7 @@
 // This is an IDE honeypot. It tells IDEs the class hirarchy, but otherwise has
 // no effect on your application. :)
 
-// HowTo: minion honeypot -n 'ibidem\base'
+// HowTo: order honeypot -n 'ibidem\base'
 
 class Collection extends \ibidem\base\Collection {}
 class Controller_HTTP extends \ibidem\base\Controller_HTTP { /** @return \ibidem\base\Controller_HTTP */ static function instance() { return parent::instance(); } }
@@ -43,12 +43,10 @@ class Layer extends \ibidem\base\Layer { /** @return \ibidem\base\Layer */ stati
 class Log extends \ibidem\base\Log {}
 class Make extends \ibidem\base\Make { /** @return \ibidem\base\Make */ static function instance($type = 'paragraph', array $args = null) { return parent::instance($type, $args); } }
 class Migration_Register extends \ibidem\base\Migration_Register { /** @return \ibidem\base\Migration_Register */ static function instance() { return parent::instance(); } }
-class Migration_Template_MySQL extends \ibidem\base\Migration_Template_MySQL { /** @return \ibidem\base\Migration_Template_MySQL */ static function instance() { return parent::instance(); } }
-class Migration extends \ibidem\base\Migration { /** @return \ibidem\base\Migration */ static function instance() { return parent::instance(); } }
 class Model_Factory extends \ibidem\base\Model_Factory {}
 class Model_Instantiatable extends \ibidem\base\Model_Instantiatable { /** @return \ibidem\base\Model_Instantiatable */ static function instance($id = null) { return parent::instance($id); } }
 class Model_SQL_Factory extends \ibidem\base\Model_SQL_Factory {}
-class Pager extends \ibidem\base\Pager { /** @return \ibidem\base\Pager */ static function instance($totalitems = 0, $url_base = '', $pagediff = 4, $pagelimit = 20) { return parent::instance($totalitems, $url_base, $pagediff, $pagelimit); } }
+class Pager extends \ibidem\base\Pager { /** @return \ibidem\base\Pager */ static function instance($totalitems = 0, $url_base = '', $pagediff = 3, $pagelimit = 20) { return parent::instance($totalitems, $url_base, $pagediff, $pagelimit); } }
 class Params extends \ibidem\base\Params { /** @return \ibidem\base\Params */ static function instance() { return parent::instance(); } }
 class Register extends \ibidem\base\Register {}
 class Relay extends \ibidem\base\Relay {}
@@ -68,7 +66,6 @@ class Task_Honeypot extends \ibidem\base\Task_Honeypot { /** @return \ibidem\bas
 class Task_Make_Class extends \ibidem\base\Task_Make_Class { /** @return \ibidem\base\Task_Make_Class */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
 class Task_Make_Config extends \ibidem\base\Task_Make_Config { /** @return \ibidem\base\Task_Make_Config */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
 class Task_Make_Module extends \ibidem\base\Task_Make_Module { /** @return \ibidem\base\Task_Make_Module */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
-class Task_Migrate extends \ibidem\base\Task_Migrate { /** @return \ibidem\base\Task_Migrate */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
 class Task_Relays extends \ibidem\base\Task_Relays { /** @return \ibidem\base\Task_Relays */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
 class Task_Versions extends \ibidem\base\Task_Versions { /** @return \ibidem\base\Task_Versions */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
 class Task extends \ibidem\base\Task { /** @return \ibidem\base\Task */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }

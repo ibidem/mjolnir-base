@@ -23,7 +23,7 @@ class Task_Honeypot extends \app\Task
 			$output = '<?php namespace app;';
 			$output .= PHP_EOL.PHP_EOL.'// This is an IDE honeypot. It tells IDEs the class hirarchy, but otherwise has'
 					. PHP_EOL.'// no effect on your application. :)';
-			$output .= PHP_EOL.PHP_EOL.'// HowTo: minion honeypot -n \''.
+			$output .= PHP_EOL.PHP_EOL.'// HowTo: '.\app\Layer_TaskRunner::get_commandname().' honeypot -n \''.
 					$this->config['namespace'].'\''.
 					PHP_EOL.PHP_EOL;
 			
