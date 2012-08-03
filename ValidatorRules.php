@@ -18,7 +18,7 @@ class ValidatorRules
 	 */
 	public static function not_empty($field)
 	{
-		return ! empty($field);
+		return $field === 0 || $field === '0' || ! empty($field);
 	}
 	
 	/**
