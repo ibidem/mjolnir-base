@@ -130,4 +130,17 @@ class Collection
 		return $filtered_collection;
 	}
 	
+	/**
+	 * @return array of items manipulated by callback
+	 */
+	static function convert(array $items, $callback)
+	{
+		foreach ($items as & $item)
+		{
+			$item = $callback($item);
+		}
+		
+		return $items;
+	}
+	
 } # class

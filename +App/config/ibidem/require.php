@@ -6,7 +6,7 @@ return array
 	(
 		'ibidem\base' => array
 			(
-				 'PHP 5.3 or higher' => function ()
+				 'PHP 5.4 or higher' => function ()
 					{
 						if (PHP_VERSION_ID >= 50400)
 						{
