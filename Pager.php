@@ -22,6 +22,7 @@ class Pager extends \app\Instantiatable
 			'has_ruler'   => null,  # show ruler on pager
 			'order'       => \ibidem\types\Pager::ascending,
 			'querie'      => '?',
+			'querie_key'  => 'page',
 		
 			'lang' => array
 				(
@@ -187,6 +188,7 @@ class Pager extends \app\Instantiatable
 	
 	public function querie(array $querie, $page_key = 'page')
 	{
+		$this->options['querie_key'] = $page_key;
 		if (isset($querie[$page_key]))
 		{
 			unset($querie[$page_key]);
