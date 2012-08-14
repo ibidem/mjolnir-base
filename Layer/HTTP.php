@@ -33,6 +33,33 @@ class Layer_HTTP extends \app\Layer
 		$http = \app\CFS::config('ibidem/http');
 		$instance->params = $http['meta'];
 		$instance->status = $http['status'];
+		
+		\app\GlobalEvent::listener('http:status', function ($status) use ($instance) {
+			$instance->status($status);
+		});
+		
+		\app\GlobalEvent::listener('http:attributes', function ($params) use ($instance) {
+			foreach ($params as $key => $value)
+			{
+				$instance->set($key, $value);
+			}
+		});
+		
+		\app\GlobalEvent::listener('http:content-type', function ($expires) use ($instance) {
+			$instance->content_type($expires);
+		});
+		
+		\app\GlobalEvent::listener('http:expires', function ($expiration_time) use ($instance) {
+			$expires = $expiration_time - \time();
+			$instance->set('Pragma', 'public');
+			$instance->set('Cache-Control', 'maxage='.$expires);
+			$instance->set
+				(
+					'Expires', 
+					\gmdate('D, d M Y H:i:s', \time() + $expires).' GMT'
+				);
+		});
+		
 		return $instance;
 	}	
 	
@@ -123,100 +150,6 @@ class Layer_HTTP extends \app\Layer
 	}
 	
 	/**
-	 * @return string 
-	 */
-	static function detect_ip()
-	{
-		if 
-		(
-			isset($_SERVER['HTTP_X_FORWARDED_FOR'])
-			&& isset($_SERVER['REMOTE_ADDR'])
-			&& \in_array($_SERVER['REMOTE_ADDR'], array('127.0.0.1', 'localhost', 'localhost.localdomain'))
-		)
-		{
-			// Use the forwarded IP address, typically set when the
-			// client is using a proxy server.
-			// Format: "X-Forwarded-For: client1, proxy1, proxy2"
-			$client_ips = \explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
-
-			return \array_shift($client_ips);
-		}
-		elseif 
-		(
-			isset($_SERVER['HTTP_CLIENT_IP'])
-			&& isset($_SERVER['REMOTE_ADDR'])
-			&& \in_array($_SERVER['REMOTE_ADDR'], array('127.0.0.1', 'localhost', 'localhost.localdomain'))
-		)
-		{
-			// use the forwarded IP address, typically set when the
-			// client is using a proxy server.
-			$client_ips = \explode(',', $_SERVER['HTTP_CLIENT_IP']);
-
-			return \array_shift($client_ips);
-		}
-		elseif (isset($_SERVER['REMOTE_ADDR']))
-		{
-			// the remote IP address
-			return $_SERVER['REMOTE_ADDR'];
-		}
-		
-		return '0.0.0.0';
-	}
-	
-	/**
-	 * @param string url 
-	 */
-	static function redirect_to_url($url)
-	{
-		\header('Location: '.$url);
-		die;
-	}
-	
-	/**
-	 * @param string relay
-	 * @param array params 
-	 */
-	static function redirect($relay, array $params = null, array $query = null)
-	{
-		$access_config = \app\CFS::config('ibidem/relays');
-		if ($query == null)
-		{
-			static::redirect_to_url($access_config[$relay]['route']->url($params));
-		}
-		else # non-null query
-		{
-			$query = \http_build_query($query);
-			static::redirect_to_url($access_config[$relay]['route']->url($params).'?'.$query);
-		}
-	}
-	
-	/**
-	 * @return string url base
-	 */
-	static function detect_url_base()
-	{
-		return $_SERVER['SERVER_NAME'].
-			($_SERVER['SERVER_PORT'] !== 80 ? ':'.$_SERVER['SERVER_PORT'] : '');
-	}
-		
-	/**
-	 * @return string
-	 */
-	static function request_method()
-	{
-		if (isset($_SERVER['REQUEST_METHOD']))
-		{
-			// Use the server request method
-			return \strtoupper($_SERVER['REQUEST_METHOD']);
-		}
-		else # REQUEST_METHOD not set
-		{
-			// Default to GET requests
-			return \strtoupper(\ibidem\types\HTTP::GET);
-		}
-	}
-	
-	/**
 	 * Executes non-content related tasks before main contents.
 	 */
 	function headerinfo()
@@ -227,33 +160,6 @@ class Layer_HTTP extends \app\Layer
 		{
 			\header("$key: $value");
 		}
-	}
-	
-	/**
-	 * @param \ibidem\types\Event
-	 */
-	function dispatch(\ibidem\types\Event $event)
-	{
-		switch ($event->get_subject())
-		{
-			case \ibidem\types\Event::content_type:
-				$this->content_type($event->get_contents());
-				break;
-			
-			case \ibidem\types\Event::expires:
-				$expiration = $event->get_contents() - \time();
-				$this->set('Pragma', 'public');
-				$this->set('Cache-Control', 'maxage='.$expiration);
-				$this->set
-					(
-						'Expires', 
-						\gmdate('D, d M Y H:i:s', \time() + $expiration).' GMT'
-					);
-				break;
-		}
-		
-		// pass to default handling
-		parent::dispatch($event);
 	}	
 	
 	/**

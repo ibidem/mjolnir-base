@@ -45,7 +45,7 @@ class Layer_TaskRunner extends \app\Layer
 	/**
 	 * @var string
 	 */
-	protected static $commandname = 'order';
+	protected static $commandname = 'mjolnir';
 	
 	/**
 	 * @var \ibidem\types\Writer
@@ -268,12 +268,7 @@ class Layer_TaskRunner extends \app\Layer
 	function helptext()
 	{	
 		$stdout = $this->writer;
-		$v = \app\CFS::config('version');
-		$v = $v['overlord'];
-		$version = $v['major'].'.'.$v['minor']
-			. ($v['hotfix'] !== '0' ? '.'.$v['hotfix'] : '')
-			. ( ! empty($v['tag']) ? '-'.$v['tag'] : '');
-		$stdout->header('overlord v'.$version);
+		$stdout->header('Mjolnir');
 		$stdout->write("    USAGE: ".static::$commandname." [command] [flags]")->eol();
 		$stdout->write("       eg. ".static::$commandname." example:cmd -i Joe --greeting \"Greetings, Mr.\" --date")->eol()->eol();
 		$stdout->write("     Help: ".static::$commandname." [command] -h")->eol()->eol()->eol();

@@ -23,7 +23,7 @@ class Layer_PlainText extends \app\Layer
 	/**
 	 * Executes non-content related tasks before main contents.
 	 */
-	public function headerinfo()
+	function headerinfo()
 	{
 		// meta information
 		\header("content-type: text/plain");
@@ -33,7 +33,7 @@ class Layer_PlainText extends \app\Layer
 	/**
 	 * Execute the layer.
 	 */
-	public function execute()
+	function execute()
 	{
 		try
 		{
@@ -55,15 +55,13 @@ class Layer_PlainText extends \app\Layer
 		}
 	}
 	
-# Document trait
-
 	/**
 	 * Set the document's body.
 	 * 
 	 * @param string document body
 	 * @return \ibidem\base\Layer_PlainText $this
 	 */
-	public function body($body)	
+	function body($body)	
 	{
 		if ($this->layer !== null)
 		{
@@ -79,7 +77,5 @@ class Layer_PlainText extends \app\Layer
 		
 		return $this;
 	}
-
-# /Document trait
 
 } # class

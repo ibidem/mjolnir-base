@@ -38,7 +38,7 @@ abstract class Layer extends \app\Instantiatable
 	/**
 	 * @return string layer name of self 
 	 */
-	public function get_layer_name()
+	function get_layer_name()
 	{
 		return static::$layer_name;
 	}
@@ -48,7 +48,7 @@ abstract class Layer extends \app\Instantiatable
 	 * @param \ibidem\types\Layer parent
 	 * @return \ibidem\base\Layer $this
 	 */
-	public function register(\ibidem\types\Layer $layer)
+	function register(\ibidem\types\Layer $layer)
 	{
 		if ($this->layer)
 		{
@@ -68,7 +68,7 @@ abstract class Layer extends \app\Instantiatable
 	 * @param \ibidem\types\Layer $parent
 	 * @return \ibidem\base\Layer $this
 	 */
-	public function parent_layer(\ibidem\types\Layer $parent)
+	function parent_layer(\ibidem\types\Layer $parent)
 	{
 		$this->parent = $parent;
 		return $this;
@@ -77,7 +77,7 @@ abstract class Layer extends \app\Instantiatable
 	/**
 	 * Executes non-content related tasks before main contents.
 	 */
-	public function headerinfo()
+	function headerinfo()
 	{
 		if ($this->layer !== null)
 		{
@@ -88,7 +88,7 @@ abstract class Layer extends \app\Instantiatable
 	/**
 	 * Execute the layer.
 	 */
-	public function execute()
+	function execute()
 	{
 		try 
 		{
@@ -122,7 +122,7 @@ abstract class Layer extends \app\Instantiatable
 	 * 
 	 * @return mixed
 	 */
-	public function get_contents()
+	function get_contents()
 	{
 		return $this->contents;
 	}
@@ -136,7 +136,7 @@ abstract class Layer extends \app\Instantiatable
 	 * @return \ibidem\base\Layer $this
 	 * @throws \ibidem\types\Exception
 	 */
-	public function get_layer($layer_name)
+	function get_layer($layer_name)
 	{
 		// this layer?
 		if ($layer_name === static::$layer_name)
@@ -158,7 +158,7 @@ abstract class Layer extends \app\Instantiatable
 	 * 
 	 * @param \ibidem\types\Layer top layer
 	 */
-	public static function top(\ibidem\types\Layer $top_layer)
+	static function top(\ibidem\types\Layer $top_layer)
 	{
 		static::$top = $top_layer;
 	}
@@ -166,7 +166,7 @@ abstract class Layer extends \app\Instantiatable
 	/**
 	 * @return \ibidem\types\Layer top layer
 	 */
-	public static function get_top()
+	static function get_top()
 	{
 		return static::$top;
 	}
@@ -179,7 +179,7 @@ abstract class Layer extends \app\Instantiatable
 	 * @param \Exception
 	 * @param boolean layer is origin of exception?
 	 */
-	public function exception(\Exception $exception, $no_throw = false, $origin = false)
+	function exception(\Exception $exception, $no_throw = false, $origin = false)
 	{
 		// propagate contents; contents should not be set unless they were set
 		// by an overwrite on this method... because setting the contents should
@@ -217,42 +217,6 @@ abstract class Layer extends \app\Instantiatable
 	}
 	
 	/**
-	 * Captures a broadcast Event.
-	 * 
-	 * @param \ibidem\types\Event
-	 */
-	public function capture(\ibidem\types\Event $event)
-	{
-		if ($this->layer)
-		{
-			$this->layer->capture($event);
-		}
-	}
-	
-	/**
-	 * Sends an Event to the parent of the current layer.
-	 * 
-	 * @param \ibidem\types\Event
-	 */
-	public function dispatch(\ibidem\types\Event $event)
-	{
-		if ($this->parent)
-		{
-			$this->parent->dispatch($event);
-		}
-	}
-	
-	/**
-	 * Send an Event to the top layer and then down
-	 * 
-	 * @param \ibidem\types\Event
-	 */
-	public static function broadcast(\ibidem\types\Event $event)
-	{
-		static::$top->capture($event);
-	}
-	
-	/**
 	 * Same as get on instance level. This method simply calls the top layer and
 	 * invokes get.
 	 * 
@@ -260,7 +224,7 @@ abstract class Layer extends \app\Instantiatable
 	 * @return \ibidem\types\Layer
 	 * @throws \ibidem\types\Exception
 	 */
-	public static function find($layer_name)
+	static function find($layer_name)
 	{
 		return static::$top->get_layer($layer_name);
 	}
@@ -268,7 +232,7 @@ abstract class Layer extends \app\Instantiatable
 	/**
 	 * Initializes execution, starting at the top. 
 	 */
-	public static function run()
+	static function run()
 	{
 		try 
 		{
@@ -299,7 +263,7 @@ abstract class Layer extends \app\Instantiatable
 	 * Shortcut method for setting up a stack.
 	 * @param \ibidem\types\Layer $args
 	 */
-	public static function stack($args)
+	static function stack($args)
 	{
 		$args = \func_get_args();
 		$first = \array_shift($args);
@@ -315,7 +279,7 @@ abstract class Layer extends \app\Instantiatable
 	/**
 	 * @return array
 	 */
-	public function get_relay()
+	function get_relay()
 	{
 		return $this->relay;
 	}

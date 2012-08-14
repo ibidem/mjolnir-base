@@ -28,7 +28,7 @@ class Layer_MVC extends \app\Layer
 	/**
 	 * @return \ibidem\base\Layer_MVC
 	 */
-	public static function instance()
+	static function instance()
 	{
 		$instance = parent::instance();
 		$instance->params = \app\CFS::config('ibidem/mvc');
@@ -38,7 +38,7 @@ class Layer_MVC extends \app\Layer
 	/**
 	 * Execute the layer.
 	 */
-	public function execute()
+	function execute()
 	{
 		try 
 		{
@@ -107,7 +107,7 @@ class Layer_MVC extends \app\Layer
 	 * @param \Exception
 	 * @param boolean layer is origin of exception?
 	 */
-	public function exception(\Exception $exception, $no_throw = false, $origin = false)
+	function exception(\Exception $exception, $no_throw = false, $origin = false)
 	{
 		if (\is_a($exception, '\\ibidem\\types\\Exception'))
 		{
@@ -127,7 +127,7 @@ class Layer_MVC extends \app\Layer
 	 * @param \ibidem\types\Controller 
 	 * @return \ibidem\base\Layer_MVC $this
 	 */
-	public function controller(\ibidem\types\Controller $controller)
+	function controller(\ibidem\types\Controller $controller)
 	{
 		$this->params['controller'] = $controller;
 		return $this;
@@ -139,7 +139,7 @@ class Layer_MVC extends \app\Layer
 	 * @param \ibidem\types\Controller 
 	 * @return \ibidem\base\Layer_MVC $this
 	 */
-	public function params(\ibidem\types\Params $params)
+	function params(\ibidem\types\Params $params)
 	{
 		$this->params['params'] = $params;
 		return $this;
@@ -150,7 +150,7 @@ class Layer_MVC extends \app\Layer
 	 * @param \ibidem\types\Layer parent
 	 * @return \ibidem\base\Layer_MVC $this
 	 */
-	public function register(\ibidem\types\Layer $layer)
+	function register(\ibidem\types\Layer $layer)
 	{
 		// Note: In this implementation we treat MVC as a self contained pattern
 		// for the sake of purity of the pattern so we don't support sub layers.
@@ -164,7 +164,7 @@ class Layer_MVC extends \app\Layer
 	 * @param array relay configuration
 	 * @return \ibidem\base\Layer_MVC $this
 	 */
-	public function relay_config(array $relay)
+	function relay_config(array $relay)
 	{
 		// [!!] don't do actual configuration here; do it in the execution loop;
 		// not only is it potentially unused configuration but when this is 

@@ -23,7 +23,7 @@ class Layer_Sandbox extends \app\Layer
 	 * @param array relay
 	 * @return \ibidem\access\Layer_NULL $this
 	 */
-	public function relay($relay)
+	function relay($relay)
 	{
 		$this->relay = $relay;
 		return $this;
@@ -32,7 +32,7 @@ class Layer_Sandbox extends \app\Layer
 	/**
 	 * Execute the layer.
 	 */
-	public function execute()
+	function execute()
 	{
 		try
 		{
@@ -50,7 +50,7 @@ class Layer_Sandbox extends \app\Layer
 	 * @param callback callback
 	 * @return \ibidem\base\Layer_NULL $this
 	 */
-	public function caller($callback)
+	function caller($callback)
 	{
 		$this->callback = $callback;
 		return $this;

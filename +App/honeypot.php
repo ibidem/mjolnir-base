@@ -10,12 +10,12 @@ class Controller_HTTP extends \ibidem\base\Controller_HTTP { /** @return \ibidem
 class Controller extends \ibidem\base\Controller { /** @return \ibidem\base\Controller */ static function instance() { return parent::instance(); } }
 class DateFormatter extends \ibidem\base\DateFormatter { /** @return \ibidem\base\DateFormatter */ static function instance() { return parent::instance(); } }
 class Email extends \ibidem\base\Email { /** @return \ibidem\base\Email */ static function instance() { return parent::instance(); } }
-class Event extends \ibidem\base\Event { /** @return \ibidem\base\Event */ static function instance() { return parent::instance(); } }
 class Exception_NotAllowed extends \ibidem\base\Exception_NotAllowed {}
 class Exception_NotApplicable extends \ibidem\base\Exception_NotApplicable {}
 class Exception_NotFound extends \ibidem\base\Exception_NotFound {}
 class Exception extends \ibidem\base\Exception {}
 class Flags extends \ibidem\base\Flags {}
+class GlobalEvent extends \ibidem\base\GlobalEvent { /** @return \ibidem\base\GlobalEvent */ static function instance() { return parent::instance(); } }
 class Instantiatable extends \ibidem\base\Instantiatable { /** @return \ibidem\base\Instantiatable */ static function instance() { return parent::instance(); } }
 class Lang extends \ibidem\base\Lang {}
 class Layer_HTTP extends \ibidem\base\Layer_HTTP { /** @return \ibidem\base\Layer_HTTP */ static function instance() { return parent::instance(); } }
@@ -34,6 +34,7 @@ class Route_Pattern extends \ibidem\base\Route_Pattern { /** @return \ibidem\bas
 class Route_Regex extends \ibidem\base\Route_Regex { /** @return \ibidem\base\Route_Regex */ static function instance($uri = null) { return parent::instance($uri); } }
 class Sandbox extends \ibidem\base\Sandbox { /** @return \ibidem\base\Sandbox */ static function instance() { return parent::instance(); } }
 class Schematic_Default_Ibidem_Base_Registry extends \ibidem\base\Schematic_Default_Ibidem_Base_Registry { /** @return \ibidem\base\Schematic_Default_Ibidem_Base_Registry */ static function instance() { return parent::instance(); } }
+class Server extends \ibidem\base\Server { /** @return \ibidem\base\Server */ static function instance() { return parent::instance(); } }
 class Session_Native extends \ibidem\base\Session_Native { /** @return \ibidem\base\Session_Native */ static function instance() { return parent::instance(); } }
 class Session extends \ibidem\base\Session {}
 class Task_Check_Modules extends \ibidem\base\Task_Check_Modules { /** @return \ibidem\base\Task_Check_Modules */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
