@@ -31,7 +31,7 @@ class Make extends \app\Instantiatable
 	 * @param string type 
 	 * @return \ibidem\base\Make
 	 */
-	public static function instance($type = 'paragraph', array $args = null)
+	static function instance($type = 'paragraph', array $args = null)
 	{
 		$instance = parent::instance();
 		$instance->type = $type;
@@ -44,7 +44,7 @@ class Make extends \app\Instantiatable
 	 * 
 	 * @return integer
 	 */
-	public static function time()
+	static function time()
 	{
 		return \rand(0, \time() + \ibidem\types\Date::year * 5);
 	}
@@ -52,7 +52,7 @@ class Make extends \app\Instantiatable
 	/**
 	 * @return \ibidem\base\Make
 	 */
-	public static function name()
+	static function name()
 	{
 		return static::instance('name');
 	}
@@ -62,7 +62,7 @@ class Make extends \app\Instantiatable
 	 * @param type $height
 	 * @return type
 	 */
-	public static function img($width, $height)
+	static function img($width, $height)
 	{
 		return 'http://placehold.it/'.$width.'x'.$height;
 	}
@@ -73,7 +73,7 @@ class Make extends \app\Instantiatable
 	 * @param bool grayscale
 	 * @return string kitten!
 	 */
-	public static function placekitten($width, $height, $grayscale = false)
+	static function placekitten($width, $height, $grayscale = false)
 	{
 		return static::instance('placekitten', [
 			'width' => $width,
@@ -88,7 +88,7 @@ class Make extends \app\Instantiatable
 	 * @param bool grayscale
 	 * @return string zombie~grrr~brainsss
 	 */
-	public static function placezombie($width, $height, $grayscale = false)
+	static function placezombie($width, $height, $grayscale = false)
 	{
 		return static::instance('placezombie', [
 			'width' => $width,
@@ -110,7 +110,7 @@ class Make extends \app\Instantiatable
 	 * @param type $category
 	 * @param type $grayscale
 	 */
-	public static function lorempixel($width, $height, $category = null, $grayscale = null)
+	static function lorempixel($width, $height, $category = null, $grayscale = null)
 	{
 		if ($category == null)
 		{
@@ -135,7 +135,7 @@ class Make extends \app\Instantiatable
 	/**
 	 * @return \ibidem\base\Make
 	 */
-	public static function given_name()
+	static function given_name()
 	{
 		return static::instance('given_name');
 	}
@@ -143,7 +143,7 @@ class Make extends \app\Instantiatable
 	/**
 	 * @return \ibidem\base\Make
 	 */
-	public static function family_name()
+	static function family_name()
 	{
 		return static::instance('family_name');
 	}	
@@ -151,7 +151,7 @@ class Make extends \app\Instantiatable
 	/**
 	 * @return \ibidem\base\Make
 	 */
-	public static function telephone()
+	static function telephone()
 	{
 		return static::instance('telephone');
 	}
@@ -159,7 +159,7 @@ class Make extends \app\Instantiatable
 	/**
 	 * @return \ibidem\base\Make
 	 */
-	public static function email()
+	static function email()
 	{
 		return static::instance('email');
 	}
@@ -167,7 +167,7 @@ class Make extends \app\Instantiatable
 	/**
 	 * @return \ibidem\base\Make
 	 */
-	public static function ssn()
+	static function ssn()
 	{
 		return static::instance('ssn');
 	}
@@ -175,12 +175,12 @@ class Make extends \app\Instantiatable
 	/**
 	 * @return \ibidem\base\Make
 	 */
-	public static function address()
+	static function address()
 	{
 		return static::instance('address');
 	}
 	
-	public static function city()
+	static function city()
 	{
 		return static::instance('city');
 	}
@@ -188,7 +188,7 @@ class Make extends \app\Instantiatable
 	/**
 	 * @return \ibidem\base\Make
 	 */
-	public static function paragraph()
+	static function paragraph()
 	{
 		return static::instance('paragraph');
 	}
@@ -196,15 +196,32 @@ class Make extends \app\Instantiatable
 	/**
 	 * @return \ibidem\base\Make
 	 */
-	public static function url($mockup = null)
+	static function url($mockup = null)
 	{
 		return static::instance('url', ['mockup' => $mockup]);
+	}
+	
+	static function fullurl()
+	{
+		$url = (\rand(1, 4) === 1 ? '' : 'www.'); 
+		$url .= \app\Make::word();
+		if (\rand(1,2) === 1)
+		{
+			$url .= (\rand(1, 2) == 1 ? '-' : '').\app\Make::word();
+			
+			if (\rand(1,4) === 1)
+			{
+				$url .= (\rand(1, 2) == 1 ? '-' : '').\app\Make::word();
+			}
+		}
+			
+		return $url.'.'.\app\Make::rand(['com', 'co.uk', 'co', 'de', 'fr', 'jp', 'kr', 'ro', 'ru', 'eu', 'org']).'/';
 	}
 	
 	/**
 	 * @return \ibidem\base\Make 
 	 */
-	public static function counter($id)
+	static function counter($id)
 	{
 		return static::instance('counter', \func_get_args());
 	}
@@ -212,7 +229,7 @@ class Make extends \app\Instantiatable
 	/**
 	 * @return \ibidem\base\Make
 	 */
-	public static function title()
+	static function title()
 	{
 		return static::instance('title');
 	}
@@ -220,7 +237,7 @@ class Make extends \app\Instantiatable
 	/**
 	 * @return \ibidem\base\Make
 	 */
-	public static function word()
+	static function word()
 	{
 		return static::instance('word');
 	}
@@ -229,12 +246,12 @@ class Make extends \app\Instantiatable
 	 * @param integer count
 	 * @return \ibidem\base\Make
 	 */
-	public static function words($count = 10)
+	static function words($count = 10)
 	{
 		return static::instance('words', \func_get_args());
 	}
 	
-	public static function rand(array $values)
+	static function rand(array $values)
 	{
 		$instance = static::instance('rand');
 		$instance->args = $values;
@@ -247,7 +264,7 @@ class Make extends \app\Instantiatable
 	 * @param integer copies
 	 * @return array
 	 */
-	public static function copies($source, $count = null, array $counters = null)
+	static function copies($source, $count = null, array $counters = null)
 	{
 		$count !== null or $count = \rand(5, 25);
 		$copies = array();
@@ -278,7 +295,7 @@ class Make extends \app\Instantiatable
 	/**
 	 * @return string 
 	 */
-	public function render()
+	function render()
 	{
 		$mockup = \app\CFS::config('ibidem\mockup');
 		switch ($this->type)
@@ -447,7 +464,7 @@ class Make extends \app\Instantiatable
 	/**
 	 * @return string
 	 */
-	public function __toString()
+	function __toString()
 	{
 		try
 		{
