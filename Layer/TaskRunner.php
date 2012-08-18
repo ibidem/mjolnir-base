@@ -45,7 +45,7 @@ class Layer_TaskRunner extends \app\Layer
 	/**
 	 * @var string
 	 */
-	protected static $commandname = 'mjolnir';
+	protected static $commandname = 'order';
 	
 	/**
 	 * @var \ibidem\types\Writer
