@@ -20,7 +20,7 @@ trait Trait_Document
 	 * @param string document body
 	 * @return \ibidem\base\Controller $this
 	 */
-	public function body($body)
+	function body($body)
 	{
 		$this->body = $body;
 		return $this;
@@ -31,7 +31,7 @@ trait Trait_Document
 	 * 
 	 * @return string body of document 
 	 */
-	public function get_body()
+	function get_body()
 	{
 		return $this->body;
 	}

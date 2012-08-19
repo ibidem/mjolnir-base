@@ -33,7 +33,7 @@ class Lang
 	 * @param string source language
 	 * @return string
 	 */
-	public static function tr($term, array $addins = null, $from_lang = 'en-us')
+	static function tr($term, array $addins = null, $from_lang = 'en-us')
 	{
 		// lang/en-us/messages => translate to en-us using messages
 		// lang/en-us/ro-ro => translate to en-us from ro-ro
@@ -94,7 +94,7 @@ class Lang
 	 * @param string source language
 	 * @return string
 	 */
-	public static function msg($key, array $addins = null)
+	static function msg($key, array $addins = null)
 	{
 		$config = \app\CFS::config('lang/'.self::$current_lang.'/messages');
 		
@@ -118,7 +118,7 @@ class Lang
 	/**
 	 * @param string target lang
 	 */
-	public static function lang($lang)
+	static function lang($lang)
 	{
 		self::$current_lang = $lang;
 	}
@@ -126,7 +126,7 @@ class Lang
 	/**
 	 * @return string current target language
 	 */
-	public static function get_lang()
+	static function get_lang()
 	{
 		return self::$current_lang;
 	}

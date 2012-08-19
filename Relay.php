@@ -14,7 +14,7 @@ class Relay
 	 * @param function callback
 	 * @param \ibidem\types\Matcher
 	 */
-	public static function process($key, $callback, $matcher = null)
+	static function process($key, $callback, $matcher = null)
 	{
 		$relays = \app\CFS::config('ibidem/relays');
 		if (isset($relays[$key]))
@@ -22,9 +22,9 @@ class Relay
 			// if enabled is not provided we assume true
 			if ( ! isset($relays[$key]['enabled']) || $relays[$key]['enabled'])
 			{
-				if (isset($relays[$key]['route']))
+				if (isset($relays[$key]['matcher']))
 				{
-					$matcher = $relays[$key]['route'];
+					$matcher = $relays[$key]['matcher'];
 				}
 				else if ($matcher === null)
 				{
@@ -47,9 +47,9 @@ class Relay
 	 * 
 	 * @return boolean success?
 	 */
-	public static function check_all($relay_file = 'relays', $ext = EXT)
+	static function check_all($relay_file = 'relays', $ext = EXT)
 	{
-		$relay_file = $relay_file.$ext;
+		$relay_file = $relay_file.$ext;		
 		$paths = \app\CFS::paths();
 		foreach ($paths as $path)
 		{
@@ -71,26 +71,26 @@ class Relay
 	 * @param string route key or alias
 	 * @return \ibidem\types\URLCompatible
 	 */
-	public static function route($key)
+	static function matcher($key)
 	{
 		$relays = \app\CFS::config('ibidem/relays');
 		if (isset($relays[$key]))
 		{
-			return $relays[$key]['route'];
+			return $relays[$key]['matcher'];
 		}
 		else # not in relays, check application aliases 
 		{
 			$aliases = \app\CFS::config('aliases');
-			if (isset($aliases['route'][$key]))
+			if (isset($aliases['relay'][$key]))
 			{
-				if (isset($relays[$aliases['route'][$key]]))
+				if (isset($relays[$aliases['relay'][$key]]))
 				{
-					return $relays[$aliases['route'][$key]]['route'];
+					return $relays[$aliases['relay'][$key]]['matcher'];
 				}
 				else # invalid alias
 				{
 					throw new \app\Exception
-						('Invalid value ['.$aliases['route'][$key].'] for alias ['.$key.']');
+						('Invalid value ['.$aliases['relay'][$key].'] for alias ['.$key.']');
 				}
 			}
 		}

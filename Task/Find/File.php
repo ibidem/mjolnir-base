@@ -12,7 +12,7 @@ class Task_Find_File extends \app\Task
 	/**
 	 * Execute task.
 	 */
-	public function execute()
+	function execute()
 	{
 		$files = \app\CFS::file_list($this->config['path'], $this->config['ext']);
 		if ( ! empty($files))

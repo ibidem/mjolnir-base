@@ -29,7 +29,7 @@ class Instantiatable
 	 * @see \ibidem\types\Instantiatable
 	 * @return static
 	 */
-	public static function instance()
+	static function instance()
 	{
 		return new static;
 	}

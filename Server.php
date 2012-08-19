@@ -10,6 +10,23 @@
 class Server
 {
 	/**
+	 * @return string
+	 */
+	static function request_method()
+	{
+		if (isset($_SERVER['REQUEST_METHOD']))
+		{
+			// Use the server request method
+			return \strtoupper($_SERVER['REQUEST_METHOD']);
+		}
+		else # REQUEST_METHOD not set
+		{
+			// Default to GET requests
+			return \strtoupper(\ibidem\types\HTTP::GET);
+		}
+	}
+	
+	/**
 	 * @return string 
 	 */
 	static function client_ip()
@@ -70,7 +87,7 @@ class Server
 		}
 			
 		// \header('Location: '.$url);
-		\app\GlobalEvent::listener('http:attributes', [ 'location' => $url ]);
+		\app\GlobalEvent::fire('http:attributes', [ 'location' => $url ]);
 		exit;
 	}
 

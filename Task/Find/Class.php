@@ -12,7 +12,7 @@ class Task_Find_Class extends \app\Task
 	/**
 	 * Execute task.
 	 */
-	public function execute()
+	function execute()
 	{
 		$classfile = \str_replace('_', DIRECTORY_SEPARATOR, $this->config['class']).EXT;
 		$modules = \array_keys(\app\CFS::get_modules());

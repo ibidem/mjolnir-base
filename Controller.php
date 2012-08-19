@@ -28,7 +28,7 @@ class Controller extends \app\Instantiatable
 	 * @param \ibidem\types\Layer
 	 * @return \ibidem\base\Controller $this
 	 */
-	public function layer(\ibidem\types\Layer $layer)
+	function layer(\ibidem\types\Layer $layer)
 	{
 		$this->layer = $layer;
 	}
@@ -36,7 +36,7 @@ class Controller extends \app\Instantiatable
 	/**
 	 * @return \ibidem\base\Controller $this
 	 */
-	public function before()
+	function before()
 	{
 		return $this;
 	}
@@ -44,7 +44,7 @@ class Controller extends \app\Instantiatable
 	/**
 	 * @return \ibidem\base\Controller $this
 	 */
-	public function after()
+	function after()
 	{
 		return $this;
 	}
@@ -53,7 +53,7 @@ class Controller extends \app\Instantiatable
 	 * @param \ibidem\types\Params
 	 * @return \ibidem\base\Controller $this
 	 */
-	public function params(\ibidem\types\Params $params)
+	function params(\ibidem\types\Params $params)
 	{
 		$this->params = $params;
 		return $this;

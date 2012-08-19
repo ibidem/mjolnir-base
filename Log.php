@@ -23,7 +23,7 @@ class Log
 	 * @param string replication path
 	 * @param boolean relative path? (referring to replication)
 	 */
-	public static function message($level, $message, $replication_path = null, $relative_path = true)
+	static function message($level, $message, $replication_path = null, $relative_path = true)
 	{
 		$time = \date('Y-m-d H:i:s');
 		$logs_path = APPPATH.'logs'.DIRECTORY_SEPARATOR;

@@ -18,7 +18,7 @@ class Session_Native extends \app\Instantiatable
 	/**
 	 * @return \ibidem\base\Session_Native 
 	 */
-	public static function instance()
+	static function instance()
 	{
 		static $instance = null; 
 		
@@ -52,7 +52,7 @@ class Session_Native extends \app\Instantiatable
 	/**
 	 * @return boolean
 	 */
-	public function close()
+	function close()
 	{
 		if (\headers_sent() || $this->destroyed)
 		{
@@ -79,7 +79,7 @@ class Session_Native extends \app\Instantiatable
 	/**
 	 * @return boolean status 
 	 */
-	public function destroy()
+	function destroy()
 	{
 		// destroy the current session
 		\session_destroy();
@@ -92,7 +92,7 @@ class Session_Native extends \app\Instantiatable
 	/**
 	 * @return int id 
 	 */
-	public function regenerate()
+	function regenerate()
 	{
 		// regenerate the session id
 		\session_regenerate_id();
@@ -102,7 +102,7 @@ class Session_Native extends \app\Instantiatable
 	/**
 	 * @return mixed parameter or default 
 	 */
-	public function get($key, $default = null)
+	function get($key, $default = null)
 	{
 		return \array_key_exists($key, $_SESSION) ? $_SESSION[$key] : $default;
 	}
@@ -112,7 +112,7 @@ class Session_Native extends \app\Instantiatable
 	 * @param mixed value
 	 * @return \ibidem\types\Params $this
 	 */
-	public function set($key, $value)
+	function set($key, $value)
 	{
 		$_SESSION[$key] = $value;
 		
@@ -123,7 +123,7 @@ class Session_Native extends \app\Instantiatable
 	 * @param array associative array of key values
 	 * @return \ibidem\types\Params $this
 	 */
-	public function populate_params(array $params)
+	function populate_params(array $params)
 	{
 		$_SESSION = $params;
 		
@@ -133,7 +133,7 @@ class Session_Native extends \app\Instantiatable
 	/**
 	 * @return array
 	 */
-	public function to_array()
+	function to_array()
 	{
 		return $_SESSION;
 	}

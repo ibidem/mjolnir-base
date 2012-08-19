@@ -13,7 +13,7 @@ class DateFormatterTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @test
 	 */
-	public function relative()
+	function relative()
 	{
 		$lang = \app\Lang::get_lang();
 		\app\Lang::lang('en-us');

@@ -43,7 +43,7 @@ class Layer_MVC extends \app\Layer
 		try 
 		{
 			$relay = $this->relay;
-			$params = $relay['route']->get_params();
+			$params = $relay['matcher']->get_params();
 			// relay configuration
 			$this->controller( $controller = $relay['controller']::instance() );
 			$this->params($params);

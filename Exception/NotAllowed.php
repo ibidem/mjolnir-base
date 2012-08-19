@@ -17,7 +17,7 @@ class Exception_NotAllowed extends \app\Exception_NotApplicable
 	/**
 	 * @return string title
 	 */
-	public function title()
+	function title()
 	{
 		return empty($this->title) ? 'Not Allowed' : $this->title;
 	}

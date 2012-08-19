@@ -27,7 +27,7 @@ class Task extends \app\Instantiatable
 	 * @param string encoded task
 	 * @return \ibidem\base\Task
 	 */
-	public static function instance($encoded_task = null)
+	static function instance($encoded_task = null)
 	{
 		if ($encoded_task)
 		{
@@ -50,7 +50,7 @@ class Task extends \app\Instantiatable
 	 * @param array config
 	 * @return \ibidem\base\Task $this
 	 */
-	public function config(array $config)
+	function config(array $config)
 	{
 		$this->config = $config;
 		return $this;
@@ -60,7 +60,7 @@ class Task extends \app\Instantiatable
 	 * @param array config
 	 * @return \ibidem\base\Task $this
 	 */
-	public function writer(\ibidem\types\Writer $writer)
+	function writer(\ibidem\types\Writer $writer)
 	{
 		$this->writer = $writer;
 		return $this;
@@ -69,7 +69,7 @@ class Task extends \app\Instantiatable
 	/**
 	 * Execute task.
 	 */
-	public function execute()
+	function execute()
 	{
 		throw new \app\Exception_NotApplicable
 			(

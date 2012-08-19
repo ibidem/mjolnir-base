@@ -115,7 +115,7 @@ class Task_Make_Class extends \app\Task
 	/**
 	 * Execute task.
 	 */
-	public function execute()
+	function execute()
 	{
 		$class = $this->config['class'];
 		$category = $this->config['category'] ? $this->config['category'] : null;

@@ -34,7 +34,7 @@ class Route_Path extends \app\Instantiatable
 	 * @param string regex
 	 * @return \ibidem\base\Route_Path $this
 	 */
-	public static function instance($uri = null)
+	static function instance($uri = null)
 	{
 		$instance = parent::instance();
 		
@@ -58,7 +58,7 @@ class Route_Path extends \app\Instantiatable
 	 * 
 	 * @return \ibidem\base\Route_Path $this
 	 */
-	public function path($path)
+	function path($path)
 	{
 		$this->path = \trim($path, '/');
 		return $this;
@@ -67,7 +67,7 @@ class Route_Path extends \app\Instantiatable
 	/**
 	 * @return boolean defined route matches? 
 	 */
-	public function check() 
+	function check() 
 	{		
 		if ($this->uri !== null)
 		{
@@ -81,7 +81,7 @@ class Route_Path extends \app\Instantiatable
 	 * @param array relay configuration
 	 * @return \ibidem\base\Layer_Path $this
 	 */
-	public function relay_config(array $relay)
+	function relay_config(array $relay)
 	{
 		return $this;
 	}
@@ -89,7 +89,7 @@ class Route_Path extends \app\Instantiatable
 	/**
 	 * @return \ibidem\types\Params
 	 */
-	public function get_params()
+	function get_params()
 	{
 		return $this->params;
 	}
@@ -122,7 +122,7 @@ class Route_Path extends \app\Instantiatable
 	 * @param string protocol
 	 * @return string
 	 */
-	public function url(array $params = array(), $protocol = null)
+	function url(array $params = array(), $protocol = null)
 	{
 		// relative protocol?
 		$url = ($protocol === null ? '//' : $protocol.'://'); 
@@ -146,7 +146,7 @@ class Route_Path extends \app\Instantiatable
 	 * @param string protocol
 	 * @return string
 	 */
-	public function canonical_url(array $params, $protocol)
+	function canonical_url(array $params, $protocol)
 	{
 		return $this->url($params, $protocol);
 	}
@@ -157,7 +157,7 @@ class Route_Path extends \app\Instantiatable
 	 * @param string url base
 	 * @return \ibidem\base\Layer_Path $this
 	 */
-	public function url_base($url_base = null)
+	function url_base($url_base = null)
 	{
 		$this->url_base = $url_base;
 		return $this;

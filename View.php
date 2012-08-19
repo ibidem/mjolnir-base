@@ -22,7 +22,7 @@ class View extends \app\Instantiatable
 	 * @see \ibidem\types\Instantiatable
 	 * @return \ibidem\base\View
 	 */
-	public static function instance($file = null)
+	static function instance($file = null)
 	{
 		$instance = parent::instance();
 		if ($file !== null)
@@ -35,7 +35,7 @@ class View extends \app\Instantiatable
 	/**
 	 * @return string redered view
 	 */
-	public function render()
+	function render()
 	{
 		// extract view paramters into current scope as references to paramter
 		// array in the view itself, skipping over already defined variables
@@ -64,7 +64,7 @@ class View extends \app\Instantiatable
 	 * @param array array to bind
 	 * @return \ibidem\base\View $this
 	 */
-	public function bind($name, array & $array)
+	function bind($name, array & $array)
 	{
 		$this->view_params[$name] =& $array;
 		return $this;
@@ -75,7 +75,7 @@ class View extends \app\Instantiatable
 	 * @param mixed value to set
 	 * @return \ibidem\base\View $this
 	 */
-	public function variable($name, $value)
+	function variable($name, $value)
 	{
 		$this->view_params[$name] = $value;
 		return $this;
@@ -84,7 +84,7 @@ class View extends \app\Instantiatable
 	/**
 	 * @deprecated use render always; so exceptions will work properly
 	 */
-	public final function __toString()
+	final function __toString()
 	{
 		// views may contain logic, by allowing __toString not only does 
 		// Exception handling become unnecesarily complicated because of how
@@ -110,7 +110,7 @@ class View extends \app\Instantiatable
 	 * @param string file 
 	 * @return \ibidem\base\View $this
 	 */
-	public function file($file)
+	function file($file)
 	{
 		$file = 'views'.DIRECTORY_SEPARATOR.$file;
 		$file_path = \app\CFS::file($file);
@@ -132,7 +132,7 @@ class View extends \app\Instantiatable
 	 * @param string explicit file path
 	 * @return \ibidem\base\View $this
 	 */
-	public function file_path($file)
+	function file_path($file)
 	{
 		$this->file = \realpath($file);
 		if ($file !== null && ! \file_exists($this->file))
@@ -147,7 +147,7 @@ class View extends \app\Instantiatable
 	/**
 	 * @return string file path
 	 */
-	public function get_file()
+	function get_file()
 	{
 		return $this->file;
 	}

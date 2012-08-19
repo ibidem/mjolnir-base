@@ -12,7 +12,7 @@ class Task_Relays extends \app\Task
 	/**
 	 * Execute task.
 	 */
-	public function execute()
+	function execute()
 	{
 		$relays = \app\CFS::config('ibidem/relays');
 		$found_relays = false;

@@ -24,7 +24,7 @@ class Task_Versions extends \app\Task
 	/**
 	 * Execute task.
 	 */
-	public function execute()
+	function execute()
 	{
 		$versions = \app\CFS::config('version');
 		$length = 10;

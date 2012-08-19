@@ -17,7 +17,7 @@ class Exception_NotFound extends \app\Exception
 	/**
 	 * @return string title
 	 */
-	public function title()
+	function title()
 	{
 		return empty($this->title) ? 'Not Found' : $this->title;
 	}

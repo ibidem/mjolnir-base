@@ -43,7 +43,7 @@ class Writer_Console extends \app\Instantiatable
 	/**
 	 * @return \ibidem\base\Writer_Console
 	 */
-	public static function instance()
+	static function instance()
 	{
 		$instance = parent::instance();
 		$config = \app\CFS::config('ibidem/writer/console');
@@ -85,7 +85,7 @@ class Writer_Console extends \app\Instantiatable
 	 * @param int width
 	 * @return \ibidem\base\Writer_Console $this
 	 */
-	public function width($width)
+	function width($width)
 	{
 		$this->width = $width;
 		return $this;
@@ -94,7 +94,7 @@ class Writer_Console extends \app\Instantiatable
 	/**
 	 * @return \ibidem\base\Writer_Console $this
 	 */
-	public function eol()
+	function eol()
 	{
 		\fprintf($this->stdout, PHP_EOL);
 		return $this;
@@ -103,7 +103,7 @@ class Writer_Console extends \app\Instantiatable
 	/**
 	 * @return string EOL as string
 	 */
-	public function eol_string()
+	function eol_string()
 	{
 		return PHP_EOL;
 	}
@@ -112,7 +112,7 @@ class Writer_Console extends \app\Instantiatable
 	 * @param string text
 	 * @return \ibidem\base\Writer_Console $this
 	 */
-	public function write($text, $indent = 0, $nowrap_hint = null)
+	function write($text, $indent = 0, $nowrap_hint = null)
 	{
 		if ($indent !== 0)
 		{
@@ -142,7 +142,7 @@ class Writer_Console extends \app\Instantiatable
 	 * @param string no wrap hint string
 	 * @return \ibidem\base\Writer_Console $this
 	 */
-	public function listwrite($dt, $dd, $indent_hint = null, $nowrap_hint = null)
+	function listwrite($dt, $dd, $indent_hint = null, $nowrap_hint = null)
 	{
 		if ( ! $indent_hint)
 		{
@@ -211,7 +211,7 @@ class Writer_Console extends \app\Instantiatable
 	 * @param string highlight key
 	 * @return \ibidem\base\Writer_Console $this
 	 */
-	public function highlight($text, $highlight = null)
+	function highlight($text, $highlight = null)
 	{
 		if ( ! $this->highlight_support)
 		{
@@ -255,7 +255,7 @@ class Writer_Console extends \app\Instantiatable
 	 * @param $args
 	 * @return \ibidem\base\Writer_Console $this
 	 */
-	public function writef($args)
+	function writef($args)
 	{
 		$args = \func_get_args();
 		\array_unshift($args, $this->stdout);
@@ -268,7 +268,7 @@ class Writer_Console extends \app\Instantiatable
 	 * @param string title
 	 * @return \ibidem\base\Writer_Console $this
 	 */
-	public function header($title)
+	function header($title)
 	{
 		if ($this->highlight_support)
 		{
@@ -288,7 +288,7 @@ class Writer_Console extends \app\Instantiatable
 	 * @param string title
 	 * @return \ibidem\base\Writer_Console $this
 	 */
-	public function subheader($title)
+	function subheader($title)
 	{
 		if ($this->highlight_support)
 		{
@@ -313,7 +313,7 @@ class Writer_Console extends \app\Instantiatable
 	 * @param string text
 	 * @return \ibidem\base\Writer_Console $this
 	 */
-	public function status($status, $message, $highlight_hint = null)
+	function status($status, $message, $highlight_hint = null)
 	{
 		if ($highlight_hint === null)
 		{
@@ -344,7 +344,7 @@ class Writer_Console extends \app\Instantiatable
 	 * @param string text
 	 * @return \ibidem\base\Writer_Console $this
 	 */
-	public function error($text)
+	function error($text)
 	{	
 		if ($this->shell || $this->highlight_support)
 		{

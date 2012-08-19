@@ -31,7 +31,7 @@ class Task_Check_Modules extends \app\Task
 	/**
 	 * Execute task.
 	 */
-	public function execute()
+	function execute()
 	{
 		// PHP_BINARY is avaiable from php5.4+
 		if ( ! \defined('PHP_BINARY'))

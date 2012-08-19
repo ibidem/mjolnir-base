@@ -383,7 +383,7 @@ class Make extends \app\Instantiatable
 			case 'url':
 				if ($this->args['mockup'] !== null)
 				{
-					return \app\Relay::route('\ibidem\theme\mockup')->url
+					return \app\URL::route('\ibidem\theme\mockup')->url
 						(
 							['target' => $this->args['mockup']]
 						).$_SERVER['QUERY_STRING'];

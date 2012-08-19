@@ -23,7 +23,7 @@ class Flags # static library
 	 * 
 	 * @return string
 	 */
-	public static function file($idx, array $argv)
+	static function file($idx, array $argv)
 	{
 		return $argv[$idx+1];
 	}
@@ -34,7 +34,7 @@ class Flags # static library
 	 * @since 1.0
 	 * @return string
 	 */
-	public static function text($idx, array $argv)
+	static function text($idx, array $argv)
 	{
 		return $argv[$idx+1];
 	}
@@ -45,7 +45,7 @@ class Flags # static library
 	 * @since 1.0
 	 * @return string
 	 */
-	public static function path($idx, array $argv)
+	static function path($idx, array $argv)
 	{
 		return $argv[$idx+1];
 	}

@@ -12,7 +12,7 @@ class Task_Make_Config extends \app\Task
 	/**
 	 * Execute task.
 	 */
-	public function execute()
+	function execute()
 	{
 		$config = \app\CFS::config($this->config['config']);
 		if (empty($config))

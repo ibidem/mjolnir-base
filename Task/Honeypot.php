@@ -12,7 +12,7 @@ class Task_Honeypot extends \app\Task
 	/**
 	 * Execute task.
 	 */
-	public function execute()
+	function execute()
 	{
 		$ns = $this->config['namespace'];
 		$modules = \array_flip(\app\CFS::get_modules());

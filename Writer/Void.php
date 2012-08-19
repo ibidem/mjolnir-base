@@ -43,7 +43,7 @@ class Writer_Void extends \app\Instantiatable
 	/**
 	 * @return \ibidem\base\Writer_Console
 	 */
-	public static function instance()
+	static function instance()
 	{
 		$instance = parent::instance();
 		

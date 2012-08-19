@@ -112,7 +112,7 @@ class Task_Make_Module extends \app\Task
 	/**
 	 * Execute task.
 	 */
-	public function execute()
+	function execute()
 	{
 		$name = $this->config['name'];
 		$namespace = $this->config['namespace'];

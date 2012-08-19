@@ -20,7 +20,7 @@ class DateFormatter extends \app\Instantiatable
 	 * @param string format
 	 * @return \ibidem\base\DateFormatter $this
 	 */
-	public function fallback($format)
+	function fallback($format)
 	{
 		$this->format = $format;
 		return $this;
@@ -31,7 +31,7 @@ class DateFormatter extends \app\Instantiatable
 	 * @param array filter
 	 * @return string formatted date (may not be valid date string)
 	 */
-	public function relative(\DateTime $datetime, array $filter = null)
+	function relative(\DateTime $datetime, array $filter = null)
 	{
 		$relative_dates = \app\CFS::config('ibidem/dateformatter');
 		

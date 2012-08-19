@@ -17,7 +17,7 @@ trait Trait_Params
 	/**
 	 * @return mixed parameter or default 
 	 */
-	public function get($key, $default = null) 			
+	function get($key, $default = null) 			
 	{
 		return isset($this->params[$key]) ? $this->params[$key] : $default;
 	}
@@ -26,7 +26,7 @@ trait Trait_Params
 	 * @param array associative array of key values
 	 * @return \ibidem\base\Params $this
 	 */
-	public function populate_params(array $params) 
+	function populate_params(array $params) 
 	{
 		foreach ($params as $key => $param)
 		{
@@ -39,7 +39,7 @@ trait Trait_Params
 	/**
 	 * @return array 
 	 */
-	public function to_array()
+	function to_array()
 	{
 		return $this->params;
 	}
@@ -49,7 +49,7 @@ trait Trait_Params
 	 * @param mixed value
 	 * @return \ibidem\base\Params $this
 	 */
-	public function set($key, $value) 
+	function set($key, $value) 
 	{
 		$this->params[$key] = $value;
 		
