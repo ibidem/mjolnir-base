@@ -60,6 +60,10 @@ class Layer_HTTP extends \app\Layer
 				);
 		});
 		
+		\app\GlobalEvent::listener('http:send-headers', function ($params) use ($instance) {
+			$instance->headerinfo();
+		});
+		
 		return $instance;
 	}	
 	

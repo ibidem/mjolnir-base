@@ -85,9 +85,13 @@ class Server
 		{
 			\app\GlobalEvent::fire('http:status', 'HTTP/1.1 307 Temporary Redirect');
 		}
-			
-		// \header('Location: '.$url);
+		
+		// redirect to...
 		\app\GlobalEvent::fire('http:attributes', [ 'location' => $url ]);
+		
+		// perform the redirect
+		\app\GlobalEvent::fire('http:send-headers');
+		
 		exit;
 	}
 

@@ -6,8 +6,7 @@
 // HowTo: order honeypot -n 'ibidem\base'
 
 class Collection extends \ibidem\base\Collection {}
-class Controller_HTTP extends \ibidem\base\Controller_HTTP { /** @return \ibidem\base\Controller_HTTP */ static function instance() { return parent::instance(); } }
-class Controller_WWW extends \ibidem\base\Controller_WWW { /** @return \ibidem\base\Controller_WWW */ static function instance() { return parent::instance(); } }
+class Controller_Web extends \ibidem\base\Controller_Web { /** @return \ibidem\base\Controller_Web */ static function instance() { return parent::instance(); } }
 class Controller extends \ibidem\base\Controller { /** @return \ibidem\base\Controller */ static function instance() { return parent::instance(); } }
 class DateFormatter extends \ibidem\base\DateFormatter { /** @return \ibidem\base\DateFormatter */ static function instance() { return parent::instance(); } }
 class Email extends \ibidem\base\Email { /** @return \ibidem\base\Email */ static function instance() { return parent::instance(); } }

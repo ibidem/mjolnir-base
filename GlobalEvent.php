@@ -21,7 +21,7 @@ class GlobalEvent
 	 * @param string event
 	 * @param mixed parameter data
 	 */
-	static function fire($event, $params)
+	static function fire($event, $params = null)
 	{
 		if (isset(static::$handlers[$event]))
 		{
