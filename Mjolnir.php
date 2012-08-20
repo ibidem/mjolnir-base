@@ -70,4 +70,23 @@ class Mjolnir
 		exit(1);
 	}
 	
+	/**
+	 * Shorthand.
+	 * 
+	 * Runs standard command line utility.
+	 */
+	static function overlord()
+	{
+		// running on a the command line?
+		if (\php_sapi_name() === 'cli')
+		{
+			Layer::stack
+				(
+					Layer_TaskRunner::instance()
+						->writer(Writer_Console::instance())
+						->args($_SERVER['argv'])
+				);
+		}
+	}
+	
 } # class
