@@ -53,7 +53,11 @@ class Mjolnir
 	 */
 	static function behat()
 	{
-		// for now only initialization is required; but you never know
+		if ( ! \defined('IS_UNITTEST'))
+		{
+			\define('IS_UNITTEST', true);
+		}
+		
 		static::init();
 	}
 	
