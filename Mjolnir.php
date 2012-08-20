@@ -13,6 +13,51 @@
 class Mjolnir
 {
 	/**
+	 * Searches for setup file and loads it.
+	 * 
+	 * The purpose of this is to allow for the framework to auto-bootstrap in
+	 * (shitty) composer environments that do not support basic concepts such as
+	 * autoloaders.
+	 */
+	static function init()
+	{
+		// the current directory is <vendor>/ibidem/base/ where vendor is 
+		// whatever the project composer configuration is setup to store 
+		// packages in, so...
+		$vendor_root = \realpath(\realpath(__DIR__).'/../..').DIRECTORY_SEPARATOR;
+		
+		if ( ! \defined('EXT'))
+		{
+			\define('EXT', '.php');
+		}
+		
+		$dir = \realpath($vendor_root.'/..').DIRECTORY_SEPARATOR;
+		
+		do
+		{	
+			if (\file_exists($dir.'mjolnir'.EXT))
+			{
+				require_once $dir.'mjolnir'.EXT;
+				return;
+			}
+			
+			$dir = \realpath($dir.'/..').DIRECTORY_SEPARATOR;
+		}
+		while ($dir !== false);
+		
+		echo PHP_EOL.' Mjolnir: Your composer vendor directory structure can not be interpreted.'.PHP_EOL;
+	}
+	
+	/**
+	 * Behat behaviour.
+	 */
+	static function behat()
+	{
+		// for now only initialization is required; but you never know
+		static::init();
+	}
+	
+	/**
 	 * Shorthand.
 	 * 
 	 * Runs standard http procedures.
