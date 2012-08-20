@@ -5,6 +5,7 @@
 
 // HowTo: order honeypot -n 'ibidem\base'
 
+class Assert extends \ibidem\base\Assert { /** @return \ibidem\base\Assert */ static function instance() { return parent::instance(); } }
 class Collection extends \ibidem\base\Collection {}
 class Controller_Web extends \ibidem\base\Controller_Web { /** @return \ibidem\base\Controller_Web */ static function instance() { return parent::instance(); } }
 class Controller extends \ibidem\base\Controller { /** @return \ibidem\base\Controller */ static function instance() { return parent::instance(); } }

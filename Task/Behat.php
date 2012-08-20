@@ -7,7 +7,7 @@
  * @copyright  (c) 2012, Ibidem Team
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
-class Task_Run_Behat extends \app\Task
+class Task_Behat extends \app\Task
 {
 	/**
 	 * Execute task.

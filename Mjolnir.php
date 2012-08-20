@@ -58,7 +58,11 @@ class Mjolnir
 			\define('IS_UNITTEST', true);
 		}
 		
+		// bootstrap
 		static::init();
+		
+		// load assertion helpers
+		require_once \app\CFS::dir('functions/ibidem/').'assertions'.EXT;
 	}
 	
 	/**
