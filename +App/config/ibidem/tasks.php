@@ -193,4 +193,8 @@
 							)
 					)
 			),
+		'run:behat' => array
+			(
+				'description' => ['Search and execute all behat behaviour tests.'],
+			),
 	);

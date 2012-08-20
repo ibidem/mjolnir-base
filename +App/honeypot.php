@@ -47,6 +47,7 @@ class Task_Make_Class extends \ibidem\base\Task_Make_Class { /** @return \ibidem
 class Task_Make_Config extends \ibidem\base\Task_Make_Config { /** @return \ibidem\base\Task_Make_Config */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
 class Task_Make_Module extends \ibidem\base\Task_Make_Module { /** @return \ibidem\base\Task_Make_Module */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
 class Task_Relays extends \ibidem\base\Task_Relays { /** @return \ibidem\base\Task_Relays */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
+class Task_Run_Behat extends \ibidem\base\Task_Run_Behat { /** @return \ibidem\base\Task_Run_Behat */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
 class Task_Versions extends \ibidem\base\Task_Versions { /** @return \ibidem\base\Task_Versions */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
 class Task extends \ibidem\base\Task { /** @return \ibidem\base\Task */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
 class Text extends \ibidem\base\Text { /** @return \ibidem\base\Text */ static function instance() { return parent::instance(); } }
