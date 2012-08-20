@@ -71,11 +71,8 @@ class Task extends \app\Instantiatable
 	 */
 	function execute()
 	{
-		throw new \app\Exception_NotApplicable
-			(
-				'Tasks is not available at this time.', # message
-				'Not implemented.' # title
-			);
+		$this->writer->error('Command is not available at this time.')->eol();
+		exit(1);
 	}
 	
 } # class
