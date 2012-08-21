@@ -72,6 +72,11 @@ class Mjolnir
 	 */
 	static function www($system_config)
 	{
+		if (PHP_VERSION_ID < 50404)
+		{
+			die(' PHP version 5.4.4 or greater required.');
+		}
+
 		// downtime?
 		if ($system_config['maintanence']['enabled'] && ( ! isset($_GET['passcode']) || $_GET['passcode'] !== $system_config['maintanence']['passcode']))
 		{
