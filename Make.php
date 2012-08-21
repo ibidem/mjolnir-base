@@ -297,7 +297,7 @@ class Make extends \app\Instantiatable
 	 */
 	function render()
 	{
-		$mockup = \app\CFS::config('ibidem\mockup');
+		$mockup = \app\CFS::config('ibidem/mockup');
 		switch ($this->type)
 		{
 			case 'lorempixel':
