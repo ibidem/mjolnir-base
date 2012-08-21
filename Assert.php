@@ -33,13 +33,13 @@ class Assert extends \app\Instantiatable
 	{
 		if (\is_array($this->expected) !== \is_array($actual))
 		{
-			$this->assertFailed('Expected "'.$this->expected.'", got "'.$actual.'"');
+			$this->assertFailed('Expected "'.\serialize($this->expected).'", got "'.\serialize($actual).'"');
 		}
 		else if (\is_array($this->expected))
 		{
 			if ($this->expected != $actual)
 			{
-				$this->assertFailed('Expected "'.$this->expected.'", got "'.$actual.'"');
+				$this->assertFailed('Expected "'.\serialize($this->expected).'", got "'.\serialize($actual).'"');
 			}
 		}
 		else # normal values
