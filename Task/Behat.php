@@ -40,7 +40,7 @@ class Task_Behat extends \app\Task
 			foreach ($iterator as $file) 
 			{
 				if (\preg_match('#behat.yaml$#', $file))
-				{
+				{					
 					$pretty_location = \str_replace
 						(
 							DIRECTORY_SEPARATOR
@@ -49,10 +49,12 @@ class Task_Behat extends \app\Task
 							, 
 							'', 
 							\str_replace(DOCROOT, '', $path)
-						); 
+						);
 					
-					$this->writer->write('Processing feature for '.$pretty_location)->eol()->eol();
-					passthru($behat_cmd.' --config='.$file);
+					$feature = \preg_replace('#^.*[/\\\]features[/\\\]#', '', \dirname($file));
+					
+					$this->writer->eol()->header('Processing feature "'.$feature.'" for '.$pretty_location);
+					passthru($behat_cmd.' --config="'.$file.'"');
 				}
 			}
 
