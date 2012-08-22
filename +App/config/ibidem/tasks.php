@@ -195,6 +195,19 @@
 			),
 		'behat' => array
 			(
-				'description' => ['Search and execute all behat behaviour tests.'],
+				'description' => array
+					(
+						'Search and execute all behat behaviour tests.',
+						'You may pass any flags and they will be passed down to behat.',
+					),
+				'flags' => array
+					(
+						'feature' => array
+							(
+								'description' => 'Target a specific feature.',
+								'type' => '\ibidem\base\Flags::text',
+								'default' => false,
+							),
+					),
 			),
 	);

@@ -12,8 +12,36 @@ class Task_Behat extends \app\Task
 	/**
 	 * Execute task.
 	 */
-	function execute()
-	{
+	function execute($behat_flags = '')
+	{		
+		$feature = $this->config['feature'];
+		
+		if ($_SERVER['argc'] > 2)
+		{
+			$args = $_SERVER['argv'];
+			\array_shift($args);
+			\array_shift($args);
+			
+			if ($feature !== false)
+			{
+				\array_shift($args);
+				\array_shift($args);	
+			}
+			
+			$behat_flags .= \app\Collection::implode(' ', $args, function ($i, $v) {
+				// is this a flag?
+				if ( ! \preg_match('#^-[a-z-]+$#', $v))
+				{
+					// assume "literal value" and pass on as such
+					return '\''.\addcslashes($v, '\'\\').'\'';
+				}
+				else # it's a flag; probably
+				{
+					return $v;
+				}
+			});
+		}
+
 		// verify behat is present
 		$composer_config = \json_decode(\file_get_contents(DOCROOT.'composer.json'), true);
 		$bin_dir = \trim($composer_config['config']['bin-dir'], '/');
@@ -51,10 +79,17 @@ class Task_Behat extends \app\Task
 							\str_replace(DOCROOT, '', $path)
 						);
 					
-					$feature = \preg_replace('#^.*[/\\\]features[/\\\]#', '', \dirname($file));
+					$the_feature = \preg_replace('#^.*[/\\\]features[/\\\]#', '', \dirname($file));
 					
-					$this->writer->eol()->header('Processing feature "'.$feature.'" for '.$pretty_location);
-					passthru($behat_cmd.' --config="'.$file.'"');
+					if ($feature !== false && ! \preg_match('#'.$feature.'#', $the_feature))
+					{
+						continue;
+					}
+					
+					$this->writer->eol()->header('Processing feature "'.$the_feature.'" for '.$pretty_location);
+					$executed_cmd = $behat_cmd.' '.$behat_flags.' --config="'.$file.'"';
+#					$this->writer->eol()->write($executed_cmd)->eol();
+					passthru($executed_cmd);
 				}
 			}
 
