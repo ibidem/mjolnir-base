@@ -46,7 +46,7 @@ class Assert extends \app\Instantiatable
 		{
 			if ($this->expected !== $actual)
 			{
-				$this->assertFailed('Expected "'.$this->expected.'", got "'.$actual.'"');
+				$this->assertFailed('Failed! got "'.$actual.'"');
 			}
 		}
 		
