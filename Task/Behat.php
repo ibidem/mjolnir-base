@@ -81,14 +81,13 @@ class Task_Behat extends \app\Task
 					
 					$the_feature = \preg_replace('#^.*[/\\\]features[/\\\]#', '', \dirname($file));
 					
-					if ($feature !== false && ! \preg_match('#'.$feature.'#', $the_feature))
+					if ($feature !== false && ! \preg_match('#'.\strtolower($feature).'#', \strtolower($the_feature)))
 					{
 						continue;
 					}
 					
 					$this->writer->eol()->header('Processing feature "'.$the_feature.'" for '.$pretty_location);
 					$executed_cmd = $behat_cmd.' '.$behat_flags.' --config="'.$file.'"';
-#					$this->writer->eol()->write($executed_cmd)->eol();
 					passthru($executed_cmd);
 				}
 			}
