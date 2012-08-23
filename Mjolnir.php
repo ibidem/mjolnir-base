@@ -117,6 +117,7 @@ class Mjolnir
 			};
 
 		\app\Relay::process('\ibidem\theme\Layer_Theme::style', $stack);
+		\app\Relay::process('\ibidem\theme\Layer_Theme::jsbootstrap', $stack);
 		\app\Relay::process('\ibidem\theme\Layer_Theme::script-map', $stack);
 		\app\Relay::process('\ibidem\theme\Layer_Theme::script-src', $stack);
 		\app\Relay::process('\ibidem\theme\Layer_Theme::script', $stack);
