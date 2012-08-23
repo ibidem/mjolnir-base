@@ -44,9 +44,9 @@ class Assert extends \app\Instantiatable
 		}
 		else # normal values
 		{
-			if ($this->expected !== $actual)
+			if ($this->expected != $actual)
 			{
-				$this->assertFailed('Failed! got "'.$actual.'"');
+				$this->assertFailed('Expected "'.$this->expected.'", got "'.$actual.'"');
 			}
 		}
 		
