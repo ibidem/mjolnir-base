@@ -5,7 +5,7 @@
 
 // HowTo: order honeypot -n 'ibidem\base'
 
-class Assert extends \ibidem\base\Assert { /** @return \ibidem\base\Assert */ static function instance() { return parent::instance(); } }
+class Assert extends \ibidem\base\Assert { /** @return \ibidem\base\Assert */ static function instance($expected = null) { return parent::instance($expected); } }
 class Collection extends \ibidem\base\Collection {}
 class Controller_Web extends \ibidem\base\Controller_Web { /** @return \ibidem\base\Controller_Web */ static function instance() { return parent::instance(); } }
 class Controller extends \ibidem\base\Controller { /** @return \ibidem\base\Controller */ static function instance() { return parent::instance(); } }
@@ -36,10 +36,11 @@ class Route_Pattern extends \ibidem\base\Route_Pattern { /** @return \ibidem\bas
 class Route_Regex extends \ibidem\base\Route_Regex { /** @return \ibidem\base\Route_Regex */ static function instance($uri = null) { return parent::instance($uri); } }
 class Route extends \ibidem\base\Route {}
 class Sandbox extends \ibidem\base\Sandbox { /** @return \ibidem\base\Sandbox */ static function instance() { return parent::instance(); } }
-class Schematic_Default_Ibidem_Base_Registry extends \ibidem\base\Schematic_Default_Ibidem_Base_Registry { /** @return \ibidem\base\Schematic_Default_Ibidem_Base_Registry */ static function instance() { return parent::instance(); } }
+class Schematic_Ibidem_Base_Registry extends \ibidem\base\Schematic_Ibidem_Base_Registry { /** @return \ibidem\base\Schematic_Ibidem_Base_Registry */ static function instance() { return parent::instance(); } }
 class Server extends \ibidem\base\Server {}
 class Session_Native extends \ibidem\base\Session_Native { /** @return \ibidem\base\Session_Native */ static function instance() { return parent::instance(); } }
 class Session extends \ibidem\base\Session {}
+class Task_Behat extends \ibidem\base\Task_Behat { /** @return \ibidem\base\Task_Behat */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
 class Task_Check_Modules extends \ibidem\base\Task_Check_Modules { /** @return \ibidem\base\Task_Check_Modules */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
 class Task_Find_Class extends \ibidem\base\Task_Find_Class { /** @return \ibidem\base\Task_Find_Class */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
 class Task_Find_File extends \ibidem\base\Task_Find_File { /** @return \ibidem\base\Task_Find_File */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
@@ -48,7 +49,6 @@ class Task_Make_Class extends \ibidem\base\Task_Make_Class { /** @return \ibidem
 class Task_Make_Config extends \ibidem\base\Task_Make_Config { /** @return \ibidem\base\Task_Make_Config */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
 class Task_Make_Module extends \ibidem\base\Task_Make_Module { /** @return \ibidem\base\Task_Make_Module */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
 class Task_Relays extends \ibidem\base\Task_Relays { /** @return \ibidem\base\Task_Relays */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
-class Task_Run_Behat extends \ibidem\base\Task_Run_Behat { /** @return \ibidem\base\Task_Run_Behat */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
 class Task_Versions extends \ibidem\base\Task_Versions { /** @return \ibidem\base\Task_Versions */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
 class Task extends \ibidem\base\Task { /** @return \ibidem\base\Task */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
 class Text extends \ibidem\base\Text { /** @return \ibidem\base\Text */ static function instance() { return parent::instance(); } }

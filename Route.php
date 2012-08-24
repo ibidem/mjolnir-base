@@ -33,17 +33,23 @@ class Route
 			if ($matcher->check())
 			{
 				// retrieve the allowed methods
-				if ( ! isset($route_info[3]))
+				if ( ! isset($route_info[2]))
 				{
 					$methods = ['GET'];
 				}
-				else if (\is_string($route_info[3]))
+				else if (\is_string($route_info[2]))
 				{
-					$methods = [$route_info[3]];
+					$methods = [$route_info[2]];
 				}
 				else # is set and is not string; assume array
 				{
-					$methods = \array_map(\strtoupper, $route_info[3]);
+					$methods = \array_map
+						(
+							function ($str) { 
+								return \strtoupper($str); 
+							}, 
+							$route_info[2]
+						);
 				}
 				
 				// attempt match
@@ -70,7 +76,7 @@ class Route
 						$relay = array
 							(
 								'matcher' => $matcher,
-								'controller' => '\app\Controller_'.\ucfirst($route_info[0]),
+								'controller' => '\app\Controller_'.\ucfirst(\preg_replace('#(\..*)#', '', $route_info[0])),
 								'action' => $default_action
 							);
 						

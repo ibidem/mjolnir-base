@@ -35,7 +35,21 @@ class Controller_Web extends \app\Controller
 	 */
 	function before()
 	{
-		$this->context = $this->make_context();
+		if (\app\Server::request_method() === 'GET')
+		{
+			$this->context = $this->make_context();
+		}
+	}
+	
+	/**
+	 * @return \app\ThemeView
+	 */
+	function themeview()
+	{
+		return \app\ThemeView::instance()
+			->layer($this->layer)
+			->context($this->context)
+			->control($this);
 	}
 	
 	/**
@@ -45,11 +59,8 @@ class Controller_Web extends \app\Controller
 	{
 		$this->body
 			(
-				\app\ThemeView::instance()
+				$this->themeview()
 					->target(static::$target)
-					->layer($this->layer)
-					->context($this->context)
-					->control($this)
 					->render()
 			);
 	}	
