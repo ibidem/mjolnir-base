@@ -35,7 +35,7 @@ class Controller_Web extends \app\Controller
 	 */
 	function before()
 	{
-		if (\app\Server::request_method() === 'GET')
+		if (static::$target !== null && \app\Server::request_method() === 'GET')
 		{
 			$this->context = $this->make_context();
 		}
