@@ -4,5 +4,6 @@
 			(
 				'#^Controller_.*$#' => '\app\Controller_Web',
 				'#^Task_.*$#' => '\app\Task',
+				'#^Layer_.*$#' => '\app\Layer',
 			),
 	);
