@@ -144,7 +144,7 @@ class Task_Make_Module extends \app\Task
 		{
 			$lang_dir = $config_dir.$ds.'lang';
 			\file_exists($lang_dir) or \mkdir($lang_dir, 0777, true); # App/config/lang
-			$test_dir = $app_dir.$ds.'tests';
+			$test_dir = $app_dir.$ds.'features';
 			\file_exists($test_dir) or \mkdir($test_dir, 0777, true); # App/test
 		}
 		
