@@ -43,13 +43,13 @@ class Task_Make_Class extends \app\Task
 		
 		$file .= ' */'.PHP_EOL;
 		
+		$conventions_config = \app\CFS::config('ibidem/conventions');
 		if ($library)
 		{
 			$file .= "class $class_name".PHP_EOL;
 		}
 		else # not library
 		{
-			$conventions_config = \app\CFS::config('ibidem/conventions');
 			$extention = '\\app\\Instantiatable';
 			foreach ($conventions_config['base_classes'] as $regex => $class_extention)
 			{
@@ -62,9 +62,19 @@ class Task_Make_Class extends \app\Task
 			$file .= "class $class_name extends $extention".PHP_EOL;
 		}
 		
-		$file .= '{'.PHP_EOL
+		$file .= '{'.PHP_EOL;
+		
+		foreach ($conventions_config['autofills'] as $regex => $fill)
+		{
+			if (\preg_match($regex, $class_name))
+			{
+				$file .= $fill.PHP_EOL;
+			}
+		}
+		
+		$file .=
 			// the extra . is to avoid IDE's picking this code up unintentionally
-			. "\t// @"."todo write implementation for \\{$namespace}\\{$class_name}".PHP_EOL
+			  "\t// @"."todo write implementation for \\{$namespace}\\{$class_name}".PHP_EOL
 			. PHP_EOL
 			. '} # class'.PHP_EOL
 			;
