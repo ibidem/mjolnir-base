@@ -136,6 +136,7 @@
 								'description' => 'Namespace of target module.',
 								'short' => 'n',
 								'type' => '\ibidem\base\Flags::text',
+								'default' => '',
 							),
 					),
 			),

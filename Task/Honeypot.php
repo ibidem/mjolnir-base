@@ -15,6 +15,20 @@ class Task_Honeypot extends \app\Task
 	function execute()
 	{
 		$ns = $this->config['namespace'];
+		
+		if (empty($ns))
+		{
+			foreach (\app\CFS::get_modules() as $path => $namespace)
+			{
+				\app\Task::instance('honeypot')
+					->config(['namespace' => $namespace])
+					->writer($this->writer)
+					->execute();
+			}
+			
+			return;
+		}
+		
 		$modules = \array_flip(\app\CFS::get_modules());
 		if (isset($modules[$ns]))
 		{
