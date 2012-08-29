@@ -42,24 +42,15 @@ class Collection
 	 */
 	static function implode($glue, array $list, $func) 
 	{
-		\reset($list);
-		if ($value = \current($list))
+		$glued = '';
+		foreach ($list as $key => $value)
 		{
-			$glued = $func(\key($list), $value);
-			
-			\next($list);
-			while ($value = \current($list))
-			{
-				$glued .= $glue.$func(\key($list), $value);
-				\next($list);
-			}
-
-			return $glued;
+			$glued .= $glue.$func($key, $value);
 		}
-		else # no items
-		{
-			return '';
-		}
+		
+		$glued = \substr($glued, \strlen($glue));
+		
+		return $glued;
 	}
 	
 	/**
