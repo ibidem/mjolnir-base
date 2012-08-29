@@ -9,6 +9,19 @@
  */
 class Route
 {
+	static function resolve_controller_name($key)
+	{
+		$key = \preg_replace('#(\..*)#', '', $key);
+		
+		$key_parts = \explode('-', $key);
+		
+		$controller_name = \app\Collection::implode('', $key_parts, function ($k, $value) {
+			return \ucfirst($value);
+		});
+		
+		return '\app\Controller_'.$controller_name;
+	}
+	
 	static function check_all()
 	{
 		$routes = \app\CFS::config('routes');
@@ -76,7 +89,7 @@ class Route
 						$relay = array
 							(
 								'matcher' => $matcher,
-								'controller' => '\app\Controller_'.\ucfirst(\preg_replace('#(\..*)#', '', $route_info[0])),
+								'controller' =>  static::resolve_controller_name($route_info[0]),
 								'action' => $default_action
 							);
 						
