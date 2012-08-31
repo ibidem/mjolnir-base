@@ -31,6 +31,15 @@ class Controller_Web extends \app\Controller
 	}
 	
 	/**
+	 * Shorthand for redirecting the user to another page after completing an 
+	 * operations.
+	 */
+	protected function forward($relay, array $params = null)
+	{
+		\app\Server::redirect(\app\URL::href($relay, $params));
+	}
+	
+	/**
 	 * Execute before actions.
 	 */
 	function before()
