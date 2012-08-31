@@ -146,6 +146,14 @@ class Layer_MVC extends \app\Layer
 	}
 	
 	/**
+	 * @return \ibidem\types\Controller
+	 */
+	function current_controller()
+	{
+		return $this->params['controller'];
+	}
+	
+	/**
 	 * @param \ibidem\types\Layer layer
 	 * @param \ibidem\types\Layer parent
 	 * @return \ibidem\base\Layer_MVC $this

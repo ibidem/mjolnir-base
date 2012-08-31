@@ -59,4 +59,12 @@ class Controller extends \app\Instantiatable
 		return $this;
 	}
 	
+	/**
+	 * @return \ibidem\types\Params
+	 */
+	function get_parameters()
+	{
+		return $this->params;
+	}
+	
 } # class
