@@ -266,7 +266,13 @@ class Make extends \app\Instantiatable
 	 */
 	static function copies($source, $count = null, array $counters = null)
 	{
-		$count !== null or $count = \rand(5, 25);
+		$count !== null or $count = \rand(-10, 25);
+		
+		if ($count < 0)
+		{
+			$count = 0;
+		}
+		
 		$copies = array();
 		while ($count-- > 0)
 		{

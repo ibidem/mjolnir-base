@@ -56,7 +56,7 @@
 				'blandit', 'gravida', 'et', 'vitae', 'neque', 'nam', 'pretium', 'tempus', 'mauris', 'in', 'porta', 'orci', 
 				'dictum', 'vitae', 'mauris', 'orci', 'tortor', 'aliquam', 'sit', 'amet', 'iaculis', 'ut', 'mattis', 'in', 
 				'augue', 'quisque', 'purus', 'nunc', 'egestas', 'quis', 'fringilla', 'ac', 'ornare', 'eget', 'est', 'vestibulum', 
-				'ante', 'ipsum', 'primis', 'in', 'faucibus', 'orci', 'luctus', 'et', 'ultrices', 'posuere', 'cubilia', 'curae;', 
+				'ante', 'ipsum', 'primis', 'in', 'faucibus', 'orci', 'luctus', 'et', 'ultrices', 'posuere', 'cubilia', 'curae', 
 				'mauris', 'leo', 'orci', 'pulvinar', 'sit', 'amet', 'imperdiet', 'vitae', 'laoreet', 'vel', 'augue', 'phasellus', 
 				'id', 'varius', 'nulla', 'nulla', 'vitae', 'magna', 'elit', 'vestibulum', 'vitae', 'ullamcorper', 'elit', 'sed', 
 				'eu', 'enim', 'sem', 'at', 'mattis'
