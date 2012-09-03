@@ -91,5 +91,15 @@ class Controller_Web extends \app\Controller
 		$relay = $this->layer->get_relay();
 		return $relay['route']->url(array('action' => $action));
 	}
+	
+	/**
+	 * Sugar for the `action` method.
+	 * 
+	 * @return string
+	 */
+	function act($action)
+	{
+		return $this->action($action);
+	}
 
 } # class
