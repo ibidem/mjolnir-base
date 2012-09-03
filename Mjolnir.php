@@ -94,8 +94,16 @@ class Mjolnir
 		\app\Relay::check_all();
 
 		// we failed relays
-		\header("HTTP/1.0 404 Not Found");
-		echo '404 - Not Found';
+		if (\file_exists(PUBDIR.'404'.EXT))
+		{
+			require PUBDIR.'404'.EXT;
+		}
+		else # no 404 file
+		{
+			\header("HTTP/1.0 404 Not Found");
+			echo '404 - Not Found';
+		}
+		
 		exit(1);
 	}
 
