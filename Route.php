@@ -58,9 +58,10 @@ class Route
 				{
 					$methods = \array_map
 						(
-							function ($str) { 
-								return \strtoupper($str); 
-							}, 
+							function ($str) 
+								{ 
+									return \strtoupper($str); 
+								}, 
 							$route_info[2]
 						);
 				}
@@ -70,9 +71,21 @@ class Route
 				{
 					if (\app\Server::request_method() === $method)
 					{
+						if (\is_array($route_info[0]))
+						{
+							\reset($route_info);
+							$key = \key($route_info[0]);
+							$binding = $route_info[0][$key];
+						}
+						else # not array
+						{
+							$key = $route_info[0];
+							$binding = $route_info[0];
+						}
+						
 						// retrieve format
 						$format = 'html';
-						if (\preg_match('#.*\.(?<format>[a-z0-9-_]+)$#', $route_info[0], $matches))
+						if (\preg_match('#.*\.(?<format>[a-z0-9-_]+)$#', $key, $matches))
 						{
 							$format = $matches['format'];
 						}
@@ -89,12 +102,12 @@ class Route
 						$relay = array
 							(
 								'matcher' => $matcher,
-								'controller' =>  static::resolve_controller_name($route_info[0]),
+								'controller' =>  static::resolve_controller_name($binding),
 								'action' => $default_action
 							);
 						
 						// execute
-						$route_stacks[$format]($relay, $route_info[0]);
+						$route_stacks[$format]($relay, $key);
 						exit;
 					}
 				}
@@ -102,27 +115,54 @@ class Route
 		}
 	}
 	
+	/**
+	 * @return \app\Route_Pattern
+	 */
+	static function get_pattern_for($pattern, $regex_pattern)
+	{
+		$pattern = \trim($pattern, '/');
+
+		// create route pattern
+		return \app\Route_Pattern::instance()->standard($pattern, $regex_pattern);
+	}
+	
+	/**
+	 * @return \app\Route_Pattern or null
+	 */
 	static function matcher($key)
 	{
 		$routes = \app\CFS::config('routes');
 		
 		foreach ($routes as $pattern => $route_info)
 		{
-			if ($route_info[0] === $key)
+			if ( ! \is_array($route_info[0]))
+			{	
+				if ($route_info[0] === $key)
+				{
+					if (isset($route_info[1]))
+					{
+						return static::get_pattern_for($pattern, $route_info[1]);
+					}
+					else # not pattern regex given
+					{
+						return static::get_pattern_for($pattern, []);
+					}
+				}
+			}
+			else # array given
 			{
-				$pattern = \trim($pattern, '/');
-
-				if ( ! isset($route_info[1]))
+				\reset($route_info[0]);
+				if (\key($route_info[0]) === $key)
 				{
-					$regex_pattern = [];
+					if (isset($route_info[1]))
+					{
+						return static::get_pattern_for($pattern, $route_info[1]);
+					}
+					else # not pattern regex given
+					{
+						return static::get_pattern_for($pattern, []);
+					}
 				}
-				else # got regex
-				{
-					$regex_pattern = $route_info[1];
-				}
-
-				// create route pattern
-				return \app\Route_Pattern::instance()->standard($pattern, $regex_pattern);
 			}
 		}
 		
