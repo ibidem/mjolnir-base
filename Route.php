@@ -9,6 +9,9 @@
  */
 class Route
 {
+	/**
+	 * @return string controller
+	 */
 	static function resolve_controller_name($key)
 	{
 		$key = \preg_replace('#(\..*)#', '', $key);
@@ -22,13 +25,44 @@ class Route
 		return '\app\Controller_'.$controller_name;
 	}
 	
+	/**
+	 * @return string
+	 */
+	static function translate_pattern($pattern)
+	{		
+		if (\app\Lang::get_lang() !== 'en-us')
+		{
+			// load route translations
+			$translations = \app\Lang::file('routes');
+
+			if (isset($translations[$pattern]))
+			{
+				return $translations[$pattern];
+			}
+			else # failed to translate
+			{
+				return $pattern;
+			}
+		}
+		else # en-us
+		{
+			return $pattern;
+		}
+	}
+	
+	/**
+	 * Check all routes for match.
+	 */
 	static function check_all()
 	{
 		$routes = \app\CFS::config('routes');
 		
 		// format: [ key, regex, allowed methods ]
-		foreach ($routes as $pattern => $route_info)
+		foreach ($routes as $pattern => $route_info)			
 		{
+			// translate pattern
+			$pattern = static::translate_pattern($pattern);
+			
 			$pattern = \trim($pattern, '/');
 			
 			if ( ! isset($route_info[1]))
