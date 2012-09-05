@@ -25,7 +25,7 @@
 		 * in the command's documentation (ie. description). Preferably use flags though
 		 * and/or have that only as a shorthand and not as the only way.
 		 */
-		'check:modules' => array
+		'status' => array
 			(
 				'description' => array
 					(
@@ -42,6 +42,13 @@
 							(
 								'description' => 'Treat failed as errors.'
 							),
+					),
+			),
+		'cleanup' => array
+			(
+				'description' => array
+					(
+						'Cleans system (cache, logs, etc).'
 					),
 			),
 		'make:class' => array

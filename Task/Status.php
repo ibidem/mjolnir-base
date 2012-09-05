@@ -7,7 +7,7 @@
  * @copyright  (c) 2012 Ibidem Team
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
-class Task_Check_Modules extends \app\Task
+class Task_Status extends \app\Task
 {
 	/**
 	 * Attempt to detect php binary location.

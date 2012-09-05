@@ -42,6 +42,7 @@ class Session_Native extends \ibidem\base\Session_Native { /** @return \ibidem\b
 class Session extends \ibidem\base\Session {}
 class Task_Behat extends \ibidem\base\Task_Behat { /** @return \ibidem\base\Task_Behat */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
 class Task_Check_Modules extends \ibidem\base\Task_Check_Modules { /** @return \ibidem\base\Task_Check_Modules */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
+class Task_Clear extends \ibidem\base\Task_Clear { /** @return \ibidem\base\Task_Clear */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
 class Task_Find_Class extends \ibidem\base\Task_Find_Class { /** @return \ibidem\base\Task_Find_Class */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
 class Task_Find_File extends \ibidem\base\Task_Find_File { /** @return \ibidem\base\Task_Find_File */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
 class Task_Honeypot extends \ibidem\base\Task_Honeypot { /** @return \ibidem\base\Task_Honeypot */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
