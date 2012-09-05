@@ -81,6 +81,26 @@
 							),
 					),
 			),
+		'make:trait' => array
+			(
+				'description' => array
+					(
+						'Create trait.'
+					),
+				'flags' => array
+					(
+						'trait' => array
+							(
+								'description' => 'Trait; with namespace.',
+								'type' => '\ibidem\base\Flags::text',
+								'short' => 't',
+							),
+						'forced' => array
+							(
+								'description' => 'Force file overwrites.'
+							),
+					),
+			),
 		'make:module' => array
 			(
 				'description' => array

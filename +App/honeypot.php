@@ -48,6 +48,7 @@ class Task_Honeypot extends \ibidem\base\Task_Honeypot { /** @return \ibidem\bas
 class Task_Make_Class extends \ibidem\base\Task_Make_Class { /** @return \ibidem\base\Task_Make_Class */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
 class Task_Make_Config extends \ibidem\base\Task_Make_Config { /** @return \ibidem\base\Task_Make_Config */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
 class Task_Make_Module extends \ibidem\base\Task_Make_Module { /** @return \ibidem\base\Task_Make_Module */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
+class Task_Make_Trait extends \ibidem\base\Task_Make_Trait { /** @return \ibidem\base\Task_Make_Trait */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
 class Task_Relays extends \ibidem\base\Task_Relays { /** @return \ibidem\base\Task_Relays */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
 class Task_Versions extends \ibidem\base\Task_Versions { /** @return \ibidem\base\Task_Versions */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
 class Task extends \ibidem\base\Task { /** @return \ibidem\base\Task */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }

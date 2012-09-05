@@ -10,6 +10,11 @@
 class Task_Make_Class extends \app\Task
 {
 	/**
+	 * @var string
+	 */
+	protected static $filetype = 'class';
+	
+	/**
 	 * @param string class name
 	 * @param string namespace
 	 * @param string category
@@ -44,9 +49,16 @@ class Task_Make_Class extends \app\Task
 		$file .= ' */'.PHP_EOL;
 		
 		$conventions_config = \app\CFS::config('ibidem/conventions');
+		
+		if (\preg_match('#^Trait_.*$#', $class_name))
+		{
+			static::$filetype = 'trait';
+			$library = true;
+		}
+		
 		if ($library)
 		{
-			$file .= "class $class_name".PHP_EOL;
+			$file .= static::$filetype." $class_name".PHP_EOL;
 		}
 		else # not library
 		{
@@ -76,7 +88,7 @@ class Task_Make_Class extends \app\Task
 			// the extra . is to avoid IDE's picking this code up unintentionally
 			  "\t// @"."todo write implementation for \\{$namespace}\\{$class_name}".PHP_EOL
 			. PHP_EOL
-			. '} # class'.PHP_EOL
+			. '} # '.static::$filetype.PHP_EOL
 			;
 		
 		return $file;
@@ -140,7 +152,7 @@ class Task_Make_Class extends \app\Task
 		if ($ns_div === false)
 		{
 			$this->writer
-				->error('You must provide fully qualified class name.')->eol();
+				->error('You must provide fully qualified '.static::$filetype.' name.')->eol();
 			return;
 		}
 		
@@ -251,7 +263,7 @@ class Task_Make_Class extends \app\Task
 		if ( ! $forced && \file_exists($module_path.$class_path.$class_file))
 		{
 			$this->writer
-				->error('Class exists. Use --forced if you want to overwrite.')
+				->error(\ucfirst(static::$filetype).' exists. Use --forced if you want to overwrite.')
 				->eol();
 			
 			return;
