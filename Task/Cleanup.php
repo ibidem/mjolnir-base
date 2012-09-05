@@ -14,8 +14,12 @@ class Task_Cleanup extends \app\Task
 	 */
 	function execute()
 	{
-		static::remove_dir(APPPATH.'logs');
-		static::remove_dir(APPPATH.'cache');
+		$this->writer->write(' Removing logs.')->eol();
+		static::empty_dir(APPPATH.'logs');
+		$this->writer->write(' Reseting file cache.')->eol();
+		static::empty_dir(APPPATH.'cache');
+		$this->writer->write(' Removing temporary files.')->eol();
+		static::remove_dir(DOCROOT.'+temp');
 	}
 	
 	static function empty_dir($dir)
