@@ -95,4 +95,22 @@ class Exception extends \Exception
 		return $this;
 	}
 	
+	/**
+	 * @return string debug info or empty string if not in development
+	 */
+	static function debuginfo_for(\Exception $exception)
+	{
+		$out = '';
+		if (\app\CFS::config('ibidem/base')['development'])
+		{
+			$is_http = \app\Layer::find('http') !== null;
+			$out .= $is_http ? '<div class="ibidem-debuginfo"><pre>' : '';
+			$out .= $exception->getMessage()."\n";
+			$out .= \str_replace(DOCROOT, '', $exception->getTraceAsString());
+			$out .= $is_http ? '</pre></div>' : '';
+		}
+		
+		return $out;
+	}
+	
 } # class
