@@ -193,7 +193,7 @@ abstract class Layer extends \app\Instantiatable
 		// pass to parent
 		if ($this->parent)
 		{
-			$this->parent->exception($exception);
+			$this->parent->exception($exception, $no_throw);
 		}
 		else # no parent
 		{
@@ -202,17 +202,18 @@ abstract class Layer extends \app\Instantiatable
 				// we can't do anything about it anymore
 				throw $exception;
 			}
-			else # no throw
-			{
-				if (\app\Layer::find('http'))
-				{
-					echo "<pre>\n";
-				}
-				
-				echo $exception->getMessage()."\n"
-					. \str_replace(DOCROOT, '', $exception->getTraceAsString());
-				exit(1);
-			}
+//			else # no throw
+//			{
+//				if (\app\Layer::find('http'))
+//				{
+//					echo "<pre>\n";
+//				}
+//				
+//				echo $exception->getMessage()."\n"
+//					. \str_replace(DOCROOT, '', $exception->getTraceAsString());
+//				
+//				exit(1);
+//			}
 		}
 	}
 	

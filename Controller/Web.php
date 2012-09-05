@@ -48,6 +48,9 @@ class Controller_Web extends \app\Controller
 		{
 			$this->context = $this->make_context();
 		}
+		
+		// pre-initialize view (for showing errors)
+		$this->themeview(); 
 	}
 	
 	/**
@@ -55,10 +58,17 @@ class Controller_Web extends \app\Controller
 	 */
 	function themeview()
 	{
-		return \app\ThemeView::instance()
-			->layer($this->layer)
-			->context($this->context)
-			->control($this);
+		static $themeview = null;
+		
+		if ( ! isset($themeview))
+		{
+			$themeview = \app\ThemeView::instance()
+				->layer($this->layer)
+				->context($this->context)
+				->control($this);
+		}
+		
+		return $themeview;
 	}
 	
 	/**

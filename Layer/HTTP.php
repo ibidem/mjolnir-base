@@ -206,8 +206,13 @@ class Layer_HTTP extends \app\Layer
 	 * @param \Exception
 	 * @param boolean layer is origin of exception?
 	 */
-	function exception(\Exception $exception, $no_throw = false, $origin = false)
+	function exception(\Exception $exception, $no_trow = false, $origin = false)
 	{
+		if ($no_trow && isset($this->layer))
+		{
+			$this->contents($this->layer->get_contents());
+		}
+		
 		if (self::is_notfound_exception($exception))
 		{
 			$this->status(\ibidem\types\HTTP::STATUS_NotFound);
@@ -218,7 +223,7 @@ class Layer_HTTP extends \app\Layer
 		}
 		
 		// default execution from Layer
-		parent::exception($exception, $no_throw);
+		parent::exception($exception, $no_trow);
 	}	
 	
 	/**

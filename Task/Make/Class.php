@@ -178,6 +178,8 @@ class Task_Make_Class extends \app\Task
 		}
 		
 		$modules = \app\CFS::get_modules();
+		$namespaces = \app\CFS::get_namespaces();
+		\var_dump($namespaces); die;
 		$namespaces = \array_flip($modules);
 
 		// module path exists?

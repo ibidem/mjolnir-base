@@ -76,8 +76,9 @@ class Task_Make_Module extends \app\Task
 		return 
 			  '<?php return array'.PHP_EOL
 			. "\t(".PHP_EOL
-			. "\t\t".'\'\ibidem\theme\mockup\'      => [ \'enabled\' => true ],'.PHP_EOL
-			. "\t\t".'\'\ibidem\theme\mockup-form\' => [ \'enabled\' => true ],'.PHP_EOL
+			. "\t\t".'\'\ibidem\theme\mockup\'        => [ \'enabled\' => true ],'.PHP_EOL
+			. "\t\t".'\'\ibidem\theme\mockup-errors\' => [ \'enabled\' => true ],'.PHP_EOL
+			. "\t\t".'\'\ibidem\theme\mockup-form\'   => [ \'enabled\' => true ],'.PHP_EOL
 			. "\t);"
 			. PHP_EOL
 			;

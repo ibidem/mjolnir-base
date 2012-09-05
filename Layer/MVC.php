@@ -95,7 +95,7 @@ class Layer_MVC extends \app\Layer
 		}
 		catch (\Exception $exception)
 		{
-			$this->exception($exception, true);
+			$this->exception($exception);
 		}
 	}
 	

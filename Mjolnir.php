@@ -93,8 +93,37 @@ class Mjolnir
 		// go though all relays
 		\app\Relay::check_all();
 
-		// we failed relays
-		if (\file_exists(PUBDIR.'404'.EXT))
+		// do we have a default theme?
+		if (\app\CFS::config('ibidem/themes')['theme.default'] !== null)
+		{
+			try
+			{
+				\app\Layer::stack
+					(
+						\app\Layer_HTTP::instance(),
+						\app\Layer_HTML::instance(),
+						\app\Layer_Sandbox::instance()
+							->caller
+							(
+								function () 
+								{
+									\app\ThemeView::instance()
+										->errortarget('NotFound');
+
+									throw new \app\Exception_NotFound
+										(
+											'The page you are trying to access doesn\'t appear to exist. Sorry!'
+										);
+								}
+							)
+					);
+			}
+			catch (\Exception $e)
+			{
+				// do nothing
+			}
+		}
+		else if (\file_exists(PUBDIR.'404'.EXT))
 		{
 			require PUBDIR.'404'.EXT;
 		}
