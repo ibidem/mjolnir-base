@@ -84,6 +84,16 @@ class Lang
 	}
 	
 	/**
+	 * Get's a language file from the current language's directory.
+	 * 
+	 * @return array
+	 */
+	static function file($file)
+	{
+		return \app\CFS::config('lang/'.self::$current_lang.'/'.$file);
+	}
+	
+	/**
 	 * Access a specific message identified by the key. 
 	 * 
 	 * The key MUST be defined.
