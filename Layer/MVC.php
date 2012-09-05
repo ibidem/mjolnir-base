@@ -109,7 +109,7 @@ class Layer_MVC extends \app\Layer
 	 */
 	function exception(\Exception $exception, $no_throw = false, $origin = false)
 	{
-		if (\is_a($exception, '\\ibidem\\types\\Exception'))
+		if (\is_a($exception, '\ibidem\types\Exception'))
 		{
 			$error = ' '.$exception->title().': '.$exception->message()."\n";
 			if (\app\Layer::find('html') !== null) {
