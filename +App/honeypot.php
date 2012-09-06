@@ -29,6 +29,7 @@ class Log extends \ibidem\base\Log {}
 class Make extends \ibidem\base\Make { /** @return \ibidem\base\Make */ static function instance($type = 'paragraph', array $args = null) { return parent::instance($type, $args); } }
 class Mjolnir extends \ibidem\base\Mjolnir {}
 class Params extends \ibidem\base\Params { /** @return \ibidem\base\Params */ static function instance() { return parent::instance(); } }
+class Query extends \ibidem\base\Query { /** @return \ibidem\base\Query */ static function instance() { return parent::instance(); } }
 class Register extends \ibidem\base\Register {}
 class Relay extends \ibidem\base\Relay {}
 class Route_Path extends \ibidem\base\Route_Path { /** @return \ibidem\base\Route_Path */ static function instance($uri = null) { return parent::instance($uri); } }
@@ -41,8 +42,7 @@ class Server extends \ibidem\base\Server {}
 class Session_Native extends \ibidem\base\Session_Native { /** @return \ibidem\base\Session_Native */ static function instance() { return parent::instance(); } }
 class Session extends \ibidem\base\Session {}
 class Task_Behat extends \ibidem\base\Task_Behat { /** @return \ibidem\base\Task_Behat */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
-class Task_Check_Modules extends \ibidem\base\Task_Check_Modules { /** @return \ibidem\base\Task_Check_Modules */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
-class Task_Clear extends \ibidem\base\Task_Clear { /** @return \ibidem\base\Task_Clear */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
+class Task_Cleanup extends \ibidem\base\Task_Cleanup { /** @return \ibidem\base\Task_Cleanup */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
 class Task_Find_Class extends \ibidem\base\Task_Find_Class { /** @return \ibidem\base\Task_Find_Class */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
 class Task_Find_File extends \ibidem\base\Task_Find_File { /** @return \ibidem\base\Task_Find_File */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
 class Task_Honeypot extends \ibidem\base\Task_Honeypot { /** @return \ibidem\base\Task_Honeypot */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
@@ -51,6 +51,7 @@ class Task_Make_Config extends \ibidem\base\Task_Make_Config { /** @return \ibid
 class Task_Make_Module extends \ibidem\base\Task_Make_Module { /** @return \ibidem\base\Task_Make_Module */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
 class Task_Make_Trait extends \ibidem\base\Task_Make_Trait { /** @return \ibidem\base\Task_Make_Trait */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
 class Task_Relays extends \ibidem\base\Task_Relays { /** @return \ibidem\base\Task_Relays */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
+class Task_Status extends \ibidem\base\Task_Status { /** @return \ibidem\base\Task_Status */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
 class Task_Versions extends \ibidem\base\Task_Versions { /** @return \ibidem\base\Task_Versions */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
 class Task extends \ibidem\base\Task { /** @return \ibidem\base\Task */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
 class Text extends \ibidem\base\Text { /** @return \ibidem\base\Text */ static function instance() { return parent::instance(); } }
