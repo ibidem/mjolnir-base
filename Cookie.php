@@ -70,6 +70,17 @@ class Cookie
 	}
 	
 	/**
+	 * Deletes cookie. The secure paramter must be provided in the case of 
+	 * cookies that used it.
+	 */
+	static function delete($key)
+	{
+		$base_config = \app\CFS::config('ibidem/base');
+		\setcookie($key, '0', 1, $base_config['path'], $base_config['domain'], false);
+		\setcookie($key, '0', 1, $base_config['path'], $base_config['domain'], true);
+	}
+	
+	/**
 	 * Creates a cookie session using the user's credentials and the secret key.
 	 * 
 	 * @return string session key
