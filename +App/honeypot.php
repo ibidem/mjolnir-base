@@ -9,6 +9,7 @@ class Assert extends \ibidem\base\Assert { /** @return \ibidem\base\Assert */ st
 class Collection extends \ibidem\base\Collection {}
 class Controller_Web extends \ibidem\base\Controller_Web { /** @return \ibidem\base\Controller_Web */ static function instance() { return parent::instance(); } }
 class Controller extends \ibidem\base\Controller { /** @return \ibidem\base\Controller */ static function instance() { return parent::instance(); } }
+class Cookie extends \ibidem\base\Cookie { /** @return \ibidem\base\Cookie */ static function instance() { return parent::instance(); } }
 class DateFormatter extends \ibidem\base\DateFormatter { /** @return \ibidem\base\DateFormatter */ static function instance() { return parent::instance(); } }
 class Email extends \ibidem\base\Email { /** @return \ibidem\base\Email */ static function instance() { return parent::instance(); } }
 class Exception_NotAllowed extends \ibidem\base\Exception_NotAllowed {}
@@ -29,7 +30,7 @@ class Log extends \ibidem\base\Log {}
 class Make extends \ibidem\base\Make { /** @return \ibidem\base\Make */ static function instance($type = 'paragraph', array $args = null) { return parent::instance($type, $args); } }
 class Mjolnir extends \ibidem\base\Mjolnir {}
 class Params extends \ibidem\base\Params { /** @return \ibidem\base\Params */ static function instance() { return parent::instance(); } }
-class Query extends \ibidem\base\Query { /** @return \ibidem\base\Query */ static function instance() { return parent::instance(); } }
+class Query extends \ibidem\base\Query {}
 class Register extends \ibidem\base\Register {}
 class Relay extends \ibidem\base\Relay {}
 class Route_Path extends \ibidem\base\Route_Path { /** @return \ibidem\base\Route_Path */ static function instance($uri = null) { return parent::instance($uri); } }
