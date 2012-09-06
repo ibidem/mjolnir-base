@@ -5,4 +5,5 @@
 		'timezone' => 'Europe/Bucharest',
 		'charset' => 'UTF8',
 		'locale.lang' => 'en_US',
+		'development' => false,
 	);
