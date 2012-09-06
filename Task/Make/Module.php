@@ -31,13 +31,14 @@ class Task_Make_Module extends \app\Task
 	 * @return string language file readme
 	 */
 	protected function honeypot_file($namespace)
-	{		
+	{
 		return 
 			  '<?php namespace app;'.PHP_EOL
 			. PHP_EOL
-			. '// This is a IDE honeypot. :)'.PHP_EOL
+			. '// This is an IDE honeypot. It tells IDEs the class hirarchy, but otherwise has'.PHP_EOL
+			. '// no effect on your application. :)'.PHP_EOL
 			. PHP_EOL
-			. '// HowTo: minion honeypot -n \''.$namespace.'\''
+			. '// HowTo: order honeypot -n \''.$namespace.'\''
 			. PHP_EOL
 			;
 	}
