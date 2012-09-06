@@ -88,7 +88,7 @@ class Layer_MVC extends \app\Layer
 			$controller->params($params);
 			$controller->layer($this);
 			$controller->before();
-			\call_user_func(array($controller, $this->params['action']));
+			\call_user_func([$controller, $this->params['action']]);
 			$controller->after();
 
 			$this->contents($controller->get_body());
@@ -111,12 +111,15 @@ class Layer_MVC extends \app\Layer
 	{
 		if (\is_a($exception, '\ibidem\types\Exception'))
 		{
-			$error = ' '.$exception->title().': '.$exception->message()."\n";
-			if (\app\Layer::find('html') !== null) {
-				$error .= '<pre>';
+			if (\app\CFS::config('ibidem/base')['development'] === true)
+			{
+				$error = ' '.$exception->title().': '.$exception->message()."\n";
+				if (\app\Layer::find('html') !== null) {
+					$error .= '<pre>';
+				}
+				$error .= \str_replace(DOCROOT, '', $exception->getTraceAsString());
+				$this->contents($error);
 			}
-			$error .= \str_replace(DOCROOT, '', $exception->getTraceAsString());
-			$this->contents($error);
 		}
 		
 		// default execution from Layer
