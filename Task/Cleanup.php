@@ -22,31 +22,14 @@ class Task_Cleanup extends \app\Task
 		static::remove_dir(DOCROOT.'+temp');
 	}
 	
+	/**
+	 * Empty directory.
+	 */
 	static function empty_dir($dir)
 	{
 		if (\is_dir($dir))
 		{
-			$files = \scandir($dir);
-			foreach($files as $file)
-			{
-				$fullpath = $dir.'/'.$file;
-				if ($file == '..' || $file == '.')
-				{
-					continue;
-				}
-				else if (\is_dir($fullpath))
-				{
-					static::remove_dir($fullpath);
-				}
-				else if (\is_file($fullpath))
-				{
-					unlink($fullpath);
-				}
-				else # neither
-				{
-					throw new \app\Exception($fullpath.' is not Directory, nor File.');
-				}
-			}
+			static::scandir($dir);
 		}
 	}
 	
@@ -57,29 +40,37 @@ class Task_Cleanup extends \app\Task
 	{
 		if (\is_dir($dir))
 		{
-			$files = \scandir($dir);
-			foreach($files as $file)
-			{
-				$fullpath = $dir.'/'.$file;
-				if ($file == '..' || $file == '.')
-				{
-					continue;
-				}
-				else if (\is_dir($fullpath))
-				{
-					static::remove_dir($fullpath);
-				}
-				else if (\is_file($fullpath))
-				{
-					unlink($fullpath);
-				}
-				else # neither
-				{
-					throw new \app\Exception($fullpath.' is not Directory, nor File.');
-				}
-			}
+			static::scandir($dir);
 
 			\rmdir($dir);
+		}
+	}
+	
+	/**
+	 * Scan and unlink files.
+	 */
+	protected static function scandir($dir)
+	{
+		$files = \scandir($dir);
+		foreach($files as $file)
+		{
+			$fullpath = $dir.'/'.$file;
+			if ($file == '..' || $file == '.')
+			{
+				continue;
+			}
+			else if (\is_dir($fullpath))
+			{
+				static::remove_dir($fullpath);
+			}
+			else if (\is_file($fullpath))
+			{
+				\unlink($fullpath);
+			}
+			else # neither
+			{
+				throw new \app\Exception($fullpath.' is not Directory, nor File.');
+			}
 		}
 	}
 	
