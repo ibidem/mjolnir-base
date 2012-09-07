@@ -5,11 +5,12 @@
 
 // HowTo: order honeypot -n 'ibidem\base'
 
+class Arr extends \ibidem\base\Arr { /** @return \ibidem\base\Arr */ static function instance() { return parent::instance(); } }
 class Assert extends \ibidem\base\Assert { /** @return \ibidem\base\Assert */ static function instance($expected = null) { return parent::instance($expected); } }
 class Collection extends \ibidem\base\Collection {}
 class Controller_Web extends \ibidem\base\Controller_Web { /** @return \ibidem\base\Controller_Web */ static function instance() { return parent::instance(); } }
 class Controller extends \ibidem\base\Controller { /** @return \ibidem\base\Controller */ static function instance() { return parent::instance(); } }
-class Cookie extends \ibidem\base\Cookie { /** @return \ibidem\base\Cookie */ static function instance() { return parent::instance(); } }
+class Cookie extends \ibidem\base\Cookie {}
 class DateFormatter extends \ibidem\base\DateFormatter { /** @return \ibidem\base\DateFormatter */ static function instance() { return parent::instance(); } }
 class Email extends \ibidem\base\Email { /** @return \ibidem\base\Email */ static function instance() { return parent::instance(); } }
 class Exception_NotAllowed extends \ibidem\base\Exception_NotAllowed {}
