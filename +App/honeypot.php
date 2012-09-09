@@ -3,9 +3,9 @@
 // This is an IDE honeypot. It tells IDEs the class hirarchy, but otherwise has
 // no effect on your application. :)
 
-// HowTo: order honeypot -n 'ibidem\base'
+// HowTo: order honeypot -n 'mjolnir\base'
 
-class Arr extends \mjolnir\base\Arr { /** @return \mjolnir\base\Arr */ static function instance() { return parent::instance(); } }
+class Arr extends \mjolnir\base\Arr {}
 class Assert extends \mjolnir\base\Assert { /** @return \mjolnir\base\Assert */ static function instance($expected = null) { return parent::instance($expected); } }
 class Collection extends \mjolnir\base\Collection {}
 class Controller_Web extends \mjolnir\base\Controller_Web { /** @return \mjolnir\base\Controller_Web */ static function instance() { return parent::instance(); } }
