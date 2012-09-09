@@ -1,7 +1,7 @@
-<?php namespace ibidem\base;
+<?php namespace mjolnir\base;
 
 /**
- * @package    ibidem
+ * @package    mjolnir
  * @category   Base
  * @author     Ibidem
  * @copyright  (c) 2012, Ibidem Team
@@ -22,7 +22,7 @@ class Server
 		else # REQUEST_METHOD not set
 		{
 			// Default to GET requests
-			return \strtoupper(\ibidem\types\HTTP::GET);
+			return \strtoupper(\mjolnir\types\HTTP::GET);
 		}
 	}
 	

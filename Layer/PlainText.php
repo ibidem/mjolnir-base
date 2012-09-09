@@ -1,14 +1,14 @@
-<?php namespace ibidem\base;
+<?php namespace mjolnir\base;
 
 /** 
- * @package    ibidem
+ * @package    mjolnir
  * @category   Base
  * @author     Ibidem Team
  * @copyright  (c) 2012 Ibidem Team
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 class Layer_PlainText extends \app\Layer 
-	implements \ibidem\types\Document
+	implements \mjolnir\types\Document
 {
 	use \app\Trait_Document
 		{
@@ -18,7 +18,7 @@ class Layer_PlainText extends \app\Layer
 	/**
 	 * @var string
 	 */
-	protected static $layer_name = \ibidem\types\Layer::DEFAULT_LAYER_NAME;
+	protected static $layer_name = \mjolnir\types\Layer::DEFAULT_LAYER_NAME;
 	
 	/**
 	 * Executes non-content related tasks before main contents.
@@ -59,7 +59,7 @@ class Layer_PlainText extends \app\Layer
 	 * Set the document's body.
 	 * 
 	 * @param string document body
-	 * @return \ibidem\base\Layer_PlainText $this
+	 * @return \mjolnir\base\Layer_PlainText $this
 	 */
 	function body($body)	
 	{
@@ -70,7 +70,7 @@ class Layer_PlainText extends \app\Layer
 					'Can\'t have both a body and contents.'
 				);
 				
-			throw $exception->type(\ibidem\types\Exception::NotApplicable);
+			throw $exception->type(\mjolnir\types\Exception::NotApplicable);
 		}
 		
 		$this->document_body($body);

@@ -1,14 +1,14 @@
-<?php namespace ibidem\base;
+<?php namespace mjolnir\base;
 
 /**
- * @package    ibidem
+ * @package    mjolnir
  * @category   Base
  * @author     Ibidem Team
  * @copyright  (c) 2012 Ibidem Team
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 class Params extends \app\Instantiatable 
-	implements \ibidem\types\Params
+	implements \mjolnir\types\Params
 {
 	use \app\Trait_Params;
 	

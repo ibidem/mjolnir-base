@@ -1,7 +1,7 @@
-<?php namespace ibidem\base;
+<?php namespace mjolnir\base;
 
 /** 
- * @package    ibidem
+ * @package    mjolnir
  * @category   Base
  * @author     Ibidem Team
  * @copyright  (c) 2012 Ibidem Team
@@ -9,11 +9,11 @@
  */
 class Route_Pattern extends \app\Instantiatable 
 	implements 
-		\ibidem\types\Matcher, 
-		\ibidem\types\RelayCompatible,
-		\ibidem\types\Parameterized,
-		\ibidem\types\URLCompatible,
-		\ibidem\types\Contextual
+		\mjolnir\types\Matcher, 
+		\mjolnir\types\RelayCompatible,
+		\mjolnir\types\Parameterized,
+		\mjolnir\types\URLCompatible,
+		\mjolnir\types\Contextual
 {
 	// Defines the pattern of a <segment>
 	protected static $REGEX_KEY     = '<([a-zA-Z0-9_]++)>';
@@ -50,7 +50,7 @@ class Route_Pattern extends \app\Instantiatable
 	protected $canonical_uri;
 	
 	/**
-	 * @var \ibidem\types\Params
+	 * @var \mjolnir\types\Params
 	 */
 	protected $params;
 	
@@ -61,7 +61,7 @@ class Route_Pattern extends \app\Instantiatable
 	
 	/**
 	 * @param string $regex
-	 * @return \ibidem\base\Route_Pattern
+	 * @return \mjolnir\base\Route_Pattern
 	 */
 	static function instance($uri = null)
 	{
@@ -85,7 +85,7 @@ class Route_Pattern extends \app\Instantiatable
 	/**
 	 * @param string pattern
 	 * @param array regex
-	 * @return \ibidem\base\Route_Pattern $this
+	 * @return \mjolnir\base\Route_Pattern $this
 	 */
 	function canonical($pattern, array $regex)
 	{
@@ -98,7 +98,7 @@ class Route_Pattern extends \app\Instantiatable
 	/**
 	 * @param string pattern
 	 * @param array regex
-	 * @return \ibidem\base\Route_Pattern $this
+	 * @return \mjolnir\base\Route_Pattern $this
 	 */
 	function standard($pattern, array $regex)
 	{
@@ -111,7 +111,7 @@ class Route_Pattern extends \app\Instantiatable
 	/**
 	 * @param string uri
 	 * @param array regex
-	 * @return \ibidem\base\Route_Pattern $this
+	 * @return \mjolnir\base\Route_Pattern $this
 	 */
 	protected static function setup_pattern($uri, array $regex)
 	{	
@@ -156,8 +156,8 @@ class Route_Pattern extends \app\Instantiatable
 	/**
 	 * @param string uri
 	 * @param string regex pattern
-	 * @param \ibidem\types\Params
-	 * @return \ibidem\types\Params
+	 * @param \mjolnir\types\Params
+	 * @return \mjolnir\types\Params
 	 */
 	protected static function match_params($uri, $pattern, $params)
 	{
@@ -273,7 +273,7 @@ class Route_Pattern extends \app\Instantiatable
 
 	/**
 	 * @param array relay configuration
-	 * @return \ibidem\base\Route_Pattern $this
+	 * @return \mjolnir\base\Route_Pattern $this
 	 */
 	function relay_config(array $relay)
 	{
@@ -281,7 +281,7 @@ class Route_Pattern extends \app\Instantiatable
 	}
 	
 	/**
-	 * @return \ibidem\types\Params
+	 * @return \mjolnir\types\Params
 	 */
 	function get_params()
 	{
@@ -400,7 +400,7 @@ class Route_Pattern extends \app\Instantiatable
 	 * Base for the url, if not defined should retrieve ibidem/base value.
 	 * 
 	 * @param string url base
-	 * @return \ibidem\base\Route_Pattern $this
+	 * @return \mjolnir\base\Route_Pattern $this
 	 */
 	function url_base($url_base = null)
 	{

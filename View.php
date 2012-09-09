@@ -1,7 +1,7 @@
-<?php namespace ibidem\base;
+<?php namespace mjolnir\base;
 
 /**
- * @package    ibidem
+ * @package    mjolnir
  * @category   Base
  * @author     Ibidem Team
  * @copyright  (c) 2012 Ibidem Team
@@ -9,9 +9,9 @@
  */
 class View extends \app\Instantiatable
 	implements 
-		\ibidem\types\View,	
-		\ibidem\types\FileBased, 
-		\ibidem\types\Renderable
+		\mjolnir\types\View,	
+		\mjolnir\types\FileBased, 
+		\mjolnir\types\Renderable
 {
 	/**
 	 * @var array
@@ -19,8 +19,8 @@ class View extends \app\Instantiatable
 	protected $view_params = array();
 	
 	/**
-	 * @see \ibidem\types\Instantiatable
-	 * @return \ibidem\base\View
+	 * @see \mjolnir\types\Instantiatable
+	 * @return \mjolnir\base\View
 	 */
 	static function instance($file = null)
 	{
@@ -62,7 +62,7 @@ class View extends \app\Instantiatable
 	/**
 	 * @param string valid PHP variable name
 	 * @param array array to bind
-	 * @return \ibidem\base\View $this
+	 * @return \mjolnir\base\View $this
 	 */
 	function bind($name, array & $array)
 	{
@@ -73,7 +73,7 @@ class View extends \app\Instantiatable
 	/**
 	 * @param string valid PHP variable name
 	 * @param mixed value to set
-	 * @return \ibidem\base\View $this
+	 * @return \mjolnir\base\View $this
 	 */
 	function variable($name, $value)
 	{
@@ -108,7 +108,7 @@ class View extends \app\Instantiatable
 		
 	/**
 	 * @param string file 
-	 * @return \ibidem\base\View $this
+	 * @return \mjolnir\base\View $this
 	 */
 	function file($file)
 	{
@@ -130,7 +130,7 @@ class View extends \app\Instantiatable
 	
 	/**
 	 * @param string explicit file path
-	 * @return \ibidem\base\View $this
+	 * @return \mjolnir\base\View $this
 	 */
 	function file_path($file)
 	{

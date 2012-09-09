@@ -1,7 +1,7 @@
-<?php namespace ibidem\base;
+<?php namespace mjolnir\base;
 
 /**
- * @package    ibidem
+ * @package    mjolnir
  * @category   Base
  * @author     Ibidem Team
  * @copyright  (c) 2012 Ibidem Team
@@ -24,7 +24,7 @@ trait Trait_Params
 
 	/**
 	 * @param array associative array of key values
-	 * @return \ibidem\base\Params $this
+	 * @return \mjolnir\base\Params $this
 	 */
 	function populate_params(array $params) 
 	{
@@ -47,7 +47,7 @@ trait Trait_Params
 	/**
 	 * @param string key
 	 * @param mixed value
-	 * @return \ibidem\base\Params $this
+	 * @return \mjolnir\base\Params $this
 	 */
 	function set($key, $value) 
 	{

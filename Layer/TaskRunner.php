@@ -1,7 +1,7 @@
-<?php namespace ibidem\base;
+<?php namespace mjolnir\base;
 
 /** 
- * @package    ibidem
+ * @package    mjolnir
  * @category   Base
  * @author     Ibidem Team
  * @copyright  (c) 2012 Ibidem Team
@@ -12,7 +12,7 @@ class Layer_TaskRunner extends \app\Layer
 	/**
 	 * @var string
 	 */
-	protected static $layer_name = \ibidem\types\Layer::DEFAULT_LAYER_NAME;
+	protected static $layer_name = \mjolnir\types\Layer::DEFAULT_LAYER_NAME;
 	
 	/**
 	 * @var array
@@ -48,7 +48,7 @@ class Layer_TaskRunner extends \app\Layer
 	protected static $commandname = 'order';
 	
 	/**
-	 * @var \ibidem\types\Writer
+	 * @var \mjolnir\types\Writer
 	 */
 	protected $writer;
 	
@@ -86,7 +86,7 @@ class Layer_TaskRunner extends \app\Layer
 	}
 	
 	/**
-	 * @param \ibidem\types\Writer writer
+	 * @param \mjolnir\types\Writer writer
 	 */
 	function writer($writer)
 	{
@@ -95,11 +95,11 @@ class Layer_TaskRunner extends \app\Layer
 	}
 	
 	/**
-	 * @param \ibidem\types\Layer layer
-	 * @param \ibidem\types\Layer parent
-	 * @return \ibidem\base\Layer_TaskRunner $this
+	 * @param \mjolnir\types\Layer layer
+	 * @param \mjolnir\types\Layer parent
+	 * @return \mjolnir\base\Layer_TaskRunner $this
 	 */
-	function register(\ibidem\types\Layer $layer)
+	function register(\mjolnir\types\Layer $layer)
 	{
 		// Note: In this implementation we treat MVC as a self contained pattern
 		// for the sake of purity of the pattern so we don't support sub layers.
@@ -221,7 +221,7 @@ class Layer_TaskRunner extends \app\Layer
 			{
 				$this->writer
 					->error('Missing required flags. Command terminated.')->eol()->eol()
-					->status('Help', 'For help type: '.static::$commandname.' '.$command.' -h', \ibidem\types\Enum_Color::Yellow)->eol()
+					->status('Help', 'For help type: '.static::$commandname.' '.$command.' -h', \mjolnir\types\Enum_Color::Yellow)->eol()
 					->eol()
 					->subheader('Missing Flags');
 				$this->render_flags($tasks[$command], $missing_flags);
@@ -254,7 +254,7 @@ class Layer_TaskRunner extends \app\Layer
 	 */
 	function exception(\Exception $exception, $no_throw = false, $origin = false)
 	{
-		if (\is_a($exception, '\ibidem\types\Exception'))
+		if (\is_a($exception, '\mjolnir\types\Exception'))
 		{
 			$this->writer->error($exception->message())->eol();
 		}

@@ -1,7 +1,7 @@
-<?php namespace ibidem\base;
+<?php namespace mjolnir\base;
 
 /** 
- * @package    ibidem
+ * @package    mjolnir
  * @category   Base
  * @author     Ibidem Team
  * @copyright  (c) 2012 Ibidem Team
@@ -9,32 +9,32 @@
  */
 class Controller extends \app\Instantiatable
 	implements 
-		\ibidem\types\Document, 
-		\ibidem\types\Controller
+		\mjolnir\types\Document, 
+		\mjolnir\types\Controller
 {
 	use \app\Trait_Document;
 	
 	/**
-	 * @var \ibidem\types\Params
+	 * @var \mjolnir\types\Params
 	 */
 	protected $params;
 	
 	/**
-	 * @var \ibidem\types\Layer
+	 * @var \mjolnir\types\Layer
 	 */
 	protected $layer;
 	
 	/**
-	 * @param \ibidem\types\Layer
-	 * @return \ibidem\base\Controller $this
+	 * @param \mjolnir\types\Layer
+	 * @return \mjolnir\base\Controller $this
 	 */
-	function layer(\ibidem\types\Layer $layer)
+	function layer(\mjolnir\types\Layer $layer)
 	{
 		$this->layer = $layer;
 	}
 	
 	/**
-	 * @return \ibidem\base\Controller $this
+	 * @return \mjolnir\base\Controller $this
 	 */
 	function before()
 	{
@@ -42,7 +42,7 @@ class Controller extends \app\Instantiatable
 	}
 	
 	/**
-	 * @return \ibidem\base\Controller $this
+	 * @return \mjolnir\base\Controller $this
 	 */
 	function after()
 	{
@@ -50,17 +50,17 @@ class Controller extends \app\Instantiatable
 	}
 	
 	/**
-	 * @param \ibidem\types\Params
-	 * @return \ibidem\base\Controller $this
+	 * @param \mjolnir\types\Params
+	 * @return \mjolnir\base\Controller $this
 	 */
-	function params(\ibidem\types\Params $params)
+	function params(\mjolnir\types\Params $params)
 	{
 		$this->params = $params;
 		return $this;
 	}
 	
 	/**
-	 * @return \ibidem\types\Params
+	 * @return \mjolnir\types\Params
 	 */
 	function get_parameters()
 	{

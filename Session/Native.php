@@ -1,14 +1,14 @@
-<?php namespace ibidem\base;
+<?php namespace mjolnir\base;
 
 /**
- * @package    ibidem
+ * @package    mjolnir
  * @category   Session
  * @author     Ibidem
  * @copyright  (c) 2012, Ibidem Team
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 class Session_Native extends \app\Instantiatable
-	implements \ibidem\types\Params
+	implements \mjolnir\types\Params
 {
 	/**
 	 * @var boolean 
@@ -16,7 +16,7 @@ class Session_Native extends \app\Instantiatable
 	private $destroyed = false;
 	
 	/**
-	 * @return \ibidem\base\Session_Native 
+	 * @return \mjolnir\base\Session_Native 
 	 */
 	static function instance()
 	{
@@ -110,7 +110,7 @@ class Session_Native extends \app\Instantiatable
 	/**
 	 * @param string key
 	 * @param mixed value
-	 * @return \ibidem\types\Params $this
+	 * @return \mjolnir\types\Params $this
 	 */
 	function set($key, $value)
 	{
@@ -121,7 +121,7 @@ class Session_Native extends \app\Instantiatable
 	
 	/**
 	 * @param array associative array of key values
-	 * @return \ibidem\types\Params $this
+	 * @return \mjolnir\types\Params $this
 	 */
 	function populate_params(array $params)
 	{

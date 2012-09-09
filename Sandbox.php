@@ -1,7 +1,7 @@
-<?php namespace ibidem\base;
+<?php namespace mjolnir\base;
 
 /**
- * @package    ibidem
+ * @package    mjolnir
  * @category   Base
  * @author     Ibidem
  * @copyright  (c) 2012, Ibidem Team
@@ -25,7 +25,7 @@ class Sandbox extends \app\Instantiatable
 				};
 		}
 		
-		\app\Relay::process('\ibidem\sandbox', $stack);
+		\app\Relay::process('\mjolnir\sandbox', $stack);
 	}
 
 } # class

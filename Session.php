@@ -1,7 +1,7 @@
-<?php namespace ibidem\base;
+<?php namespace mjolnir\base;
 
 /**
- * @package    ibidem
+ * @package    mjolnir
  * @category   Library
  * @author     Ibidem
  * @copyright  (c) 2012, Ibidem Team
@@ -10,7 +10,7 @@
 class Session
 {
 	/**
-	 * @var \ibidem\base\Session 
+	 * @var \mjolnir\base\Session 
 	 */
 	private static $session = null;
 	

@@ -1,9 +1,9 @@
-<?php namespace ibidem\base;
+<?php namespace mjolnir\base;
 
 /**
  * Syntactic sugar for Collection class
  * 
- * @package    ibidem
+ * @package    mjolnir
  * @category   Base
  * @author     Ibidem
  * @copyright  (c) 2012, Ibidem Team

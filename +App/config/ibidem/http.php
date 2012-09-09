@@ -1,8 +1,8 @@
 <?php return array
 	(
-		'status' => \ibidem\types\HTTP::STATUS,
+		'status' => \mjolnir\types\HTTP::STATUS,
 		'meta' => array
 			(
-				'content-type' => \ibidem\types\HTTP::CONTENT_TYPE,
+				'content-type' => \mjolnir\types\HTTP::CONTENT_TYPE,
 			),
 	);

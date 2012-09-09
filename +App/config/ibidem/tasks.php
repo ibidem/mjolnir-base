@@ -62,13 +62,13 @@
 						'class' => array
 							(
 								'description' => 'Class; with namespace.',
-								'type' => '\ibidem\base\Flags::text',
+								'type' => '\mjolnir\base\Flags::text',
 								'short' => 'c',
 							),
 						'category' => array
 							(
 								'description' => 'Class category.',
-								'type' => '\ibidem\base\Flags::text',
+								'type' => '\mjolnir\base\Flags::text',
 								'short' => 'g',
 								'default' => false,
 							),
@@ -99,7 +99,7 @@
 						'trait' => array
 							(
 								'description' => 'Trait; with namespace.',
-								'type' => '\ibidem\base\Flags::text',
+								'type' => '\mjolnir\base\Flags::text',
 								'short' => 't',
 							),
 						'forced' => array
@@ -119,12 +119,12 @@
 						'name' => array
 							(
 								'description' => 'Name of module',
-								'type' => '\ibidem\base\Flags::text',
+								'type' => '\mjolnir\base\Flags::text',
 							),
 						'namespace' => array
 							(
 								'description' => 'Namespace of module.',
-								'type' => '\ibidem\base\Flags::text',
+								'type' => '\mjolnir\base\Flags::text',
 								'short' => 'n',
 							),
 						'forced' => array
@@ -162,7 +162,7 @@
 							(
 								'description' => 'Namespace of target module.',
 								'short' => 'n',
-								'type' => '\ibidem\base\Flags::text',
+								'type' => '\mjolnir\base\Flags::text',
 								'default' => '',
 							),
 					),
@@ -180,7 +180,7 @@
 							(
 								'description' => 'Configuration path.',
 								'short' => 'c',
-								'type' => '\ibidem\base\Flags::text',
+								'type' => '\mjolnir\base\Flags::text',
 							),
 						'forced' => array
 							(
@@ -197,13 +197,13 @@
 							(
 								'description' => 'Path to match files to.',
 								'short' => 'p',
-								'type' => '\ibidem\base\Flags::text',
+								'type' => '\mjolnir\base\Flags::text',
 							),
 						'ext' => array
 							(
 								'description' => 'File extention',
 								'short' => 'e',
-								'type' => '\ibidem\base\Flags::text',
+								'type' => '\mjolnir\base\Flags::text',
 								'default' => EXT,
 							),
 					)
@@ -217,7 +217,7 @@
 							(
 								'description' => 'Class name for which to find files on the system.',
 								'short' => 'c',
-								'type' => '\ibidem\base\Flags::text',
+								'type' => '\mjolnir\base\Flags::text',
 							)
 					)
 			),
@@ -233,7 +233,7 @@
 						'feature' => array
 							(
 								'description' => 'Target a specific feature.',
-								'type' => '\ibidem\base\Flags::text',
+								'type' => '\mjolnir\base\Flags::text',
 								'default' => false,
 							),
 					),

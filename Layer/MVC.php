@@ -1,7 +1,7 @@
-<?php namespace ibidem\base;
+<?php namespace mjolnir\base;
 
 /** 
- * @package    ibidem
+ * @package    mjolnir
  * @category   Base
  * @author     Ibidem Team
  * @copyright  (c) 2012 Ibidem Team
@@ -9,16 +9,16 @@
  */
 class Layer_MVC extends \app\Layer 
 	implements 
-		\ibidem\types\Params,
-		\ibidem\types\RelayCompatible,
-		\ibidem\types\Pattern_MVC
+		\mjolnir\types\Params,
+		\mjolnir\types\RelayCompatible,
+		\mjolnir\types\Pattern_MVC
 {
 	use \app\Trait_Params;
 	
 	/**
 	 * @var string
 	 */
-	protected static $layer_name = \ibidem\types\Pattern_MVC::LAYER_NAME;
+	protected static $layer_name = \mjolnir\types\Pattern_MVC::LAYER_NAME;
 	
 	/**
 	 * @var array
@@ -26,7 +26,7 @@ class Layer_MVC extends \app\Layer
 	protected $relay;
 	
 	/**
-	 * @return \ibidem\base\Layer_MVC
+	 * @return \mjolnir\base\Layer_MVC
 	 */
 	static function instance()
 	{
@@ -109,7 +109,7 @@ class Layer_MVC extends \app\Layer
 	 */
 	function exception(\Exception $exception, $no_throw = false, $origin = false)
 	{
-		if (\is_a($exception, '\ibidem\types\Exception'))
+		if (\is_a($exception, '\mjolnir\types\Exception'))
 		{
 			if (\app\CFS::config('ibidem/base')['development'] === true)
 			{
@@ -127,10 +127,10 @@ class Layer_MVC extends \app\Layer
 	}
 	
 	/**
-	 * @param \ibidem\types\Controller 
-	 * @return \ibidem\base\Layer_MVC $this
+	 * @param \mjolnir\types\Controller 
+	 * @return \mjolnir\base\Layer_MVC $this
 	 */
-	function controller(\ibidem\types\Controller $controller)
+	function controller(\mjolnir\types\Controller $controller)
 	{
 		$this->params['controller'] = $controller;
 		return $this;
@@ -139,17 +139,17 @@ class Layer_MVC extends \app\Layer
 	/**
 	 * Action paramters.
 	 * 
-	 * @param \ibidem\types\Controller 
-	 * @return \ibidem\base\Layer_MVC $this
+	 * @param \mjolnir\types\Controller 
+	 * @return \mjolnir\base\Layer_MVC $this
 	 */
-	function params(\ibidem\types\Params $params)
+	function params(\mjolnir\types\Params $params)
 	{
 		$this->params['params'] = $params;
 		return $this;
 	}
 	
 	/**
-	 * @return \ibidem\types\Controller
+	 * @return \mjolnir\types\Controller
 	 */
 	function current_controller()
 	{
@@ -157,11 +157,11 @@ class Layer_MVC extends \app\Layer
 	}
 	
 	/**
-	 * @param \ibidem\types\Layer layer
-	 * @param \ibidem\types\Layer parent
-	 * @return \ibidem\base\Layer_MVC $this
+	 * @param \mjolnir\types\Layer layer
+	 * @param \mjolnir\types\Layer parent
+	 * @return \mjolnir\base\Layer_MVC $this
 	 */
-	function register(\ibidem\types\Layer $layer)
+	function register(\mjolnir\types\Layer $layer)
 	{
 		// Note: In this implementation we treat MVC as a self contained pattern
 		// for the sake of purity of the pattern so we don't support sub layers.
@@ -173,7 +173,7 @@ class Layer_MVC extends \app\Layer
 		
 	/**
 	 * @param array relay configuration
-	 * @return \ibidem\base\Layer_MVC $this
+	 * @return \mjolnir\base\Layer_MVC $this
 	 */
 	function relay_config(array $relay)
 	{

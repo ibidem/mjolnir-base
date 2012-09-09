@@ -1,4 +1,4 @@
-<?php namespace ibidem\base;
+<?php namespace mjolnir\base;
 
 /** 
  * This class serves only to gurantee a class implementing instantiatable and 
@@ -8,14 +8,14 @@
  * it is recomended as it facilitates certain operations such as mocking up 
  * classes.
  * 
- * @package    ibidem
+ * @package    mjolnir
  * @category   Base
  * @author     Ibidem Team
  * @copyright  (c) 2012 Ibidem Team
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 class Instantiatable 
-	implements \ibidem\types\Instantiatable
+	implements \mjolnir\types\Instantiatable
 {
 	/**
 	 * Private constructor to deny access to it.
@@ -26,7 +26,7 @@ class Instantiatable
 	}
 	
 	/**
-	 * @see \ibidem\types\Instantiatable
+	 * @see \mjolnir\types\Instantiatable
 	 * @return static
 	 */
 	static function instance()

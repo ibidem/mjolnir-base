@@ -1,32 +1,32 @@
-<?php namespace ibidem\base;
+<?php namespace mjolnir\base;
 
 /** 
- * @package    ibidem
+ * @package    mjolnir
  * @category   Base
  * @author     Ibidem Team
  * @copyright  (c) 2012 Ibidem Team
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 abstract class Layer extends \app\Instantiatable 
-	implements \ibidem\types\Layer
+	implements \mjolnir\types\Layer
 {	
 	/**
-	 * @var \ibidem\types\Layer
+	 * @var \mjolnir\types\Layer
 	 */
 	protected static $top;
 	
 	/**
 	 * @var string
 	 */
-	protected static $layer_name = \ibidem\types\Layer::DEFAULT_LAYER_NAME;
+	protected static $layer_name = \mjolnir\types\Layer::DEFAULT_LAYER_NAME;
 	
 	/**
-	 * @var \ibidem\types\Layer
+	 * @var \mjolnir\types\Layer
 	 */
 	protected $layer;
 
 	/**
-	 * @var \ibidem\types\Layer 
+	 * @var \mjolnir\types\Layer 
 	 */
 	protected $parent;
 
@@ -44,11 +44,11 @@ abstract class Layer extends \app\Instantiatable
 	}
 	
 	/**
-	 * @param \ibidem\types\Layer layer
-	 * @param \ibidem\types\Layer parent
-	 * @return \ibidem\base\Layer $this
+	 * @param \mjolnir\types\Layer layer
+	 * @param \mjolnir\types\Layer parent
+	 * @return \mjolnir\base\Layer $this
 	 */
-	function register(\ibidem\types\Layer $layer)
+	function register(\mjolnir\types\Layer $layer)
 	{
 		if ($this->layer)
 		{
@@ -65,10 +65,10 @@ abstract class Layer extends \app\Instantiatable
 	}
 	
 	/**
-	 * @param \ibidem\types\Layer $parent
-	 * @return \ibidem\base\Layer $this
+	 * @param \mjolnir\types\Layer $parent
+	 * @return \mjolnir\base\Layer $this
 	 */
-	function parent_layer(\ibidem\types\Layer $parent)
+	function parent_layer(\mjolnir\types\Layer $parent)
 	{
 		$this->parent = $parent;
 		return $this;
@@ -109,7 +109,7 @@ abstract class Layer extends \app\Instantiatable
 	 * [!!] This method doesn't necesarly accept a string
 	 * 
 	 * @param mixed contents
-	 * @return \ibidem\base\Layer $this
+	 * @return \mjolnir\base\Layer $this
 	 */
 	protected function contents($contents = null)
 	{
@@ -133,8 +133,8 @@ abstract class Layer extends \app\Instantiatable
 	 * from each component.
 	 * 
 	 * @param string layer name
-	 * @return \ibidem\base\Layer $this
-	 * @throws \ibidem\types\Exception
+	 * @return \mjolnir\base\Layer $this
+	 * @throws \mjolnir\types\Exception
 	 */
 	function get_layer($layer_name)
 	{
@@ -156,15 +156,15 @@ abstract class Layer extends \app\Instantiatable
 	/**
 	 * Register the top layer of the system
 	 * 
-	 * @param \ibidem\types\Layer top layer
+	 * @param \mjolnir\types\Layer top layer
 	 */
-	static function top(\ibidem\types\Layer $top_layer)
+	static function top(\mjolnir\types\Layer $top_layer)
 	{
 		static::$top = $top_layer;
 	}
 	
 	/**
-	 * @return \ibidem\types\Layer top layer
+	 * @return \mjolnir\types\Layer top layer
 	 */
 	static function get_top()
 	{
@@ -217,8 +217,8 @@ abstract class Layer extends \app\Instantiatable
 	 * invokes get.
 	 * 
 	 * @param string layer name
-	 * @return \ibidem\types\Layer
-	 * @throws \ibidem\types\Exception
+	 * @return \mjolnir\types\Layer
+	 * @throws \mjolnir\types\Exception
 	 */
 	static function find($layer_name)
 	{
@@ -240,7 +240,7 @@ abstract class Layer extends \app\Instantiatable
 				echo $contents;
 			}
 		}
-		catch (\ibidem\types\Exception $exception)
+		catch (\mjolnir\types\Exception $exception)
 		{
 			$contents = static::$top->get_contents();
 			static::$top->headerinfo();
@@ -257,7 +257,7 @@ abstract class Layer extends \app\Instantiatable
 	
 	/**
 	 * Shortcut method for setting up a stack.
-	 * @param \ibidem\types\Layer $args
+	 * @param \mjolnir\types\Layer $args
 	 */
 	static function stack($args)
 	{

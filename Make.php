@@ -1,10 +1,10 @@
-<?php namespace ibidem\base;
+<?php namespace mjolnir\base;
 
 /**
  * Make is a library that handles mockup. The Mockup class is reserved by the 
  * actual Mockup module for the project.
  * 
- * @package    ibidem
+ * @package    mjolnir
  * @category   Base
  * @author     Ibidem Team
  * @copyright  (c) 2012 Ibidem Team
@@ -29,7 +29,7 @@ class Make extends \app\Instantiatable
 	
 	/**
 	 * @param string type 
-	 * @return \ibidem\base\Make
+	 * @return \mjolnir\base\Make
 	 */
 	static function instance($type = 'paragraph', array $args = null)
 	{
@@ -46,11 +46,11 @@ class Make extends \app\Instantiatable
 	 */
 	static function time()
 	{
-		return \rand(0, \time() + \ibidem\types\Date::year * 5);
+		return \rand(0, \time() + \mjolnir\types\Date::year * 5);
 	}
 	
 	/**
-	 * @return \ibidem\base\Make
+	 * @return \mjolnir\base\Make
 	 */
 	static function name()
 	{
@@ -133,7 +133,7 @@ class Make extends \app\Instantiatable
 	}
 	
 	/**
-	 * @return \ibidem\base\Make
+	 * @return \mjolnir\base\Make
 	 */
 	static function given_name()
 	{
@@ -141,7 +141,7 @@ class Make extends \app\Instantiatable
 	}
 	
 	/**
-	 * @return \ibidem\base\Make
+	 * @return \mjolnir\base\Make
 	 */
 	static function family_name()
 	{
@@ -149,7 +149,7 @@ class Make extends \app\Instantiatable
 	}	
 	
 	/**
-	 * @return \ibidem\base\Make
+	 * @return \mjolnir\base\Make
 	 */
 	static function telephone()
 	{
@@ -157,7 +157,7 @@ class Make extends \app\Instantiatable
 	}
 	
 	/**
-	 * @return \ibidem\base\Make
+	 * @return \mjolnir\base\Make
 	 */
 	static function email()
 	{
@@ -165,7 +165,7 @@ class Make extends \app\Instantiatable
 	}
 	
 	/**
-	 * @return \ibidem\base\Make
+	 * @return \mjolnir\base\Make
 	 */
 	static function ssn()
 	{
@@ -173,7 +173,7 @@ class Make extends \app\Instantiatable
 	}
 	
 	/**
-	 * @return \ibidem\base\Make
+	 * @return \mjolnir\base\Make
 	 */
 	static function address()
 	{
@@ -186,7 +186,7 @@ class Make extends \app\Instantiatable
 	}
 	
 	/**
-	 * @return \ibidem\base\Make
+	 * @return \mjolnir\base\Make
 	 */
 	static function paragraph()
 	{
@@ -194,7 +194,7 @@ class Make extends \app\Instantiatable
 	}
 	
 	/**
-	 * @return \ibidem\base\Make
+	 * @return \mjolnir\base\Make
 	 */
 	static function url($mockup = null)
 	{
@@ -219,7 +219,7 @@ class Make extends \app\Instantiatable
 	}
 	
 	/**
-	 * @return \ibidem\base\Make 
+	 * @return \mjolnir\base\Make 
 	 */
 	static function counter($id)
 	{
@@ -227,7 +227,7 @@ class Make extends \app\Instantiatable
 	}
 	
 	/**
-	 * @return \ibidem\base\Make
+	 * @return \mjolnir\base\Make
 	 */
 	static function title()
 	{
@@ -235,7 +235,7 @@ class Make extends \app\Instantiatable
 	}
 	
 	/**
-	 * @return \ibidem\base\Make
+	 * @return \mjolnir\base\Make
 	 */
 	static function word()
 	{
@@ -244,7 +244,7 @@ class Make extends \app\Instantiatable
 	
 	/**
 	 * @param integer count
-	 * @return \ibidem\base\Make
+	 * @return \mjolnir\base\Make
 	 */
 	static function words($count = 10)
 	{
@@ -389,7 +389,7 @@ class Make extends \app\Instantiatable
 			case 'url':
 				if ($this->args['mockup'] !== null)
 				{
-					return \app\URL::route('\ibidem\theme\mockup')->url
+					return \app\URL::route('\mjolnir\theme\mockup')->url
 						(
 							['target' => $this->args['mockup']]
 						).$_SERVER['QUERY_STRING'];

@@ -1,7 +1,7 @@
-<?php namespace ibidem\base;
+<?php namespace mjolnir\base;
 
 /**
- * @package    ibidem
+ * @package    mjolnir
  * @category   Base
  * @author     Ibidem
  * @copyright  (c) 2012, Ibidem Team
@@ -21,7 +21,7 @@ class Layer_Sandbox extends \app\Layer
 	
 	/**
 	 * @param array relay
-	 * @return \ibidem\access\Layer_NULL $this
+	 * @return \mjolnir\access\Layer_NULL $this
 	 */
 	function relay($relay)
 	{
@@ -48,7 +48,7 @@ class Layer_Sandbox extends \app\Layer
 	
 	/**
 	 * @param callback callback
-	 * @return \ibidem\base\Layer_NULL $this
+	 * @return \mjolnir\base\Layer_NULL $this
 	 */
 	function caller($callback)
 	{

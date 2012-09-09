@@ -1,7 +1,7 @@
-<?php namespace ibidem\base;
+<?php namespace mjolnir\base;
 
 /**
- * @package    ibidem
+ * @package    mjolnir
  * @category   Html
  * @author     Ibidem
  * @copyright  (c) 2012, Ibidem Team
@@ -10,7 +10,7 @@
 class URL
 {
 	/**
-	 * @return \ibidem\types\URLCompatible
+	 * @return \mjolnir\types\URLCompatible
 	 */
 	static function route($key)
 	{

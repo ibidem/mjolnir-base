@@ -1,7 +1,7 @@
-<?php namespace ibidem\base;
+<?php namespace mjolnir\base;
 
 /** 
- * @package    ibidem
+ * @package    mjolnir
  * @category   Base
  * @author     Ibidem Team
  * @copyright  (c) 2012 Ibidem Team
@@ -9,15 +9,15 @@
  */
 class Layer_HTTP extends \app\Layer 
 	implements 
-		\ibidem\types\Params, 
-		\ibidem\types\HTTP
+		\mjolnir\types\Params, 
+		\mjolnir\types\HTTP
 {
 	use \app\Trait_Params;
 	
 	/**
 	 * @var string
 	 */
-	protected static $layer_name = \ibidem\types\HTTP::LAYER_NAME;
+	protected static $layer_name = \mjolnir\types\HTTP::LAYER_NAME;
 	
 	/**
 	 * @var string
@@ -25,7 +25,7 @@ class Layer_HTTP extends \app\Layer
 	protected $status;
 	
 	/**
-	 * @return \ibidem\base\Layer_HTTP
+	 * @return \mjolnir\base\Layer_HTTP
 	 */
 	static function instance()
 	{
@@ -193,8 +193,8 @@ class Layer_HTTP extends \app\Layer
 	 */
 	private function is_notfound_exception(\Exception $exception)
 	{
-		return \is_a($exception, '\\ibidem\\types\\Exception') 
-			&& $exception->get_type() === \ibidem\types\Exception::NotFound;
+		return \is_a($exception, '\\mjolnir\\types\\Exception') 
+			&& $exception->get_type() === \mjolnir\types\Exception::NotFound;
 	}
 	
 	
@@ -215,11 +215,11 @@ class Layer_HTTP extends \app\Layer
 		
 		if (self::is_notfound_exception($exception))
 		{
-			$this->status(\ibidem\types\HTTP::STATUS_NotFound);
+			$this->status(\mjolnir\types\HTTP::STATUS_NotFound);
 		}
 		else # some error we don't know about
 		{
-			$this->status(\ibidem\types\HTTP::STATUS_InternalServerError);
+			$this->status(\mjolnir\types\HTTP::STATUS_InternalServerError);
 		}
 		
 		// default execution from Layer
@@ -228,7 +228,7 @@ class Layer_HTTP extends \app\Layer
 	
 	/**
 	 * @param string status 
-	 * @return \ibidem\base\Layer_HTTP $this
+	 * @return \mjolnir\base\Layer_HTTP $this
 	 */
 	function status($status)
 	{
@@ -241,7 +241,7 @@ class Layer_HTTP extends \app\Layer
 	 * content type (or at least the correct one) is not text/html :)
 	 * 
 	 * @param string content-type
-	 * @return \ibidem\base\Layer_HTTP $this
+	 * @return \mjolnir\base\Layer_HTTP $this
 	 */
 	function content_type($content_type)
 	{

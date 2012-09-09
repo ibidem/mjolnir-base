@@ -1,9 +1,9 @@
-<?php namespace ibidem\base;
+<?php namespace mjolnir\base;
 
 /** 
  * Very simple Regex route. Simply matches to pattern.
  * 
- * @package    ibidem
+ * @package    mjolnir
  * @category   Base
  * @author     Ibidem Team
  * @copyright  (c) 2012 Ibidem Team
@@ -11,10 +11,10 @@
  */
 class Route_Regex extends \app\Instantiatable 
 	implements 
-		\ibidem\types\Matcher, 
-		\ibidem\types\RelayCompatible,
-		\ibidem\types\Parameterized,
-		\ibidem\types\Contextual
+		\mjolnir\types\Matcher, 
+		\mjolnir\types\RelayCompatible,
+		\mjolnir\types\Parameterized,
+		\mjolnir\types\Contextual
 {
 	/**
 	 * @var string
@@ -28,7 +28,7 @@ class Route_Regex extends \app\Instantiatable
 	
 	/**
 	 * @param string $regex
-	 * @return \ibidem\base\Route_Regex
+	 * @return \mjolnir\base\Route_Regex
 	 */
 	static function instance($uri = null)
 	{
@@ -49,7 +49,7 @@ class Route_Regex extends \app\Instantiatable
 	/**
 	 * Pattern to match.
 	 * 
-	 * @return \ibidem\base\Route_Regex $this
+	 * @return \mjolnir\base\Route_Regex $this
 	 */
 	function regex($regex)
 	{
@@ -72,7 +72,7 @@ class Route_Regex extends \app\Instantiatable
 
 	/**
 	 * @param array relay configuration
-	 * @return \ibidem\base\Route_Regex $this
+	 * @return \mjolnir\base\Route_Regex $this
 	 */
 	function relay_config(array $relay)
 	{		
@@ -80,7 +80,7 @@ class Route_Regex extends \app\Instantiatable
 	}
 	
 	/**
-	 * @return \ibidem\types\Params
+	 * @return \mjolnir\types\Params
 	 */
 	function get_params()
 	{

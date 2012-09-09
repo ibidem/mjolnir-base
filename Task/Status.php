@@ -1,7 +1,7 @@
-<?php namespace ibidem\base;
+<?php namespace mjolnir\base;
 
 /**
- * @package    ibidem
+ * @package    mjolnir
  * @category   Base
  * @author     Ibidem Team
  * @copyright  (c) 2012 Ibidem Team
@@ -60,27 +60,27 @@ class Task_Status extends \app\Task
 				}
 				catch (\Exception $e)
 				{
-					$status = \ibidem\types\Enum_Requirement::untestable;
+					$status = \mjolnir\types\Enum_Requirement::untestable;
 				}
 				
 				switch ($status)
 				{
-					case \ibidem\types\Enum_Requirement::untestable:
+					case \mjolnir\types\Enum_Requirement::untestable:
 						$this->writer->status('untestable', $requirement)->eol();
 						! $no_stop or self::error();
 						++$errors;
 						break;
-					case \ibidem\types\Enum_Requirement::error:
+					case \mjolnir\types\Enum_Requirement::error:
 						$this->writer->status('error', $requirement)->eol();
 						! $no_stop or self::error();
 						++$errors;
 						break;
-					case \ibidem\types\Enum_Requirement::failed:
+					case \mjolnir\types\Enum_Requirement::failed:
 						$this->writer->status('failed', $requirement)->eol();
 						( ! $strict && ! $no_stop) or self::error();
 						++$failed;
 						break;
-					case \ibidem\types\Enum_Requirement::available:
+					case \mjolnir\types\Enum_Requirement::available:
 						$this->writer->status('passed', $requirement)->eol();
 						break;
 				}

@@ -1,14 +1,14 @@
-<?php namespace ibidem\base;
+<?php namespace mjolnir\base;
 
 /**
- * @package    ibidem
+ * @package    mjolnir
  * @category   Base
  * @author     Ibidem Team
  * @copyright  (c) 2012 Ibidem Team
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 class Task extends \app\Instantiatable
-	implements \ibidem\types\Task
+	implements \mjolnir\types\Task
 {
 	/**
 	 * @var array 
@@ -16,7 +16,7 @@ class Task extends \app\Instantiatable
 	protected $config;
 	
 	/**
-	 * @var \ibidem\types\Writer 
+	 * @var \mjolnir\types\Writer 
 	 */
 	protected $writer;
 	
@@ -25,7 +25,7 @@ class Task extends \app\Instantiatable
 	 * \app\Task_Class_Name_Example
 	 * 
 	 * @param string encoded task
-	 * @return \ibidem\base\Task
+	 * @return \mjolnir\base\Task
 	 */
 	static function instance($encoded_task = null)
 	{
@@ -48,7 +48,7 @@ class Task extends \app\Instantiatable
 	
 	/**
 	 * @param array config
-	 * @return \ibidem\base\Task $this
+	 * @return \mjolnir\base\Task $this
 	 */
 	function config(array $config)
 	{
@@ -58,9 +58,9 @@ class Task extends \app\Instantiatable
 	
 	/**
 	 * @param array config
-	 * @return \ibidem\base\Task $this
+	 * @return \mjolnir\base\Task $this
 	 */
-	function writer(\ibidem\types\Writer $writer)
+	function writer(\mjolnir\types\Writer $writer)
 	{
 		$this->writer = $writer;
 		return $this;

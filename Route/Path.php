@@ -1,7 +1,7 @@
-<?php namespace ibidem\base;
+<?php namespace mjolnir\base;
 
 /** 
- * @package    ibidem
+ * @package    mjolnir
  * @category   Base
  * @author     Ibidem Team
  * @copyright  (c) 2012 Ibidem Team
@@ -9,11 +9,11 @@
  */
 class Route_Path extends \app\Instantiatable 
 	implements 
-		\ibidem\types\Matcher, 
-		\ibidem\types\RelayCompatible,
-		\ibidem\types\Parameterized,
-		\ibidem\types\URLCompatible,
-		\ibidem\types\Contextual
+		\mjolnir\types\Matcher, 
+		\mjolnir\types\RelayCompatible,
+		\mjolnir\types\Parameterized,
+		\mjolnir\types\URLCompatible,
+		\mjolnir\types\Contextual
 {
 	/**
 	 * @var string
@@ -26,13 +26,13 @@ class Route_Path extends \app\Instantiatable
 	protected $url_base;
 	
 	/**
-	 * @var \ibidem\types\Params
+	 * @var \mjolnir\types\Params
 	 */
 	protected $params;
 	
 	/**
 	 * @param string regex
-	 * @return \ibidem\base\Route_Path $this
+	 * @return \mjolnir\base\Route_Path $this
 	 */
 	static function instance($uri = null)
 	{
@@ -56,7 +56,7 @@ class Route_Path extends \app\Instantiatable
 	/**
 	 * Pattern to match.
 	 * 
-	 * @return \ibidem\base\Route_Path $this
+	 * @return \mjolnir\base\Route_Path $this
 	 */
 	function path($path)
 	{
@@ -79,7 +79,7 @@ class Route_Path extends \app\Instantiatable
 
 	/**
 	 * @param array relay configuration
-	 * @return \ibidem\base\Layer_Path $this
+	 * @return \mjolnir\base\Layer_Path $this
 	 */
 	function relay_config(array $relay)
 	{
@@ -87,7 +87,7 @@ class Route_Path extends \app\Instantiatable
 	}
 	
 	/**
-	 * @return \ibidem\types\Params
+	 * @return \mjolnir\types\Params
 	 */
 	function get_params()
 	{
@@ -155,7 +155,7 @@ class Route_Path extends \app\Instantiatable
 	 * Base for the url, if not defined should retrieve ibidem/base value.
 	 * 
 	 * @param string url base
-	 * @return \ibidem\base\Layer_Path $this
+	 * @return \mjolnir\base\Layer_Path $this
 	 */
 	function url_base($url_base = null)
 	{

@@ -1,7 +1,7 @@
-<?php namespace ibidem\base;
+<?php namespace mjolnir\base;
 
 /**
- * @package    ibidem
+ * @package    mjolnir
  * @category   Base
  * @author     Ibidem Team
  * @copyright  (c) 2012 Ibidem Team
@@ -204,8 +204,8 @@ class Task_Make_Class extends \app\Task
 		
 		// load project configuration
 		$project_file = $module_path.DIRECTORY_SEPARATOR
-			. \ibidem\cfs\CFSCompatible::APPDIR.DIRECTORY_SEPARATOR
-			. \ibidem\cfs\CFSCompatible::CNFDIR.DIRECTORY_SEPARATOR
+			. \mjolnir\cfs\CFSCompatible::APPDIR.DIRECTORY_SEPARATOR
+			. \mjolnir\cfs\CFSCompatible::CNFDIR.DIRECTORY_SEPARATOR
 			. 'ibidem'.DIRECTORY_SEPARATOR.'project'.EXT
 			;
 		
@@ -288,7 +288,7 @@ class Task_Make_Class extends \app\Task
 		{
 			// create test
 			$test_path = $module_path.DIRECTORY_SEPARATOR
-				. \ibidem\cfs\CFSCompatible::APPDIR.DIRECTORY_SEPARATOR.'tests'
+				. \mjolnir\cfs\CFSCompatible::APPDIR.DIRECTORY_SEPARATOR.'tests'
 				. DIRECTORY_SEPARATOR.\ltrim($class_path, '\\');
 
 			\file_exists($test_path) or \mkdir($test_path, 0777, true);

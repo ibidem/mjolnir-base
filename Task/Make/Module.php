@@ -1,7 +1,7 @@
-<?php namespace ibidem\base;
+<?php namespace mjolnir\base;
 
 /**
- * @package    ibidem
+ * @package    mjolnir
  * @category   Base
  * @author     Ibidem Team
  * @copyright  (c) 2012 Ibidem Team
@@ -62,9 +62,9 @@ class Task_Make_Module extends \app\Task
 		return 
 			  '<?php return array'.PHP_EOL
 			. "\t(".PHP_EOL
-			. "\t\t".'\'\ibidem\theme\mockup\'        => [ \'enabled\' => true ],'.PHP_EOL
-			. "\t\t".'\'\ibidem\theme\mockup-errors\' => [ \'enabled\' => true ],'.PHP_EOL
-			. "\t\t".'\'\ibidem\theme\mockup-form\'   => [ \'enabled\' => true ],'.PHP_EOL
+			. "\t\t".'\'\mjolnir\theme\mockup\'        => [ \'enabled\' => true ],'.PHP_EOL
+			. "\t\t".'\'\mjolnir\theme\mockup-errors\' => [ \'enabled\' => true ],'.PHP_EOL
+			. "\t\t".'\'\mjolnir\theme\mockup-form\'   => [ \'enabled\' => true ],'.PHP_EOL
 			. "\t);"
 			. PHP_EOL
 			;
@@ -75,7 +75,7 @@ class Task_Make_Module extends \app\Task
 		return 
 			  '<?php return array'.PHP_EOL
 			. "\t(".PHP_EOL
-			. "\t\t".'\'\ibidem\sandbox\' => [ \'enabled\' => true ],'.PHP_EOL
+			. "\t\t".'\'\mjolnir\sandbox\' => [ \'enabled\' => true ],'.PHP_EOL
 			. "\t);"
 			. PHP_EOL
 			;
@@ -84,14 +84,14 @@ class Task_Make_Module extends \app\Task
 	protected function sandbox_file()
 	{
 		return 
-			  '<?php namespace ibidem\sandbox;'.PHP_EOL
+			  '<?php namespace mjolnir\sandbox;'.PHP_EOL
 			. PHP_EOL
 			. 'function tester()'.PHP_EOL
 			. '{'.PHP_EOL
 			. "\techo 'hello, sandbox';".PHP_EOL
 			. '}'.PHP_EOL
 			. PHP_EOL
-			. "\app\Sandbox::process('\\ibidem\\sandbox\\tester');".PHP_EOL
+			. "\app\Sandbox::process('\\mjolnir\\sandbox\\tester');".PHP_EOL
 			. PHP_EOL
 			;
 	}
@@ -122,9 +122,9 @@ class Task_Make_Module extends \app\Task
 		// create the directory structure
 		$dir = $module_name;
 		\file_exists($dir) or \mkdir($dir, 0777, true); # base dir
-		$app_dir = $dir.$ds.\ibidem\cfs\CFSCompatible::APPDIR;
+		$app_dir = $dir.$ds.\mjolnir\cfs\CFSCompatible::APPDIR;
 		\file_exists($app_dir) or \mkdir($app_dir, 0777, true); # App dir
-		$config_dir = $app_dir.$ds.\ibidem\cfs\CFSCompatible::CNFDIR;
+		$config_dir = $app_dir.$ds.\mjolnir\cfs\CFSCompatible::CNFDIR;
 		\file_exists($config_dir) or \mkdir($config_dir, 0777, true); # App/config
 		
 		if ( ! $mockup_template && ! $sandbox_template)

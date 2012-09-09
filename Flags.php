@@ -1,4 +1,4 @@
-<?php namespace ibidem\base;
+<?php namespace mjolnir\base;
 
 /** 
  * General flags for command line handling.
@@ -10,7 +10,7 @@
  * 
  * This class is only meant to help avoid duplication of very basic flags.
  * 
- * @package    ibidem
+ * @package    mjolnir
  * @category   Library
  * @author     Ibidem Team
  * @copyright  (c) 2012 Ibidem Team

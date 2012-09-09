@@ -1,6 +1,6 @@
 <?php return array
 	(
-		'\ibidem\sandbox' => array
+		'\mjolnir\sandbox' => array
 			(
 				'matcher' => \app\Route_Path::instance()
 					->path('sandbox'),

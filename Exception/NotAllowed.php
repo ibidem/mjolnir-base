@@ -1,7 +1,7 @@
-<?php namespace ibidem\base;
+<?php namespace mjolnir\base;
 
 /**
- * @package    ibidem
+ * @package    mjolnir
  * @category   Base
  * @author     Ibidem
  * @copyright  (c) 2012, Ibidem Team
@@ -12,7 +12,7 @@ class Exception_NotAllowed extends \app\Exception_NotApplicable
 	/**
 	 * @var string
 	 */
-	protected $type = \ibidem\types\Exception::NotAllowed;
+	protected $type = \mjolnir\types\Exception::NotAllowed;
 	
 	/**
 	 * @return string title

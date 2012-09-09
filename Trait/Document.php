@@ -1,7 +1,7 @@
-<?php namespace ibidem\base;
+<?php namespace mjolnir\base;
 
 /**
- * @package    ibidem
+ * @package    mjolnir
  * @category   Base
  * @author     Ibidem Team
  * @copyright  (c) 2012 Ibidem Team
@@ -18,7 +18,7 @@ trait Trait_Document
 	 * Set the document's body.
 	 * 
 	 * @param string document body
-	 * @return \ibidem\base\Controller $this
+	 * @return \mjolnir\base\Controller $this
 	 */
 	function body($body)
 	{

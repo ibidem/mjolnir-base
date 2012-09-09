@@ -1,9 +1,9 @@
-<?php namespace ibidem\base;
+<?php namespace mjolnir\base;
 
 /**
  * Syntactic sugar task.
  * 
- * @package    ibidem
+ * @package    mjolnir
  * @category   Task
  * @author     Ibidem
  * @copyright  (c) 2012, Ibidem Team

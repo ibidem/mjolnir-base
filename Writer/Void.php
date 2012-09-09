@@ -1,14 +1,14 @@
-<?php namespace ibidem\base;
+<?php namespace mjolnir\base;
 
 /**
- * @package    ibidem
+ * @package    mjolnir
  * @category   Base
  * @author     Ibidem Team
  * @copyright  (c) 2012 Ibidem Team
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 class Writer_Void extends \app\Instantiatable 
-	implements \ibidem\types\Writer
+	implements \mjolnir\types\Writer
 {
 	/**
 	 * @var boolean
@@ -41,7 +41,7 @@ class Writer_Void extends \app\Instantiatable
 	protected $shell;
 	
 	/**
-	 * @return \ibidem\base\Writer_Console
+	 * @return \mjolnir\base\Writer_Console
 	 */
 	static function instance()
 	{
@@ -51,7 +51,7 @@ class Writer_Void extends \app\Instantiatable
 	}
 	
 	/**
-	 * @return \ibidem\base\Writer_Console $this
+	 * @return \mjolnir\base\Writer_Console $this
 	 */
 	function width($width)
 	{
@@ -59,7 +59,7 @@ class Writer_Void extends \app\Instantiatable
 	}
 	
 	/**
-	 * @return \ibidem\base\Writer_Console $this
+	 * @return \mjolnir\base\Writer_Console $this
 	 */
 	function eol()
 	{
@@ -75,7 +75,7 @@ class Writer_Void extends \app\Instantiatable
 	}
 	
 	/**
-	 * @return \ibidem\base\Writer_Console $this
+	 * @return \mjolnir\base\Writer_Console $this
 	 */
 	function write($text, $indent = 0, $nowrap_hint = null)
 	{
@@ -83,7 +83,7 @@ class Writer_Void extends \app\Instantiatable
 	}
 	
 	/**
-	 * @return \ibidem\base\Writer_Console $this
+	 * @return \mjolnir\base\Writer_Console $this
 	 */
 	function listwrite($dt, $dd, $indent_hint = null, $nowrap_hint = null)
 	{		
@@ -91,7 +91,7 @@ class Writer_Void extends \app\Instantiatable
 	}
 	
 	/**
-	 * @return \ibidem\base\Writer_Console $this
+	 * @return \mjolnir\base\Writer_Console $this
 	 */
 	function highlight($text, $highlight = null)
 	{		
@@ -99,7 +99,7 @@ class Writer_Void extends \app\Instantiatable
 	}
 	
 	/**
-	 * @return \ibidem\base\Writer_Console $this
+	 * @return \mjolnir\base\Writer_Console $this
 	 */
 	function writef($args)
 	{
@@ -107,7 +107,7 @@ class Writer_Void extends \app\Instantiatable
 	}
 	
 	/**
-	 * @return \ibidem\base\Writer_Console $this
+	 * @return \mjolnir\base\Writer_Console $this
 	 */
 	function header($title)
 	{
@@ -115,7 +115,7 @@ class Writer_Void extends \app\Instantiatable
 	}
 	
 	/**
-	 * @return \ibidem\base\Writer_Console $this
+	 * @return \mjolnir\base\Writer_Console $this
 	 */
 	function subheader($title)
 	{
@@ -123,7 +123,7 @@ class Writer_Void extends \app\Instantiatable
 	}
 	
 	/**
-	 * @return \ibidem\base\Writer_Console $this
+	 * @return \mjolnir\base\Writer_Console $this
 	 */
 	function status($status, $message, $highlight_hint = null)
 	{
@@ -131,7 +131,7 @@ class Writer_Void extends \app\Instantiatable
 	}
 	
 	/**
-	 * @return \ibidem\base\Writer_Console $this
+	 * @return \mjolnir\base\Writer_Console $this
 	 */
 	function error($text)
 	{

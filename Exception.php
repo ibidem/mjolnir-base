@@ -1,14 +1,14 @@
-<?php namespace ibidem\base;
+<?php namespace mjolnir\base;
 
 /** 
- * @package    ibidem
+ * @package    mjolnir
  * @category   Base
  * @author     Ibidem Team
  * @copyright  (c) 2012 Ibidem Team
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 class Exception extends \Exception
-	implements \ibidem\types\Exception
+	implements \mjolnir\types\Exception
 {
 	/**
 	 * @var string
@@ -48,7 +48,7 @@ class Exception extends \Exception
 	
 	/**
 	 * @param string exception type
-	 * @return \ibidem\base\Exception $this
+	 * @return \mjolnir\base\Exception $this
 	 */
 	function type($type)
 	{
@@ -66,7 +66,7 @@ class Exception extends \Exception
 	
 	/**
 	 * @param string message
-	 * @return \ibidem\base\Exception $this
+	 * @return \mjolnir\base\Exception $this
 	 */
 	function set_message($message)
 	{
@@ -77,7 +77,7 @@ class Exception extends \Exception
 	
 	/**
 	 * @param string title
-	 * @return \ibidem\base\Exception $this
+	 * @return \mjolnir\base\Exception $this
 	 */
 	function set_title($title = null)
 	{
@@ -87,7 +87,7 @@ class Exception extends \Exception
 	
 	/**
 	 * @param \Exception PHP exception 
-	 * @return \ibidem\base\Exception $this
+	 * @return \mjolnir\base\Exception $this
 	 */
 	function based_on(\Exception $source)
 	{

@@ -1,7 +1,7 @@
-<?php namespace ibidem\base;
+<?php namespace mjolnir\base;
 
 /**
- * @package    ibidem
+ * @package    mjolnir
  * @category   Controller
  * @author     Ibidem
  * @copyright  (c) 2012, Ibidem Team

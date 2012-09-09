@@ -1,7 +1,7 @@
-<?php namespace ibidem\base;
+<?php namespace mjolnir\base;
 
 /**
- * @package    ibidem
+ * @package    mjolnir
  * @category   Base
  * @author     Ibidem Team
  * @copyright  (c) 2012 Ibidem Team
@@ -12,7 +12,7 @@ class Relay
 	/**
 	 * @param string key
 	 * @param function callback
-	 * @param \ibidem\types\Matcher
+	 * @param \mjolnir\types\Matcher
 	 */
 	static function process($key, $callback, $matcher = null)
 	{
@@ -69,7 +69,7 @@ class Relay
 	
 	/**
 	 * @param string route key or alias
-	 * @return \ibidem\types\URLCompatible
+	 * @return \mjolnir\types\URLCompatible
 	 */
 	static function matcher($key)
 	{

@@ -1,10 +1,10 @@
-<?php namespace ibidem\base;
+<?php namespace mjolnir\base;
 
 /**
  * The purpose of this class is to store some of the grunt work that would 
  * otherwise go into public files, etc.
  * 
- * @package    ibidem
+ * @package    mjolnir
  * @category   Base
  * @author     Ibidem
  * @copyright  (c) 2012, Ibidem Team
@@ -153,12 +153,12 @@ class Mjolnir
 					);
 			};
 
-		\app\Relay::process('\ibidem\theme\Layer_Theme::style', $stack);
-		\app\Relay::process('\ibidem\theme\Layer_Theme::jsbootstrap', $stack);
-		\app\Relay::process('\ibidem\theme\Layer_Theme::script-map', $stack);
-		\app\Relay::process('\ibidem\theme\Layer_Theme::script-src', $stack);
-		\app\Relay::process('\ibidem\theme\Layer_Theme::script', $stack);
-		\app\Relay::process('\ibidem\theme\Layer_Theme::resource', $stack);
+		\app\Relay::process('\mjolnir\theme\Layer_Theme::style', $stack);
+		\app\Relay::process('\mjolnir\theme\Layer_Theme::jsbootstrap', $stack);
+		\app\Relay::process('\mjolnir\theme\Layer_Theme::script-map', $stack);
+		\app\Relay::process('\mjolnir\theme\Layer_Theme::script-src', $stack);
+		\app\Relay::process('\mjolnir\theme\Layer_Theme::script', $stack);
+		\app\Relay::process('\mjolnir\theme\Layer_Theme::resource', $stack);
 
 		// we failed relays
 		\header("HTTP/1.0 404 Not Found");

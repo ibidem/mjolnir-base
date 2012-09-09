@@ -1,14 +1,14 @@
-<?php namespace ibidem\base;
+<?php namespace mjolnir\base;
 
 /**
- * @package    ibidem
+ * @package    mjolnir
  * @category   Base
  * @author     Ibidem Team
  * @copyright  (c) 2012 Ibidem Team
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 class Writer_Console extends \app\Instantiatable 
-	implements \ibidem\types\Writer
+	implements \mjolnir\types\Writer
 {
 	/**
 	 * @var boolean
@@ -41,7 +41,7 @@ class Writer_Console extends \app\Instantiatable
 	protected $shell;
 	
 	/**
-	 * @return \ibidem\base\Writer_Console
+	 * @return \mjolnir\base\Writer_Console
 	 */
 	static function instance()
 	{
@@ -83,7 +83,7 @@ class Writer_Console extends \app\Instantiatable
 	
 	/**
 	 * @param int width
-	 * @return \ibidem\base\Writer_Console $this
+	 * @return \mjolnir\base\Writer_Console $this
 	 */
 	function width($width)
 	{
@@ -92,7 +92,7 @@ class Writer_Console extends \app\Instantiatable
 	}
 	
 	/**
-	 * @return \ibidem\base\Writer_Console $this
+	 * @return \mjolnir\base\Writer_Console $this
 	 */
 	function eol()
 	{
@@ -110,7 +110,7 @@ class Writer_Console extends \app\Instantiatable
 	
 	/**
 	 * @param string text
-	 * @return \ibidem\base\Writer_Console $this
+	 * @return \mjolnir\base\Writer_Console $this
 	 */
 	function write($text, $indent = 0, $nowrap_hint = null)
 	{
@@ -140,7 +140,7 @@ class Writer_Console extends \app\Instantiatable
 	 * @param string definition
 	 * @param int indent hint
 	 * @param string no wrap hint string
-	 * @return \ibidem\base\Writer_Console $this
+	 * @return \mjolnir\base\Writer_Console $this
 	 */
 	function listwrite($dt, $dd, $indent_hint = null, $nowrap_hint = null)
 	{
@@ -209,7 +209,7 @@ class Writer_Console extends \app\Instantiatable
 	 * 
 	 * @param string text
 	 * @param string highlight key
-	 * @return \ibidem\base\Writer_Console $this
+	 * @return \mjolnir\base\Writer_Console $this
 	 */
 	function highlight($text, $highlight = null)
 	{
@@ -222,7 +222,7 @@ class Writer_Console extends \app\Instantiatable
 		{
 			if ($highlight === null || ! isset($this->highlight[$highlight]))
 			{
-				$highlight = $this->highlight[\ibidem\types\Enum_Color::Green];
+				$highlight = $this->highlight[\mjolnir\types\Enum_Color::Green];
 			}
 			else # got highlight
 			{
@@ -253,7 +253,7 @@ class Writer_Console extends \app\Instantiatable
 	
 	/**
 	 * @param $args
-	 * @return \ibidem\base\Writer_Console $this
+	 * @return \mjolnir\base\Writer_Console $this
 	 */
 	function writef($args)
 	{
@@ -266,14 +266,14 @@ class Writer_Console extends \app\Instantiatable
 	
 	/**
 	 * @param string title
-	 * @return \ibidem\base\Writer_Console $this
+	 * @return \mjolnir\base\Writer_Console $this
 	 */
 	function header($title)
 	{
 		if ($this->highlight_support)
 		{
-			$this->highlight(' '.$title, \ibidem\types\Enum_Color::Brown)->eol();
-			$this->highlight(' '.\str_repeat('-', $this->width-1), \ibidem\types\Enum_Color::DarkGray);
+			$this->highlight(' '.$title, \mjolnir\types\Enum_Color::Brown)->eol();
+			$this->highlight(' '.\str_repeat('-', $this->width-1), \mjolnir\types\Enum_Color::DarkGray);
 			$this->eol()->eol();
 		}
 		else # no highlighting
@@ -286,15 +286,15 @@ class Writer_Console extends \app\Instantiatable
 	
 	/**
 	 * @param string title
-	 * @return \ibidem\base\Writer_Console $this
+	 * @return \mjolnir\base\Writer_Console $this
 	 */
 	function subheader($title)
 	{
 		if ($this->highlight_support)
 		{
-			$this->highlight(' ===[ ', \ibidem\types\Enum_Color::DarkGray);
+			$this->highlight(' ===[ ', \mjolnir\types\Enum_Color::DarkGray);
 			$this->write($title);
-			$this->highlight(' ]'.\str_repeat('=', $this->width-9-\strlen($title)), \ibidem\types\Enum_Color::DarkGray);
+			$this->highlight(' ]'.\str_repeat('=', $this->width-9-\strlen($title)), \mjolnir\types\Enum_Color::DarkGray);
 			$this->eol()->eol();
 		}
 		else # no highlighting
@@ -311,7 +311,7 @@ class Writer_Console extends \app\Instantiatable
 	
 	/**
 	 * @param string text
-	 * @return \ibidem\base\Writer_Console $this
+	 * @return \mjolnir\base\Writer_Console $this
 	 */
 	function status($status, $message, $highlight_hint = null)
 	{
@@ -342,13 +342,13 @@ class Writer_Console extends \app\Instantiatable
 	
 	/**
 	 * @param string text
-	 * @return \ibidem\base\Writer_Console $this
+	 * @return \mjolnir\base\Writer_Console $this
 	 */
 	function error($text)
 	{	
 		if ($this->shell || $this->highlight_support)
 		{
-			$this->status('Error', $text, \ibidem\types\Enum_Color::Red);
+			$this->status('Error', $text, \mjolnir\types\Enum_Color::Red);
 		}
 		else # plain text shell
 		{
