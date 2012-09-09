@@ -43,21 +43,6 @@ class Task_Make_Module extends \app\Task
 			;
 	}
 	
-	protected function mockup_file($namespace)
-	{		
-		$namespace = \trim($namespace, '\\');
-		
-		return 
-			  '<?php namespace '.$namespace.';'.PHP_EOL
-			. PHP_EOL
-			. 'class Mockup extends \app\Instantiatable'.PHP_EOL
-			. '{'.PHP_EOL
-			. PHP_EOL
-			. '} # class'.PHP_EOL
-			. PHP_EOL
-			;
-	}
-	
 	protected function access_file()
 	{
 		return 
@@ -158,14 +143,7 @@ class Task_Make_Module extends \app\Task
 			);
 		
 		if ($mockup_template)
-		{		
-			// create Mockup class
-			\file_put_contents
-				(
-					$dir.$ds.'Mockup'.EXT, 
-					static::mockup_file($namespace)
-				);
-			
+		{				
 			$ibidem_config_dir = $config_dir.$ds.'ibidem';
 			\file_exists($ibidem_config_dir) or \mkdir($ibidem_config_dir, 0777, true); # App/config
 			

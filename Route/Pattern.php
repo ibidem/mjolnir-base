@@ -183,7 +183,7 @@ class Route_Pattern extends \app\Instantiatable
 	 * @return boolean defined route matches? 
 	 */
 	function check()
-	{	
+	{
 		if ($this->canonical_pattern !== null && \preg_match($this->canonical_pattern, $this->uri))
 		{
 			$this->matched_pattern =& $this->canonical_pattern;

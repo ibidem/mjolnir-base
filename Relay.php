@@ -31,7 +31,7 @@ class Relay
 					// no matcher provided; fail relay
 					return;
 				}
-
+				
 				$matcher->relay_config($relays[$key]);
 				if ($matcher->check())
 				{
