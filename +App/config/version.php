@@ -1,14 +1,14 @@
 <?php return array
 	(
-		'ibidem\base' => array
+		'mjolnir\base' => array
 			(
-				'major' => '1',
+				'major' => '0',
 				'minor' => '0',
 				'hotfix' => '0',
 			),
 		'overlord' => array
 			(
-				'major' => '1',
+				'major' => '0',
 				'minor' => '0',
 				'hotfix' => '0',
 			),

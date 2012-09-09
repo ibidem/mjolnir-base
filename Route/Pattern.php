@@ -66,7 +66,7 @@ class Route_Pattern extends \app\Instantiatable
 	static function instance($uri = null)
 	{
 		$instance = parent::instance();
-		
+				
 		if ($uri)
 		{
 			$instance->uri = $uri;
