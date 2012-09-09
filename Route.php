@@ -124,20 +124,23 @@ class Route
 							$format = $matches['format'];
 						}
 						
+						$prefix = 'action_';
+						if ($format !== 'html')
+						{
+							$prefix = $format.'_';
+						}
+						
 						// retrieve format stack
 						$route_stacks = \app\CFS::config('ibidem/route-stacks');
 						
 						// build faux relay object
-						$default_action = 'action_index';
-						if ($format !== 'html')
-						{
-							$default_action = $format.'_index';
-						}
+						$default_action = $prefix.'index';
 						$relay = array
 							(
 								'matcher' => $matcher,
 								'controller' =>  static::resolve_controller_name($binding),
-								'action' => $default_action
+								'action' => $default_action,
+								'prefix' => $prefix,
 							);
 						
 						// execute
