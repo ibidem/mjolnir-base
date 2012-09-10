@@ -2,6 +2,6 @@
 	(
 		'steps' => array
 			(
-				'ibidem-base:registry' => [ 'serial' => '1:0-default' ],
+				'mjolnir-base:registry' => [ 'serial' => '1:0-default' ],
 			),
 	);

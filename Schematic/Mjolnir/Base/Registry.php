@@ -7,7 +7,7 @@
  * @copyright  (c) 2012, Ibidem Team
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
-class Schematic_Ibidem_Base_Registry extends \app\Schematic_Base
+class Schematic_Mjolnir_Base_Registry extends \app\Schematic_Base
 {
 	function down()
 	{

@@ -4,7 +4,7 @@ use \mjolnir\types\Enum_Requirement as Requirement;
 
 return array
 	(
-		'ibidem\base' => array
+		'mjolnir\base' => array
 			(
 				 'PHP 5.4 or higher' => function ()
 					{

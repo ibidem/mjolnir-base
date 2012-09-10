@@ -21,7 +21,7 @@ class Mjolnir
 	 */
 	static function init()
 	{
-		// the current directory is <vendor>/ibidem/base/ where vendor is 
+		// the current directory is <vendor>/mjolnir/base/ where vendor is 
 		// whatever the project composer configuration is setup to store 
 		// packages in, so...
 		$vendor_root = \realpath(\realpath(__DIR__).'/../..').DIRECTORY_SEPARATOR;
@@ -62,7 +62,7 @@ class Mjolnir
 		static::init();
 		
 		// load assertion helpers
-		require_once \app\CFS::dir('functions/ibidem/').'assertions'.EXT;
+		require_once \app\CFS::dir('functions/mjolnir/').'assertions'.EXT;
 	}
 	
 	/**

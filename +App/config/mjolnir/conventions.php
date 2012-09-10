@@ -9,8 +9,8 @@
 	
 		'autofills' => array
 			(
-				'#^Controller_.*$#' => \app\View::instance('ibidem/base/autofills/Controller')->render(),
-				'#^Task_.*$#' => \app\View::instance('ibidem/base/autofills/Task')->render(),
-				'#^Layer_.*$#' => \app\View::instance('ibidem/base/autofills/Layer')->render(),
+				'#^Controller_.*$#' => \app\View::instance('mjolnir/base/autofills/Controller')->render(),
+				'#^Task_.*$#' => \app\View::instance('mjolnir/base/autofills/Task')->render(),
+				'#^Layer_.*$#' => \app\View::instance('mjolnir/base/autofills/Layer')->render(),
 			),
 	);

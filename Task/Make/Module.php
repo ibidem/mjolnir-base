@@ -125,14 +125,14 @@ class Task_Make_Module extends \app\Task
 		$app_dir = $dir.$ds.\mjolnir\cfs\CFSCompatible::APPDIR;
 		\file_exists($app_dir) or \mkdir($app_dir, 0777, true); # App dir
 		$config_dir = $app_dir.$ds.\mjolnir\cfs\CFSCompatible::CNFDIR;
-		\file_exists($config_dir) or \mkdir($config_dir, 0777, true); # App/config
+		\file_exists($config_dir) or \mkdir($config_dir, 0777, true); # +App/config
 		
 		if ( ! $mockup_template && ! $sandbox_template)
 		{
 			$lang_dir = $config_dir.$ds.'lang';
-			\file_exists($lang_dir) or \mkdir($lang_dir, 0777, true); # App/config/lang
+			\file_exists($lang_dir) or \mkdir($lang_dir, 0777, true); # +App/config/lang
 			$test_dir = $app_dir.$ds.'features';
-			\file_exists($test_dir) or \mkdir($test_dir, 0777, true); # App/test
+			\file_exists($test_dir) or \mkdir($test_dir, 0777, true); # +App/features
 		}
 		
 		// create App/config/version
@@ -144,20 +144,20 @@ class Task_Make_Module extends \app\Task
 		
 		if ($mockup_template)
 		{				
-			$ibidem_config_dir = $config_dir.$ds.'ibidem';
-			\file_exists($ibidem_config_dir) or \mkdir($ibidem_config_dir, 0777, true); # App/config
+			$mjolnir_config_dir = $config_dir.$ds.'mjolnir';
+			\file_exists($mjolnir_config_dir) or \mkdir($mjolnir_config_dir, 0777, true); # +App/config
 			
 			// allow admin and mockup access to guest
 			\file_put_contents
 				(
-					$ibidem_config_dir.$ds.'access'.EXT, 
+					$mjolnir_config_dir.$ds.'access'.EXT, 
 					static::access_file()
 				);
 			
 			// enable mockup route
 			\file_put_contents
 				(
-					$ibidem_config_dir.$ds.'relays'.EXT, 
+					$mjolnir_config_dir.$ds.'relays'.EXT, 
 					static::mockup_relays_file()
 				);
 		}
@@ -171,13 +171,13 @@ class Task_Make_Module extends \app\Task
 					static::sandbox_file()
 				);
 			
-			$ibidem_config_dir = $config_dir.$ds.'ibidem';
-			\file_exists($ibidem_config_dir) or \mkdir($ibidem_config_dir, 0777, true); # App/config
+			$mjolnir_config_dir = $config_dir.$ds.'ibidem';
+			\file_exists($mjolnir_config_dir) or \mkdir($mjolnir_config_dir, 0777, true); # +App/config
 			
 			// enable mockup route
 			\file_put_contents
 				(
-					$ibidem_config_dir.$ds.'relays'.EXT, 
+					$mjolnir_config_dir.$ds.'relays'.EXT, 
 					static::sandbox_relays_file()
 				);
 		}

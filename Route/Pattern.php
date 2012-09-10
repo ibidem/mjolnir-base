@@ -402,7 +402,7 @@ class Route_Pattern extends \app\Instantiatable
 	}
 	
 	/**
-	 * Base for the url, if not defined should retrieve ibidem/base value.
+	 * Base for the url, if not defined should retrieve mjolnir/base value.
 	 * 
 	 * @param string url base
 	 * @return \mjolnir\base\Route_Pattern $this

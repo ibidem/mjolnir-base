@@ -1,5 +1,5 @@
 This license is a legal agreement between you and the Ibidem Team for the use 
-of Ibidem (the "Software"). By obtaining the Software you agree to comply with 
+of Mjolnir (the "Software"). By obtaining the Software you agree to comply with 
 the terms and conditions of this license.
 
 

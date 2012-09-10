@@ -206,7 +206,7 @@ class Task_Make_Class extends \app\Task
 		$project_file = $module_path.DIRECTORY_SEPARATOR
 			. \mjolnir\cfs\CFSCompatible::APPDIR.DIRECTORY_SEPARATOR
 			. \mjolnir\cfs\CFSCompatible::CNFDIR.DIRECTORY_SEPARATOR
-			. 'ibidem'.DIRECTORY_SEPARATOR.'project'.EXT
+			. 'mjolnir'.DIRECTORY_SEPARATOR.'project'.EXT
 			;
 		
 		// module specific project file?
