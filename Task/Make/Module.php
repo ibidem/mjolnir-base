@@ -15,7 +15,7 @@ class Task_Make_Module extends \app\Task
 	 */
 	protected function version_file($name)
 	{
-		return 
+		return
 			  '<?php return array'.PHP_EOL
 			. "\t(".PHP_EOL
 			. "\t\t'$name' => array".PHP_EOL
@@ -26,13 +26,13 @@ class Task_Make_Module extends \app\Task
 			. "\t);".PHP_EOL
 			;
 	}
-	
+
 	/**
 	 * @return string language file readme
 	 */
 	protected function honeypot_file($namespace)
 	{
-		return 
+		return
 			  '<?php namespace app;'.PHP_EOL
 			. PHP_EOL
 			. '// This is an IDE honeypot. It tells IDEs the class hirarchy, but otherwise has'.PHP_EOL
@@ -42,10 +42,10 @@ class Task_Make_Module extends \app\Task
 			. PHP_EOL
 			;
 	}
-	
+
 	protected function access_file()
 	{
-		return 
+		return
 			  '<?php return array'.PHP_EOL
 			. "\t(".PHP_EOL
 			. "\t\t'aliaslist' => array".PHP_EOL
@@ -56,10 +56,10 @@ class Task_Make_Module extends \app\Task
 			. PHP_EOL
 			;
 	}
-	
+
 	protected function mockup_relays_file()
 	{
-		return 
+		return
 			  '<?php return array'.PHP_EOL
 			. "\t(".PHP_EOL
 			. "\t\t".'\'\mjolnir\theme\mockup\'        => [ \'enabled\' => true ],'.PHP_EOL
@@ -69,10 +69,10 @@ class Task_Make_Module extends \app\Task
 			. PHP_EOL
 			;
 	}
-	
+
 	protected function sandbox_relays_file()
 	{
-		return 
+		return
 			  '<?php return array'.PHP_EOL
 			. "\t(".PHP_EOL
 			. "\t\t".'\'\mjolnir\sandbox\' => [ \'enabled\' => true ],'.PHP_EOL
@@ -80,10 +80,10 @@ class Task_Make_Module extends \app\Task
 			. PHP_EOL
 			;
 	}
-	
+
 	protected function sandbox_file()
 	{
-		return 
+		return
 			  '<?php namespace mjolnir\sandbox;'.PHP_EOL
 			. PHP_EOL
 			. 'function tester()'.PHP_EOL
@@ -95,7 +95,7 @@ class Task_Make_Module extends \app\Task
 			. PHP_EOL
 			;
 	}
-	
+
 	/**
 	 * Execute task.
 	 */
@@ -106,7 +106,7 @@ class Task_Make_Module extends \app\Task
 		$forced = $this->config['forced'];
 		$mockup_template = $this->config['mockup-template'];
 		$sandbox_template = $this->config['sandbox-template'];
-		
+
 		// module exists?
 		$module_name = MODPATH.$name;
 		if (\file_exists($module_name) && ! $forced)
@@ -116,9 +116,9 @@ class Task_Make_Module extends \app\Task
 				->status('Help', 'Use --forced to overwrite existsing files.')->eol();
 			return;
 		}
-		
+
 		$ds = DIRECTORY_SEPARATOR;
-		
+
 		// create the directory structure
 		$dir = $module_name;
 		\file_exists($dir) or \mkdir($dir, 0777, true); # base dir
@@ -126,7 +126,7 @@ class Task_Make_Module extends \app\Task
 		\file_exists($app_dir) or \mkdir($app_dir, 0777, true); # App dir
 		$config_dir = $app_dir.$ds.\mjolnir\cfs\CFSCompatible::CNFDIR;
 		\file_exists($config_dir) or \mkdir($config_dir, 0777, true); # +App/config
-		
+
 		if ( ! $mockup_template && ! $sandbox_template)
 		{
 			$lang_dir = $config_dir.$ds.'lang';
@@ -134,58 +134,58 @@ class Task_Make_Module extends \app\Task
 			$test_dir = $app_dir.$ds.'features';
 			\file_exists($test_dir) or \mkdir($test_dir, 0777, true); # +App/features
 		}
-		
+
 		// create App/config/version
 		\file_put_contents
 			(
-				$config_dir.$ds.'version'.EXT, 
+				$config_dir.$ds.'version'.EXT,
 				static::version_file(\ltrim($namespace, '\\'))
 			);
-		
+
 		if ($mockup_template)
-		{				
+		{
 			$mjolnir_config_dir = $config_dir.$ds.'mjolnir';
 			\file_exists($mjolnir_config_dir) or \mkdir($mjolnir_config_dir, 0777, true); # +App/config
-			
+
 			// allow admin and mockup access to guest
 			\file_put_contents
 				(
-					$mjolnir_config_dir.$ds.'access'.EXT, 
+					$mjolnir_config_dir.$ds.'access'.EXT,
 					static::access_file()
 				);
-			
+
 			// enable mockup route
 			\file_put_contents
 				(
-					$mjolnir_config_dir.$ds.'relays'.EXT, 
+					$mjolnir_config_dir.$ds.'relays'.EXT,
 					static::mockup_relays_file()
 				);
 		}
-		
+
 		if ($sandbox_template)
 		{
 			// create sandbox relay
 			\file_put_contents
 				(
-					$app_dir.$ds.'relays'.EXT, 
+					$app_dir.$ds.'relays'.EXT,
 					static::sandbox_file()
 				);
-			
-			$mjolnir_config_dir = $config_dir.$ds.'ibidem';
+
+			$mjolnir_config_dir = $config_dir.$ds.'mjolnir';
 			\file_exists($mjolnir_config_dir) or \mkdir($mjolnir_config_dir, 0777, true); # +App/config
-			
+
 			// enable mockup route
 			\file_put_contents
 				(
-					$mjolnir_config_dir.$ds.'relays'.EXT, 
+					$mjolnir_config_dir.$ds.'relays'.EXT,
 					static::sandbox_relays_file()
 				);
 		}
-		
+
 		// create honeypot
 		\file_put_contents
 			(
-				$app_dir.$ds.'honeypot'.EXT, 
+				$app_dir.$ds.'honeypot'.EXT,
 				static::honeypot_file($namespace)
 			);
 		// print notice
@@ -193,5 +193,5 @@ class Task_Make_Module extends \app\Task
 			->status('Info', 'Module created!')->eol()
 			->status('Help', 'To enable it, in your modules add: MODPATH.\''.$name.'\' => \''.\ltrim($namespace, '\\').'\',')->eol();
 	}
-	
+
 } # class
