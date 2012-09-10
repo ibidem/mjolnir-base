@@ -15,21 +15,21 @@ class Route
 	static function resolve_controller_name($key)
 	{
 		$key = \preg_replace('#(\..*)#', '', $key);
-		
+
 		$key_parts = \explode('-', $key);
-		
-		$controller_name = \app\Collection::implode('', $key_parts, function ($k, $value) {
+
+		$controller_name = \app\Arr::implode('', $key_parts, function ($k, $value) {
 			return \ucfirst($value);
 		});
-		
+
 		return '\app\Controller_'.$controller_name;
 	}
-	
+
 	/**
 	 * @return string
 	 */
 	static function translate_pattern($pattern)
-	{		
+	{
 		if (\app\Lang::get_lang() !== 'en-us')
 		{
 			// load route translations
@@ -49,22 +49,22 @@ class Route
 			return $pattern;
 		}
 	}
-	
+
 	/**
 	 * Check all routes for match.
 	 */
 	static function check_all()
 	{
 		$routes = \app\CFS::config('routes');
-		
+
 		// format: [ key, regex, allowed methods ]
-		foreach ($routes as $pattern => $route_info)			
+		foreach ($routes as $pattern => $route_info)
 		{
 			// translate pattern
 			$pattern = static::translate_pattern($pattern);
-			
+
 			$pattern = \trim($pattern, '/');
-			
+
 			if ( ! isset($route_info[1]))
 			{
 				$regex_pattern = [];
@@ -73,13 +73,11 @@ class Route
 			{
 				$regex_pattern = $route_info[1];
 			}
-			
-			return false;
-			
+
 			// create route pattern
 			$matcher = \app\Route_Pattern::instance()
 				->standard($pattern, $regex_pattern);
-			
+
 			if ($matcher->check())
 			{
 				// retrieve the allowed methods
@@ -95,14 +93,14 @@ class Route
 				{
 					$methods = \array_map
 						(
-							function ($str) 
-								{ 
-									return \strtoupper($str); 
-								}, 
+							function ($str)
+								{
+									return \strtoupper($str);
+								},
 							$route_info[2]
 						);
 				}
-				
+
 				// attempt match
 				foreach ($methods as $method)
 				{
@@ -119,23 +117,23 @@ class Route
 							$key = $route_info[0];
 							$binding = $route_info[0];
 						}
-						
+
 						// retrieve format
 						$format = 'html';
 						if (\preg_match('#.*\.(?<format>[a-z0-9-_]+)$#', $key, $matches))
 						{
 							$format = $matches['format'];
 						}
-						
+
 						$prefix = 'action_';
 						if ($format !== 'html')
 						{
 							$prefix = $format.'_';
 						}
-						
+
 						// retrieve format stack
 						$route_stacks = \app\CFS::config('mjolnir/route-stacks');
-						
+
 						// build faux relay object
 						$default_action = $prefix.'index';
 						$relay = array
@@ -145,7 +143,7 @@ class Route
 								'action' => $default_action,
 								'prefix' => $prefix,
 							);
-						
+
 						// execute
 						$route_stacks[$format]($relay, $key);
 						exit;
@@ -154,7 +152,7 @@ class Route
 			}
 		}
 	}
-	
+
 	/**
 	 * @return \app\Route_Pattern
 	 */
@@ -165,18 +163,18 @@ class Route
 		// create route pattern
 		return \app\Route_Pattern::instance()->standard($pattern, $regex_pattern);
 	}
-	
+
 	/**
 	 * @return \app\Route_Pattern or null
 	 */
 	static function matcher($key)
 	{
 		$routes = \app\CFS::config('routes');
-		
+
 		foreach ($routes as $pattern => $route_info)
 		{
 			if ( ! \is_array($route_info[0]))
-			{	
+			{
 				if ($route_info[0] === $key)
 				{
 					if (isset($route_info[1]))
@@ -205,7 +203,7 @@ class Route
 				}
 			}
 		}
-		
+
 		return null;
 	}
 

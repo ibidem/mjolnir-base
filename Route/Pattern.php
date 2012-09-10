@@ -1,15 +1,15 @@
 <?php namespace mjolnir\base;
 
-/** 
+/**
  * @package    mjolnir
  * @category   Base
  * @author     Ibidem Team
  * @copyright  (c) 2012 Ibidem Team
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
-class Route_Pattern extends \app\Instantiatable 
-	implements 
-		\mjolnir\types\Matcher, 
+class Route_Pattern extends \app\Instantiatable
+	implements
+		\mjolnir\types\Matcher,
 		\mjolnir\types\RelayCompatible,
 		\mjolnir\types\Parameterized,
 		\mjolnir\types\URLCompatible,
@@ -23,70 +23,70 @@ class Route_Pattern extends \app\Instantiatable
 
 	// What must be escaped in the route regex
 	protected static $REGEX_ESCAPE  = '[.\\+*?[^\\]${}=!|]';
-	
+
 	/**
-	 * @var string 
+	 * @var string
 	 */
 	protected $matched_pattern;
-	
+
 	/**
 	 * @var string
 	 */
 	protected $standard_pattern;
-	
+
 	/**
 	 * @var string
 	 */
 	protected $standard_uri;
-	
+
 	/**
 	 * @var string
 	 */
 	protected $canonical_pattern;
-	
+
 	/**
 	 * @var string
 	 */
 	protected $canonical_uri;
-	
+
 	/**
 	 * @var \mjolnir\types\Params
 	 */
 	protected $params;
-	
+
 	/**
 	 * @var string
 	 */
 	protected $url_base;
-	
+
 	/**
 	 * @var string
 	 */
 	protected $uri;
-	
+
 	/**
 	 * @param string $regex
 	 * @return \mjolnir\base\Route_Pattern
 	 */
-	static function instance($uri = null)
+	static function instance($the_uri = null)
 	{
 		$instance = parent::instance();
-		
-		if ($uri)
+
+		if ($the_uri)
  		{
-			$instance->uri = $uri;
+			$instance->uri = $the_uri;
 		}
 		else # no uri
 		{
 			$instance->uri = \trim(\app\Layer_HTTP::detect_uri(), '/');
 		}
-		
+
 		// setup params
 		$instance->params = \app\Params::instance();
-		
+
 		return $instance;
 	}
-	
+
 	/**
 	 * @param string pattern
 	 * @param array regex
@@ -96,10 +96,10 @@ class Route_Pattern extends \app\Instantiatable
 	{
 		$this->canonical_uri = $pattern;
 		$this->canonical_pattern = static::setup_pattern($pattern, $regex);
-		
+
 		return $this;
 	}
-	
+
 	/**
 	 * @param string pattern
 	 * @param array regex
@@ -109,28 +109,28 @@ class Route_Pattern extends \app\Instantiatable
 	{
 		$this->standard_uri = $pattern;
 		$this->standard_pattern = static::setup_pattern($pattern, $regex);
-		
+
 		return $this;
 	}
-	
+
 	/**
 	 * @param string uri
 	 * @param array regex
 	 * @return \mjolnir\base\Route_Pattern $this
 	 */
 	protected static function setup_pattern($uri, array $regex)
-	{	
+	{
 		// the URI should be considered literal except for keys and optional parts
 		// escape everything preg_quote would escape except for : ( ) < >
 		$expression = \preg_replace('#'.static::$REGEX_ESCAPE.'#', '\\\\$0', $uri);
-	
+
 		if (\strpos($expression, '(') !== false)
 		{
 			// make optional parts of the URI non-capturing and optional
 			$expression = \str_replace
 				(
-					array('(', ')'), 
-					array('(?:', ')?'), 
+					array('(', ')'),
+					array('(?:', ')?'),
 					$expression
 				);
 		}
@@ -138,10 +138,10 @@ class Route_Pattern extends \app\Instantiatable
 		// insert default regex for keys
 		$expression = \str_replace
 			(
-				array('<', '>'), 
+				array('<', '>'),
 				// named subpattern PHP4.3 compatible: (?P<key>regex)
 				// http://php.net/manual/en/function.preg-match.php#example-4371
-				array('(?P<', '>'.static::$REGEX_SEGMENT.')'), 
+				array('(?P<', '>'.static::$REGEX_SEGMENT.')'),
 				$expression
 			);
 
@@ -183,9 +183,9 @@ class Route_Pattern extends \app\Instantiatable
 
 		return $params;
 	}
-	
+
 	/**
-	 * @return boolean defined route matches? 
+	 * @return boolean defined route matches?
 	 */
 	function check()
 	{
@@ -200,24 +200,24 @@ class Route_Pattern extends \app\Instantiatable
 			$this->matched_pattern =& $this->standard_pattern;
 			return true;
 		}
-		
+
 		// no match
 		return false;
 	}
-	
+
 	/**
 	 * @param string uri regex pattern
 	 * @param array uri parameters
 	 * @return string
 	 */
 	protected static function generate_uri($uri, array $params = null)
-	{		
+	{
 		if (\strpos($uri, '<') === false && \strpos($uri, '(') === false)
 		{
 			// this is a static route, no need to replace anything
 			return $uri;
 		}
-		
+
 		// cycle though all optional groups
 		while (\preg_match('#\([^()]++\)#', $uri, $match)) # match is populated
 		{
@@ -252,7 +252,7 @@ class Route_Pattern extends \app\Instantiatable
 		while (\preg_match('#'.static::$REGEX_KEY.'#', $uri, $match))
 		{
 			list($key, $param) = $match;
-			
+
 			if ( ! isset($params[$param]))
 			{
 				$params_err = array();
@@ -260,7 +260,7 @@ class Route_Pattern extends \app\Instantiatable
 				{
 					$params_err[] = "$key => $value";
 				}
-				
+
 				$uri = \htmlspecialchars($uri);
 				$params_err = \implode(', ', $params_err);
 				throw new \app\Exception_NotApplicable
@@ -284,7 +284,7 @@ class Route_Pattern extends \app\Instantiatable
 	{
 		return $this;
 	}
-	
+
 	/**
 	 * @return \mjolnir\types\Params
 	 */
@@ -294,39 +294,39 @@ class Route_Pattern extends \app\Instantiatable
 		{
 			$this->check();
 		}
-		
+
 		return static::match_params
 			(
-				$this->uri, 
-				$this->matched_pattern, 
+				$this->uri,
+				$this->matched_pattern,
 				$this->params
 			);
 	}
-	
+
 	/**
 	 * By passing a null protocol the function should return a protocol-less URL
-	 * so that the protocol can be determined in context. 
-	 * 
+	 * so that the protocol can be determined in context.
+	 *
 	 * See: "5. Relative URI References" of http://www.ietf.org/rfc/rfc2396.txt
-	 * 
-	 * "Why relative?" For one URL's might are not always for http, so avoiding 
-	 * the assumtion is a plus in and of itself. But basically one problem it 
-	 * solves is the need to programitically coerce every single link or URL 
-	 * passed into a document to the correct version. So for example consider 
-	 * http and https. Passing from http to https and vice versa is not 
-	 * something you should be doing too often as it may have adverse effects on 
-	 * the user's clients (notices, etc). This is why you'll see sites just go 
-	 * full out https, since the overhead these days is relatively non-existent. 
-	 * 
+	 *
+	 * "Why relative?" For one URL's might are not always for http, so avoiding
+	 * the assumtion is a plus in and of itself. But basically one problem it
+	 * solves is the need to programitically coerce every single link or URL
+	 * passed into a document to the correct version. So for example consider
+	 * http and https. Passing from http to https and vice versa is not
+	 * something you should be doing too often as it may have adverse effects on
+	 * the user's clients (notices, etc). This is why you'll see sites just go
+	 * full out https, since the overhead these days is relatively non-existent.
+	 *
 	 * By saying...
-	 * 
+	 *
 	 *     //example.com/something
-	 * 
-	 * ...it will magically translate to https://example.com/something or 
-	 * http://example.com/something on the client side. Note that it's not 
-	 * necesarly as straight forward as "the document's protocol". Please read 
+	 *
+	 * ...it will magically translate to https://example.com/something or
+	 * http://example.com/something on the client side. Note that it's not
+	 * necesarly as straight forward as "the document's protocol". Please read
 	 * the rfc2396 (full link above) for more information.
-	 * 
+	 *
 	 * @param array list of paramters
 	 * @param string protocol
 	 * @return string
@@ -340,7 +340,7 @@ class Route_Pattern extends \app\Instantiatable
 		if ($this->standard_pattern)
 		{
 			// relative protocol?
-			$url = ($protocol === null ? '//' : $protocol.'://'); 
+			$url = ($protocol === null ? '//' : $protocol.'://');
 			// url_base is set?
 			if ($this->url_base)
 			{
@@ -364,10 +364,10 @@ class Route_Pattern extends \app\Instantiatable
 			throw new \app\Exception_NotApplicable
 				('Missing protocol; can not generate URL.');
 		}
-		
+
 		return null;
 	}
-	
+
 	/**
 	 * @param array list of paramters
 	 * @param string protocol
@@ -378,7 +378,7 @@ class Route_Pattern extends \app\Instantiatable
 		if ($this->canonical_pattern)
 		{
 			// relative protocol?
-			$url = ($protocol === null ? '//' : $protocol.'://'); 
+			$url = ($protocol === null ? '//' : $protocol.'://');
 			// url_base is set?
 			if ($this->url_base)
 			{
@@ -391,19 +391,19 @@ class Route_Pattern extends \app\Instantiatable
 			}
 
 			// append the uri
-			return $url.static::generate_uri($this->canonical_uri, $params);	
+			return $url.static::generate_uri($this->canonical_uri, $params);
 		}
-		else if ($this->standard_pattern) 
+		else if ($this->standard_pattern)
 		{
 			return $this->url($params, $protocol);
 		}
-		
+
 		return null;
 	}
-	
+
 	/**
 	 * Base for the url, if not defined should retrieve mjolnir/base value.
-	 * 
+	 *
 	 * @param string url base
 	 * @return \mjolnir\base\Route_Pattern $this
 	 */
@@ -412,13 +412,13 @@ class Route_Pattern extends \app\Instantiatable
 		$this->url_base = $url_base;
 		return $this;
 	}
-	
+
 	/**
-	 * @return array context information 
+	 * @return array context information
 	 */
 	function get_context()
 	{
 		return $this->params->to_array();
 	}
-	
+
 } # class
