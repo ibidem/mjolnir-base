@@ -74,8 +74,11 @@ class Route
 				$regex_pattern = $route_info[1];
 			}
 			
+			return false;
+			
 			// create route pattern
-			$matcher = \app\Route_Pattern::instance()->standard($pattern, $regex_pattern);
+			$matcher = \app\Route_Pattern::instance()
+				->standard($pattern, $regex_pattern);
 			
 			if ($matcher->check())
 			{
@@ -131,7 +134,7 @@ class Route
 						}
 						
 						// retrieve format stack
-						$route_stacks = \app\CFS::config('ibidem/route-stacks');
+						$route_stacks = \app\CFS::config('mjolnir/route-stacks');
 						
 						// build faux relay object
 						$default_action = $prefix.'index';

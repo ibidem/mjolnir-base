@@ -33,7 +33,7 @@ class DateFormatter extends \app\Instantiatable
 	 */
 	function relative(\DateTime $datetime, array $filter = null)
 	{
-		$relative_dates = \app\CFS::config('ibidem/dateformatter');
+		$relative_dates = \app\CFS::config('mjolnir/dateformatter');
 		
 		if ($filter !== null) 
 		{

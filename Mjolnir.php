@@ -94,7 +94,7 @@ class Mjolnir
 		\app\Relay::check_all();
 
 		// do we have a default theme?
-		if (\app\CFS::config('ibidem/themes')['theme.default'] !== null)
+		if (\app\CFS::config('mjolnir/themes')['theme.default'] !== null)
 		{
 			try
 			{

@@ -30,7 +30,7 @@ class Layer_HTTP extends \app\Layer
 	static function instance()
 	{
 		$instance = parent::instance();
-		$http = \app\CFS::config('ibidem/http');
+		$http = \app\CFS::config('mjolnir/http');
 		$instance->params = $http['meta'];
 		$instance->status = $http['status'];
 		
@@ -123,7 +123,7 @@ class Layer_HTTP extends \app\Layer
 				return $detected_uri = null;
 			}
 
-			$config = \app\CFS::config('ibidem/base');
+			$config = \app\CFS::config('mjolnir/base');
 			
 			// get the path from the base URL
 			$url_base = \parse_url($config['domain'].$config['path'], PHP_URL_PATH);
@@ -136,7 +136,7 @@ class Layer_HTTP extends \app\Layer
 		}
 		
 		// remove path
-		$base_config = \app\CFS::config('ibidem/base');
+		$base_config = \app\CFS::config('mjolnir/base');
 		if (\substr($uri, 0, \strlen($base_config['path']) ) == $base_config['path']) 
 		{
 			if (\strlen($base_config['path']) == \strlen($uri))

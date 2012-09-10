@@ -137,7 +137,7 @@ class Layer_TaskRunner extends \app\Layer
 			}
 
 			// load configuration
-			$tasks = \app\CFS::config('ibidem/tasks');
+			$tasks = \app\CFS::config('mjolnir/tasks');
 			// get command
 			$command = \strtolower($this->argv[1]);
 			// help command? (handle internally)
@@ -274,7 +274,7 @@ class Layer_TaskRunner extends \app\Layer
 		$stdout->write("     Help: ".static::$commandname." [command] -h")->eol()->eol()->eol();
 		$stdout->subheader('Commands');
 		// load config
-		$cli = \app\CFS::config('ibidem/tasks');
+		$cli = \app\CFS::config('mjolnir/tasks');
 		\ksort($cli);
 		// normalize
 		foreach ($cli as $command => $commandinfo)
@@ -324,7 +324,7 @@ class Layer_TaskRunner extends \app\Layer
 		$stdout = $this->writer;
 		$stdout->header('Help for '.$commandname);
 		// configuration
-		$cli = \app\CFS::config('ibidem/tasks');
+		$cli = \app\CFS::config('mjolnir/tasks');
 		// normalize
 		$command = static::normalize($cli[$commandname]);
 

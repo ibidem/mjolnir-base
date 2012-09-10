@@ -16,7 +16,7 @@ class Relay
 	 */
 	static function process($key, $callback, $matcher = null)
 	{
-		$relays = \app\CFS::config('ibidem/relays');
+		$relays = \app\CFS::config('mjolnir/relays');
 		if (isset($relays[$key]))
 		{
 			// if enabled is not provided we assume true
@@ -73,7 +73,7 @@ class Relay
 	 */
 	static function matcher($key)
 	{
-		$relays = \app\CFS::config('ibidem/relays');
+		$relays = \app\CFS::config('mjolnir/relays');
 		if (isset($relays[$key]))
 		{
 			return $relays[$key]['matcher'];

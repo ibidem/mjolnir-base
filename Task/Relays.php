@@ -14,7 +14,7 @@ class Task_Relays extends \app\Task
 	 */
 	function execute()
 	{
-		$relays = \app\CFS::config('ibidem/relays');
+		$relays = \app\CFS::config('mjolnir/relays');
 		$found_relays = false;
 		foreach ($relays as $key => $relay)
 		{

@@ -46,7 +46,7 @@ class Writer_Console extends \app\Instantiatable
 	static function instance()
 	{
 		$instance = parent::instance();
-		$config = \app\CFS::config('ibidem/writer/console');
+		$config = \app\CFS::config('mjolnir/writer/console');
 		$instance->highlight = $config['highlight'];
 		$instance->width = $config['width'];
 

@@ -48,7 +48,7 @@ class Task_Make_Class extends \app\Task
 		
 		$file .= ' */'.PHP_EOL;
 		
-		$conventions_config = \app\CFS::config('ibidem/conventions');
+		$conventions_config = \app\CFS::config('mjolnir/conventions');
 		
 		if (\preg_match('#^Trait_.*$#', $class_name))
 		{
@@ -216,7 +216,7 @@ class Task_Make_Class extends \app\Task
 		}
 		else # no project file; use global
 		{
-			$config = \app\CFS::config('ibidem/project');
+			$config = \app\CFS::config('mjolnir/project');
 		}
 		
 		// does project file exist?

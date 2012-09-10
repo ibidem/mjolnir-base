@@ -60,20 +60,25 @@ class Route_Pattern extends \app\Instantiatable
 	protected $url_base;
 	
 	/**
+	 * @var string
+	 */
+	protected $uri;
+	
+	/**
 	 * @param string $regex
 	 * @return \mjolnir\base\Route_Pattern
 	 */
 	static function instance($uri = null)
 	{
 		$instance = parent::instance();
-				
+		
 		if ($uri)
-		{
+ 		{
 			$instance->uri = $uri;
 		}
 		else # no uri
 		{
-			$instance->uri = \trim(Layer_HTTP::detect_uri(), '/');
+			$instance->uri = \trim(\app\Layer_HTTP::detect_uri(), '/');
 		}
 		
 		// setup params
@@ -343,7 +348,7 @@ class Route_Pattern extends \app\Instantiatable
 			}
 			else # no url base set
 			{
-				$base = \app\CFS::config('ibidem/base');
+				$base = \app\CFS::config('mjolnir/base');
 				$url .= $base['domain'].$base['path'];
 			}
 
@@ -381,7 +386,7 @@ class Route_Pattern extends \app\Instantiatable
 			}
 			else # no url base set
 			{
-				$base = \app\CFS::config('ibidem/base');
+				$base = \app\CFS::config('mjolnir/base');
 				$url .= $base['domain'].$base['path'];
 			}
 

@@ -114,13 +114,13 @@ class Make extends \app\Instantiatable
 	{
 		if ($category == null)
 		{
-			$config = \app\CFS::config('ibidem/mockup');
+			$config = \app\CFS::config('mjolnir/mockup');
 			$category = $config['lorempixel:defaults']['category'];
 		}
 		
 		if ($grayscale == null)
 		{
-			$config = \app\CFS::config('ibidem/mockup');
+			$config = \app\CFS::config('mjolnir/mockup');
 			$grayscale = $config['lorempixel:defaults']['grayscale'];
 		}
 		
@@ -303,7 +303,7 @@ class Make extends \app\Instantiatable
 	 */
 	function render()
 	{
-		$mockup = \app\CFS::config('ibidem/mockup');
+		$mockup = \app\CFS::config('mjolnir/mockup');
 		switch ($this->type)
 		{
 			case 'lorempixel':

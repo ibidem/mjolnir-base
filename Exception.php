@@ -101,7 +101,7 @@ class Exception extends \Exception
 	static function debuginfo_for(\Exception $exception)
 	{
 		$out = '';
-		if (\app\CFS::config('ibidem/base')['development'])
+		if (\app\CFS::config('mjolnir/base')['development'])
 		{
 			$is_http = \app\Layer::find('http') !== null;
 			$out .= $is_http ? '<div class="ibidem-debuginfo"><pre>' : '';

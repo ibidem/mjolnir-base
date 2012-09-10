@@ -28,8 +28,8 @@ class Session_Native extends \app\Instantiatable
 			$instance = parent::instance();
 			
 			// load session configuration
-			$session_config = \app\CFS::config('ibidem/sessions');
-			$base_config = \app\CFS::config('ibidem/base');
+			$session_config = \app\CFS::config('mjolnir/sessions');
+			$base_config = \app\CFS::config('mjolnir/base');
 			\session_set_cookie_params
 				(
 					$session_config['lifetime'], # lifetime (seconds)

@@ -31,7 +31,7 @@ class Layer_MVC extends \app\Layer
 	static function instance()
 	{
 		$instance = parent::instance();
-		$instance->params = \app\CFS::config('ibidem/mvc');
+		$instance->params = \app\CFS::config('mjolnir/mvc');
 		return $instance;
 	}	
 		
@@ -111,7 +111,7 @@ class Layer_MVC extends \app\Layer
 	{
 		if (\is_a($exception, '\mjolnir\types\Exception'))
 		{
-			if (\app\CFS::config('ibidem/base')['development'] === true)
+			if (\app\CFS::config('mjolnir/base')['development'] === true)
 			{
 				$error = ' '.$exception->title().': '.$exception->message()."\n";
 				if (\app\Layer::find('html') !== null) {

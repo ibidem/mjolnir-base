@@ -133,7 +133,7 @@ class Route_Path extends \app\Instantiatable
 		}
 		else # no url base set
 		{
-			$base = \app\CFS::config('ibidem/base');
+			$base = \app\CFS::config('mjolnir/base');
 			$url .= $base['domain'].$base['path'];
 		}
 		

@@ -45,7 +45,7 @@ class Task_Status extends \app\Task
 		$no_stop = $this->config['no-stop'];
 		$strict = $this->config['strict'];
 		// load requirements
-		$modules = \app\CFS::config('ibidem/require');
+		$modules = \app\CFS::config('mjolnir/require');
 		
 		$failed = 0;
 		$errors = 0;

@@ -22,7 +22,7 @@ class Instantiatable
 	 */
 	private function __construct()
 	{
-		// intentionally empty
+		// empty
 	}
 	
 	/**

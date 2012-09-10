@@ -18,7 +18,7 @@ class Cookie
 		
 		if ($expires === null)
 		{
-			$expires = \app\CFS::config('ibidem/cookies')['default.expires'];
+			$expires = \app\CFS::config('mjolnir/cookies')['default.expires'];
 		}
 		
 		if ($cookie_session === null)
@@ -26,9 +26,9 @@ class Cookie
 			$cookie_session = static::cookie_session();
 		}
 		
-		$cookie_value = \hash_hmac(\app\CFS::config('ibidem/cookies')['algorythm'], $value, $cookie_session).'-'.$value;
+		$cookie_value = \hash_hmac(\app\CFS::config('mjolnir/cookies')['algorythm'], $value, $cookie_session).'-'.$value;
 		
-		$base_config = \app\CFS::config('ibidem/base');
+		$base_config = \app\CFS::config('mjolnir/base');
 		\setcookie($key, $cookie_value, \time() + $expires, $base_config['path'], $base_config['domain'], $secure);
 	}
 	
@@ -59,7 +59,7 @@ class Cookie
 		$value = \substr($_COOKIE[$key], $offset + 1);
 		$signature = \substr($_COOKIE[$key], 0, $offset);
 				
-		if ($signature === \hash_hmac(\app\CFS::config('ibidem/cookies')['algorythm'], $value, $cookie_session))
+		if ($signature === \hash_hmac(\app\CFS::config('mjolnir/cookies')['algorythm'], $value, $cookie_session))
 		{
 			return $value;
 		}
@@ -75,7 +75,7 @@ class Cookie
 	 */
 	static function delete($key)
 	{
-		$base_config = \app\CFS::config('ibidem/base');
+		$base_config = \app\CFS::config('mjolnir/base');
 		\setcookie($key, '0', 1, $base_config['path'], $base_config['domain'], false);
 		\setcookie($key, '0', 1, $base_config['path'], $base_config['domain'], true);
 	}
@@ -87,11 +87,11 @@ class Cookie
 	 */
 	protected static function cookie_session()
 	{
-		$cookie_key = \app\CFS::config('ibidem/cookies')['key'];
+		$cookie_key = \app\CFS::config('mjolnir/cookies')['key'];
 		
 		if ($cookie_key === null)
 		{
-			if ( ! \app\CFS::config('ibidem/base')['development'])
+			if ( ! \app\CFS::config('mjolnir/base')['development'])
 			{
 				throw new \app\Exception_NotApplicable
 					('Internal security process has failed. Cause: corrupt configuration.');
