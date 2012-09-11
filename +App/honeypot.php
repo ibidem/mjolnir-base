@@ -35,11 +35,11 @@ class Query extends \mjolnir\base\Query {}
 class Register extends \mjolnir\base\Register {}
 class Relay extends \mjolnir\base\Relay {}
 class Route_Path extends \mjolnir\base\Route_Path { /** @return \mjolnir\base\Route_Path */ static function instance($uri = null) { return parent::instance($uri); } }
-class Route_Pattern extends \mjolnir\base\Route_Pattern { /** @return \mjolnir\base\Route_Pattern */ static function instance($uri = null) { return parent::instance($uri); } }
+class Route_Pattern extends \mjolnir\base\Route_Pattern { /** @return \mjolnir\base\Route_Pattern */ static function instance($the_uri = null) { return parent::instance($the_uri); } }
 class Route_Regex extends \mjolnir\base\Route_Regex { /** @return \mjolnir\base\Route_Regex */ static function instance($uri = null) { return parent::instance($uri); } }
 class Route extends \mjolnir\base\Route {}
 class Sandbox extends \mjolnir\base\Sandbox { /** @return \mjolnir\base\Sandbox */ static function instance() { return parent::instance(); } }
-class Schematic_Ibidem_Base_Registry extends \mjolnir\base\Schematic_Ibidem_Base_Registry { /** @return \mjolnir\base\Schematic_Ibidem_Base_Registry */ static function instance() { return parent::instance(); } }
+class Schematic_Mjolnir_Base_Registry extends \mjolnir\base\Schematic_Mjolnir_Base_Registry { /** @return \mjolnir\base\Schematic_Mjolnir_Base_Registry */ static function instance() { return parent::instance(); } }
 class Server extends \mjolnir\base\Server {}
 class Session_Native extends \mjolnir\base\Session_Native { /** @return \mjolnir\base\Session_Native */ static function instance() { return parent::instance(); } }
 class Session extends \mjolnir\base\Session {}
