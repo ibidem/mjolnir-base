@@ -74,7 +74,7 @@ class Route_Pattern extends \app\Instantiatable
 
 		if ($the_uri)
  		{
-			$instance->uri = $the_uri;
+			$instance->uri = \trim($the_uri, '/');
 		}
 		else # no uri
 		{
@@ -418,7 +418,7 @@ class Route_Pattern extends \app\Instantiatable
 	 */
 	function get_context()
 	{
-		return $this->params->to_array();
+		return $this->get_params()->to_array();
 	}
 
 } # class

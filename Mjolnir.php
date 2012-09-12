@@ -142,7 +142,7 @@ class Mjolnir
 	 * Runs standard theme procedures.
 	 */
 	static function themes($system_config)
-	{
+	{		
 		$stack = function ($relay, $target)
 			{
 				\app\Layer::stack

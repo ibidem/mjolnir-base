@@ -12,7 +12,7 @@ trait Trait_Params
 	/**
 	 * @var array
 	 */
-	protected $params = array();
+	protected $params = [];
 	
 	/**
 	 * @return mixed parameter or default 
