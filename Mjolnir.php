@@ -154,6 +154,7 @@ class Mjolnir
 			};
 
 		\app\Relay::process('\mjolnir\theme\Layer_Theme::style', $stack);
+		\app\Relay::process('\mjolnir\theme\Layer_Theme::style-src', $stack);
 		\app\Relay::process('\mjolnir\theme\Layer_Theme::jsbootstrap', $stack);
 		\app\Relay::process('\mjolnir\theme\Layer_Theme::script-map', $stack);
 		\app\Relay::process('\mjolnir\theme\Layer_Theme::script-src', $stack);
