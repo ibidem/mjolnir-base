@@ -99,7 +99,7 @@ class Controller_Web extends \app\Controller
 	function action($action)
 	{
 		$relay = $this->layer->get_relay();
-		return $relay['route']->url(array('action' => $action));
+		return $relay['matcher']->url(array('action' => $action));
 	}
 	
 	/**
