@@ -1,9 +1,9 @@
 <?php namespace mjolnir\base;
 
 /**
- * Make is a library that handles mockup. The Mockup class is reserved by the 
+ * Make is a library that handles mockup. The Mockup class is reserved by the
  * actual Mockup module for the project.
- * 
+ *
  * @package    mjolnir
  * @category   Base
  * @author     Ibidem Team
@@ -16,20 +16,20 @@ class Make extends \app\Instantiatable
 	 * @var string
 	 */
 	protected $type;
-	
+
 	/**
 	 * @var array
 	 */
 	protected $args;
-	
+
 	/**
-	 * @var array 
+	 * @var array
 	 */
 	protected static $counters = array();
-	
+
 	/**
-	 * @param string type 
-	 * @return \mjolnir\base\Make
+	 * @param string type
+	 * @return \app\Make
 	 */
 	static function instance($type = 'paragraph', array $args = null)
 	{
@@ -38,25 +38,25 @@ class Make extends \app\Instantiatable
 		$instance->args = $args;
 		return $instance;
 	}
-	
+
 	/**
 	 * Time from begining to, 5 years in the future.
-	 * 
+	 *
 	 * @return integer
 	 */
 	static function time()
 	{
 		return \rand(0, \time() + \mjolnir\types\Date::year * 5);
 	}
-	
+
 	/**
-	 * @return \mjolnir\base\Make
+	 * @return \app\Make
 	 */
 	static function name()
 	{
 		return static::instance('name');
 	}
-	
+
 	/**
 	 * @param type $width
 	 * @param type $height
@@ -66,7 +66,7 @@ class Make extends \app\Instantiatable
 	{
 		return 'http://placehold.it/'.$width.'x'.$height;
 	}
-	
+
 	/**
 	 * @param int width
 	 * @param int height
@@ -81,7 +81,7 @@ class Make extends \app\Instantiatable
 			'grayscale' => $grayscale,
 		]);
 	}
-	
+
 	/**
 	 * @param int width
 	 * @param int height
@@ -96,15 +96,15 @@ class Make extends \app\Instantiatable
 			'grayscale' => $grayscale,
 		]);
 	}
-	
+
 	/**
 	 * Similar to Make::img, only produces real life images.
-	 * 
-	 * Categories: abstract, animals, city, food, nightlife, fashion, people, 
+	 *
+	 * Categories: abstract, animals, city, food, nightlife, fashion, people,
 	 * nature, sports, technics, transport
-	 * 
+	 *
 	 * Set category to random to get random categories.
-	 * 
+	 *
 	 * @param type $width
 	 * @param type $height
 	 * @param type $category
@@ -117,13 +117,13 @@ class Make extends \app\Instantiatable
 			$config = \app\CFS::config('mjolnir/mockup');
 			$category = $config['lorempixel:defaults']['category'];
 		}
-		
+
 		if ($grayscale == null)
 		{
 			$config = \app\CFS::config('mjolnir/mockup');
 			$grayscale = $config['lorempixel:defaults']['grayscale'];
 		}
-		
+
 		return static::instance('lorempixel', [
 			'width' => $width,
 			'height' => $height,
@@ -131,134 +131,145 @@ class Make extends \app\Instantiatable
 			'grayscale' => $grayscale,
 		]);
 	}
-	
+
 	/**
-	 * @return \mjolnir\base\Make
+	 * @return \app\Make
 	 */
 	static function given_name()
 	{
 		return static::instance('given_name');
 	}
-	
+
 	/**
-	 * @return \mjolnir\base\Make
+	 * @return \app\Make
 	 */
 	static function family_name()
 	{
 		return static::instance('family_name');
-	}	
-	
+	}
+
 	/**
-	 * @return \mjolnir\base\Make
+	 * @return \app\Make
 	 */
 	static function telephone()
 	{
 		return static::instance('telephone');
 	}
-	
+
 	/**
-	 * @return \mjolnir\base\Make
+	 * @return \app\Make
 	 */
 	static function email()
 	{
 		return static::instance('email');
 	}
-	
+
 	/**
-	 * @return \mjolnir\base\Make
+	 * @return \app\Make
 	 */
 	static function ssn()
 	{
 		return static::instance('ssn');
 	}
-	
+
 	/**
-	 * @return \mjolnir\base\Make
+	 * @return \app\Make
 	 */
 	static function address()
 	{
 		return static::instance('address');
 	}
-	
+
 	static function city()
 	{
 		return static::instance('city');
 	}
-	
+
 	/**
-	 * @return \mjolnir\base\Make
+	 * @return \app\Make
 	 */
 	static function paragraph()
 	{
 		return static::instance('paragraph');
 	}
-	
+
 	/**
-	 * @return \mjolnir\base\Make
+	 * @return \app\Make
+	 */
+	static function action()
+	{
+		return function ($action)
+			{
+				return \app\Controller_Mockup::instance()->action($action);
+			};
+	}
+
+	/**
+	 * @return \app\Make
 	 */
 	static function url($mockup = null)
 	{
 		return static::instance('url', ['mockup' => $mockup]);
 	}
-	
+
 	static function fullurl()
 	{
-		$url = (\rand(1, 4) === 1 ? '' : 'www.'); 
+		$url = (\rand(1, 4) === 1 ? '' : 'www.');
 		$url .= \app\Make::word();
 		if (\rand(1,2) === 1)
 		{
 			$url .= (\rand(1, 2) == 1 ? '-' : '').\app\Make::word();
-			
+
 			if (\rand(1,4) === 1)
 			{
 				$url .= (\rand(1, 2) == 1 ? '-' : '').\app\Make::word();
 			}
 		}
-			
+
 		return $url.'.'.\app\Make::rand(['com', 'co.uk', 'co', 'de', 'fr', 'jp', 'kr', 'ro', 'ru', 'eu', 'org']).'/';
 	}
-	
+
 	/**
-	 * @return \mjolnir\base\Make 
+	 * @return \app\Make
 	 */
 	static function counter($id)
 	{
 		return static::instance('counter', \func_get_args());
 	}
-	
+
 	/**
-	 * @return \mjolnir\base\Make
+	 * @return \app\Make
 	 */
 	static function title()
 	{
 		return static::instance('title');
 	}
-	
+
 	/**
-	 * @return \mjolnir\base\Make
+	 * @return \app\Make
 	 */
 	static function word()
 	{
 		return static::instance('word');
 	}
-	
+
 	/**
 	 * @param integer count
-	 * @return \mjolnir\base\Make
+	 * @return \app\Make
 	 */
 	static function words($count = 10)
 	{
 		return static::instance('words', \func_get_args());
 	}
-	
+
 	static function rand(array $values)
 	{
 		$instance = static::instance('rand');
 		$instance->args = $values;
-		
+
 		return $instance;
 	}
-	
+
 	/**
 	 * @param mixed source
 	 * @param integer copies
@@ -267,12 +278,12 @@ class Make extends \app\Instantiatable
 	static function copies($source, $count = null, array $counters = null)
 	{
 		$count !== null or $count = \rand(-10, 25);
-		
+
 		if ($count < 0)
 		{
 			$count = 0;
 		}
-		
+
 		$copies = array();
 		while ($count-- > 0)
 		{
@@ -291,15 +302,15 @@ class Make extends \app\Instantiatable
 					}
 				}
 			}
-			
+
 			$copies[] = $source;
 		}
-		
+
 		return $copies;
 	}
-	
+
 	/**
-	 * @return string 
+	 * @return string
 	 */
 	function render()
 	{
@@ -311,9 +322,9 @@ class Make extends \app\Instantiatable
 				$height = $this->args['height'];
 				$category = $this->args['category'];
 				$grayscale = $this->args['grayscale'];
-				
+
 				$url = 'http://lorempixel.com/';
-		
+
 				if ($grayscale)
 				{
 					$url .= 'g/';
@@ -327,45 +338,45 @@ class Make extends \app\Instantiatable
 				}
 
 				return $url;
-				
+
 			case 'placekitten':
 				$width = $this->args['width'];
 				$height = $this->args['height'];
 				$grayscale = $this->args['grayscale'];
-				
+
 				$url = 'http://placekitten.com/';
-		
+
 				if ($grayscale)
 				{
 					$url .= 'g/';
 				}
-				
+
 				$url .= $width.'/'.$height.'?image='.\rand(1, 16);
-				
+
 				return $url;
-				
+
 			case 'placezombie':
 				$width = $this->args['width'];
 				$height = $this->args['height'];
 				$grayscale = $this->args['grayscale'];
-				
+
 				$url = 'http://placezombies.com/';
-		
+
 				if ($grayscale)
 				{
 					$url .= 'g/';
 				}
-				
+
 				$url .= $width.'x'.$height.'?image='.\rand(1, 10);
-				
+
 				return $url;
-				
+
 			case 'given_name':
 				return self::random($mockup['given_names']);
-				
+
 			case 'family_name':
 				return self::random($mockup['family_names']);
-			
+
 			case 'name':
 				// names are two words
 				$family_name = self::random($mockup['family_names']);
@@ -405,7 +416,7 @@ class Make extends \app\Instantiatable
 				// gurantee counter is initialized
 				isset(static::$counters[$id]) or static::$counters[$id] = 1;
 				return ''.static::$counters[$id]++;
-				
+
 			case 'words':
 				$count = $this->args[0];
 				$words = '';
@@ -414,20 +425,20 @@ class Make extends \app\Instantiatable
 					$words .= self::random($mockup['words']).' ';
 				}
 				return \rtrim($words, ' ');
-				
+
 			case 'rand':
 				$idx = \rand(0, \count($this->args) - 1);
 				return $this->args[$idx];
 
 			case 'telephone':
 				return '('.\rand(111, 999).') '.\rand(111, 999).'-'.\rand(1111, 9999);
-				
+
 			case 'city':
 				return self::random($mockup['cities']);
-				
+
 			case 'email':
 				return \strtolower(self::random($mockup['given_names'])).'@'.self::random(array('gmail', 'yahoo', 'hotmail')).'.com';
-				
+
 			case 'ssn':
 				$month = \rand(1, 12);
 				$day = \rand(1, 30);
@@ -436,7 +447,7 @@ class Make extends \app\Instantiatable
 					. ($month < 10 ? '0'.$month : $month)
 					. ($day < 10 ? '0'.$day : $day)
 					. ($sector < 10 ? '0'.$sector : $sector);
-				
+
 			case 'address':
 				return 'Str. '.self::random($mockup['family_names'])
 					. ', Nr. '.\rand(11, 35)
@@ -466,7 +477,7 @@ class Make extends \app\Instantiatable
 				return $paragraph;
 		}
 	}
-	
+
 	/**
 	 * @return string
 	 */
@@ -482,7 +493,7 @@ class Make extends \app\Instantiatable
 			return '[ERROR: '.$e->getMessage().']';
 		}
 	}
-	
+
 	/**
 	 * @return mixed
 	 */
