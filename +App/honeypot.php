@@ -28,7 +28,6 @@ class Layer_Sandbox extends \mjolnir\base\Layer_Sandbox { /** @return \mjolnir\b
 class Layer_TaskRunner extends \mjolnir\base\Layer_TaskRunner { /** @return \mjolnir\base\Layer_TaskRunner */ static function instance() { return parent::instance(); } }
 class Layer extends \mjolnir\base\Layer { /** @return \mjolnir\base\Layer */ static function instance() { return parent::instance(); } }
 class Log extends \mjolnir\base\Log {}
-class Make extends \mjolnir\base\Make { /** @return \mjolnir\base\Make */ static function instance($type = 'paragraph', array $args = null) { return parent::instance($type, $args); } }
 class Mjolnir extends \mjolnir\base\Mjolnir {}
 class Params extends \mjolnir\base\Params { /** @return \mjolnir\base\Params */ static function instance() { return parent::instance(); } }
 class Query extends \mjolnir\base\Query {}
