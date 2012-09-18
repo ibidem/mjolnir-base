@@ -134,4 +134,52 @@ class Collection
 		return $items;
 	}
 	
+	/**
+	 * Combines multiple array into one single array; ignores key and maintains
+	 * order.
+	 * 
+	 * @return array
+	 */
+	static function ol()
+	{
+		$args = \func_get_args();
+		
+		$result = [];
+		foreach ($args as $array)
+		{
+			foreach ($array as $item)
+			{
+				$result[] = $item;
+			}
+		}
+		
+		return $result;
+	}
+	
+	/**
+	 * Given a set of arrays it will combine them into a single set, of unique 
+	 * values. The order of values will be maintined, the first occurance 
+	 * determining the position.
+	 * 
+	 * @return array
+	 */
+	static function index()
+	{
+		$args = \func_get_args();
+		
+		$result = [];
+		foreach ($args as $array)
+		{
+			foreach ($array as $item)
+			{
+				if ( ! \in_array($item, $result))
+				{
+					$result[] = $item;
+				}
+			}
+		}
+		
+		return $result;
+	}
+	
 } # class
