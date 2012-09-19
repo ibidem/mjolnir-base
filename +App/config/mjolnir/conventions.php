@@ -1,5 +1,7 @@
 <?php return array
 	(
+		'app.namespace' => null,
+	
 		'base_classes' => array
 			(
 				'#^Controller_.*$#' => '\app\Controller_Web',

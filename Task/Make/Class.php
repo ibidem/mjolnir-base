@@ -159,6 +159,17 @@ class Task_Make_Class extends \app\Task
 		$namespace = \substr($class, 0, $ns_div);
 		$class_name = \substr($class, $ns_div + 1);
 		
+		if ($namespace === 'app')
+		{
+			$namespace = \app\CFS::config('mjolnir/conventions')['app.namespace'];
+			
+			if ($namespace === null)
+			{
+				throw new \app\Exception_NotApplicable
+					('You need to define what is considered the default namespace in your convention file (key is [app.namespace]).');
+			}
+		}
+		
 		if ($category === null)
 		{
 			if ($library)
