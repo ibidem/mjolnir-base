@@ -153,11 +153,14 @@ class Mjolnir
 					);
 			};
 
+		\app\Relay::process('\mjolnir\theme\Layer_Theme::complete-style', $stack);
 		\app\Relay::process('\mjolnir\theme\Layer_Theme::style', $stack);
 		\app\Relay::process('\mjolnir\theme\Layer_Theme::style-src', $stack);
-		\app\Relay::process('\mjolnir\theme\Layer_Theme::jsbootstrap', $stack);
+		\app\Relay::process('\mjolnir\theme\Layer_Theme::js-bootstrap', $stack);
+		\app\Relay::process('\mjolnir\theme\Layer_Theme::complete-script-map', $stack);
 		\app\Relay::process('\mjolnir\theme\Layer_Theme::script-map', $stack);
 		\app\Relay::process('\mjolnir\theme\Layer_Theme::script-src', $stack);
+		\app\Relay::process('\mjolnir\theme\Layer_Theme::complete-script', $stack);
 		\app\Relay::process('\mjolnir\theme\Layer_Theme::script', $stack);
 		\app\Relay::process('\mjolnir\theme\Layer_Theme::resource', $stack);
 
