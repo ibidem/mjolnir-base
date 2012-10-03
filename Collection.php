@@ -182,4 +182,23 @@ class Collection
 		return $result;
 	}
 	
+	/**
+	 * Shorthand for CFS::merge, supports multiple arrays
+	 * 
+	 * @return array
+	 */
+	static function merge()
+	{
+		$args = \func_get_args();
+		
+		$base = \array_shift($args);
+		
+		foreach ($args as $overwrite)
+		{
+			$base = \app\CFS::merge($base, $overwrite);
+		}
+		
+		return $base;
+	}
+	
 } # class
