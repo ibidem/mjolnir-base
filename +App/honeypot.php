@@ -22,7 +22,7 @@ class GlobalEvent extends \mjolnir\base\GlobalEvent {}
 class Instantiatable extends \mjolnir\base\Instantiatable { /** @return \mjolnir\base\Instantiatable */ static function instance() { return parent::instance(); } }
 class Lang extends \mjolnir\base\Lang {}
 class Layer_HTTP extends \mjolnir\base\Layer_HTTP { /** @return \mjolnir\base\Layer_HTTP */ static function instance() { return parent::instance(); } }
-class Layer_JSent extends \mjolnir\base\Layer_JSent { /** @return \mjolnir\base\Layer_JSent */ static function instance() { return parent::instance(); } }
+class Layer_JSend extends \mjolnir\base\Layer_JSend { /** @return \mjolnir\base\Layer_JSend */ static function instance() { return parent::instance(); } }
 class Layer_MVC extends \mjolnir\base\Layer_MVC { /** @return \mjolnir\base\Layer_MVC */ static function instance() { return parent::instance(); } }
 class Layer_PlainText extends \mjolnir\base\Layer_PlainText { /** @return \mjolnir\base\Layer_PlainText */ static function instance() { return parent::instance(); } }
 class Layer_Sandbox extends \mjolnir\base\Layer_Sandbox { /** @return \mjolnir\base\Layer_Sandbox */ static function instance() { return parent::instance(); } }
