@@ -60,12 +60,10 @@ class Session
 	 */
 	static function destroy()
 	{
-		if (self::$session === null)
+		if (self::$session !== null)
 		{
-			self::$session = \app\Session_Native::instance();
+			self::$session->destroy();
 		}
-		
-		self::$session->destroy();
 	}
 
 } # class

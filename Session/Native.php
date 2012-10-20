@@ -81,6 +81,11 @@ class Session_Native extends \app\Instantiatable
 	 */
 	function destroy()
 	{
+		if ($this->destroyed)
+		{
+			return true;
+		}
+		
 		// destroy the current session
 		\session_destroy();
 		
