@@ -40,17 +40,10 @@ class Collection
 	 * @param callback func
 	 * @return string 
 	 */
-	static function implode($glue, array $list, $func) 
+	static function implode($glue, array $list, $f_key_values) 
 	{
-		$glued = '';
-		foreach ($list as $key => $value)
-		{
-			$glued .= $glue.$func($key, $value);
-		}
-		
-		$glued = \substr($glued, \strlen($glue));
-		
-		return $glued;
+		// See: cfs/+App/functions/utility
+		return \mjolnir\implode($glue, $list, $f_key_values);
 	}
 	
 	/**
