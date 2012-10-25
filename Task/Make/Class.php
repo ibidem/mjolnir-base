@@ -13,49 +13,49 @@ class Task_Make_Class extends \app\Task
 	 * @var string
 	 */
 	protected static $filetype = 'class';
-	
+
 	/**
 	 * @param string class name
 	 * @param string namespace
 	 * @param string category
 	 * @param array configuration
-	 * @return string 
+	 * @return string
 	 */
 	protected function class_file($class_name, $namespace, $category, $library, array $config)
 	{
 		$file = "<?php namespace $namespace;".PHP_EOL.PHP_EOL;
-		
+
 		if (isset($config['disclaimer']) && $config['disclaimer'])
 		{
 			$file .= '/* '.\wordwrap($config['disclaimer'], 77, PHP_EOL.' * ')
 				. PHP_EOL.' */'.PHP_EOL.PHP_EOL;
 		}
-		
+
 		// base namespace is package
 		$package = \preg_replace('#\\\\.*$#', '', $namespace);
-		
+
 		$file .= '/**'.PHP_EOL
 			. ' * @package    '.$package.PHP_EOL
 			. ' * @category   '.$category.PHP_EOL
 			. ' * @author     '.$config['author'].PHP_EOL
 			. ' * @copyright  (c) '.\date('Y').', '.$config['author'].' Team'.PHP_EOL
 			;
-		
+
 		if (isset($config['license']) && $config['license'])
 		{
 			$file .= ' * @license    '.$config['license'].PHP_EOL;
 		}
-		
+
 		$file .= ' */'.PHP_EOL;
-		
+
 		$conventions_config = \app\CFS::config('mjolnir/conventions');
-		
+
 		if (\preg_match('#^Trait_.*$#', $class_name))
 		{
 			static::$filetype = 'trait';
 			$library = true;
 		}
-		
+
 		if ($library)
 		{
 			$file .= static::$filetype." $class_name".PHP_EOL;
@@ -70,12 +70,12 @@ class Task_Make_Class extends \app\Task
 					$extention = $class_extention;
 				}
 			}
-			
+
 			$file .= "class $class_name extends $extention".PHP_EOL;
 		}
-		
+
 		$file .= '{'.PHP_EOL;
-		
+
 		foreach ($conventions_config['autofills'] as $regex => $fill)
 		{
 			if (\preg_match($regex, $class_name))
@@ -83,17 +83,17 @@ class Task_Make_Class extends \app\Task
 				$file .= $fill.PHP_EOL;
 			}
 		}
-		
+
 		$file .=
 			// the extra . is to avoid IDE's picking this code up unintentionally
 			  "\t// @"."todo write implementation for \\{$namespace}\\{$class_name}".PHP_EOL
 			. PHP_EOL
 			. '} # '.static::$filetype.PHP_EOL
 			;
-		
+
 		return $file;
 	}
-	
+
 	/**
 	 * @param string class name
 	 * @param string namespace
@@ -103,8 +103,8 @@ class Task_Make_Class extends \app\Task
 	{
 		// base namespace is package
 		$package = \preg_replace('#\\\\.*$#', '', $namespace);
-		
-		$file 
+
+		$file
 			= "<?php namespace $namespace;".PHP_EOL
 			. PHP_EOL
 			. '/**'.PHP_EOL
@@ -113,16 +113,16 @@ class Task_Make_Class extends \app\Task
 			. ' * @author     '.$config['author'].PHP_EOL
 			. ' * @copyright  (c) '.\date('Y').', '.$config['author'].PHP_EOL
 			;
-		
+
 		if (isset($config['license']) && $config['license'])
 		{
 			$file .= ' * @license    '.$config['license'].PHP_EOL;
 		}
-		
+
 		$file .= " * @see \\{$namespace}\\{$class_name}".PHP_EOL;
 		$file .= ' */'.PHP_EOL;
-		
-		$file .= 
+
+		$file .=
 			  "class {$class_name}Test extends \\PHPUnit_Framework_TestCase".PHP_EOL
 			. '{'.PHP_EOL
 			// the extra . is to avoid IDE's picking them up
@@ -130,10 +130,10 @@ class Task_Make_Class extends \app\Task
 			. PHP_EOL
 			. '} # class'.PHP_EOL
 			;
-		
+
 		return $file;
 	}
-	
+
 	/**
 	 * Execute task.
 	 */
@@ -144,7 +144,7 @@ class Task_Make_Class extends \app\Task
 		$with_tests = $this->config['with-tests'];
 		$library = $this->config['library'];
 		$forced = $this->config['forced'];
-		
+
 		// normalize class
 		$class = \ltrim($class, '\\');
 		$ns_div = \strrpos($class, '\\');
@@ -155,21 +155,21 @@ class Task_Make_Class extends \app\Task
 				->error('You must provide fully qualified '.static::$filetype.' name.')->eol();
 			return;
 		}
-		
+
 		$namespace = \substr($class, 0, $ns_div);
 		$class_name = \substr($class, $ns_div + 1);
-		
+
 		if ($namespace === 'app')
 		{
 			$namespace = \app\CFS::config('mjolnir/conventions')['app.namespace'];
-			
+
 			if ($namespace === null)
 			{
 				throw new \app\Exception_NotApplicable
 					('You need to define what is considered the default namespace in your convention file (key is [app.namespace]).');
 			}
 		}
-		
+
 		if ($category === null)
 		{
 			if ($library)
@@ -192,15 +192,15 @@ class Task_Make_Class extends \app\Task
 					}
 					else # did not find '\\'
 					{
-						// use entire namespace; these are special cases--you 
+						// use entire namespace; these are special cases--you
 						// typically (should) have two segments
 						$category = \ucfirst($namespace);
 					}
 				}
 			}
 		}
-		
-		$modules = \app\CFS::get_modules();
+
+		$modules = \app\CFS::system_modules();
 		$namespaces = \array_flip($modules);
 
 		// module path exists?
@@ -210,16 +210,16 @@ class Task_Make_Class extends \app\Task
 				->error('Module ['.$namespace.'] doesn\'t exist; you can use make:module to create it')->eol();
 			return;
 		}
-		
+
 		$module_path = $namespaces[$namespace];
-		
+
 		// load project configuration
 		$project_file = $module_path.DIRECTORY_SEPARATOR
 			. \mjolnir\cfs\CFSCompatible::APPDIR.DIRECTORY_SEPARATOR
 			. \mjolnir\cfs\CFSCompatible::CNFDIR.DIRECTORY_SEPARATOR
 			. 'mjolnir'.DIRECTORY_SEPARATOR.'project'.EXT
 			;
-		
+
 		// module specific project file?
 		if (\file_exists($project_file))
 		{
@@ -229,7 +229,7 @@ class Task_Make_Class extends \app\Task
 		{
 			$config = \app\CFS::config('mjolnir/project');
 		}
-		
+
 		// does project file exist?
 		if (empty($config) || ! isset($config['author']))
 		{
@@ -237,15 +237,15 @@ class Task_Make_Class extends \app\Task
 				->error('The [ibidem/project] configuration is empty or missing'
 					. ' required paramters.')
 				->eol();
-			
+
 			$this->writer
 				->status('Help', 'This module requires author. Optionally, you '
 					. 'can include also disclaimer and license.')
 				->eol();
-			
+
 			return;
 		}
-		
+
 		$class_div = \strrpos($class_name, '_');
 		$class_path = '';
 		$class_file = '';
@@ -266,7 +266,7 @@ class Task_Make_Class extends \app\Task
 						\substr($class_name, 0, $class_div)
 					)
 				. DIRECTORY_SEPARATOR;
-			
+
 			$class_file = \substr($class_name, $class_div + 1).EXT;
 			$test_class_file = \substr($class_name, $class_div + 1).'Test'.EXT;
 		}
@@ -276,24 +276,24 @@ class Task_Make_Class extends \app\Task
 			$this->writer
 				->error(\ucfirst(static::$filetype).' exists. Use --forced if you want to overwrite.')
 				->eol();
-			
+
 			return;
 		}
-		
+
 		// create path
 		$full_path = $module_path.$class_path;
 		\file_exists($full_path) or \mkdir($full_path, 0777, true);
-		
+
 		// create class
 		\file_put_contents
 			(
-				$full_path.$class_file, 
+				$full_path.$class_file,
 				static::class_file($class_name, $namespace, $category, $library, $config)
 			);
-		
+
 		// notify
 		$this->writer->status('Info', 'Class created.')->eol();
-		
+
 		// create tests?
 		if ($with_tests)
 		{
@@ -313,7 +313,7 @@ class Task_Make_Class extends \app\Task
 			// notify
 			$this->writer->status('Info', 'Test class created.')->eol();
 		}
-		
+
 		// update honeypot
 		$this->writer->status('Info', 'Updating honeypot...')->eol();
 		Task_Honeypot::instance()
@@ -321,5 +321,5 @@ class Task_Make_Class extends \app\Task
 			->writer($this->writer)
 			->execute();
 	}
-	
+
 } # class

@@ -1,29 +1,29 @@
 <?php namespace mjolnir\base;
 
-/** 
+/**
  * @package    mjolnir
  * @category   Base
  * @author     Ibidem Team
  * @copyright  (c) 2012 Ibidem Team
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
-class Layer_HTTP extends \app\Layer 
-	implements 
-		\mjolnir\types\Params, 
+class Layer_HTTP extends \app\Layer
+	implements
+		\mjolnir\types\Params,
 		\mjolnir\types\HTTP
 {
 	use \app\Trait_Params;
-	
+
 	/**
 	 * @var string
 	 */
 	protected static $layer_name = \mjolnir\types\HTTP::LAYER_NAME;
-	
+
 	/**
 	 * @var string
 	 */
 	protected $status;
-	
+
 	/**
 	 * @return \mjolnir\base\Layer_HTTP
 	 */
@@ -33,53 +33,53 @@ class Layer_HTTP extends \app\Layer
 		$http = \app\CFS::config('mjolnir/http');
 		$instance->params = $http['meta'];
 		$instance->status = $http['status'];
-		
+
 		\app\GlobalEvent::listener('http:status', function ($status) use ($instance) {
 			$instance->status($status);
 		});
-		
+
 		\app\GlobalEvent::listener('http:attributes', function ($params) use ($instance) {
 			foreach ($params as $key => $value)
 			{
 				$instance->set($key, $value);
 			}
 		});
-		
+
 		\app\GlobalEvent::listener('http:content-type', function ($expires) use ($instance) {
 			$instance->content_type($expires);
 		});
-		
+
 		\app\GlobalEvent::listener('http:expires', function ($expiration_time) use ($instance) {
 			$expires = $expiration_time - \time();
 			$instance->set('Pragma', 'public');
 			$instance->set('Cache-Control', 'maxage='.$expires);
 			$instance->set
 				(
-					'Expires', 
+					'Expires',
 					\gmdate('D, d M Y H:i:s', \time() + $expires).' GMT'
 				);
 		});
-		
+
 		\app\GlobalEvent::listener('http:send-headers', function ($params) use ($instance) {
 			$instance->headerinfo();
 		});
-		
+
 		return $instance;
-	}	
-	
+	}
+
 	/**
 	 * @return string location identifier (null if not found)
 	 */
 	static function detect_uri()
 	{
 		static $detected_uri = null;
-		
+
 		// did we do this already?
 		if (isset($detected_uri))
 		{
 			return $detected_uri;
 		}
-		
+
 		if ( ! empty($_SERVER['PATH_INFO']))
 		{
 			// PATH_INFO does not contain the docroot or index
@@ -124,7 +124,7 @@ class Layer_HTTP extends \app\Layer
 			}
 
 			$config = \app\CFS::config('mjolnir/base');
-			
+
 			// get the path from the base URL
 			$url_base = \parse_url($config['domain'].$config['path'], PHP_URL_PATH);
 
@@ -134,10 +134,10 @@ class Layer_HTTP extends \app\Layer
 				$uri = (string) \substr($uri, \strlen($url_base));
 			}
 		}
-		
+
 		// remove path
 		$base_config = \app\CFS::config('mjolnir/base');
-		if (\substr($uri, 0, \strlen($base_config['path']) ) == $base_config['path']) 
+		if (\substr($uri, 0, \strlen($base_config['path']) ) == $base_config['path'])
 		{
 			if (\strlen($base_config['path']) == \strlen($uri))
 			{
@@ -147,12 +147,12 @@ class Layer_HTTP extends \app\Layer
 			{
 				$uri = \substr($uri, \strlen($base_config['path']), \strlen($uri));
 			}
-			
+
 		}
-		
+
 		return $detected_uri = $uri;
 	}
-	
+
 	/**
 	 * Executes non-content related tasks before main contents.
 	 */
@@ -164,8 +164,8 @@ class Layer_HTTP extends \app\Layer
 		{
 			\header("$key: $value");
 		}
-	}	
-	
+	}
+
 	/**
 	 * Execute the layer.
 	 */
@@ -193,16 +193,16 @@ class Layer_HTTP extends \app\Layer
 	 */
 	private function is_notfound_exception(\Exception $exception)
 	{
-		return \is_a($exception, '\\mjolnir\\types\\Exception') 
+		return \is_a($exception, '\\mjolnir\\types\\Exception')
 			&& $exception->get_type() === \mjolnir\types\Exception::NotFound;
 	}
-	
-	
+
+
 	/**
-	 * Fills body and approprite calls for current layer, and passes the 
-	 * exception up to be processed by the layer above, if the layer has a 
+	 * Fills body and approprite calls for current layer, and passes the
+	 * exception up to be processed by the layer above, if the layer has a
 	 * parent.
-	 * 
+	 *
 	 * @param \Exception
 	 * @param boolean layer is origin of exception?
 	 */
@@ -212,7 +212,7 @@ class Layer_HTTP extends \app\Layer
 		{
 			$this->contents($this->layer->get_contents());
 		}
-		
+
 		if (self::is_notfound_exception($exception))
 		{
 			$this->status(\mjolnir\types\HTTP::STATUS_NotFound);
@@ -221,13 +221,13 @@ class Layer_HTTP extends \app\Layer
 		{
 			$this->status(\mjolnir\types\HTTP::STATUS_InternalServerError);
 		}
-		
+
 		// default execution from Layer
 		parent::exception($exception, $no_trow);
-	}	
-	
+	}
+
 	/**
-	 * @param string status 
+	 * @param string status
 	 * @return \mjolnir\base\Layer_HTTP $this
 	 */
 	function status($status)
@@ -235,11 +235,11 @@ class Layer_HTTP extends \app\Layer
 		$this->status = $status;
 		return $this;
 	}
-	
+
 	/**
 	 * Used to set content type. If you're trying to use XHTML for example, the
 	 * content type (or at least the correct one) is not text/html :)
-	 * 
+	 *
 	 * @param string content-type
 	 * @return \mjolnir\base\Layer_HTTP $this
 	 */
@@ -248,7 +248,7 @@ class Layer_HTTP extends \app\Layer
 		$this->params['content-type'] = $content_type;
 		return $this;
 	}
-	
+
 	/**
 	 * @return string
 	 */
@@ -256,5 +256,5 @@ class Layer_HTTP extends \app\Layer
 	{
 		return $this->params['content-type'];
 	}
-	
+
 } # class

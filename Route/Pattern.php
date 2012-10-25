@@ -68,18 +68,9 @@ class Route_Pattern extends \app\Instantiatable
 	 * @param string $regex
 	 * @return \mjolnir\base\Route_Pattern
 	 */
-	static function instance($the_uri = null)
+	static function instance()
 	{
 		$instance = parent::instance();
-
-		if ($the_uri)
- 		{
-			$instance->uri = \trim($the_uri, '/');
-		}
-		else # no uri
-		{
-			$instance->uri = \trim(\app\Layer_HTTP::detect_uri(), '/');
-		}
 
 		// setup params
 		$instance->params = \app\Params::instance();
@@ -129,8 +120,8 @@ class Route_Pattern extends \app\Instantiatable
 			// make optional parts of the URI non-capturing and optional
 			$expression = \str_replace
 				(
-					array('(', ')'),
-					array('(?:', ')?'),
+					['(', ')'],
+					['(?:', ')?'],
 					$expression
 				);
 		}
@@ -138,14 +129,14 @@ class Route_Pattern extends \app\Instantiatable
 		// insert default regex for keys
 		$expression = \str_replace
 			(
-				array('<', '>'),
+				['<', '>'],
 				// named subpattern PHP4.3 compatible: (?P<key>regex)
 				// http://php.net/manual/en/function.preg-match.php#example-4371
-				array('(?P<', '>'.static::$REGEX_SEGMENT.')'),
+				['(?P<', '>'.static::$REGEX_SEGMENT.')'],
 				$expression
 			);
 
-		$search = $replace = array();
+		$search = $replace = [];
 		foreach ($regex as $key => $value)
 		{
 			$search[]  = "<$key>".static::$REGEX_SEGMENT;
@@ -189,6 +180,8 @@ class Route_Pattern extends \app\Instantiatable
 	 */
 	function check()
 	{
+		$this->uri = \trim(\app\Layer_HTTP::detect_uri(), '/');
+
 		if ($this->canonical_pattern !== null && \preg_match($this->canonical_pattern, $this->uri))
 		{
 			$this->matched_pattern =& $this->canonical_pattern;
@@ -255,7 +248,7 @@ class Route_Pattern extends \app\Instantiatable
 
 			if ( ! isset($params[$param]))
 			{
-				$params_err = array();
+				$params_err = [];
 				foreach ($params as $key => $value)
 				{
 					$params_err[] = "$key => $value";
@@ -335,7 +328,7 @@ class Route_Pattern extends \app\Instantiatable
 	{
 		if ($params == null)
 		{
-			$params = array();
+			$params = [];
 		}
 		if ($this->standard_pattern)
 		{

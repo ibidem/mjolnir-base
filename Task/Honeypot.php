@@ -15,21 +15,21 @@ class Task_Honeypot extends \app\Task
 	function execute()
 	{
 		$ns = $this->config['namespace'];
-		
+
 		if (empty($ns))
 		{
-			foreach (\app\CFS::get_modules() as $path => $namespace)
+			foreach (\app\CFS::system_modules() as $path => $namespace)
 			{
 				\app\Task::instance('honeypot')
 					->config(['namespace' => $namespace])
 					->writer($this->writer)
 					->execute();
 			}
-			
+
 			return;
 		}
-		
-		$modules = \array_flip(\app\CFS::get_modules());
+
+		$modules = \array_flip(\app\CFS::system_modules());
 		if (isset($modules[$ns]))
 		{
 			$path = $modules[$ns];
@@ -40,7 +40,7 @@ class Task_Honeypot extends \app\Task
 			$output .= PHP_EOL.PHP_EOL.'// HowTo: '.\app\Layer_TaskRunner::get_commandname().' honeypot -n \''.
 					$this->config['namespace'].'\''.
 					PHP_EOL.PHP_EOL;
-			
+
 			foreach ($files as $file)
 			{
 				if (\preg_match('#^Trait_#', $file))
@@ -76,10 +76,10 @@ class Task_Honeypot extends \app\Task
 									$param_str .= ' = '.\var_export($default, true);
 								}
 							}
-							
+
 							return $param_str;
 						});
-						
+
 						$naked_params = \app\Collection::implode(', ', $reflection->getParameters(), function ($key, $param) {
 							return '$'.$param->getName();
 						});
@@ -90,7 +90,7 @@ class Task_Honeypot extends \app\Task
 					{
 						$output .= 'class '.$file.' extends \\'.$ns.'\\'.$file.' {}'.PHP_EOL;
 					}
-						
+
 				}
 			}
 			$dir = $path.DIRECTORY_SEPARATOR.\app\CFS::APPDIR.DIRECTORY_SEPARATOR;
@@ -102,7 +102,7 @@ class Task_Honeypot extends \app\Task
 			$this->writer
 				->status
 					(
-						'Info', 
+						'Info',
 						'Succesfully created ['.\str_replace(DOCROOT, '', $dir.'honeypot'.EXT).']'
 					)
 				->eol();
@@ -113,11 +113,11 @@ class Task_Honeypot extends \app\Task
 				('No such namespace registered; please check your [environment.php] file.');
 		}
 	}
-	
+
 	protected static function files($path, $prefix = '')
 	{
 		static $exclude_pattern = array('..', '.', \app\CFS::APPDIR);
-		
+
 		$ext_pattern = '#'.\str_replace('.', '\.', EXT).'$#';
 		$files = \array_diff(\scandir($path), $exclude_pattern);
 		$clean_files = array();
@@ -127,7 +127,7 @@ class Task_Honeypot extends \app\Task
 			{
 				$clean_files = \array_merge
 					(
-						$clean_files, 
+						$clean_files,
 						static::files($path.DIRECTORY_SEPARATOR.$file, $prefix.$file.'_')
 					);
 			}
@@ -137,8 +137,8 @@ class Task_Honeypot extends \app\Task
 				$clean_files[] = $prefix.\preg_replace($ext_pattern, '', $file);
 			}
 		}
-		
+
 		return $clean_files;
 	}
-	
+
 } # class

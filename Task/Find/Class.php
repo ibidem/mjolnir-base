@@ -15,7 +15,7 @@ class Task_Find_Class extends \app\Task
 	function execute()
 	{
 		$classfile = \str_replace('_', DIRECTORY_SEPARATOR, $this->config['class']).EXT;
-		$modules = \array_keys(\app\CFS::get_modules());
+		$modules = \array_keys(\app\CFS::system_modules());
 		// search for class
 		$files = array();
 		foreach ($modules as $module)
@@ -25,7 +25,7 @@ class Task_Find_Class extends \app\Task
 				$files[] = \str_replace(DOCROOT, '', $module.DIRECTORY_SEPARATOR.$classfile);
 			}
 		}
-		
+
 		if ( ! empty($files))
 		{
 			\sort($files);
@@ -39,5 +39,5 @@ class Task_Find_Class extends \app\Task
 			$this->writer->error('No files found.')->eol();
 		}
 	}
-	
+
 } # class
