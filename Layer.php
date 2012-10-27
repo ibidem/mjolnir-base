@@ -1,32 +1,32 @@
 <?php namespace mjolnir\base;
 
-/** 
+/**
  * @package    mjolnir
  * @category   Base
  * @author     Ibidem Team
  * @copyright  (c) 2012 Ibidem Team
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
-abstract class Layer extends \app\Instantiatable 
+abstract class Layer extends \app\Instantiatable
 	implements \mjolnir\types\Layer
-{	
+{
 	/**
 	 * @var \mjolnir\types\Layer
 	 */
 	protected static $top;
-	
+
 	/**
 	 * @var string
 	 */
 	protected static $layer_name = \mjolnir\types\Layer::DEFAULT_LAYER_NAME;
-	
+
 	/**
 	 * @var \mjolnir\types\Layer
 	 */
 	protected $layer;
 
 	/**
-	 * @var \mjolnir\types\Layer 
+	 * @var \mjolnir\types\Layer
 	 */
 	protected $parent;
 
@@ -34,15 +34,15 @@ abstract class Layer extends \app\Instantiatable
 	 * @var string
 	 */
 	protected $contents;
-	
+
 	/**
-	 * @return string layer name of self 
+	 * @return string layer name of self
 	 */
 	function get_layer_name()
 	{
 		return static::$layer_name;
 	}
-	
+
 	/**
 	 * @param \mjolnir\types\Layer layer
 	 * @param \mjolnir\types\Layer parent
@@ -52,18 +52,18 @@ abstract class Layer extends \app\Instantiatable
 	{
 		if ($this->layer)
 		{
-			throw new \app\Exception_NotApplicable
+			throw new \app\Exception
 				(
 					'Document layer already defined; layer does not accept multiple documents.'
 				);
 		}
-		
+
 		$this->layer = $layer;
 		$this->layer->parent_layer($this);
 
 		return $this;
 	}
-	
+
 	/**
 	 * @param \mjolnir\types\Layer $parent
 	 * @return \mjolnir\base\Layer $this
@@ -73,7 +73,7 @@ abstract class Layer extends \app\Instantiatable
 		$this->parent = $parent;
 		return $this;
 	}
-	
+
 	/**
 	 * Executes non-content related tasks before main contents.
 	 */
@@ -84,13 +84,13 @@ abstract class Layer extends \app\Instantiatable
 			$this->layer->headerinfo();
 		}
 	}
-	
+
 	/**
 	 * Execute the layer.
 	 */
 	function execute()
 	{
-		try 
+		try
 		{
 			if ($this->layer !== null)
 			{
@@ -102,12 +102,12 @@ abstract class Layer extends \app\Instantiatable
 			$this->exception($e);
 		}
 	}
-	
+
 	/**
 	 * Layer contents; if any. Or null, for no contents.
-	 * 
+	 *
 	 * [!!] This method doesn't necesarly accept a string
-	 * 
+	 *
 	 * @param mixed contents
 	 * @return \mjolnir\base\Layer $this
 	 */
@@ -116,22 +116,22 @@ abstract class Layer extends \app\Instantiatable
 		$this->contents = $contents;
 		return $this;
 	}
-	
+
 	/**
 	 * [!!] This method doesn't necesarly return string
-	 * 
+	 *
 	 * @return mixed
 	 */
 	function get_contents()
 	{
 		return $this->contents;
 	}
-	
+
 	/**
-	 * Get the Layer with the specified name. The current layer will try to find 
+	 * Get the Layer with the specified name. The current layer will try to find
 	 * the layer in it's registered layers, and if it fails it will ask for it
 	 * from each component.
-	 * 
+	 *
 	 * @param string layer name
 	 * @return \mjolnir\base\Layer $this
 	 * @throws \mjolnir\types\Exception
@@ -143,26 +143,26 @@ abstract class Layer extends \app\Instantiatable
 		{
 			return $this;
 		}
-		
+
 		// a layer we know?
 		if ($this->layer !== null)
 		{
 			return $this->layer->get_layer($layer_name);
 		}
-		
+
 		return null;
 	}
-	
+
 	/**
 	 * Register the top layer of the system
-	 * 
+	 *
 	 * @param \mjolnir\types\Layer top layer
 	 */
 	static function top(\mjolnir\types\Layer $top_layer)
 	{
 		static::$top = $top_layer;
 	}
-	
+
 	/**
 	 * @return \mjolnir\types\Layer top layer
 	 */
@@ -170,12 +170,12 @@ abstract class Layer extends \app\Instantiatable
 	{
 		return static::$top;
 	}
-	
+
 	/**
-	 * Fills body and approprite calls for current layer, and passes the 
-	 * exception up to be processed by the layer above, if the layer has a 
+	 * Fills body and approprite calls for current layer, and passes the
+	 * exception up to be processed by the layer above, if the layer has a
 	 * parent.
-	 * 
+	 *
 	 * @param \Exception
 	 * @param boolean layer is origin of exception?
 	 */
@@ -200,7 +200,7 @@ abstract class Layer extends \app\Instantiatable
 				$this->contents('Unknown error has occured.');
 			}
 		}
-		
+
 		// pass to parent
 		if ($this->parent)
 		{
@@ -217,16 +217,16 @@ abstract class Layer extends \app\Instantiatable
 			{
 				echo $exception->getMessage()."\n"
 					. \str_replace(DOCROOT, '', $exception->getTraceAsString());
-				
+
 				exit(1);
 			}
 		}
 	}
-	
+
 	/**
 	 * Same as get on instance level. This method simply calls the top layer and
 	 * invokes get.
-	 * 
+	 *
 	 * @param string layer name
 	 * @return \mjolnir\types\Layer
 	 * @throws \mjolnir\types\Exception
@@ -235,13 +235,13 @@ abstract class Layer extends \app\Instantiatable
 	{
 		return static::$top->get_layer($layer_name);
 	}
-	
+
 	/**
-	 * Initializes execution, starting at the top. 
+	 * Initializes execution, starting at the top.
 	 */
 	static function run()
 	{
-		try 
+		try
 		{
 			static::$top->execute();
 			$contents = static::$top->get_contents();
@@ -265,7 +265,7 @@ abstract class Layer extends \app\Instantiatable
 			throw $exception;
 		}
 	}
-	
+
 	/**
 	 * Shortcut method for setting up a stack.
 	 * @param \mjolnir\types\Layer $args
@@ -282,7 +282,7 @@ abstract class Layer extends \app\Instantiatable
 		}
 		static::run();
 	}
-		
+
 	/**
 	 * @return array
 	 */
@@ -290,5 +290,5 @@ abstract class Layer extends \app\Instantiatable
 	{
 		return $this->relay;
 	}
-	
+
 } # class

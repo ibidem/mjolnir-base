@@ -165,7 +165,7 @@ class Task_Make_Class extends \app\Task
 
 			if ($namespace === null)
 			{
-				throw new \app\Exception_NotApplicable
+				throw new \app\Exception
 					('You need to define what is considered the default namespace in your convention file (key is [app.namespace]).');
 			}
 		}

@@ -256,7 +256,7 @@ class Route_Pattern extends \app\Instantiatable
 
 				$uri = \htmlspecialchars($uri);
 				$params_err = \implode(', ', $params_err);
-				throw new \app\Exception_NotApplicable
+				throw new \app\Exception
 					("Required route parameter [$param] not passed when trying to generate uri [$uri] with params [$params_err]");
 			}
 			else # paramter is set
@@ -354,7 +354,7 @@ class Route_Pattern extends \app\Instantiatable
 		}
 		else # missing protocol; can't use canonical
 		{
-			throw new \app\Exception_NotApplicable
+			throw new \app\Exception
 				('Missing protocol; can not generate URL.');
 		}
 

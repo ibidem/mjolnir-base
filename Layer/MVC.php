@@ -1,30 +1,30 @@
 <?php namespace mjolnir\base;
 
-/** 
+/**
  * @package    mjolnir
  * @category   Base
  * @author     Ibidem Team
  * @copyright  (c) 2012 Ibidem Team
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
-class Layer_MVC extends \app\Layer 
-	implements 
+class Layer_MVC extends \app\Layer
+	implements
 		\mjolnir\types\Params,
 		\mjolnir\types\RelayCompatible,
 		\mjolnir\types\Pattern_MVC
 {
 	use \app\Trait_Params;
-	
+
 	/**
 	 * @var string
 	 */
 	protected static $layer_name = \mjolnir\types\Pattern_MVC::LAYER_NAME;
-	
+
 	/**
 	 * @var array
 	 */
 	protected $relay;
-	
+
 	/**
 	 * @return \mjolnir\base\Layer_MVC
 	 */
@@ -33,21 +33,21 @@ class Layer_MVC extends \app\Layer
 		$instance = parent::instance();
 		$instance->params = \app\CFS::config('mjolnir/mvc');
 		return $instance;
-	}	
-		
+	}
+
 	/**
 	 * Execute the layer.
 	 */
 	function execute()
 	{
-		try 
+		try
 		{
 			$relay = $this->relay;
 			$params = $relay['matcher']->get_params();
 			// relay configuration
 			$this->controller( $controller = $relay['controller']::instance() );
 			$this->params($params);
-			
+
 			if ($params->get('action') === null && isset($relay['action']))
 			{
 				$this->set('action', $relay['action']);
@@ -64,7 +64,7 @@ class Layer_MVC extends \app\Layer
 					}
 					else # $action === null
 					{
-						throw new \app\Exception_NotApplicable
+						throw new \app\Exception
 							('Undefined default action for matched route.');
 					}
 				}
@@ -78,12 +78,12 @@ class Layer_MVC extends \app\Layer
 					}
 					else # $action === null
 					{
-						throw new \app\Exception_NotApplicable
+						throw new \app\Exception
 							('Undefined default action for matched route.');
 					}
 				}
 			}
-			
+
 			// execute controller
 			$controller->params($params);
 			$controller->layer($this);
@@ -98,12 +98,12 @@ class Layer_MVC extends \app\Layer
 			$this->exception($exception);
 		}
 	}
-	
+
 	/**
-	 * Fills body and approprite calls for current layer, and passes the 
-	 * exception up to be processed by the layer above, if the layer has a 
+	 * Fills body and approprite calls for current layer, and passes the
+	 * exception up to be processed by the layer above, if the layer has a
 	 * parent.
-	 * 
+	 *
 	 * @param \Exception
 	 * @param boolean layer is origin of exception?
 	 */
@@ -121,13 +121,13 @@ class Layer_MVC extends \app\Layer
 				$this->contents($error);
 			}
 		}
-		
+
 		// default execution from Layer
 		parent::exception($exception, $no_throw);
 	}
-	
+
 	/**
-	 * @param \mjolnir\types\Controller 
+	 * @param \mjolnir\types\Controller
 	 * @return \mjolnir\base\Layer_MVC $this
 	 */
 	function controller(\mjolnir\types\Controller $controller)
@@ -135,11 +135,11 @@ class Layer_MVC extends \app\Layer
 		$this->params['controller'] = $controller;
 		return $this;
 	}
-	
+
 	/**
 	 * Action paramters.
-	 * 
-	 * @param \mjolnir\types\Controller 
+	 *
+	 * @param \mjolnir\types\Controller
 	 * @return \mjolnir\base\Layer_MVC $this
 	 */
 	function params(\mjolnir\types\Params $params)
@@ -147,7 +147,7 @@ class Layer_MVC extends \app\Layer
 		$this->params['params'] = $params;
 		return $this;
 	}
-	
+
 	/**
 	 * @return \mjolnir\types\Controller
 	 */
@@ -155,7 +155,7 @@ class Layer_MVC extends \app\Layer
 	{
 		return $this->params['controller'];
 	}
-	
+
 	/**
 	 * @param \mjolnir\types\Layer layer
 	 * @param \mjolnir\types\Layer parent
@@ -165,12 +165,12 @@ class Layer_MVC extends \app\Layer
 	{
 		// Note: In this implementation we treat MVC as a self contained pattern
 		// for the sake of purity of the pattern so we don't support sub layers.
-		throw new \app\Exception_NotApplicable
+		throw new \app\Exception
 			(
 				__CLASS__.' does not support sublayer.'
 			);
 	}
-		
+
 	/**
 	 * @param array relay configuration
 	 * @return \mjolnir\base\Layer_MVC $this
@@ -178,10 +178,10 @@ class Layer_MVC extends \app\Layer
 	function relay_config(array $relay)
 	{
 		// [!!] don't do actual configuration here; do it in the execution loop;
-		// not only is it potentially unused configuration but when this is 
+		// not only is it potentially unused configuration but when this is
 		// called there is also no gurantee the Layer itself is configured
 		$this->relay = $relay;
 		return $this;
 	}
-	
+
 } # class

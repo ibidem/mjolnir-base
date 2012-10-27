@@ -16,13 +16,13 @@ class URL
 	{
 		// search routes
 		$pattern = \app\Route::matcher($key);
-		
+
 		if ($pattern === null)
 		{
 			// search relays
 			$pattern = \app\Relay::matcher($key);
 		}
-		
+
 		return $pattern;
 	}
 
@@ -34,12 +34,12 @@ class URL
 		$pattern = static::route($key);
 		if ($pattern === null)
 		{
-			throw new \app\Exception_NotApplicable('No pattern for '.$key);
+			throw new \app\Exception('No pattern for '.$key);
 		}
 		else # got pattern
 		{
 			return static::route($key)->url($params, $protocol).$query;
 		}
 	}
-	
+
 } # class

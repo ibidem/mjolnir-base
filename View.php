@@ -8,16 +8,16 @@
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 class View extends \app\Instantiatable
-	implements 
-		\mjolnir\types\View,	
-		\mjolnir\types\FileBased, 
+	implements
+		\mjolnir\types\View,
+		\mjolnir\types\FileBased,
 		\mjolnir\types\Renderable
 {
 	/**
 	 * @var array
 	 */
 	protected $view_params = array();
-	
+
 	/**
 	 * @see \mjolnir\types\Instantiatable
 	 * @return \mjolnir\base\View
@@ -31,7 +31,7 @@ class View extends \app\Instantiatable
 		}
 		return $instance;
 	}
-	
+
 	/**
 	 * @return string redered view
 	 */
@@ -40,7 +40,7 @@ class View extends \app\Instantiatable
 		// extract view paramters into current scope as references to paramter
 		// array in the view itself, skipping over already defined variables
 		\extract($this->view_params, EXTR_REFS);
-		
+
 		// start capture
 		\ob_start();
 		try
@@ -58,7 +58,7 @@ class View extends \app\Instantiatable
 		// success
 		return \ob_get_clean();
 	}
-	
+
 	/**
 	 * @param string valid PHP variable name
 	 * @param array array to bind
@@ -69,7 +69,7 @@ class View extends \app\Instantiatable
 		$this->view_params[$name] =& $array;
 		return $this;
 	}
-	
+
 	/**
 	 * @param string valid PHP variable name
 	 * @param mixed value to set
@@ -80,34 +80,34 @@ class View extends \app\Instantiatable
 		$this->view_params[$name] = $value;
 		return $this;
 	}
-	
+
 	/**
 	 * @deprecated use render always; so exceptions will work properly
 	 */
 	final function __toString()
 	{
-		// views may contain logic, by allowing __toString not only does 
+		// views may contain logic, by allowing __toString not only does
 		// Exception handling become unnecesarily complicated because of how
 		// this special method can't throw exceptions, it also ruins the entire
-		// stack by throwing the exception in a completely undefined manner, 
+		// stack by throwing the exception in a completely undefined manner,
 		// ie. whenever it decides to convert to a string. It's not worth it.
 		\app\Layer::get_top()->exception
 			(
-				new \app\Exception_NotApplicable
+				new \app\Exception
 					('Casting to string not allowed for Views.'),
 				true # no throw
 			);
 	}
-	
+
 # FileBased trait
-	
+
 	/**
 	 * @var string view file
 	 */
 	protected $file;
-		
+
 	/**
-	 * @param string file 
+	 * @param string file
 	 * @return \mjolnir\base\View $this
 	 */
 	function file($file)
@@ -124,10 +124,10 @@ class View extends \app\Instantiatable
 		{
 			$this->file = $file_path;
 		}
-		
+
 		return $this;
 	}
-	
+
 	/**
 	 * @param string explicit file path
 	 * @return \mjolnir\base\View $this
@@ -140,10 +140,10 @@ class View extends \app\Instantiatable
 			throw new \app\Exception_NotFound
 				("Required file [$file] not found.");
 		}
-		
+
 		return $this;
 	}
-	
+
 	/**
 	 * @return string file path
 	 */
@@ -151,7 +151,7 @@ class View extends \app\Instantiatable
 	{
 		return $this->file;
 	}
-	
+
 # /FileBased trait
-	
+
 } # class

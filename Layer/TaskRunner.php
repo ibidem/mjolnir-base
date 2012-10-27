@@ -1,19 +1,19 @@
 <?php namespace mjolnir\base;
 
-/** 
+/**
  * @package    mjolnir
  * @category   Base
  * @author     Ibidem Team
  * @copyright  (c) 2012 Ibidem Team
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
-class Layer_TaskRunner extends \app\Layer 
+class Layer_TaskRunner extends \app\Layer
 {
 	/**
 	 * @var string
 	 */
 	protected static $layer_name = \mjolnir\types\Layer::DEFAULT_LAYER_NAME;
-	
+
 	/**
 	 * @var array
 	 */
@@ -21,7 +21,7 @@ class Layer_TaskRunner extends \app\Layer
 		(
 			'help', '--help', '-h', '-?', '-help'
 		);
-	
+
 	/**
 	 * @var array
 	 */
@@ -30,7 +30,7 @@ class Layer_TaskRunner extends \app\Layer
 			'description' => array(),
 			'flags' => array(),
 		);
-	
+
 	/**
 	 * @var array
 	 */
@@ -41,27 +41,27 @@ class Layer_TaskRunner extends \app\Layer
 			'type' => 'toggle',
 			'short' => NULL,
 		);
-	
+
 	/**
 	 * @var string
 	 */
 	protected static $commandname = 'order';
-	
+
 	/**
 	 * @var \mjolnir\types\Writer
 	 */
 	protected $writer;
-	
+
 	/**
 	 * @var int
 	 */
 	protected $argc;
-	
+
 	/**
 	 * @var array
 	 */
 	protected $argv;
-	
+
 	/**
 	 * @param array args
 	 */
@@ -71,12 +71,12 @@ class Layer_TaskRunner extends \app\Layer
 		$this->argc = \count($args);
 		return $this;
 	}
-	
+
 	static function get_commandname()
 	{
 		return static::$commandname;
 	}
-	
+
 	/**
 	 * @param string command name
 	 */
@@ -84,7 +84,7 @@ class Layer_TaskRunner extends \app\Layer
 	{
 		static::$commandname = $commandname;
 	}
-	
+
 	/**
 	 * @param \mjolnir\types\Writer writer
 	 */
@@ -93,7 +93,7 @@ class Layer_TaskRunner extends \app\Layer
 		$this->writer = $writer;
 		return $this;
 	}
-	
+
 	/**
 	 * @param \mjolnir\types\Layer layer
 	 * @param \mjolnir\types\Layer parent
@@ -103,12 +103,12 @@ class Layer_TaskRunner extends \app\Layer
 	{
 		// Note: In this implementation we treat MVC as a self contained pattern
 		// for the sake of purity of the pattern so we don't support sub layers.
-		throw new \app\Exception_NotApplicable
+		throw new \app\Exception
 			(
 				__CLASS__.' does not support sublayer.'
 			);
 	}
-	
+
 	/**
 	 * Execute the layer.
 	 */
@@ -128,7 +128,7 @@ class Layer_TaskRunner extends \app\Layer
 			}
 			// ensure new line after command
 			$this->writer->eol();
-			
+
 			// got paramters?
 			if ($this->argc === 1)
 			{
@@ -141,7 +141,7 @@ class Layer_TaskRunner extends \app\Layer
 			// get command
 			$command = \strtolower($this->argv[1]);
 			// help command? (handle internally)
-			if (\in_array($command, static::$helpcommands)) 
+			if (\in_array($command, static::$helpcommands))
 			{
 				if (isset($this->argv[2])) # specific help topic
 				{
@@ -210,12 +210,12 @@ class Layer_TaskRunner extends \app\Layer
 			$missing_flags = array();
 			foreach ($config as $flag => $value)
 			{
-				if ($value === null) 
+				if ($value === null)
 				{
 					$missing_flags[] = $flag;
 				}
 			}
-			
+
 			// handle missing flags
 			if ( ! empty($missing_flags))
 			{
@@ -228,7 +228,7 @@ class Layer_TaskRunner extends \app\Layer
 				$this->writer->eol();
 				exit(1);
 			}
-			
+
 			// run the task
 			\app\Task::instance($command)
 				->writer($this->writer)
@@ -243,12 +243,12 @@ class Layer_TaskRunner extends \app\Layer
 			$this->exception($e, true);
 		}
 	}
-	
+
 	/**
-	 * Fills body and approprite calls for current layer, and passes the 
-	 * exception up to be processed by the layer above, if the layer has a 
+	 * Fills body and approprite calls for current layer, and passes the
+	 * exception up to be processed by the layer above, if the layer has a
 	 * parent.
-	 * 
+	 *
 	 * @param \Exception
 	 * @param boolean layer is origin of exception?
 	 */
@@ -258,15 +258,15 @@ class Layer_TaskRunner extends \app\Layer
 		{
 			$this->writer->error($exception->message())->eol();
 		}
-		
+
 		parent::exception($exception, $no_throw, $origin);
 	}
-	
+
 	/**
 	 * General help information.
 	 */
 	function helptext()
-	{	
+	{
 		$stdout = $this->writer;
 		$stdout->header('Mjolnir');
 		$stdout->write("    USAGE: ".static::$commandname." [command] [flags]")->eol();
@@ -298,7 +298,7 @@ class Layer_TaskRunner extends \app\Layer
 			->writef($command_format, 'help')
 			->write('Help information. (current command)')
 			->eol();
-		
+
 		// configuration commands
 		foreach ($cli as $command => $info)
 		{
@@ -311,16 +311,16 @@ class Layer_TaskRunner extends \app\Layer
 					)
 				->eol();
 		}
-		
+
 		// terminate after displaying help
 		$stdout->eol();
-	}	
-	
+	}
+
 	/**
 	 * @param string command
 	 */
 	protected function commandhelp($commandname)
-	{	
+	{
 		$stdout = $this->writer;
 		$stdout->header('Help for '.$commandname);
 		// configuration
@@ -339,7 +339,7 @@ class Layer_TaskRunner extends \app\Layer
 				$helptext .= ' --'.$flag;
 				if ($command['flags'][$flag]['type'] !== 'toggle')
 				{
-					// the & is a placeholder for space to symbolize we don't 
+					// the & is a placeholder for space to symbolize we don't
 					// want a break; see ->listwrite later
 					$helptext .= '&<'.\preg_replace('#^[^:]*::#', '', $command['flags'][$flag]['type']).'>';
 				}
@@ -354,11 +354,11 @@ class Layer_TaskRunner extends \app\Layer
 				$helptext .= ']';
 			}
 		}
-		
+
 		$stdout
 			->listwrite($helptext_head, $helptext, $helptext_head_length, '&')
 			->eol()->eol();
-		
+
 		// display description
 		foreach ($command['description'] as $description)
 		{
@@ -384,14 +384,14 @@ class Layer_TaskRunner extends \app\Layer
 				$stdout->write('    All flags are required.');
 			}
 		}
-		
+
 		// terminate after displaying help
 		$stdout->eol();
 	}
-	
+
 	/**
 	 * Gurantees the default structure is set for the command and it's flags.
-	 * 
+	 *
 	 * @param array command
 	 * @return array
 	 */
@@ -412,7 +412,7 @@ class Layer_TaskRunner extends \app\Layer
 				$normalizedflags[$flag]['default'] = false;
 			}
 		}
-		
+
 		// re-arranging; sort functions would achive the same result but may not
 		// maintain the configuration order -- which may help in understanding
 		// the command's flags
@@ -440,22 +440,22 @@ class Layer_TaskRunner extends \app\Layer
 			{
 				$sortedflags[$key] = $flag;
 			}
-		}		
+		}
 		$command['flags'] = $sortedflags;
-		
+
 		return $command;
 	}
-	
+
 	/**
 	 * @param array command
 	 * @param array flagkeys
 	 * @param string description key
-	 * @return int 
+	 * @return int
 	 */
 	protected function render_flags
 	(
-		$command, 
-		$flagkeys = null, 
+		$command,
+		$flagkeys = null,
 		$descriptionkey = 'description'
 	)
 	{
@@ -463,7 +463,7 @@ class Layer_TaskRunner extends \app\Layer
 		{
 			$flagkeys = \array_keys($command['flags']);
 		}
-		
+
 		// detect maximum flag length
 		$max_flag_length = 0;
 		foreach ($flagkeys as $flag)
@@ -501,17 +501,17 @@ class Layer_TaskRunner extends \app\Layer
 				$this->writer
 					->listwrite
 						(
-							\sprintf($format_dt, $short, '--'.$flag.' '.$type), 
+							\sprintf($format_dt, $short, '--'.$flag.' '.$type),
 							$description,
 							$max_flag_length + 10
 						)
 					->eol();
-				
+
 				++$displaycount;
 			}
 		}
-		
+
 		return $displaycount;
 	}
-	
+
 } # class

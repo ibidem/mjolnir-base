@@ -2,7 +2,7 @@
 
 /**
  * The register manages key to value pairs in the database.
- * 
+ *
  * @package    mjolnir
  * @category   Base
  * @author     Ibidem
@@ -12,13 +12,13 @@
 class Register
 {
 	protected static $table = 'registery';
-	
+
 	static function table()
 	{
 		$database_config = \app\CFS::config_file('mjolnir/database');
 		return $database_config['table_prefix'].static::$table;
 	}
-	
+
 	static function pull(array $keys)
 	{
 		$statement = \app\SQL::prepare
@@ -33,17 +33,17 @@ class Register
 				'mysql'
 			)
 			->bind(':key', $key);
-		
+
 		$resultset = [];
 		foreach ($keys as $target)
 		{
 			$key = $target;
 			$resultset[$target] = $statement->execute()->fetch_array()['value'];
 		}
-		
+
 		return $resultset;
 	}
-	
+
 	static function push($key, $value)
 	{
 		\app\SQL::prepare
@@ -60,7 +60,7 @@ class Register
 			->set(':value', $value)
 			->execute();
 	}
-	
+
 	static function inject($key, $value)
 	{
 		// check if it exists
@@ -79,9 +79,9 @@ class Register
 			->execute()
 			->fetch_array()
 			['COUNT(1)'];
-		
+
 		$count = (int) $count;
-		
+
 		if ($count === 0)
 		{
 			\app\SQL::prepare
@@ -101,7 +101,7 @@ class Register
 		}
 		else # count !== 0
 		{
-			throw new \app\Exception_NotApplicable
+			throw new \app\Exception
 				('Registry key with the same name already exists.');
 		}
 	}
