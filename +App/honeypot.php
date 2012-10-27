@@ -29,13 +29,12 @@ class Layer_Sandbox extends \mjolnir\base\Layer_Sandbox { /** @return \mjolnir\b
 class Layer_TaskRunner extends \mjolnir\base\Layer_TaskRunner { /** @return \mjolnir\base\Layer_TaskRunner */ static function instance() { return parent::instance(); } }
 class Layer extends \mjolnir\base\Layer { /** @return \mjolnir\base\Layer */ static function instance() { return parent::instance(); } }
 class Log extends \mjolnir\base\Log {}
-class Mjolnir extends \mjolnir\base\Mjolnir {}
 class Params extends \mjolnir\base\Params { /** @return \mjolnir\base\Params */ static function instance() { return parent::instance(); } }
 class Query extends \mjolnir\base\Query {}
 class Register extends \mjolnir\base\Register {}
 class Relay extends \mjolnir\base\Relay {}
 class Route_Path extends \mjolnir\base\Route_Path { /** @return \mjolnir\base\Route_Path */ static function instance($uri = null) { return parent::instance($uri); } }
-class Route_Pattern extends \mjolnir\base\Route_Pattern { /** @return \mjolnir\base\Route_Pattern */ static function instance($the_uri = null) { return parent::instance($the_uri); } }
+class Route_Pattern extends \mjolnir\base\Route_Pattern { /** @return \mjolnir\base\Route_Pattern */ static function instance() { return parent::instance(); } }
 class Route_Regex extends \mjolnir\base\Route_Regex { /** @return \mjolnir\base\Route_Regex */ static function instance($uri = null) { return parent::instance($uri); } }
 class Route extends \mjolnir\base\Route {}
 class Sandbox extends \mjolnir\base\Sandbox { /** @return \mjolnir\base\Sandbox */ static function instance() { return parent::instance(); } }
@@ -45,6 +44,7 @@ class Session_Native extends \mjolnir\base\Session_Native { /** @return \mjolnir
 class Session extends \mjolnir\base\Session {}
 class Task_Behat extends \mjolnir\base\Task_Behat { /** @return \mjolnir\base\Task_Behat */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
 class Task_Cleanup extends \mjolnir\base\Task_Cleanup { /** @return \mjolnir\base\Task_Cleanup */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
+class Task_Compile extends \mjolnir\base\Task_Compile { /** @return \mjolnir\base\Task_Compile */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
 class Task_Find_Class extends \mjolnir\base\Task_Find_Class { /** @return \mjolnir\base\Task_Find_Class */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
 class Task_Find_File extends \mjolnir\base\Task_Find_File { /** @return \mjolnir\base\Task_Find_File */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
 class Task_Honeypot extends \mjolnir\base\Task_Honeypot { /** @return \mjolnir\base\Task_Honeypot */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }

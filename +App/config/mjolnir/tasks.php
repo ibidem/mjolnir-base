@@ -1,10 +1,10 @@
 <?php return array
 	(
 		/* Things to know about task configs...
-		 * 
+		 *
 		 *  - if a flag is not mentioned for the command it won't be passed
 		 *  - configuration doubles as documentation
-		 *  - A null value for a flag's default means it's mandatory. 
+		 *  - A null value for a flag's default means it's mandatory.
 		 *  - A non-null value means it's optional
 		 *  - A false value means it's optional, but has no actual default value
 		 *  - "toggle" is a special type for boolean flags, no need to pass value
@@ -15,12 +15,12 @@
 		 *  - first entry in a command's description should be the oneline description
 		 *  - flag types can be methods in any class; preferably the Task_Class itself
 		 *  - you'll find general purpose tags in the Flags class
-		 * 
+		 *
 		 * If you need a command along the lines of:
-		 *  
+		 *
 		 *		minion some:command "something"
 		 *		(meaning no flags)
-		 * 
+		 *
 		 * Just don't give it flags, handle it in the command's execution and explain it
 		 * in the command's documentation (ie. description). Preferably use flags though
 		 * and/or have that only as a shorthand and not as the only way.
@@ -49,6 +49,13 @@
 				'description' => array
 					(
 						'Cleans system (cache, logs, etc).'
+					),
+			),
+		'compile' => array
+			(
+				'description' => array
+					(
+						'Runs all +compile.rb scripts.'
 					),
 			),
 		'make:class' => array
@@ -171,7 +178,7 @@
 			(
 				'description' => array
 					(
-						'Create master configuration file.', 
+						'Create master configuration file.',
 						'Use this command to generate new application level configuration files. The command will merge all configuration files thus computing a full overwrite.',
 					),
 				'flags' => array
