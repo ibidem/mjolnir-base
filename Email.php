@@ -26,7 +26,7 @@ class Email extends \app\Instantiatable
 		// got driver? if not revert to configuration default
 		$driver !== null or $driver = $email_config['default.driver'];
 
-		switch ($email_config['driver'])
+		switch ($driver)
 		{
 			case 'native':
 				$transport = \Swift_MailTransport::newInstance();
