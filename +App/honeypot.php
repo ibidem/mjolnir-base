@@ -12,11 +12,12 @@ class Controller_Web extends \mjolnir\base\Controller_Web { /** @return \mjolnir
 class Controller extends \mjolnir\base\Controller { /** @return \mjolnir\base\Controller */ static function instance() { return parent::instance(); } }
 class Cookie extends \mjolnir\base\Cookie {}
 class DateFormatter extends \mjolnir\base\DateFormatter { /** @return \mjolnir\base\DateFormatter */ static function instance() { return parent::instance(); } }
-class Email extends \mjolnir\base\Email { /** @return \mjolnir\base\Email */ static function instance() { return parent::instance(); } }
+class Email extends \mjolnir\base\Email { /** @return \mjolnir\base\Email */ static function instance($driver = null) { return parent::instance($driver); } }
 class Exception_NotAllowed extends \mjolnir\base\Exception_NotAllowed {}
 class Exception_NotApplicable extends \mjolnir\base\Exception_NotApplicable {}
 class Exception_NotFound extends \mjolnir\base\Exception_NotFound {}
 class Exception extends \mjolnir\base\Exception {}
+class File extends \mjolnir\base\File { /** @return \mjolnir\base\File */ static function instance() { return parent::instance(); } }
 class Flags extends \mjolnir\base\Flags {}
 class GlobalEvent extends \mjolnir\base\GlobalEvent {}
 class Instantiatable extends \mjolnir\base\Instantiatable { /** @return \mjolnir\base\Instantiatable */ static function instance() { return parent::instance(); } }
