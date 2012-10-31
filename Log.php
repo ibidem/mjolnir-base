@@ -10,10 +10,11 @@
 class Log
 {
 	/**
-	 * @param string level
-	 * @param string message
-	 * @param string replication path
-	 * @param boolean relative path? (referring to replication)
+	 * Logs a message.
+	 * 
+	 * If a replication path is provided, the message will be logged there too.
+	 * If relative path is set to false the replication path is treated as an
+	 * absolute path.
 	 */
 	static function message($level, $message, $replication_path = null, $relative_path = true)
 	{
