@@ -66,12 +66,7 @@ class Session_Native extends \app\Instantiatable
 		}
 		catch (\Exception $e)
 		{
-			\app\Log::message
-				(
-					'ERROR', 
-					$e->getMessage().' - '.$e->getLine().' '.$e->getFile()
-				);
-			
+			\mjolnir\log_exception($e);
 			return false;
 		}
 	}
