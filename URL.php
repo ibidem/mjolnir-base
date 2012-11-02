@@ -29,8 +29,8 @@ class URL
 	/**
 	 * @return string url
 	 */
-	static function href($key, array $params = null, $query = null, $protocol = 'http')
-	{
+	static function href($key, array $params = null, $query = null, $protocol = null)
+	{		
 		$pattern = static::route($key);
 		if ($pattern === null)
 		{
