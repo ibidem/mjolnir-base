@@ -46,7 +46,7 @@ class Lang
 			$target_lang = self::$current_lang;
 			if ($addins)
 			{
-				\mjolnir\log # intentional log instead of quicklog
+				\mjolnir\masterlog
 					(
 						'Failure',
 						"The term [$term] is missing a translation ($from_lang => {$target_lang}).",
@@ -61,7 +61,7 @@ class Lang
 			}
 			else # term not set
 			{
-				\mjolnir\log # intentional log instead of quicklog
+				\mjolnir\masterlog
 					(
 						'Failure',
 						"The term [$term] is missing a translation ($from_lang => {$target_lang}).",
