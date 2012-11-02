@@ -8,6 +8,7 @@
 class Arr extends \mjolnir\base\Arr {}
 class Assert extends \mjolnir\base\Assert { /** @return \mjolnir\base\Assert */ static function instance($expected = null) { return parent::instance($expected); } }
 class Collection extends \mjolnir\base\Collection {}
+class Controller_ClientErrors extends \mjolnir\base\Controller_ClientErrors { /** @return \mjolnir\base\Controller_ClientErrors */ static function instance() { return parent::instance(); } }
 class Controller_Web extends \mjolnir\base\Controller_Web { /** @return \mjolnir\base\Controller_Web */ static function instance() { return parent::instance(); } }
 class Controller extends \mjolnir\base\Controller { /** @return \mjolnir\base\Controller */ static function instance() { return parent::instance(); } }
 class Cookie extends \mjolnir\base\Cookie {}
@@ -29,7 +30,6 @@ class Layer_PlainText extends \mjolnir\base\Layer_PlainText { /** @return \mjoln
 class Layer_Sandbox extends \mjolnir\base\Layer_Sandbox { /** @return \mjolnir\base\Layer_Sandbox */ static function instance() { return parent::instance(); } }
 class Layer_TaskRunner extends \mjolnir\base\Layer_TaskRunner { /** @return \mjolnir\base\Layer_TaskRunner */ static function instance() { return parent::instance(); } }
 class Layer extends \mjolnir\base\Layer { /** @return \mjolnir\base\Layer */ static function instance() { return parent::instance(); } }
-class Log extends \mjolnir\base\Log {}
 class Params extends \mjolnir\base\Params { /** @return \mjolnir\base\Params */ static function instance() { return parent::instance(); } }
 class Query extends \mjolnir\base\Query {}
 class Register extends \mjolnir\base\Register {}
