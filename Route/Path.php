@@ -122,8 +122,13 @@ class Route_Path extends \app\Instantiatable
 	 * @param string protocol
 	 * @return string
 	 */
-	function url(array $params = array(), $protocol = null)
+	function url(array $params = null, $protocol = null)
 	{
+		if ($params === null)
+		{
+			$params = [];
+		}
+		
 		// relative protocol?
 		$url = ($protocol === null ? '//' : $protocol.'://'); 
 		// url_base is set?
