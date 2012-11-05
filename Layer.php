@@ -195,9 +195,11 @@ abstract class Layer extends \app\Instantiatable
 			{
 				$this->contents($exception->getMessage());
 			}
-			else # not in development mdoe
+			else # not in development mode
 			{
-				$this->contents('Unknown error has occured.');
+				// $this->contents('Unknown error has occured.');
+				\mjolnir\exception_handler($exception);
+				die;
 			}
 		}
 
