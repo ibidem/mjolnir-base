@@ -23,6 +23,7 @@ class Flags extends \mjolnir\base\Flags {}
 class GlobalEvent extends \mjolnir\base\GlobalEvent {}
 class Instantiatable extends \mjolnir\base\Instantiatable { /** @return \mjolnir\base\Instantiatable */ static function instance() { return parent::instance(); } }
 class Lang extends \mjolnir\base\Lang {}
+class Layer_ErrorHandler extends \mjolnir\base\Layer_ErrorHandler { /** @return \mjolnir\base\Layer_ErrorHandler */ static function instance() { return parent::instance(); } }
 class Layer_HTTP extends \mjolnir\base\Layer_HTTP { /** @return \mjolnir\base\Layer_HTTP */ static function instance() { return parent::instance(); } }
 class Layer_JSend extends \mjolnir\base\Layer_JSend { /** @return \mjolnir\base\Layer_JSend */ static function instance() { return parent::instance(); } }
 class Layer_MVC extends \mjolnir\base\Layer_MVC { /** @return \mjolnir\base\Layer_MVC */ static function instance() { return parent::instance(); } }
@@ -32,14 +33,12 @@ class Layer_TaskRunner extends \mjolnir\base\Layer_TaskRunner { /** @return \mjo
 class Layer extends \mjolnir\base\Layer { /** @return \mjolnir\base\Layer */ static function instance() { return parent::instance(); } }
 class Params extends \mjolnir\base\Params { /** @return \mjolnir\base\Params */ static function instance() { return parent::instance(); } }
 class Query extends \mjolnir\base\Query {}
-class Register extends \mjolnir\base\Register {}
 class Relay extends \mjolnir\base\Relay {}
 class Route_Path extends \mjolnir\base\Route_Path { /** @return \mjolnir\base\Route_Path */ static function instance($uri = null) { return parent::instance($uri); } }
 class Route_Pattern extends \mjolnir\base\Route_Pattern { /** @return \mjolnir\base\Route_Pattern */ static function instance() { return parent::instance(); } }
 class Route_Regex extends \mjolnir\base\Route_Regex { /** @return \mjolnir\base\Route_Regex */ static function instance($uri = null) { return parent::instance($uri); } }
 class Route extends \mjolnir\base\Route {}
 class Sandbox extends \mjolnir\base\Sandbox { /** @return \mjolnir\base\Sandbox */ static function instance() { return parent::instance(); } }
-class Schematic_Mjolnir_Base_Registry extends \mjolnir\base\Schematic_Mjolnir_Base_Registry { /** @return \mjolnir\base\Schematic_Mjolnir_Base_Registry */ static function instance() { return parent::instance(); } }
 class Server extends \mjolnir\base\Server {}
 class Session_Native extends \mjolnir\base\Session_Native { /** @return \mjolnir\base\Session_Native */ static function instance() { return parent::instance(); } }
 class Session extends \mjolnir\base\Session {}
