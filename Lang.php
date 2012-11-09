@@ -37,10 +37,9 @@ class Lang
 	{
 		// lang/en-us/messages => translate to en-us using messages
 		// lang/en-us/ro-ro => translate to en-us from ro-ro
-		// lang/ro-ro/messages
-		// lang/ro-ro/en-us
 
 		$config = \app\CFS::config('lang/'.self::$current_lang.'/'.$from_lang);
+		
 		if ( ! isset($config[$term]))
 		{
 			$target_lang = self::$current_lang;
