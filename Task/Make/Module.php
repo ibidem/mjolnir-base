@@ -28,7 +28,7 @@ class Task_Make_Module extends \app\Task
 	}
 
 	/**
-	 * @return string language file readme
+	 * @return string honeypot
 	 */
 	protected function honeypot_file($namespace)
 	{
