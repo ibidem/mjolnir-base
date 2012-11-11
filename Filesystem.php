@@ -1,0 +1,81 @@
+<?php namespace mjolnir\base;
+
+/**
+ * @package    mjolnir
+ * @category   Base
+ * @author     Ibidem
+ * @copyright  (c) 2012, Ibidem Team
+ * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
+ */
+class Filesystem
+{
+	/**
+	 * Writes contents to a file. If the path to the file doesn't exist it will
+	 * automatically created; the default directory permisions will be used for
+	 * directories. If you wish to determine directory permissions yourself you
+	 * can create the directory before attempting to create the file.
+	 *
+	 * If the file already exists the permissions won't be altered.
+	 *
+	 * Settings permissions is not guranteed and will not generate an error.
+	 *
+	 * If not specified permission will be set to default.file.permissions from
+	 * mjolnir/base.
+	 */
+	static function put_contents($file, $contents, $permissions = null)
+	{
+		if ( ! \file_exists($file))
+		{
+			// normalize path
+			$file = \str_replace('\\', '/', $file);
+
+			// find last directory seperator
+			$last_ds_pos = \strrpos($file, '/');
+
+			static::makedir(\substr($file, 0, $last_ds_pos - 1));
+
+			if ($permissions === null)
+			{
+				$permissions = \app\CFS::config('mjolnir/base')['default.file.permissions'];
+			}
+
+			\file_put_contents($file, $contents);
+
+			// we attempt to set the permission
+			@\chmod($file, $permissions);
+		}
+		else # file already exists
+		{
+			\file_put_contents($file, $contents);
+		}
+	}
+
+	/**
+	 * Creates a directory for the given path. This function is recursive and
+	 * will create parent directories if required. All directories will recieve
+	 * the same permission.
+	 *
+	 * If the directory exists nothing happens. If you wish to change the
+	 * permission of a directory please simply use PHP's \chmod function
+	 * directly.
+	 *
+	 * Note: directories require execution permission to be opened.
+	 */
+	static function makedir($path, $permissions = null)
+	{
+		// normalize path
+		$path = \rtrim(\str_replace('\\', '/', $path), '/');
+
+		// check if the directory doesn't already exist
+		if ( ! \file_exists($path))
+		{
+			if ($permissions === null)
+			{
+				$permissions = \app\CFS::config('mjolnir/base')['default.dir.permissions'];
+			}
+
+			\mkdir($path, $permissions, true);
+		}
+	}
+
+} # class
