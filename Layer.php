@@ -191,14 +191,8 @@ abstract class Layer extends \app\Instantiatable
 		}
 		else if ($this->layer === null)
 		{
-			if (\app\CFS::config('mjolnir/base')['development'])
-			{
-				$this->contents($exception->getMessage());
-			}
-			else # not in development mdoe
-			{
-				$this->contents('Unknown error has occured.');
-			}
+			\mjolnir\exception_handler($exception);	
+			exit;
 		}
 
 		// pass to parent
