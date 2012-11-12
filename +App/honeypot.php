@@ -18,7 +18,7 @@ class Exception_NotAllowed extends \mjolnir\base\Exception_NotAllowed {}
 class Exception_NotApplicable extends \mjolnir\base\Exception_NotApplicable {}
 class Exception_NotFound extends \mjolnir\base\Exception_NotFound {}
 class Exception extends \mjolnir\base\Exception {}
-class File extends \mjolnir\base\File { /** @return \mjolnir\base\File */ static function instance() { return parent::instance(); } }
+class Filesystem extends \mjolnir\base\Filesystem {}
 class Flags extends \mjolnir\base\Flags {}
 class GlobalEvent extends \mjolnir\base\GlobalEvent {}
 class Instantiatable extends \mjolnir\base\Instantiatable { /** @return \mjolnir\base\Instantiatable */ static function instance() { return parent::instance(); } }
@@ -31,6 +31,7 @@ class Layer_PlainText extends \mjolnir\base\Layer_PlainText { /** @return \mjoln
 class Layer_Sandbox extends \mjolnir\base\Layer_Sandbox { /** @return \mjolnir\base\Layer_Sandbox */ static function instance() { return parent::instance(); } }
 class Layer_TaskRunner extends \mjolnir\base\Layer_TaskRunner { /** @return \mjolnir\base\Layer_TaskRunner */ static function instance() { return parent::instance(); } }
 class Layer extends \mjolnir\base\Layer { /** @return \mjolnir\base\Layer */ static function instance() { return parent::instance(); } }
+class Notice extends \mjolnir\base\Notice { /** @return \mjolnir\base\Notice */ static function instance() { return parent::instance(); } }
 class Params extends \mjolnir\base\Params { /** @return \mjolnir\base\Params */ static function instance() { return parent::instance(); } }
 class Query extends \mjolnir\base\Query {}
 class Relay extends \mjolnir\base\Relay {}
@@ -60,6 +61,6 @@ class Text extends \mjolnir\base\Text { /** @return \mjolnir\base\Text */ static
 trait Trait_Document { use \mjolnir\base\Trait_Document; }
 trait Trait_Params { use \mjolnir\base\Trait_Params; }
 class URL extends \mjolnir\base\URL {}
-class View extends \mjolnir\base\View { /** @return \mjolnir\base\View */ static function instance($file = null) { return parent::instance($file); } }
+class View extends \mjolnir\base\View { /** @return \mjolnir\base\View */ static function instance($file = null, $ext = '.php') { return parent::instance($file, $ext); } }
 class Writer_Console extends \mjolnir\base\Writer_Console { /** @return \mjolnir\base\Writer_Console */ static function instance() { return parent::instance(); } }
 class Writer_Void extends \mjolnir\base\Writer_Void { /** @return \mjolnir\base\Writer_Void */ static function instance() { return parent::instance(); } }
