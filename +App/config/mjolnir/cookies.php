@@ -2,5 +2,5 @@
 	(
 		'key' => null,
 		'algorythm' => 'sha1',
-		'default.expires' => 3600,
+		'default.expires' => 60 * 60 * 24 * 7,
 	);

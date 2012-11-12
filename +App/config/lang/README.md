@@ -3,5 +3,5 @@ Format Help
 
 The format for lang directories is:
 
-<pre>lang/source_lang/target_lang.php</pre>
+<pre>lang/target_lang/source_lang.php</pre>
 

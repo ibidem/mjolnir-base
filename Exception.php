@@ -98,10 +98,10 @@ class Exception extends \Exception
 	/**
 	 * @return string debug info or empty string if not in development
 	 */
-	static function debuginfo_for(\Exception $exception)
+	static function debuginfo_for(\Exception $exception = null)
 	{
 		$out = '';
-		if (\app\CFS::config('mjolnir/base')['development'])
+		if ($exception !== null && \app\CFS::config('mjolnir/base')['development'])
 		{
 			$is_http = \app\Layer::find('http') !== null;
 			$out .= $is_http ? '<div class="ibidem-debuginfo"><pre>' : '';

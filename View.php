@@ -22,12 +22,12 @@ class View extends \app\Instantiatable
 	 * @see \mjolnir\types\Instantiatable
 	 * @return \mjolnir\base\View
 	 */
-	static function instance($file = null)
+	static function instance($file = null, $ext = EXT)
 	{
 		$instance = parent::instance();
 		if ($file !== null)
 		{
-			$instance->file($file);
+			$instance->file($file, $ext);
 		}
 		return $instance;
 	}
@@ -110,10 +110,10 @@ class View extends \app\Instantiatable
 	 * @param string file
 	 * @return \mjolnir\base\View $this
 	 */
-	function file($file)
+	function file($file, $ext = EXT)
 	{
 		$file = 'views'.DIRECTORY_SEPARATOR.$file;
-		$file_path = \app\CFS::file($file);
+		$file_path = \app\CFS::file($file, $ext);
 		// found file?
 		if ($file_path === null)
 		{

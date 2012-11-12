@@ -76,8 +76,8 @@ class Cookie
 	static function delete($key)
 	{
 		$base_config = \app\CFS::config('mjolnir/base');
-		\setcookie($key, '0', 1, $base_config['path'], $base_config['domain'], false);
-		\setcookie($key, '0', 1, $base_config['path'], $base_config['domain'], true);
+		\setcookie($key, '0', time() - 3600, $base_config['path'], $base_config['domain'], false);
+		\setcookie($key, '0', time() - 3600, $base_config['path'], $base_config['domain'], true);
 	}
 
 	/**
