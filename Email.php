@@ -73,12 +73,18 @@ class Email extends \app\Instantiatable
 	 * a list of "to"'s "cc"'s and "bcc"'s. "From" can be string or array
 	 * as well.
 	 *
-	 * @return int number of emails sent
+	 * @return boolean success / failure
 	 */
 	public function send($to, $from, $subject, $message, $html = false)
 	{
 		$mimetype = $html ? 'text/html' : 'text/plain';
 		$message = \Swift_Message::newInstance($subject, $message, $mimetype, 'utf-8');
+		
+		if ($from === null)
+		{
+			$base_config = \app\CFS::config('mjolnir/base');
+			$from = 'do-not-reply@'.$base_config['domain'];
+		}
 
 		if (\is_string($to)) # single recipient?
 		{
@@ -128,7 +134,7 @@ class Email extends \app\Instantiatable
 			$message->setFrom($from[0], $from[1]);
 		}
 
-		return $this->process($message, \app\CFS::config('mjolnir/email')['tries']);
+		return $this->process($message, \app\CFS::config('mjolnir/email')['tries']) !== 0;
 	}
 
 	// ------------------------------------------------------------------------
