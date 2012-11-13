@@ -8,7 +8,7 @@
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 class Notice extends \app\Instantiatable
-	implements \mjolnir\types\Document, \mjolnir\types\Executable
+	implements \mjolnir\types\Document
 {
 	use \app\Trait_Document;
 	
@@ -18,14 +18,19 @@ class Notice extends \app\Instantiatable
 	protected static $notices = null;
 	
 	/**
+	 * @var array
+	 */
+	protected $classes = [];
+	
+	/**
 	 * Creates a notice for the user. You can grab the notice(s) via 
 	 * `Notice::all()` and `Notice::last()`.
 	 * 
 	 * Don't forget to save the notice when creating it via `execute`;
 	 */
-	static function instance($message)
+	static function make($message)
 	{
-		$instance = parent::instance();
+		$instance = static::instance();
 		
 		$instance->body($message);
 		
@@ -40,25 +45,36 @@ class Notice extends \app\Instantiatable
 		if (static::$notices === null)
 		{
 			static::$notices = \app\Session::get('mjolnir:notices', []);
-			
-			// deserialize
-			$object_notices = [];
-			foreach (static::$notices as $notice)
-			{
-				$object_notices = static::unserialize_notice($notice);
-			}
-			
-			static::$notices = $object_notices;
 		}
+	}
+	
+	/**
+	 * Notices classes.
+	 * 
+	 * @return \app\Notice $this
+	 */
+	function classes(array $classes)
+	{
+		$this->classes = $classes;
+		
+		return $this;
+	}
+	
+	/**
+	 * @return array
+	 */
+	function get_classes()
+	{
+		return $this->classes;
 	}
 	
 	/**
 	 * Save the notice.
 	 */
-	function execute()
+	function save()
 	{
 		static::init();
-		static::$notices[] = static::serialize_notice($this);
+		static::$notices[] = $this;
 		\app\Session::set('mjolnir:notices', static::$notices);
 	}
 	
@@ -72,32 +88,12 @@ class Notice extends \app\Instantiatable
 	{
 		static::init();
 		
-		$object_notices = static::$notices;
+		$notices = static::$notices;
 		
 		static::$notices = [];
 		\app\Session::set('mjolnir:notices', static::$notices);
 		
-		return $object_notices;
-	}
-	
-	/**
-	 * @return string notice
-	 */	
-	protected static function serialize_notice($object_notice)
-	{
-		$string_notice = $object_notice->get_body();
-		
-		return $string_notice;
-	}
-	
-	/**
-	 * @return \app\Notice
-	 */
-	protected static function unserialize_notice($notice)
-	{
-		$object_notice = static::instance($notice);
-		
-		return $object_notice;
+		return $notices;
 	}
 
 } # class
