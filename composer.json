@@ -33,7 +33,8 @@
 	
 	"extra": {
 		"branch-alias": {
-			"dev-wip/v1.0": "1.0.x-dev"
+			"dev-wip/v1.0": "1.0.x-dev",
+			"dev-wip/v1.0r1": "1.0.1-dev"
 		}
 	}
 }
