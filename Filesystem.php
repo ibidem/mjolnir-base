@@ -35,7 +35,7 @@ class Filesystem
 			// find last directory seperator
 			$last_ds_pos = \strrpos($file, '/');
 
-			static::makedir(\substr($file, 0, $last_ds_pos - 1));
+			static::makedir(\substr($file, 0, $last_ds_pos));
 
 			if ($permissions === null)
 			{
