@@ -91,10 +91,10 @@ class Filesystem
 			return; # do nothing
 		}
 		
-		if (\is_dir($dir))
+		if (\is_dir($path))
 		{
-			static::purge($dir);
-			\rmdir($dir);
+			static::purge($path);
+			\rmdir($path);
 		}
 		else if (\is_file($path))
 		{
