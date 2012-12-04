@@ -126,7 +126,7 @@ class Filesystem
 			
 			if (\is_dir($fullpath))
 			{
-				static::remove_dir($fullpath);
+				static::delete($fullpath);
 			}
 			else if (\is_file($fullpath))
 			{
