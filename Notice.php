@@ -23,6 +23,11 @@ class Notice extends \app\Instantiatable
 	protected $classes = [];
 	
 	/**
+	 * @var array
+	 */
+	protected $unsaved = true;
+	
+	/**
 	 * Creates a notice for the user. You can grab the notice(s) via 
 	 * `Notice::all()` and `Notice::last()`.
 	 * 
@@ -73,6 +78,7 @@ class Notice extends \app\Instantiatable
 	 */
 	function save()
 	{
+		$this->unsaved = false;
 		static::init();
 		static::$notices[] = $this;
 		\app\Session::set('mjolnir:notices', static::$notices);
@@ -94,6 +100,18 @@ class Notice extends \app\Instantiatable
 		\app\Session::set('mjolnir:notices', static::$notices);
 		
 		return $notices;
+	}
+	
+	/**
+	 * Check if notice was saved. Notices that don't reach the user can cause a
+	 * lot of trouble.
+	 */
+	function __destruct()
+	{
+		if ($this->unsaved)
+		{
+			\mjolnir\log('Bug', 'You have a unsaved notice with the message: '.$this->get_body(), 'Bugs');
+		}
 	}
 
 } # class
