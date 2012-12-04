@@ -9,6 +9,6 @@
 
 		'development' => false,
 
-		'default.file.permissions' => 644,
-		'default.dir.permissions' => 755,
+		'default.file.permissions' => 0644,
+		'default.dir.permissions' => 0755,
 	);
