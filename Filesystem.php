@@ -1,6 +1,9 @@
 <?php namespace mjolnir\base;
 
 /**
+ * This class is used for simplifying working with files. For the most part,
+ * problems related to file permissions and basic (recursive) operations.
+ * 
  * @package    mjolnir
  * @category   Base
  * @author     Ibidem
@@ -22,7 +25,7 @@ class Filesystem
 	 * If not specified permission will be set to default.file.permissions from
 	 * mjolnir/base.
 	 */
-	static function put_contents($file, $contents, $permissions = null)
+	static function puts($file, $contents, $permissions = null)
 	{
 		if ( ! \file_exists($file))
 		{
@@ -75,6 +78,64 @@ class Filesystem
 			}
 
 			\mkdir($path, $permissions, true);
+		}
+	}
+	
+	/**
+	 * Delte resource. If resource does not exist, does nothing.
+	 */
+	static function delete($path)
+	{
+		if ( ! \file_exists($path))
+		{
+			return; # do nothing
+		}
+		
+		if (\is_dir($dir))
+		{
+			static::purge($dir);
+			\rmdir($dir);
+		}
+		else if (\is_file($path))
+		{
+			\unlink($path);
+		}
+		else # unknown resource
+		{
+			throw new \Exception('Unknown Resource');
+		}
+	}
+	
+	/**
+	 * Scan for files and directories and remove them. The source directory will
+	 * not be removed.
+	 * 
+	 * Assumes provided directory is valid.
+	 */
+	static function purge($dir)
+	{
+		$files = \scandir($dir);
+		foreach($files as $file)
+		{
+			if ($file == '..' || $file == '.')
+			{
+				continue;
+			}
+			
+			$fullpath = $dir.'/'.$file;
+			
+			if (\is_dir($fullpath))
+			{
+				static::remove_dir($fullpath);
+			}
+			else if (\is_file($fullpath))
+			{
+				\unlink($fullpath);
+			}
+			else # neither
+			{
+				throw new \app\Exception($fullpath.' is not Directory, nor a File.');
+			}
 		}
 	}
 
