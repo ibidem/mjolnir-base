@@ -52,6 +52,21 @@ class Filesystem
 			\file_put_contents($file, $contents);
 		}
 	}
+	
+	/**
+	 * @return string
+	 */
+	static function gets($file, $default = null)
+	{
+		if (\file_exists($file))
+		{
+			return \file_get_contents($file);
+		}
+		else # file not found
+		{
+			return $default;
+		}
+	}
 
 	/**
 	 * Creates a directory for the given path. This function is recursive and
