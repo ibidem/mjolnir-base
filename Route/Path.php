@@ -130,7 +130,7 @@ class Route_Path extends \app\Instantiatable
 		}
 		
 		// relative protocol?
-		$url = ($protocol === null ? '//' : $protocol.'://'); 
+		$url = ($protocol === null ? \app\CFS::config('mjolnir/base')['default.protocol'] : $protocol.'://'); 
 		// url_base is set?
 		if ($this->url_base)
 		{
