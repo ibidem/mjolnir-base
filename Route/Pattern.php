@@ -333,7 +333,7 @@ class Route_Pattern extends \app\Instantiatable
 		if ($this->standard_pattern)
 		{
 			// relative protocol?
-			$url = ($protocol === null ? '//' : $protocol.'://');
+			$url = ($protocol === null ? \app\CFS::config('mjolnir/base')['default.protocol'] : $protocol.'://');
 			// url_base is set?
 			if ($this->url_base)
 			{
@@ -371,7 +371,7 @@ class Route_Pattern extends \app\Instantiatable
 		if ($this->canonical_pattern)
 		{
 			// relative protocol?
-			$url = ($protocol === null ? '//' : $protocol.'://');
+			$url = ($protocol === null ? \app\CFS::config('mjolnir/base')['default.protocol'] : $protocol.'://');
 			// url_base is set?
 			if ($this->url_base)
 			{
