@@ -6,6 +6,7 @@
 		'timezone' => 'Europe/Bucharest',
 		'charset' => 'UTF8',
 		'locale.lang' => 'en_US',
+		'default.protocol' => 'http://', # eg. //, http://, https://
 
 		'development' => false,
 
