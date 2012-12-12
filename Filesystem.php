@@ -149,9 +149,56 @@ class Filesystem
 			}
 			else # neither
 			{
-				throw new \app\Exception($fullpath.' is not Directory, nor a File.');
+				throw new \app\Exception($fullpath.' is not a Directory, nor a File.');
 			}
 		}
+	}
+	
+	/**
+	 * @return int
+	 */
+	static function filecount($path, $pattern, $ignore_dot_file = true)
+	{
+		$path = \trim($path, '\\/');
+		
+		if ( ! \file_exists($path) || ! \is_dir($path))
+		{
+			return 0;
+		}
+		
+		$count = 0;
+		$files = \scandir($path);
+		foreach($files as $file)
+		{
+			if ($file == '..' || $file == '.')
+			{
+				continue;
+			}
+			else if ($ignore_dot_file && \preg_match('#^\..*#', $file))
+			{
+				continue;
+			}
+			
+			$fullpath = $path.'/'.$file;
+			
+			if (\is_dir($fullpath))
+			{
+				$count += static::filecount($fullpath, $pattern);
+			}
+			else if (\is_file($fullpath))
+			{
+				if (\preg_match($pattern, $file))
+				{
+					++$count;
+				}
+			}
+			else # neither
+			{
+				\mjolnir\log('Warning', $fullpath.' is not a Directory, nor a File.', 'Warnings/');
+			}
+		}
+		
+		return $count;
 	}
 
 } # class
