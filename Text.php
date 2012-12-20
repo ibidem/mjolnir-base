@@ -70,4 +70,13 @@ class Text extends \app\Instantiatable
 		return \implode("\n", $lines);
 	}
 
+	static function breaks_to_html($source)
+	{
+		// normalize line breaks
+		$source = \str_replace("\r\n", "\n", $source);
+		$source = \str_replace("\r", "\n", $source);
+		
+		return \str_replace("\n", '<br/>', $source);
+	}
+	
 } # class
