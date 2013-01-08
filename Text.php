@@ -9,6 +9,9 @@
  */
 class Text extends \app\Instantiatable
 {
+	/**
+	 * @return string
+	 */
 	static function summary($source, $maxlength, $cutoff_text = '...')
 	{
 		if (\strlen($source) <= $maxlength)
@@ -21,6 +24,9 @@ class Text extends \app\Instantiatable
 		}
 	}
 	
+	/**
+	 * @return string
+	 */
 	static function baseindent($source, $indent = '', $uniform_tabs = 4, $ignore_zero_indent = true)
 	{
 		// unify tabs
@@ -70,6 +76,9 @@ class Text extends \app\Instantiatable
 		return \implode("\n", $lines);
 	}
 
+	/**
+	 * @return string
+	 */
 	static function breaks_to_html($source)
 	{
 		// normalize line breaks
@@ -77,6 +86,16 @@ class Text extends \app\Instantiatable
 		$source = \str_replace("\r", "\n", $source);
 		
 		return \str_replace("\n", '<br/>', $source);
+	}
+	
+	/**
+	 * @return string
+	 */
+	static function lpad($size, $source, $padding)
+	{
+		$source = ''.$source;
+		$multiplier = $size - \strlen($source);
+		return \str_repeat($padding, $multiplier).$source;
 	}
 	
 } # class
