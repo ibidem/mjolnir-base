@@ -200,5 +200,45 @@ class Filesystem
 		
 		return $count;
 	}
+	
+	/**
+	 * @return int
+	 */
+	static function size($path)
+	{
+		$path = \trim($path, '\\/');
+		
+		if ( ! \file_exists($path) || ! \is_dir($path))
+		{
+			return 0;
+		}
+		
+		$size = 0;
+		$files = \scandir($path);
+		foreach($files as $file)
+		{
+			if ($file == '..' || $file == '.')
+			{
+				continue;
+			}
+			
+			$fullpath = $path.'/'.$file;
+			
+			if (\is_dir($fullpath))
+			{
+				$size += static::size($fullpath);
+			}
+			else if (\is_file($fullpath))
+			{
+				$size += \filesize($fullpath);
+			}
+			else # neither
+			{
+				\mjolnir\log('Warning', $fullpath.' is not a Directory, nor a File.', 'Warnings/');
+			}
+		}
+		
+		return $size;
+	}
 
 } # class
