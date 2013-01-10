@@ -98,4 +98,51 @@ class Text extends \app\Instantiatable
 		return \str_repeat($padding, $multiplier).$source;
 	}
 	
+	/**
+	 * Given a value in bytes convert it to more readable MB, GB, etc notation.
+	 * 
+	 * @return string
+	 */
+	static function prettybytes($bytes, $decimals = 2)
+	{
+		$bytes = \intval($bytes);
+		
+		if ($bytes < 1024) 
+		{
+			return $bytes .' B';
+		} 
+		elseif ($bytes < 1048576) 
+		{
+			return \round($bytes / 1024, $decimals) .' KiB';
+		} 
+		elseif ($bytes < 1073741824) 
+		{
+			return \round($bytes / 1048576, $decimals) . ' MiB';
+		} 
+		elseif ($bytes < 1099511627776) 
+		{
+			return \round($bytes / 1073741824, $decimals) . ' GiB';
+		} 
+		elseif ($bytes < 1125899906842624) 
+		{
+			return \round($bytes / 1099511627776, $decimals) .' TiB';
+		} 
+		elseif ($bytes < 1152921504606846976) 
+		{
+			return \round($bytes / 1125899906842624, $decimals) .' PiB';
+		} 
+		elseif ($bytes < 1180591620717411303424) 
+		{
+			return \round($bytes / 1152921504606846976, $decimals) .' EiB';
+		} 
+		elseif ($bytes < 1208925819614629174706176) 
+		{
+			return \round($bytes / 1180591620717411303424, $decimals) .' ZiB';
+		} 
+		else # show as multiple of largest
+		{
+			return \round($bytes / 1208925819614629174706176, $decimals) .' YiB';
+		}
+	}
+	
 } # class
