@@ -63,6 +63,10 @@ class Layer_HTTP extends \app\Layer
 		\app\GlobalEvent::listener('http:send-headers', function ($params) use ($instance) {
 			$instance->headerinfo();
 		});
+		
+		\app\GlobalEvent::listener('http:no-headers', function () use ($instance) {
+			$instance->showheaders(false);
+		});
 
 		return $instance;
 	}
@@ -152,17 +156,25 @@ class Layer_HTTP extends \app\Layer
 
 		return $detected_uri = $uri;
 	}
+	
+	function showheaders($value)
+	{
+		return $this->set('showheaders', $value);
+	}
 
 	/**
 	 * Executes non-content related tasks before main contents.
 	 */
 	function headerinfo()
 	{
-		\header($this->status);
-		// process meta
-		foreach ($this->params as $key => $value)
+		if ($this->get('showheaders', true))
 		{
-			\header("$key: $value");
+			\header($this->status);
+			// process meta
+			foreach ($this->params as $key => $value)
+			{
+				\header("$key: $value");
+			}
 		}
 	}
 
