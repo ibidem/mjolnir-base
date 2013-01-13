@@ -2,18 +2,17 @@
 	(
 		'\mjolnir\sandbox' => array
 			(
-				'matcher' => \app\Route_Path::instance()->path('sandbox'),
+				'matcher' => \app\URLRoute::instance()
+					->urlpattern('sandbox'),
 				'enabled' => false,
 			),
-	
+
 		'\mjolnir\error_log' => array
 			(
-				'matcher' => \app\Route_Pattern::instance()
-					->standard('error-log', [])
-					->canonical('error-log', []),
-			
+				'matcher' => \app\URLRoute::instance()
+					->urlpattern('error-log'),
 				'enabled' => true,
-			
+			// MVC
 				'controller' => '\app\Controller_ClientErrors',
 				'action' => 'action_log',
 			),

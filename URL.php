@@ -15,7 +15,7 @@ class URL
 	static function route($key)
 	{
 		// search routes
-		$pattern = \app\Route::matcher($key);
+		$pattern = \app\Router::route($key);
 
 		if ($pattern === null)
 		{
@@ -30,8 +30,9 @@ class URL
 	 * @return string url
 	 */
 	static function href($key, array $params = null, $query = null, $protocol = null)
-	{		
+	{
 		$pattern = static::route($key);
+		
 		if ($pattern === null)
 		{
 			throw new \app\Exception('No pattern for '.$key);
