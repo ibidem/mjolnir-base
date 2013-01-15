@@ -206,6 +206,8 @@ class Filesystem
 	 */
 	static function size($path)
 	{
+		\clearstatcache();
+		
 		$path = \trim($path, '\\/');
 		
 		if ( ! \file_exists($path) || ! \is_dir($path))
