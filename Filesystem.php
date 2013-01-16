@@ -6,7 +6,7 @@
  * 
  * @package    mjolnir
  * @category   Base
- * @author     Ibidem
+ * @author     Ibidem Team
  * @copyright  (c) 2012, Ibidem Team
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
@@ -241,4 +241,28 @@ class Filesystem
 		return $size;
 	}
 
+	/**
+	 * @return string
+	 */
+	static function mimetype($path)
+	{
+		if (\defined('FILEINFO_MIME_TYPE'))
+		{
+			$finfo = \finfo_open(FILEINFO_MIME_TYPE);
+			$mimetype = \finfo_file($finfo, $path);
+			\finfo_close($finfo);
+			
+			return $mimetype;
+		}
+		else # not available 
+		{
+			#
+			# We are intentionally not using the system("file -i -b $path") 
+			# method for security reasons.
+			#
+			
+			throw new \app\Exception('Missing fileinfo extention.');
+		}
+	}
+	
 } # class

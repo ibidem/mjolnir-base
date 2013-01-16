@@ -1,13 +1,13 @@
 <?php return array
 	(
-		'\mjolnir\sandbox' => array
+		'mjolnir:sandbox.route' => array
 			(
 				'matcher' => \app\URLRoute::instance()
 					->urlpattern('sandbox'),
 				'enabled' => false,
 			),
 
-		'\mjolnir\error_log' => array
+		'mjolnir:error/log.route' => array
 			(
 				'matcher' => \app\URLRoute::instance()
 					->urlpattern('error-log'),

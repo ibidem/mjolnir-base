@@ -2,7 +2,7 @@
 
 /**
  * @package    mjolnir
- * @category   Library
+ * @category   Base
  * @author     Ibidem Team
  * @copyright  (c) 2012, Ibidem Team
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
@@ -40,10 +40,10 @@ class Arr
 	 * @param callback func
 	 * @return string
 	 */
-	static function implode($glue, array $list, $f_key_values)
+	static function implode($glue, array $list, callable $manipulate)
 	{
 		// See: cfs/+App/functions/utility
-		return \mjolnir\implode($glue, $list, $f_key_values);
+		return \mjolnir\implode($glue, $list, $manipulate);
 	}
 
 	/**
