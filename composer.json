@@ -1,31 +1,31 @@
 {
 	"name": "mjolnir/base",
 	"version": "0.0",
-	"description": "Mjolnir base module",
+	"description": "Collection of general purpose utilities and helpers.",
 	"keywords": ["library"],
 	"homepage": "https://github.com/ibidem",
 	"type": "library",
 	"license": "BSD-2",
-	
+
 	"authors": [
 		{
 			"name": "srcspider",
 			"homepage": "https://github.com/srcspider"
 		}
 	],
-	
+
 	"require": {
 		"php": ">=5.4.4",
 
 		"swiftmailer/swiftmailer": "v4.2.2"
 	},
-	
+
 	"autoload": {
 		"psr-0": {
 			"mjolnir\\base": "../.."
 		}
 	},
-	
+
 	"extra": {
 		"branch-alias": {
 			"dev-wip/v1.0": "1.0.x-dev"
