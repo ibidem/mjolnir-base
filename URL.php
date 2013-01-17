@@ -20,7 +20,7 @@ class URL
 		if ($pattern === null)
 		{
 			// search relays
-			$pattern = \app\Relay::matcher($key);
+			$pattern = \app\Router::relay($key);
 		}
 
 		return $pattern;

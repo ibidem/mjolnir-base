@@ -30,7 +30,7 @@ class Sandbox
 				};
 		}
 
-		\app\Relay::process('\mjolnir\sandbox', $stack);
+		\app\Router::process('\mjolnir\sandbox', $stack);
 	}
 
 } # class
