@@ -1,6 +1,6 @@
 <?php return array
 	(
-		'pager.pages' => function (array $in)
+		'mjolnir:pager-pages' => function (array $in)
 			{
 				return \strtr
 					(

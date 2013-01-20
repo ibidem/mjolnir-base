@@ -42,7 +42,7 @@ class DateFormatter extends \app\Instantiatable
 				$callback = $relative_dates[$key];
 				if ($callback($datetime))
 				{
-					return \app\Lang::msg('DateFormatter:'.$key);
+					return \app\Lang::key('DateFormatter:'.$key);
 				}
 			}
 		}
@@ -52,7 +52,7 @@ class DateFormatter extends \app\Instantiatable
 			{
 				if ($callback($datetime))
 				{
-					return \app\Lang::msg('DateFormatter:'.$key);
+					return \app\Lang::key('DateFormatter:'.$key);
 				}
 			}
 		}

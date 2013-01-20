@@ -3,7 +3,7 @@
 (
 	'whitelist' => array # allow
 		(
-			A12n::guest() => array
+			Auth::guest() => array
 				(
 					Allow::relays('\mjolnir\error_log')
 						->all_parameters(),
