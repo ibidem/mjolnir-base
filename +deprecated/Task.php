@@ -7,23 +7,22 @@
  * @copyright  (c) 2012 Ibidem Team
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
-class Task extends \app\Instantiatable
-	implements \mjolnir\types\Task
+class Task extends \app\Instantiatable implements \mjolnir\types\Task
 {
 	/**
-	 * @var array 
+	 * @var array
 	 */
 	protected $config;
-	
+
 	/**
-	 * @var \mjolnir\types\Writer 
+	 * @var \mjolnir\types\Writer
 	 */
 	protected $writer;
-	
+
 	/**
 	 * Tasks are of the form class:name:example which should translate to
 	 * \app\Task_Class_Name_Example
-	 * 
+	 *
 	 * @param string encoded task
 	 * @return \mjolnir\base\Task
 	 */
@@ -33,11 +32,12 @@ class Task extends \app\Instantiatable
 		{
 			$class_name = '\app\Task';
 			$class_segments = \explode(':', $encoded_task);
+
 			foreach ($class_segments as $segment)
 			{
 				$class_name .= '_'.\ucfirst($segment);
 			}
-			
+
 			return $class_name::instance();
 		}
 		else # instance
@@ -45,7 +45,7 @@ class Task extends \app\Instantiatable
 			return parent::instance();
 		}
 	}
-	
+
 	/**
 	 * @param array config
 	 * @return \mjolnir\base\Task $this
@@ -55,7 +55,7 @@ class Task extends \app\Instantiatable
 		$this->config = $config;
 		return $this;
 	}
-	
+
 	/**
 	 * @param array config
 	 * @return \mjolnir\base\Task $this
@@ -65,7 +65,7 @@ class Task extends \app\Instantiatable
 		$this->writer = $writer;
 		return $this;
 	}
-	
+
 	/**
 	 * Execute task.
 	 */
@@ -74,5 +74,5 @@ class Task extends \app\Instantiatable
 		$this->writer->error('Command is not available at this time.')->eol();
 		exit(1);
 	}
-	
+
 } # class

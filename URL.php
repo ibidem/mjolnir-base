@@ -29,17 +29,17 @@ class URL
 	/**
 	 * @return string url
 	 */
-	static function href($key, array $params = null, $query = null, $protocol = null)
+	static function href($key, array $params = null, array $query = null, $protocol = null)
 	{
 		$pattern = static::route($key);
-		
+
 		if ($pattern === null)
 		{
 			throw new \app\Exception('No pattern for '.$key);
 		}
 		else # got pattern
 		{
-			return static::route($key)->url($params, $protocol).$query;
+			return $pattern->url($params, $query, $protocol);
 		}
 	}
 
