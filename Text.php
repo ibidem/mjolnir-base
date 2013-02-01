@@ -63,7 +63,7 @@ class Text
 		}
 		
 		// unify
-		foreach ($lines as & $line)
+		foreach ($lines as &$line)
 		{
 			if (\preg_match('#^[ \t].*#', $line))
 			{

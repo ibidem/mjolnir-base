@@ -18,7 +18,7 @@ class Arr
 	 * @param string value reference
 	 * @return array
 	 */
-	static function associative_from(array & $array, $key_ref = 'id', $value_ref = 'title')
+	static function associative_from(array &$array, $key_ref = 'id', $value_ref = 'title')
 	{
 		$new_array = [];
 		foreach ($array as $row)
@@ -119,7 +119,7 @@ class Arr
 	 */
 	static function convert(array $items, $callback)
 	{
-		foreach ($items as & $item)
+		foreach ($items as &$item)
 		{
 			$item = $callback($item);
 		}
