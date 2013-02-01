@@ -6,61 +6,13 @@
 // HowTo: order honeypot -n 'mjolnir\base'
 
 class Arr extends \mjolnir\base\Arr {}
-class Assert extends \mjolnir\base\Assert { /** @return \mjolnir\base\Assert */ static function instance($expected = null) { return parent::instance($expected); } }
-class Collection extends \mjolnir\base\Collection {}
-class Controller_ClientErrors extends \mjolnir\base\Controller_ClientErrors { /** @return \mjolnir\base\Controller_ClientErrors */ static function instance() { return parent::instance(); } }
-class Controller_Web extends \mjolnir\base\Controller_Web { /** @return \mjolnir\base\Controller_Web */ static function instance() { return parent::instance(); } }
-class Controller extends \mjolnir\base\Controller { /** @return \mjolnir\base\Controller */ static function instance() { return parent::instance(); } }
 class Cookie extends \mjolnir\base\Cookie {}
-class DateFormatter extends \mjolnir\base\DateFormatter { /** @return \mjolnir\base\DateFormatter */ static function instance() { return parent::instance(); } }
+class Date extends \mjolnir\base\Date {}
 class Email extends \mjolnir\base\Email { /** @return \mjolnir\base\Email */ static function instance($driver = null) { return parent::instance($driver); } }
-class Exception_NotAllowed extends \mjolnir\base\Exception_NotAllowed {}
-class Exception_NotApplicable extends \mjolnir\base\Exception_NotApplicable {}
-class Exception_NotFound extends \mjolnir\base\Exception_NotFound {}
-class Exception extends \mjolnir\base\Exception {}
 class Filesystem extends \mjolnir\base\Filesystem {}
-class Flags extends \mjolnir\base\Flags {}
-class GlobalEvent extends \mjolnir\base\GlobalEvent {}
-class Instantiatable extends \mjolnir\base\Instantiatable { /** @return \mjolnir\base\Instantiatable */ static function instance() { return parent::instance(); } }
 class Lang extends \mjolnir\base\Lang {}
-class Layer_ErrorHandler extends \mjolnir\base\Layer_ErrorHandler { /** @return \mjolnir\base\Layer_ErrorHandler */ static function instance() { return parent::instance(); } }
-class Layer_HTTP extends \mjolnir\base\Layer_HTTP { /** @return \mjolnir\base\Layer_HTTP */ static function instance() { return parent::instance(); } }
-class Layer_JSend extends \mjolnir\base\Layer_JSend { /** @return \mjolnir\base\Layer_JSend */ static function instance() { return parent::instance(); } }
-class Layer_MVC extends \mjolnir\base\Layer_MVC { /** @return \mjolnir\base\Layer_MVC */ static function instance() { return parent::instance(); } }
-class Layer_PlainText extends \mjolnir\base\Layer_PlainText { /** @return \mjolnir\base\Layer_PlainText */ static function instance() { return parent::instance(); } }
-class Layer_Sandbox extends \mjolnir\base\Layer_Sandbox { /** @return \mjolnir\base\Layer_Sandbox */ static function instance() { return parent::instance(); } }
-class Layer_TaskRunner extends \mjolnir\base\Layer_TaskRunner { /** @return \mjolnir\base\Layer_TaskRunner */ static function instance() { return parent::instance(); } }
-class Layer extends \mjolnir\base\Layer { /** @return \mjolnir\base\Layer */ static function instance() { return parent::instance(); } }
-class Notice extends \mjolnir\base\Notice { /** @return \mjolnir\base\Notice */ static function instance() { return parent::instance(); } }
-class Params extends \mjolnir\base\Params { /** @return \mjolnir\base\Params */ static function instance() { return parent::instance(); } }
-class Query extends \mjolnir\base\Query {}
-class Relay extends \mjolnir\base\Relay {}
-class Route_Path extends \mjolnir\base\Route_Path { /** @return \mjolnir\base\Route_Path */ static function instance($uri = null) { return parent::instance($uri); } }
-class Route_Pattern extends \mjolnir\base\Route_Pattern { /** @return \mjolnir\base\Route_Pattern */ static function instance() { return parent::instance(); } }
-class Route_Regex extends \mjolnir\base\Route_Regex { /** @return \mjolnir\base\Route_Regex */ static function instance($uri = null) { return parent::instance($uri); } }
-class Route extends \mjolnir\base\Router {}
-class Sandbox extends \mjolnir\base\Sandbox { /** @return \mjolnir\base\Sandbox */ static function instance() { return parent::instance(); } }
-class Server extends \mjolnir\base\Server {}
 class Session_Native extends \mjolnir\base\Session_Native { /** @return \mjolnir\base\Session_Native */ static function instance() { return parent::instance(); } }
 class Session extends \mjolnir\base\Session {}
-class Task_Behat extends \mjolnir\base\Task_Behat { /** @return \mjolnir\base\Task_Behat */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
-class Task_Cleanup extends \mjolnir\base\Task_Cleanup { /** @return \mjolnir\base\Task_Cleanup */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
-class Task_Compile extends \mjolnir\base\Task_Compile { /** @return \mjolnir\base\Task_Compile */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
-class Task_Find_Class extends \mjolnir\base\Task_Find_Class { /** @return \mjolnir\base\Task_Find_Class */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
-class Task_Find_File extends \mjolnir\base\Task_Find_File { /** @return \mjolnir\base\Task_Find_File */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
-class Task_Honeypot extends \mjolnir\base\Task_Honeypot { /** @return \mjolnir\base\Task_Honeypot */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
-class Task_Make_Class extends \mjolnir\base\Task_Make_Class { /** @return \mjolnir\base\Task_Make_Class */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
-class Task_Make_Config extends \mjolnir\base\Task_Make_Config { /** @return \mjolnir\base\Task_Make_Config */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
-class Task_Make_Module extends \mjolnir\base\Task_Make_Module { /** @return \mjolnir\base\Task_Make_Module */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
-class Task_Make_Trait extends \mjolnir\base\Task_Make_Trait { /** @return \mjolnir\base\Task_Make_Trait */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
-class Task_Relays extends \mjolnir\base\Task_Relays { /** @return \mjolnir\base\Task_Relays */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
-class Task_Status extends \mjolnir\base\Task_Status { /** @return \mjolnir\base\Task_Status */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
-class Task_Versions extends \mjolnir\base\Task_Versions { /** @return \mjolnir\base\Task_Versions */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
-class Task extends \mjolnir\base\Task { /** @return \mjolnir\base\Task */ static function instance($encoded_task = null) { return parent::instance($encoded_task); } }
-class Text extends \mjolnir\base\Text { /** @return \mjolnir\base\Text */ static function instance() { return parent::instance(); } }
-trait Trait_Document { use \mjolnir\base\Trait_Document; }
-trait Trait_Params { use \mjolnir\base\Trait_Params; }
+class Text extends \mjolnir\base\Text {}
 class URL extends \mjolnir\base\URL {}
 class View extends \mjolnir\base\View { /** @return \mjolnir\base\View */ static function instance($file = null, $ext = '.php') { return parent::instance($file, $ext); } }
-class Writer_Console extends \mjolnir\base\Writer_Console { /** @return \mjolnir\base\Writer_Console */ static function instance() { return parent::instance(); } }
-class Writer_Void extends \mjolnir\base\Writer_Void { /** @return \mjolnir\base\Writer_Void */ static function instance() { return parent::instance(); } }

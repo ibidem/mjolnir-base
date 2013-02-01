@@ -4,7 +4,7 @@
 	
 		'base_classes' => array
 			(
-				'#^Controller_.*$#' => '\app\Controller_Web',
+				'#^Controller_.*$#' => '\app\Controller_Contextual',
 				'#^Task_.*$#' => '\app\Task',
 				'#^Layer_.*$#' => '\app\Layer',
 			),
