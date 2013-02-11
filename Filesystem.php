@@ -265,4 +265,50 @@ class Filesystem
 		}
 	}
 	
+	/**
+	 * @return array
+	 */
+	static function files($dir, $ext = EXT, $ignore_dot_file = true) 
+	{
+		$path = \trim($dir, '\\/');
+		$ext = \ltrim($ext, '.');
+		
+		if ( ! \file_exists($path) || ! \is_dir($path))
+		{
+			return [];
+		}
+		
+		$result = [];
+		$files = \scandir($path);
+		foreach($files as $file)
+		{
+			if ($file == '..' || $file == '.')
+			{
+				continue;
+			}
+			else if ($ignore_dot_file && \preg_match('#^\..*#', $file))
+			{
+				continue;
+			}
+			
+			$fullpath = $path.'/'.$file;
+			
+			if (\is_dir($fullpath))
+			{
+				$otherfiles = static::files($fullpath, $ext);
+				$result = \app\Arr::merge($result, $otherfiles);
+			}
+			else if (\is_file($fullpath))
+			{
+				$fileext = \pathinfo($fullpath, PATHINFO_EXTENSION);
+				if ($fileext == $ext)
+				{
+					$result[] = $fullpath;
+				}
+			}
+		}
+		
+		return $result;
+	}
+	
 } # class
