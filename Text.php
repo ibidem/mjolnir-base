@@ -159,5 +159,21 @@ class Text
 			return \ucfirst($segment);
 		});
 	}
+	
+	/**
+	 * @return string
+	 */
+	static function camelcase_from($plaintext)
+	{
+		return \app\Arr::implode
+			(
+				'', 
+				\explode(' ', $plaintext), 
+				function ($k, $word) 
+				{
+					return \ucfirst($word); 
+				}
+			);
+	}
 
 } # class
