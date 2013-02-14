@@ -100,7 +100,7 @@ class Filesystem
 	 * Delte resource. If resource does not exist, does nothing.
 	 */
 	static function delete($path)
-	{
+	{		
 		if ( ! \file_exists($path))
 		{
 			return; # do nothing
@@ -302,6 +302,50 @@ class Filesystem
 			{
 				$fileext = \pathinfo($fullpath, PATHINFO_EXTENSION);
 				if ($fileext == $ext)
+				{
+					$result[] = $fullpath;
+				}
+			}
+		}
+		
+		return $result;
+	}
+	
+	/**
+	 * @return array
+	 */
+	static function matchingfiles($dir, $pattern)
+	{
+		$path = \trim($dir, '\\/');
+		
+		if ( ! \file_exists($path) || ! \is_dir($path))
+		{
+			return [];
+		}
+		
+		$result = [];
+		$files = \scandir($path);
+		foreach($files as $file)
+		{
+			if (\is_file($file) && ! \preg_match($pattern, $file))
+			{
+				continue;
+			}
+			else if ($file == '..' || $file == '.')
+			{
+				continue;
+			}
+			
+			$fullpath = $path.'/'.$file;
+			
+			if (\is_dir($fullpath))
+			{
+				$otherfiles = static::matchingfiles($fullpath, $pattern);
+				$result = \app\Arr::merge($result, $otherfiles);
+			}
+			else
+			{
+				if (\preg_match($pattern, $file))
 				{
 					$result[] = $fullpath;
 				}
