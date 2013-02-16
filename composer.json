@@ -1,7 +1,7 @@
 {
 	"name": "mjolnir/base",
 	"version": "0.0",
-	"description": "Collection of general purpose utilities and helpers.",
+	"description": "Collection of general purpose utilities.",
 	"keywords": ["library"],
 	"homepage": "https://github.com/ibidem",
 	"type": "library",
