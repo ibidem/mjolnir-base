@@ -106,7 +106,7 @@ class Text extends \app\Instantiatable
 	static function prettybytes($bytes, $decimals = 2)
 	{
 		$bytes = \intval($bytes);
-		
+	
 		if ($bytes < 1024) 
 		{
 			return $bytes .' B';
