@@ -3,7 +3,7 @@
 /**
  * This class is used for simplifying working with files. For the most part,
  * problems related to file permissions and basic (recursive) operations.
- * 
+ *
  * @package    mjolnir
  * @category   Base
  * @author     Ibidem Team
@@ -52,7 +52,7 @@ class Filesystem
 			\file_put_contents($file, $contents);
 		}
 	}
-	
+
 	/**
 	 * @return string
 	 */
@@ -95,17 +95,17 @@ class Filesystem
 			\mkdir($path, $permissions, true);
 		}
 	}
-	
+
 	/**
 	 * Delte resource. If resource does not exist, does nothing.
 	 */
 	static function delete($path)
-	{		
+	{
 		if ( ! \file_exists($path))
 		{
 			return; # do nothing
 		}
-		
+
 		if (\is_dir($path))
 		{
 			static::purge($path);
@@ -120,11 +120,11 @@ class Filesystem
 			throw new \Exception('Unknown Resource');
 		}
 	}
-	
+
 	/**
 	 * Scan for files and directories and remove them. The source directory will
 	 * not be removed.
-	 * 
+	 *
 	 * Assumes provided directory is valid.
 	 */
 	static function purge($dir)
@@ -136,9 +136,9 @@ class Filesystem
 			{
 				continue;
 			}
-			
+
 			$fullpath = $dir.'/'.$file;
-			
+
 			if (\is_dir($fullpath))
 			{
 				static::delete($fullpath);
@@ -153,19 +153,19 @@ class Filesystem
 			}
 		}
 	}
-	
+
 	/**
 	 * @return int
 	 */
 	static function filecount($path, $pattern, $ignore_dot_file = true)
 	{
-		$path = \trim($path, '\\/');
-		
+		$path = \rtrim($path, '\\/');
+
 		if ( ! \file_exists($path) || ! \is_dir($path))
 		{
 			return 0;
 		}
-		
+
 		$count = 0;
 		$files = \scandir($path);
 		foreach($files as $file)
@@ -178,9 +178,9 @@ class Filesystem
 			{
 				continue;
 			}
-			
+
 			$fullpath = $path.'/'.$file;
-			
+
 			if (\is_dir($fullpath))
 			{
 				$count += static::filecount($fullpath, $pattern);
@@ -197,22 +197,22 @@ class Filesystem
 				\mjolnir\log('Warning', $fullpath.' is not a Directory, nor a File.', 'Warnings/');
 			}
 		}
-		
+
 		return $count;
 	}
-	
+
 	/**
 	 * @return int
 	 */
 	static function size($path)
 	{
-		$path = \trim($path, '\\/');
+		$path = \rtrim($path, '\\/');
 		
 		if ( ! \file_exists($path) || ! \is_dir($path))
 		{
 			return 0;
 		}
-		
+
 		$size = 0;
 		$files = \scandir($path);
 		foreach($files as $file)
@@ -221,9 +221,9 @@ class Filesystem
 			{
 				continue;
 			}
-			
+
 			$fullpath = $path.'/'.$file;
-			
+
 			if (\is_dir($fullpath))
 			{
 				$size += static::size($fullpath);
@@ -237,7 +237,7 @@ class Filesystem
 				\mjolnir\log('Warning', $fullpath.' is not a Directory, nor a File.', 'Warnings/');
 			}
 		}
-		
+
 		return $size;
 	}
 
@@ -251,33 +251,33 @@ class Filesystem
 			$finfo = \finfo_open(FILEINFO_MIME_TYPE);
 			$mimetype = \finfo_file($finfo, $path);
 			\finfo_close($finfo);
-			
+
 			return $mimetype;
 		}
-		else # not available 
+		else # not available
 		{
 			#
-			# We are intentionally not using the system("file -i -b $path") 
+			# We are intentionally not using the system("file -i -b $path")
 			# method for security reasons.
 			#
-			
+
 			throw new \app\Exception('Missing fileinfo extention.');
 		}
 	}
-	
+
 	/**
 	 * @return array
 	 */
-	static function files($dir, $ext = EXT, $ignore_dot_file = true) 
+	static function files($dir, $ext = EXT, $ignore_dot_file = true)
 	{
-		$path = \trim($dir, '\\/');
+		$path = \rtrim($dir, '\\/');
 		$ext = \ltrim($ext, '.');
-		
+
 		if ( ! \file_exists($path) || ! \is_dir($path))
 		{
 			return [];
 		}
-		
+
 		$result = [];
 		$files = \scandir($path);
 		foreach($files as $file)
@@ -290,9 +290,9 @@ class Filesystem
 			{
 				continue;
 			}
-			
+
 			$fullpath = $path.'/'.$file;
-			
+
 			if (\is_dir($fullpath))
 			{
 				$otherfiles = static::files($fullpath, $ext);
@@ -307,22 +307,22 @@ class Filesystem
 				}
 			}
 		}
-		
+
 		return $result;
 	}
-	
+
 	/**
 	 * @return array
 	 */
 	static function matchingfiles($dir, $pattern)
 	{
-		$path = \trim($dir, '\\/');
-		
+		$path = \rtrim($dir, '\\/');
+
 		if ( ! \file_exists($path) || ! \is_dir($path))
 		{
 			return [];
 		}
-		
+
 		$result = [];
 		$files = \scandir($path);
 		foreach($files as $file)
@@ -335,9 +335,9 @@ class Filesystem
 			{
 				continue;
 			}
-			
+
 			$fullpath = $path.'/'.$file;
-			
+
 			if (\is_dir($fullpath))
 			{
 				$otherfiles = static::matchingfiles($fullpath, $pattern);
@@ -351,8 +351,8 @@ class Filesystem
 				}
 			}
 		}
-		
+
 		return $result;
 	}
-	
+
 } # class
