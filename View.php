@@ -7,9 +7,9 @@
  * @copyright  (c) 2012 Ibidem Team
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
-class View extends \app\Instantiatable implements \mjolnir\types\View
+class View extends \app\Instantiatable implements \mjolnir\types\ViewFile
 {
-	use \app\Trait_View;
+	use \app\Trait_ViewFile;
 
 	/**
 	 * @see \mjolnir\types\Instantiatable
