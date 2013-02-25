@@ -33,17 +33,17 @@ class ViewComposite extends \app\Instantiatable implements \mjolnir\types\View
 	 */
 	function render()
 	{
-		$view = '';
+		$viewresult = '';
 		if ($this->views !== null)
 		{
 			foreach ($this->views as $view)
 			{
 				$view->inherit($this);
-				$view .= $view->render();
+				$viewresult .= $view->render();
 			}
 		}
 
-		return $view;
+		return $viewresult;
 	}
 
 } # class
