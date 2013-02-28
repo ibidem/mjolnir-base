@@ -17,7 +17,7 @@ class Session_Native extends \app\Instantiatable implements \mjolnir\types\Meta
 	private $destroyed = false;
 
 	/**
-	 * @return \mjolnir\base\Session_Native
+	 * @return static
 	 */
 	static function instance()
 	{
@@ -111,7 +111,7 @@ class Session_Native extends \app\Instantiatable implements \mjolnir\types\Meta
 	/**
 	 * @param string key
 	 * @param mixed value
-	 * @return \mjolnir\types\Params $this
+	 * @return static $this
 	 */
 	function set($key, $value)
 	{
@@ -122,7 +122,7 @@ class Session_Native extends \app\Instantiatable implements \mjolnir\types\Meta
 
 	/**
 	 * @param array associative array of key values
-	 * @return \mjolnir\types\Params $this
+	 * @return static $this
 	 */
 	function populate_params(array $params)
 	{

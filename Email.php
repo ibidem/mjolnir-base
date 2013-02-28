@@ -15,7 +15,7 @@ class Email extends \app\Instantiatable
 	protected $swift_mailer = null;
 
 	/**
-	 * @return \app\Email
+	 * @return static
 	 */
 	static function instance($driver = null)
 	{

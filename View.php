@@ -13,7 +13,7 @@ class View extends \app\Instantiatable implements \mjolnir\types\ViewFile
 
 	/**
 	 * @see \mjolnir\types\Instantiatable
-	 * @return \mjolnir\base\View
+	 * @return static
 	 */
 	static function instance($file = null, $ext = EXT)
 	{
@@ -25,7 +25,7 @@ class View extends \app\Instantiatable implements \mjolnir\types\ViewFile
 	}
 
 	/**
-	 * @return \mjolnir\base\View $this
+	 * @return static $this
 	 */
 	function file_is($file, $ext = EXT)
 	{

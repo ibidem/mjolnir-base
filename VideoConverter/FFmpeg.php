@@ -17,16 +17,11 @@ class VideoConverter_FFmpeg extends \app\Instantiatable implements \mjolnir\type
 	function convert($source_file, $output_file, array $config = null)
 	{
 		$defaults = \app\CFS::config('mjolnir/video-converter')['FFmpeg.driver'];
-		
+
 		if ($config === null)
 		{
 			$config = $defaults;
 		}
-		else # 
-		{
-			$config = \app\Arr::merge($defaults, )
-		}
-		
 	}
-	
+
 } # class

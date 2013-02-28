@@ -21,7 +21,7 @@ class Layer_Sandbox extends \app\Layer
 	
 	/**
 	 * @param array relay
-	 * @return \mjolnir\access\Layer_NULL $this
+	 * @return static $this
 	 */
 	function relay($relay)
 	{
@@ -48,7 +48,7 @@ class Layer_Sandbox extends \app\Layer
 	
 	/**
 	 * @param callback callback
-	 * @return \mjolnir\base\Layer_NULL $this
+	 * @return static $this
 	 */
 	function caller($callback)
 	{
