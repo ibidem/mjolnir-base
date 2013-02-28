@@ -15,4 +15,6 @@ class Session_Native extends \mjolnir\base\Session_Native { /** @return \mjolnir
 class Session extends \mjolnir\base\Session {}
 class Text extends \mjolnir\base\Text {}
 class URL extends \mjolnir\base\URL {}
+class VideoConverter_FFmpeg extends \mjolnir\base\VideoConverter_FFmpeg { /** @return \mjolnir\base\VideoConverter_FFmpeg */ static function instance() { return parent::instance(); } }
 class View extends \mjolnir\base\View { /** @return \mjolnir\base\View */ static function instance($file = null, $ext = '.php') { return parent::instance($file, $ext); } }
+class ViewComposite extends \mjolnir\base\ViewComposite { /** @return \mjolnir\base\ViewComposite */ static function instance() { return parent::instance(); } }
