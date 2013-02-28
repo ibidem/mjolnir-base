@@ -157,7 +157,7 @@ class Filesystem
 	/**
 	 * @return int
 	 */
-	static function filecount($path, $pattern, $ignore_dot_file = true)
+	static function filecount($path, $pattern, $ignore_dot_file = true, $count_dirs_as_files = false)
 	{
 		$path = \rtrim($path, '\\/');
 
@@ -184,6 +184,7 @@ class Filesystem
 			if (\is_dir($fullpath))
 			{
 				$count += static::filecount($fullpath, $pattern);
+				! $count_dirs_as_files or $count += 1;
 			}
 			else if (\is_file($fullpath))
 			{
@@ -355,4 +356,42 @@ class Filesystem
 		return $result;
 	}
 
+	/**
+	 * Scan path and remove all empty directories. If a directory contains only
+	 * "empty" directories it will be considered "empty".
+	 */
+	static function prunedirs($path)
+	{
+		$path = \rtrim($path, '\\/');
+		
+		if ( ! \file_exists($path) || ! \is_dir($path))
+		{
+			return;
+		}
+		
+		$files = \scandir($path);
+		foreach ($files as $file)
+		{
+			if (\preg_match('#^[\.].*#', $file))
+			{
+				continue; # skip dot files
+			}
+			
+			$fullpath = $path.'/'.$file;
+			
+			if (static::filecount($fullpath, '#.*$#', false, true) > 0)
+			{
+				static::prunedirs($fullpath);
+				if (static::filecount($fullpath, '#.*$#', false, true) == 0)
+				{
+					\rmdir($fullpath);
+				}
+			}
+			else # 0 files
+			{
+				\rmdir($fullpath);
+			}
+		}
+	}
+	
 } # class
