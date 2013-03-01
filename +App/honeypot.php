@@ -6,17 +6,31 @@
 // HowTo: order honeypot -n 'mjolnir\base'
 
 
-class Arr extends \mjolnir\base\Arr {  }
+class Arr extends \mjolnir\base\Arr
+{
+}
 
-class Cookie extends \mjolnir\base\Cookie {  }
+class Cookie extends \mjolnir\base\Cookie
+{
+}
 
-class Date extends \mjolnir\base\Date {  }
+class Date extends \mjolnir\base\Date
+{
+}
 
-class Email extends \mjolnir\base\Email { /** @return \app\Email */ static function instance($driver = null) { return parent::instance($driver); } }
+class Email extends \mjolnir\base\Email
+{
+	/** @return \app\Email */
+	static function instance($driver = null) { return parent::instance($driver); }
+}
 
-class Filesystem extends \mjolnir\base\Filesystem {  }
+class Filesystem extends \mjolnir\base\Filesystem
+{
+}
 
-class Lang extends \mjolnir\base\Lang {  }
+class Lang extends \mjolnir\base\Lang
+{
+}
 
 /**
  * @method \app\Session_Native set($key, $value)
@@ -24,17 +38,35 @@ class Lang extends \mjolnir\base\Lang {  }
  * @method \app\Session_Native add($name, $value)
  * @method \app\Session_Native metadata_is(array $metadata = null)
  */
-class Session_Native extends \mjolnir\base\Session_Native { /** @return \app\Session_Native */ static function instance() { return parent::instance(); } }
+class Session_Native extends \mjolnir\base\Session_Native
+{
+	/** @return \app\Session_Native */
+	static function instance() { return parent::instance(); }
+}
 
-class Session extends \mjolnir\base\Session {  }
+class Session extends \mjolnir\base\Session
+{
+}
 
-class Text extends \mjolnir\base\Text {  }
+class Text extends \mjolnir\base\Text
+{
+}
 
-class URL extends \mjolnir\base\URL {  }
+class URL extends \mjolnir\base\URL
+{
+	/** @return \app\URLCompatible */
+	static function route($key) { return parent::route($key); }
+}
 
-class VideoConverter_FFmpeg extends \mjolnir\base\VideoConverter_FFmpeg { /** @return \app\VideoConverter_FFmpeg */ static function instance() { return parent::instance(); } }
+class VideoConverter_FFmpeg extends \mjolnir\base\VideoConverter_FFmpeg
+{
+	/** @return \app\VideoConverter_FFmpeg */
+	static function instance() { return parent::instance(); }
+}
 
-class VideoConverter extends \mjolnir\base\VideoConverter {  }
+class VideoConverter extends \mjolnir\base\VideoConverter
+{
+}
 
 /**
  * @method \app\View file_is($file, $ext = '.php')
@@ -45,7 +77,11 @@ class VideoConverter extends \mjolnir\base\VideoConverter {  }
  * @method \app\View injectmetarenderers(array $metarenderers = null)
  * @method \app\View file_path($filepath)
  */
-class View extends \mjolnir\base\View { /** @return \app\View */ static function instance($file = null, $ext = '.php') { return parent::instance($file, $ext); } }
+class View extends \mjolnir\base\View
+{
+	/** @return \app\View */
+	static function instance($file = null, $ext = '.php') { return parent::instance($file, $ext); }
+}
 
 /**
  * @method \app\ViewComposite views_are(array $views)
@@ -55,4 +91,8 @@ class View extends \mjolnir\base\View { /** @return \app\View */ static function
  * @method \app\ViewComposite addmetarenderer($key, $metarenderer)
  * @method \app\ViewComposite injectmetarenderers(array $metarenderers = null)
  */
-class ViewComposite extends \mjolnir\base\ViewComposite { /** @return \app\ViewComposite */ static function instance() { return parent::instance(); } }
+class ViewComposite extends \mjolnir\base\ViewComposite
+{
+	/** @return \app\ViewComposite */
+	static function instance() { return parent::instance(); }
+}

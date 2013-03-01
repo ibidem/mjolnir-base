@@ -7,9 +7,9 @@
  * @copyright  (c) 2013 Ibidem Team
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
-class ViewComposite extends \app\Instantiatable implements \mjolnir\types\View
+class ViewComposite extends \app\Instantiatable implements \mjolnir\types\RawView
 {
-	use \app\Trait_View;
+	use \app\Trait_RawView;
 
 	/**
 	 * @var array

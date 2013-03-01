@@ -1,8 +1,11 @@
 <?php return array
 	(
-		'mjolnir:error/log.route' => function ()
-			{
-				return \app\URL::href('mjolnir:error/log.route');
-			},
+		'mjolnir' => array
+			(
+				'routes' => array
+					(
+						'log' => \app\URL::href('mjolnir:error/log.route'),
+					)
+			),
 
 	); # config
