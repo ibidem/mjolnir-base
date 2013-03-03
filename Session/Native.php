@@ -103,9 +103,16 @@ class Session_Native extends \app\Instantiatable implements \mjolnir\types\Meta
 	/**
 	 * @return mixed parameter or default
 	 */
-	function get($key, $default = null)
+	function &get($key, $default = null)
 	{
-		return \array_key_exists($key, $_SESSION) ? $_SESSION[$key] : $default;
+		if (\array_key_exists($key, $_SESSION))
+		{
+			return $_SESSION[$key];
+		}
+		else # key not set
+		{
+			return $default;
+		}
 	}
 
 	/**

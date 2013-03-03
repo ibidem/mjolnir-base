@@ -79,7 +79,7 @@ class Email extends \app\Instantiatable
 	{
 		$mimetype = $html ? 'text/html' : 'text/plain';
 		$message = \Swift_Message::newInstance($subject, $message, $mimetype, 'utf-8');
-		
+
 		if ($from === null)
 		{
 			$base_config = \app\CFS::config('mjolnir/base');
@@ -149,7 +149,7 @@ class Email extends \app\Instantiatable
 
 		if ($attempt >= $max_tries)
 		{
-			\mjolnir\log('Email', 'Failed to send email: '.$last_error);
+			\mjolnir\log('Emails', 'Failed to send email: '.$last_error);
 			return 0;
 		}
 
@@ -170,7 +170,7 @@ class Email extends \app\Instantiatable
 		}
 		catch (\Exception $e)
 		{
-			\mjolnir\log('Email', 'Unexpected exception occured: '.$e->getMessage());
+			\mjolnir\log('Emails', 'Unexpected exception occured: '.$e->getMessage());
 			\mjolnir\log_exception($e);
 			return 0;
 		}

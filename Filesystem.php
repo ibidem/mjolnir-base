@@ -195,7 +195,7 @@ class Filesystem
 			}
 			else # neither
 			{
-				\mjolnir\log('Warning', $fullpath.' is not a Directory, nor a File.', 'Warnings/');
+				\mjolnir\log('Warning', $fullpath.' is not a Directory, nor a File.');
 			}
 		}
 
@@ -208,7 +208,7 @@ class Filesystem
 	static function size($path)
 	{
 		$path = \rtrim($path, '\\/');
-		
+
 		if ( ! \file_exists($path) || ! \is_dir($path))
 		{
 			return 0;
@@ -235,7 +235,7 @@ class Filesystem
 			}
 			else # neither
 			{
-				\mjolnir\log('Warning', $fullpath.' is not a Directory, nor a File.', 'Warnings/');
+				\mjolnir\log('Warning', $fullpath.' is not a Directory, nor a File.');
 			}
 		}
 
@@ -363,12 +363,12 @@ class Filesystem
 	static function prunedirs($path)
 	{
 		$path = \rtrim($path, '\\/');
-		
+
 		if ( ! \file_exists($path) || ! \is_dir($path))
 		{
 			return;
 		}
-		
+
 		$files = \scandir($path);
 		foreach ($files as $file)
 		{
@@ -376,9 +376,9 @@ class Filesystem
 			{
 				continue; # skip dot files
 			}
-			
+
 			$fullpath = $path.'/'.$file;
-			
+
 			if (static::filecount($fullpath, '#.*$#', false, true) > 0)
 			{
 				static::prunedirs($fullpath);
@@ -393,5 +393,5 @@ class Filesystem
 			}
 		}
 	}
-	
+
 } # class
