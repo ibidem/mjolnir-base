@@ -9,12 +9,16 @@
  * @copyright  (c) 2013, Ibidem Team
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
-class Image
+class Media
 {
 	/**
+	 * Generates a image handler. A handler is a function that accepts width and
+	 * height and outputs the correct url for the given dimentions, or the full
+	 * image on null and null if the original image was null itself.
+	 * 
 	 * @return callable
 	 */
-	static function handler($image)
+	static function image($image)
 	{
 		$baseconfig = \app\CFS::config('mjolnir/base');
 						

@@ -28,13 +28,11 @@ class Filesystem extends \mjolnir\base\Filesystem
 {
 }
 
-class Image extends \mjolnir\base\Image
+class Lang extends \mjolnir\base\Lang
 {
-	/** @return \app\Image */
-	static function instance() { return parent::instance(); }
 }
 
-class Lang extends \mjolnir\base\Lang
+class Media extends \mjolnir\base\Media
 {
 }
 
