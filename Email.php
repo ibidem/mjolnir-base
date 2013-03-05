@@ -13,6 +13,11 @@ class Email extends \app\Instantiatable
 	 * @var \Email
 	 */
 	protected $swift_mailer = null;
+	
+	/**
+	 * @var boolean
+	 */
+	protected $debug = false;
 
 	/**
 	 * @return static
@@ -28,6 +33,10 @@ class Email extends \app\Instantiatable
 
 		switch ($driver)
 		{
+			case 'debug':
+				$instance->debug = true;
+				return $instance;
+			
 			case 'native':
 				$transport = \Swift_MailTransport::newInstance();
 				break;
@@ -77,6 +86,12 @@ class Email extends \app\Instantiatable
 	 */
 	public function send($to, $from, $subject, $message, $html = false)
 	{
+		if ($this->debug)
+		{
+			echo $message;
+			exit;
+		}
+		
 		$mimetype = $html ? 'text/html' : 'text/plain';
 		$message = \Swift_Message::newInstance($subject, $message, $mimetype, 'utf-8');
 
