@@ -5,14 +5,15 @@
 		(
 			Auth::Guest => array
 				(
-					Allow::relays('\mjolnir\error_log')
-						->all_parameters(),
+					Allow::relays('mjolnir:error.log')
+						->unrestricted(),
 				),
 
 			'+common' => array
 				(
-					Allow::relays('\mjolnir\error_log')
-						->all_parameters(),
+					Allow::relays('mjolnir:error.log')
+						->unrestricted(),
 				),
 		),
-);
+
+); # config
