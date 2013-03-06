@@ -24,7 +24,7 @@ class Media
 						
 		return function ($width = null, $height = null) use ($baseconfig, $image)
 			{
-				if ($image === null)
+				if ($image === null || empty($image))
 				{
 					return null;
 				}
