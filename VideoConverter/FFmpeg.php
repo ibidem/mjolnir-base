@@ -16,6 +16,11 @@ class VideoConverter_FFmpeg extends \app\Instantiatable implements \mjolnir\type
 	 */
 	function convert($source_file, $output_file, array $config = null)
 	{
+		if ( ! \file_exists($source_file) || !\file_exists($output_file))
+		{
+			return;
+		}
+		
 		if ($config === null)
 		{
 			$config = \app\CFS::config('mjolnir/video-converter')['FFmpeg.driver'];;
