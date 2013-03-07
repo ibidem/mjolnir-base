@@ -46,5 +46,28 @@ class Media
 				}
 			};
 	}
+	
+	/**
+	 * Given embed code parses it into an id and provider.
+	 * 
+	 * @return array|null
+	 */
+	static function unwrapembed($embed)
+	{
+		$result = null;
+		$matches = null;
+		if (\preg_match('/^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=)([^#\&\?]*).*/', $embed, $matches))
+		{
+			$result['identifier'] = $matches[2];
+			$result['provider'] = 'youtube';
+		}
+		else if (\preg_match('\preg_match(/https?:\/\/(?:www\.)?vimeo.com\/(?:channels\/|groups\/([^\/]*)\/videos\/|album\/(\d+)\/video\/|)(\d+)(?:$|\/|\?)/', $fields['embed'], $matches))
+		{
+			$result['identifier'] = $matches[3];
+			$result['provider'] = 'vimeo';
+		}
+		
+		return $result;
+	}
 
 } # class
