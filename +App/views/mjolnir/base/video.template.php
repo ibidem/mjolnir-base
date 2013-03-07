@@ -22,17 +22,19 @@
 	}
 ?>
 
-<video <? if ($width !== null): ?>width="<?= $width ?>"<? endif; ?> <? if ($height !== null): ?>height="<?= $height ?>"<? endif; ?> controls>
-	
-	<? if ($has_mp4): ?>
-		<!-- Safari / iOS video -->
-		<source src="<?= "$baseurl$videokey" ?>.mp4" type="video/mp4" />
-	<? endif; ?>
-	
-	<? foreach ($formats as $format): ?>
-		<source src="<?= "$baseurl$videokey.$format" ?>" type="video/<?= $format ?>" />
-	<? endforeach; ?>
-		
-	<? # flash not currently supported ?>
+<div class="video">
+	<video <? if ($width !== null): ?>width="<?= $width ?>"<? endif; ?> <? if ($height !== null): ?>height="<?= $height ?>"<? endif; ?> controls>
 
-</video>
+		<? if ($has_mp4): ?>
+			<!-- Safari / iOS video -->
+			<source src="<?= "$baseurl$videokey" ?>.mp4" type="video/mp4" />
+		<? endif; ?>
+
+		<? foreach ($formats as $format): ?>
+			<source src="<?= "$baseurl$videokey.$format" ?>" type="video/<?= $format ?>" />
+		<? endforeach; ?>
+
+		<? # flash not currently supported ?>
+
+	</video>
+</div>
