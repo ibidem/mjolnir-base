@@ -7,7 +7,7 @@
  * @copyright  (c) 2012 Ibidem Team
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
-class Lang implements \mjolnir\types\Lang
+class Lang extends \app\Instantiatable implements \mjolnir\types\Lang
 {
 	use \app\Trait_Lang;
 
