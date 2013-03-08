@@ -15,7 +15,7 @@ class VideoConverter_FFmpeg extends \app\Instantiatable implements \mjolnir\type
 	 * Given a source file converts it to an output file.
 	 */
 	function convert($source_file, $output_file, array $config = null)
-	{		
+	{
 		if ( ! \file_exists($source_file))
 		{
 			return;
@@ -29,7 +29,7 @@ class VideoConverter_FFmpeg extends \app\Instantiatable implements \mjolnir\type
 		// get file types (simple extention scan)
 		
 		$matches = null;
-		if (\preg_match('#\.[^\.]$#', $source_file, $matches))
+		if (\preg_match('#\.([^\.]+)$#', $source_file, $matches))
 		{
 			$source_ext = $matches[1];
 		}
@@ -38,7 +38,7 @@ class VideoConverter_FFmpeg extends \app\Instantiatable implements \mjolnir\type
 			$source_ext = null;
 		}
 		
-		if (\preg_match('#\.[^\.]$#', $output_file, $matches))
+		if (\preg_match('#\.([^\.]+)$#', $output_file, $matches))
 		{
 			$output_ext = $matches[1];
 		}
@@ -60,7 +60,7 @@ class VideoConverter_FFmpeg extends \app\Instantiatable implements \mjolnir\type
 		
 		if ($return_status !== 0)
 		{
-			\mjolnir\log('VideoConverter', 'Failed: ffmpeg -i '.\escapeshellarg($source_file).$settings.\escapeshellarg($output_file));
+			\mjolnir\log('Video', 'Failed: ffmpeg -i '.\escapeshellarg($source_file).$settings.\escapeshellarg($output_file));
 		}
 	}
 

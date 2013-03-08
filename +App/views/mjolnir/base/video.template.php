@@ -28,7 +28,7 @@
 		<? if ($height !== null): ?>height="<?= $height ?>"<? endif; ?>>
 
 		<? if ($has_mp4): ?>
-			<!-- Safari / iOS video -->
+			<!-- Safari / iOS video; windows version requires quicktime installed -->
 			<source src="<?= "$baseurl$videokey" ?>.mp4" type="video/mp4" />
 		<? endif; ?>
 
@@ -36,7 +36,7 @@
 			<source src="<?= "$baseurl$videokey.$format" ?>" type="<?= $mime ?>" />
 		<? endforeach; ?>
 
-		<? # flash not currently supported ?>
+		<? # flash fallback not currently supported ?>
 
 	</video>
 </div>
