@@ -85,11 +85,26 @@ class Media
 						// check if the configuration is usable
 						if (empty($uploads))
 						{
-							$formats = [ 'mp4', 'webm' ];
+							$formats = array
+								(
+									'mp4' => 'video/mp4', 
+									'ogv' => 'video/ogg', 
+									'webm' => 'video/webm' 
+								);
 						}
 						else # found usable configuration
 						{
 							$formats = $uploads['video.formats'];
+							
+							// filter video formats
+							$formats = \app\Arr::filter
+								(
+									$formats, 
+									function ($i, $value) 
+									{
+										return $value !== null;
+									}
+								);
 						}
 						
 						return \app\View::instance('mjolnir/base/video.template')

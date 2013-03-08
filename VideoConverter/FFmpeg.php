@@ -15,8 +15,8 @@ class VideoConverter_FFmpeg extends \app\Instantiatable implements \mjolnir\type
 	 * Given a source file converts it to an output file.
 	 */
 	function convert($source_file, $output_file, array $config = null)
-	{
-		if ( ! \file_exists($source_file) || !\file_exists($output_file))
+	{		
+		if ( ! \file_exists($source_file))
 		{
 			return;
 		}
@@ -56,7 +56,12 @@ class VideoConverter_FFmpeg extends \app\Instantiatable implements \mjolnir\type
 			}
 		}
 		
-		\passthru('ffmpeg -i '.\escapeshellarg($source_file).$settings.\escapeshellarg($output_file));
+		\passthru('ffmpeg -i '.\escapeshellarg($source_file).$settings.\escapeshellarg($output_file), $return_status);
+		
+		if ($return_status !== 0)
+		{
+			\mjolnir\log('VideoConverter', 'Failed: ffmpeg -i '.\escapeshellarg($source_file).$settings.\escapeshellarg($output_file));
+		}
 	}
 
 } # class

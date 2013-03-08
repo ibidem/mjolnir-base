@@ -18,6 +18,12 @@ class Date extends \mjolnir\base\Date
 {
 }
 
+class Debug extends \mjolnir\base\Debug
+{
+	/** @return \app\Debug */
+	static function instance() { return parent::instance(); }
+}
+
 class Email extends \mjolnir\base\Email
 {
 	/** @return \app\Email */
@@ -30,6 +36,8 @@ class Filesystem extends \mjolnir\base\Filesystem
 
 class Lang extends \mjolnir\base\Lang
 {
+	/** @return \app\Lang */
+	static function instance() { return parent::instance(); }
 }
 
 class Media extends \mjolnir\base\Media
