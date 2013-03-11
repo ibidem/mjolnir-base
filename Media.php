@@ -158,4 +158,16 @@ class Media
 		return $result;
 	}
 
+	/**
+	 * Returns media ID unique to the request; used in handing certain 
+	 * operations related to embeded videos to help identify them.
+	 * 
+	 * @return int
+	 */
+	static function id()
+	{
+		static $id = 0;
+		return $id++;
+	}
+	
 } # class
