@@ -4,6 +4,7 @@
 
 <div class="video">
 	<iframe src="http://www.youtube.com/embed/<?= $identifier ?>?rel=0" 
+			rel="external"
 			<? if ($width !== null): ?>width="<?= $width ?>"<? endif; ?> 
 			<? if ($height !== null): ?>height="<?= $height ?>"<? endif; ?> 
 			frameborder="0"
