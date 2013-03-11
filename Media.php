@@ -149,7 +149,7 @@ class Media
 			$result['identifier'] = $matches['id'];
 			$result['provider'] = 'vimeo';
 		}
-		else if (\preg_match('/^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=)(?P<id>[^#\&\?]*).*/', $embed, $matches))
+		else if (\preg_match('/^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=)(?P<id>[^#\&\?\"]*).*/', $embed, $matches))
 		{
 			$result['identifier'] = $matches['id'];
 			$result['provider'] = 'youtube';
