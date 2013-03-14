@@ -18,6 +18,11 @@ class Email extends \app\Instantiatable
 	 * @var boolean
 	 */
 	protected $debug = false;
+	
+	/**
+	 * @var boolean
+	 */
+	protected $filemode = false;
 
 	/**
 	 * @return static
@@ -35,6 +40,10 @@ class Email extends \app\Instantiatable
 		{
 			case 'debug':
 				$instance->debug = true;
+				return $instance;
+				
+			case 'file':
+				$instance->filemode = true;
 				return $instance;
 			
 			case 'native':
@@ -86,10 +95,30 @@ class Email extends \app\Instantiatable
 	 */
 	public function send($to, $from, $subject, $message, $html = false)
 	{
+		// in debug mode we simply output straight to the screen; this mode is
+		// useful when dealing with logic that outputs a single email such as
+		// for example a contact form
 		if ($this->debug)
 		{
 			echo $message;
 			exit;
+		}
+		
+		/**
+		 * In file mode we output to the local temporary directory. Each email
+		 * address is converted to a directory and emails added to it as new 
+		 * html files.
+		 * 
+		 * This is used when debugging a series of emails or an operation where
+		 * sending the email is only a intermediary step and hence using debug
+		 * may cause a rollback to happen.
+		 */
+		if ($this->filemode)
+		{
+			$time = \date('His');
+			$uniq = \substr(\base_convert(\uniqid('email', true), 10, 32), 0, 4);
+			\app\Filesystem::puts(ETCPATH."tmp/email.inbox/$to/$time-[ $subject ]-[$from]-$uniq.html", $message);
+			return true; # success
 		}
 		
 		$mimetype = $html ? 'text/html' : 'text/plain';
