@@ -10,6 +10,45 @@
 class Text
 {
 	/**
+	 * Given data as an array, converts it to csv format. If not specified 
+	 * PHP_EOL will be used as row_divider to facilitate development.
+	 * 
+	 * @return string csv version of data
+	 */
+	static function csv($tabulardata, $row_divider = null, $col_divider = null)
+	{
+		$row_divider !== null or $row_divider = PHP_EOL; # ie. development friendly
+		$col_divider !== null or $col_divider = ',';
+		
+		return \app\Arr::implode
+			(
+				$row_divider, $tabulardata, 
+				function ($i, $row) use ($col_divider)
+					{
+						return \app\Arr::implode
+							(
+								$col_divider, $row, 
+								function ($j, $item)
+									{
+										if (\is_a($item, '\mjolnir\types\Renderable'))
+										{
+											return $item->render();
+										}
+										else if (\is_a($item, '\DateTime'))
+										{
+											return $item->format(\app\Lang::key('mjolnir:csv/datetime'));
+										}
+										else # normal
+										{
+											return $item;
+										}
+									}
+							);
+					}
+			);
+	}
+	
+	/**
 	 * @return string
 	 */
 	static function summary($source, $maxlength, $cutoff_text = '...')
