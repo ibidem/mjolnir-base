@@ -143,7 +143,7 @@ class Filesystem
 			{
 				static::delete($fullpath);
 			}
-			else if (\is_file($fullpath))
+			else if (\is_file($fullpath) || \is_link($fullpath))
 			{
 				\unlink($fullpath);
 			}
@@ -181,7 +181,7 @@ class Filesystem
 
 			$fullpath = $path.'/'.$file;
 
-			if (\is_dir($fullpath))
+			if (\is_dir($fullpath) || \is_link($fullpath))
 			{
 				$count += static::filecount($fullpath, $pattern);
 				! $count_dirs_as_files or $count += 1;
@@ -229,7 +229,7 @@ class Filesystem
 			{
 				$size += static::size($fullpath);
 			}
-			else if (\is_file($fullpath))
+			else if (\is_file($fullpath) || \is_link($fullpath))
 			{
 				$size += \filesize($fullpath);
 			}
