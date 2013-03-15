@@ -34,10 +34,9 @@ class Arr
 	 *
 	 * The function is mandatory; just use plain old \implode when you don't
 	 * need it.
+	 * 
+	 * If the function returns false the item will be ignored from the list.
 	 *
-	 * @param string glue
-	 * @param array $list
-	 * @param callback func
 	 * @return string
 	 */
 	static function implode($glue, array $list, callable $manipulate)
