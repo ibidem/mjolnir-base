@@ -20,8 +20,6 @@ class Date extends \mjolnir\base\Date
 
 class Debug extends \mjolnir\base\Debug
 {
-	/** @return \app\Debug */
-	static function instance() { return parent::instance(); }
 }
 
 class Email extends \mjolnir\base\Email
@@ -34,6 +32,9 @@ class Filesystem extends \mjolnir\base\Filesystem
 {
 }
 
+/**
+ * @method \app\Lang addlibrary($librarykey)
+ */
 class Lang extends \mjolnir\base\Lang
 {
 	/** @return \app\Lang */
@@ -58,6 +59,12 @@ class Session_Native extends \mjolnir\base\Session_Native
 
 class Session extends \mjolnir\base\Session
 {
+}
+
+class Shell extends \mjolnir\base\Shell
+{
+	/** @return \app\Shell */
+	static function instance() { return parent::instance(); }
 }
 
 class Text extends \mjolnir\base\Text
