@@ -11,6 +11,25 @@ class VideoConverter_FFmpeg extends \app\Instantiatable implements \mjolnir\type
 {
 	use \app\Trait_VideoConverter;
 
+	// ------------------------------------------------------------------------
+	// Hooks
+	
+	/**
+	 * Handle special orientation. 90 and 180 are processed internally.
+	 * 
+	 * @return string
+	 */
+	protected function handle_special_orientation($orientation)
+	{
+		// assuming video was recorded wrong; at the time of this writing there
+		// is no funky angled screens and the idea of funky angled screens seems
+		// or funky video players seems too much of anti-UX gimmick
+		return ''; 
+	}
+	
+	// ------------------------------------------------------------------------
+	// interface: VideoConverter
+	
 	/**
 	 * Given a source file converts it to an output file.
 	 */
@@ -56,7 +75,46 @@ class VideoConverter_FFmpeg extends \app\Instantiatable implements \mjolnir\type
 			}
 		}
 		
-		$cmd = 'ffmpeg -y -i '.\escapeshellarg($source_file).$settings.\escapeshellarg($output_file);
+		// attempt to get orientation
+		$grep = \trim(\app\Shell::cmd('mediainfo '.\escapeshellarg($source_file).' | grep Rotation'));
+		
+		$orientation_adjustment = ''; # orientation is 0 or not specified
+		if ( ! empty($grep) && \preg_match('/(?P<orientation>[0-9]/', $grep, $matches))
+		{
+			$orientation = \intval($matches['orientation']);
+			
+			#
+			# The following is mostly to deal with .mov recorded using iphones.
+			#
+			# Essentially only iphones can handle their mangled non-standard
+			# video rotation metadata, so if we don't want the video to look
+			# upside down or on it's side to everyone else we need to correct 
+			# it. Support is limited, we can do basic 90, 180, and delegate 
+			# everything else to the application (if it ever needs it).
+			#	
+			
+			if ($orientation == 90)
+			{
+				// portrait videos taken with a phone will be recorded into landscape mode
+				$orientation_adjustment = ' -vf "transpose=1"'; # rotate 90 clockwise
+			}
+			else if ($orientation == 180)
+			{
+				// who exactly wants to take upside down videos?
+				$orientation_adjustment = ' -vf "vflip,hflip"'; # vertical and horizontal flip
+			}
+			else # non-90 and non-180 orientation
+			{
+				$orientation_adjustment = $this->handle_special_orientation($orientation);
+			}
+		}
+		
+		$cmd = 'ffmpeg -y -i '
+			. \escapeshellarg($source_file)
+			. $orientation_adjustment
+			. $settings
+			. \escapeshellarg($output_file);
+		
 		$return_status = 1;
 		\passthru($cmd, $return_status);
 		

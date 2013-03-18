@@ -31,5 +31,26 @@ class Shell
 		
 		return $exists;
 	}
+	
+	/**
+	 * Executes command and retrieves complete output.
+	 */
+	static function cmd($command)
+	{
+		$output = [];
+		$return = 1;
+		
+		// the return value of this command is the last line
+		\exec($command, $output, $return);
+		
+		if ($return != 0)
+		{
+			throw new \Exception("Failed with status [$return] => $command");
+		}
+		else # status: ok
+		{
+			return \implode("\n", $output);
+		}
+	}
 
 } # class
