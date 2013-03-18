@@ -76,7 +76,7 @@ class VideoConverter_FFmpeg extends \app\Instantiatable implements \mjolnir\type
 		}
 		
 		// attempt to get rotation
-		$grep = \trim(\app\Shell::cmd('mediainfo '.\escapeshellarg($source_file).' | grep Rotation'));
+		$grep = \trim(\app\Shell::cmd('mediainfo '.\escapeshellarg($source_file).' | grep Rotation', false));
 		
 		$rotation_adjustment = ''; # rotation is 0 or not specified
 		if ( ! empty($grep) && \preg_match('/(?P<rotation>[0-9]/', $grep, $matches))

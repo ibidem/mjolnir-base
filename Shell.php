@@ -35,13 +35,18 @@ class Shell
 	/**
 	 * Executes command and retrieves complete output.
 	 */
-	static function cmd($command)
+	static function cmd($command, $check_status = true)
 	{
 		$output = [];
 		$return = 1;
 		
 		// the return value of this command is the last line
 		\exec($command, $output, $return);
+		
+		if ( ! $check_status)
+		{
+			return \implode("\n", $output);
+		}
 		
 		if ($return != 0)
 		{
