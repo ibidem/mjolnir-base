@@ -6,7 +6,7 @@ if (\file_exists(DOCROOT.'pubdirs'))
 	
 	foreach ($pubdirs as &$pubdir)
 	{
-		$pubdir = \ltrim(\trim($pubdir), '/\\');
+		$pubdir = \rtrim(\trim($pubdir), '/\\');
 		
 		if (empty($pubdir))
 		{
