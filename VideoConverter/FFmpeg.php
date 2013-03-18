@@ -15,11 +15,11 @@ class VideoConverter_FFmpeg extends \app\Instantiatable implements \mjolnir\type
 	// Hooks
 	
 	/**
-	 * Handle special orientation. 90 and 180 are processed internally.
+	 * Handle special rotation. 90 and 180 are processed internally.
 	 * 
 	 * @return string
 	 */
-	protected function handle_special_orientation($orientation)
+	protected function handle_special_rotation($rotation)
 	{
 		// assuming video was recorded wrong; at the time of this writing there
 		// is no funky angled screens and the idea of funky angled screens seems
@@ -75,13 +75,13 @@ class VideoConverter_FFmpeg extends \app\Instantiatable implements \mjolnir\type
 			}
 		}
 		
-		// attempt to get orientation
+		// attempt to get rotation
 		$grep = \trim(\app\Shell::cmd('mediainfo '.\escapeshellarg($source_file).' | grep Rotation'));
 		
-		$orientation_adjustment = ''; # orientation is 0 or not specified
-		if ( ! empty($grep) && \preg_match('/(?P<orientation>[0-9]/', $grep, $matches))
+		$rotation_adjustment = ''; # rotation is 0 or not specified
+		if ( ! empty($grep) && \preg_match('/(?P<rotation>[0-9]/', $grep, $matches))
 		{
-			$orientation = \intval($matches['orientation']);
+			$rotation = \intval($matches['orien	tation']);
 			
 			#
 			# The following is mostly to deal with .mov recorded using iphones.
@@ -93,25 +93,25 @@ class VideoConverter_FFmpeg extends \app\Instantiatable implements \mjolnir\type
 			# everything else to the application (if it ever needs it).
 			#	
 			
-			if ($orientation == 90)
+			if ($rotation == 90)
 			{
 				// portrait videos taken with a phone will be recorded into landscape mode
-				$orientation_adjustment = ' -vf "transpose=1"'; # rotate 90 clockwise
+				$rotation_adjustment = ' -vf "transpose=1"'; # rotate 90 clockwise
 			}
-			else if ($orientation == 180)
+			else if ($rotation == 180)
 			{
 				// who exactly wants to take upside down videos?
-				$orientation_adjustment = ' -vf "vflip,hflip"'; # vertical and horizontal flip
+				$rotation_adjustment = ' -vf "vflip,hflip"'; # vertical and horizontal flip
 			}
-			else # non-90 and non-180 orientation
+			else # non-90 and non-180 rotation
 			{
-				$orientation_adjustment = $this->handle_special_orientation($orientation);
+				$rotation_adjustment = $this->handle_special_rotation($rotation);
 			}
 		}
 		
 		$cmd = 'ffmpeg -y -i '
 			. \escapeshellarg($source_file)
-			. $orientation_adjustment
+			. $rotation_adjustment
 			. $settings
 			. \escapeshellarg($output_file);
 		
