@@ -56,11 +56,13 @@ class VideoConverter_FFmpeg extends \app\Instantiatable implements \mjolnir\type
 			}
 		}
 		
-		\passthru('ffmpeg -i '.\escapeshellarg($source_file).$settings.\escapeshellarg($output_file), $return_status);
+		$cmd = 'ffmpeg -y -i '.\escapeshellarg($source_file).$settings.\escapeshellarg($output_file);
+		$return_status = 1;
+		\passthru($cmd, $return_status);
 		
 		if ($return_status !== 0)
 		{
-			\mjolnir\log('Video', 'Failed: ffmpeg -i '.\escapeshellarg($source_file).$settings.\escapeshellarg($output_file));
+			\mjolnir\log('Video', "Failed: $cmd");
 		}
 	}
 
