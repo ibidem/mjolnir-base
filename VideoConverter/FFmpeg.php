@@ -22,8 +22,8 @@ class VideoConverter_FFmpeg extends \app\Instantiatable implements \mjolnir\type
 	protected function handle_special_rotation($rotation)
 	{
 		// assuming video was recorded wrong; at the time of this writing there
-		// is no funky angled screens and the idea of funky angled screens seems
-		// or funky video players seems too much of anti-UX gimmick
+		// is no funky angled screens and the idea of funky angled screens or 
+		// funky video players seems too much of anti-UX gimmick
 		return ''; 
 	}
 	
