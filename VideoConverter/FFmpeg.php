@@ -21,8 +21,6 @@ class VideoConverter_FFmpeg extends \app\Instantiatable implements \mjolnir\type
 	 */
 	protected function handle_rotation($rotation)
 	{
-		
-		
 		if ($rotation == 90)
 		{
 			// portrait videos taken with a phone will be recorded into landscape mode
