@@ -15,7 +15,7 @@ class VideoConverter_FFmpeg extends \app\Instantiatable implements \mjolnir\type
 	// Hooks
 	
 	/**
-	 * Handle special rotation. 90 and 180 are processed internally.
+	 * Handle special rotation. 90, 180, 270 are processed internally.
 	 * 
 	 * @return string
 	 */
@@ -76,12 +76,12 @@ class VideoConverter_FFmpeg extends \app\Instantiatable implements \mjolnir\type
 		}
 		
 		// attempt to get rotation
-		$grep = \trim(\app\Shell::cmd('mediainfo '.\escapeshellarg($source_file).' | grep Rotation', false));
+		$grep = \trim(\app\Shell::cmd('mediainfo '.\escapeshellarg($source_file)));
 		
 		$rotation_adjustment = ''; # rotation is 0 or not specified
-		if ( ! empty($grep) && \preg_match('/(?P<rotation>[0-9]/', $grep, $matches))
+		if ( ! empty($grep) && \preg_match('/Rotation[^:]+:[^0-9]+(?P<rotation>[0-9]+)/', $grep, $matches))
 		{
-			$rotation = \intval($matches['orien	tation']);
+			$rotation = \intval($matches['rotation']);
 			
 			#
 			# The following is mostly to deal with .mov recorded using iphones.
@@ -102,6 +102,11 @@ class VideoConverter_FFmpeg extends \app\Instantiatable implements \mjolnir\type
 			{
 				// who exactly wants to take upside down videos?
 				$rotation_adjustment = ' -vf "vflip,hflip"'; # vertical and horizontal flip
+			}
+			else if ($rotation == 270)
+			{
+				// portrait videos taken with a phone will be recorded into landscape mode
+				$rotation_adjustment = ' -vf "transpose=3"'; # rotate 90 clockwise
 			}
 			else # non-90 and non-180 rotation
 			{
