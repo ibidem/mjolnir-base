@@ -108,6 +108,25 @@ class VideoConverter_FFmpeg extends \app\Instantiatable implements \mjolnir\type
 		{
 			$rotation = \intval($matches['rotation']);
 			$rotation_adjustment = $this->handle_rotation($rotation);
+			// strip the damn metadata so the adjusted rotation doesn't mess up
+			// quicktime
+			$dir = \dirname($source_file);
+			$file = \basename($source_file);
+			
+			if ($source_ext !== null)
+			{
+				$filebase = \substr($file, 0, \strlen($file) - 1 - \strlen($source_ext));
+			}
+			else
+			{
+				$filebase = $file;
+			}
+			
+			$metalessfile = "$dir/$filebase.nometa.$source_ext";
+			
+			\passthru('ffmpeg -y -i '.\escapeshellarg($source_file).' -c copy -map_metadata -1 '.\escapeshellarg($metalessfile));
+			$source_file = $metalessfile;
+			\app\Debug::log($source_file);
 		}
 		
 		$cmd = 'ffmpeg -y -i '
