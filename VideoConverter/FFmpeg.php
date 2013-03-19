@@ -19,12 +19,32 @@ class VideoConverter_FFmpeg extends \app\Instantiatable implements \mjolnir\type
 	 * 
 	 * @return string
 	 */
-	protected function handle_special_rotation($rotation)
+	protected function handle_rotation($rotation)
 	{
-		// assuming video was recorded wrong; at the time of this writing there
-		// is no funky angled screens and the idea of funky angled screens or 
-		// funky video players seems too much of anti-UX gimmick
-		return ''; 
+		
+		
+		if ($rotation == 90)
+		{
+			// portrait videos taken with a phone will be recorded into landscape mode
+			return ' -vf "transpose=1"'; # rotate 90 clockwise
+		}
+		else if ($rotation == 180)
+		{
+			// who exactly wants to take upside down videos?
+			return ' -vf "vflip,hflip"'; # vertical and horizontal flip
+		}
+		else if ($rotation == 270)
+		{
+			// portrait videos taken with a phone will be recorded into landscape mode
+			return ' -vf "transpose=3"'; # rotate 90 clockwise
+		}
+		else # non-90 and non-180 rotation
+		{
+			// assuming video was recorded wrong; at the time of this writing there
+			// is no funky angled screens and the idea of funky angled screens or 
+			// funky video players seems too much of anti-UX gimmick
+			return ''; 
+		}
 	}
 	
 	// ------------------------------------------------------------------------
@@ -74,44 +94,24 @@ class VideoConverter_FFmpeg extends \app\Instantiatable implements \mjolnir\type
 				$settings .= $config['settings'][$source_ext][$output_ext].' ';
 			}
 		}
+
+		#
+		# The following is mostly to deal with .mov recorded using iphones.
+		#
+		# Essentially only iphones can handle their mangled non-standard
+		# video rotation metadata, so if we don't want the video to look
+		# upside down or on it's side to everyone else we need to correct 
+		# it. Support is limited, we can do basic 90, 180, and delegate 
+		# everything else to the application (if it ever needs it).
+		#
 		
 		// attempt to get rotation
 		$grep = \trim(\app\Shell::cmd('mediainfo '.\escapeshellarg($source_file)));
-		
 		$rotation_adjustment = ''; # rotation is 0 or not specified
 		if ( ! empty($grep) && \preg_match('/Rotation[^:]+:[^0-9]+(?P<rotation>[0-9]+)/', $grep, $matches))
 		{
 			$rotation = \intval($matches['rotation']);
-			
-			#
-			# The following is mostly to deal with .mov recorded using iphones.
-			#
-			# Essentially only iphones can handle their mangled non-standard
-			# video rotation metadata, so if we don't want the video to look
-			# upside down or on it's side to everyone else we need to correct 
-			# it. Support is limited, we can do basic 90, 180, and delegate 
-			# everything else to the application (if it ever needs it).
-			#	
-			
-			if ($rotation == 90)
-			{
-				// portrait videos taken with a phone will be recorded into landscape mode
-				$rotation_adjustment = ' -vf "transpose=1"'; # rotate 90 clockwise
-			}
-			else if ($rotation == 180)
-			{
-				// who exactly wants to take upside down videos?
-				$rotation_adjustment = ' -vf "vflip,hflip"'; # vertical and horizontal flip
-			}
-			else if ($rotation == 270)
-			{
-				// portrait videos taken with a phone will be recorded into landscape mode
-				$rotation_adjustment = ' -vf "transpose=3"'; # rotate 90 clockwise
-			}
-			else # non-90 and non-180 rotation
-			{
-				$rotation_adjustment = $this->handle_special_rotation($rotation);
-			}
+			$rotation_adjustment = $this->handle_rotation($rotation);
 		}
 		
 		$cmd = 'ffmpeg -y -i '
