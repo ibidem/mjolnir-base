@@ -15,9 +15,7 @@ class VideoConverter_FFmpeg extends \app\Instantiatable implements \mjolnir\type
 	// Hooks
 	
 	/**
-	 * Handle special rotation. 90, 180, 270 are processed internally.
-	 * 
-	 * @return string
+	 * @return string settings to pass to ffmpeg
 	 */
 	protected function handle_rotation($rotation)
 	{
