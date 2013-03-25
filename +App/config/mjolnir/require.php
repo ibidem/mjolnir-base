@@ -1,100 +1,103 @@
-<?php 
+<?php namespace app;
 
-if (\file_exists(DOCROOT.'pubdirs'))
-{
-	$pubdirs = \explode("\n", \trim(\file_get_contents(DOCROOT.'pubdirs')));
-	
-	foreach ($pubdirs as &$pubdir)
+	if (\file_exists(Env::key('sys.path').'.www.path'))
 	{
-		$pubdir = \rtrim(\trim($pubdir), '/\\');
-		
-		if (empty($pubdir))
+		$wwwpath = \rtrim(\trim(\file_get_contents(Env::key('sys.path').'.www.path')), '/\\');
+
+		if (empty($wwwpath))
 		{
-			throw new \Exception('Invalid entry in DOCROOT/pubdirs.');
+			throw new \Exception('Invalid DOCROOT/.www.path');
 		}
-		else
+		else # got wwwpath
 		{
-			$pubdir .= '/';
+			$wwwpath .= '/';
 		}
 	}
-}
-else # no pubdir file defined
-{
-	throw new \Exception('Please define a DOCROOT/pubdirs file with the location to your public directories seperated by line breaks.');
-}
 
-$require = array
-	(
-		'mjolnir\base' => array
-			(
-				 "ffmpeg" => function ()
-					{
-						if (\app\Shell::cmd_exists('ffmpeg'))
+	$require = array
+		(
+			'mjolnir\base' => array
+				(
+					'cookie Key' => function ()
 						{
-							return 'available';
-						}
+							$cookiekey = \app\CFS::config('mjolnir/cookies')['key'];
+							if ($cookiekey !== null)
+							{
+								return 'available';
+							}
 
-						return 'error';
-					},
-				"mediainfo" => function ()
-					{
-						if (\app\Shell::cmd_exists('mediainfo'))
+							return 'error';
+						},
+
+					 "ffmpeg" => function ()
 						{
-							return 'available';
+							if (\app\Shell::cmd_exists('ffmpeg'))
+							{
+								return 'available';
+							}
+
+							return 'error';
+						},
+					"mediainfo" => function ()
+						{
+							if (\app\Shell::cmd_exists('mediainfo'))
+							{
+								return 'available';
+							}
+
+							return 'error';
+						},
+					'non-dev email driver' => function ()
+						{
+							$email = \app\CFS::config('mjolnir/email');
+							return ! \in_array($email['default.driver'], ['debug', 'file']) ? 'available' : 'failed';
 						}
+				),
+		);
 
-						return 'error';
-					},
-			),
-	);
-	
-// provide tests for all registered public applications
-foreach ($pubdirs as $pubdir)
-{				
-	$require['mjolnir\base'][\str_replace('\\', '/', "{$pubdir}uploads")] = function () use ($pubdir)
+	$require['mjolnir\base'][\str_replace('\\', '/', "{$wwwpath}uploads")] = function () use ($wwwpath)
 		{
-			if ( ! \file_exists($pubdir.'uploads/'))
+			if ( ! \file_exists($wwwpath.'uploads/'))
 			{
 				return 'error';
 			}
 
-			if ( ! \is_writable($pubdir.'uploads/'))
+			if ( ! \is_writable($wwwpath.'uploads/'))
 			{
 				return 'error';
 			}
 
 			return 'available';
 		};
-		
-	$require['mjolnir\base'][\str_replace('\\', '/', "{$pubdir}thumbs")] = function () use ($pubdir)
+
+	$require['mjolnir\base'][\str_replace('\\', '/', "{$wwwpath}thumbs")] = function () use ($wwwpath)
 		{
-			if ( ! \file_exists($pubdir.'thumbs/'))
+			if ( ! \file_exists($wwwpath.'thumbs/'))
 			{
 				return 'error';
 			}
 
-			if ( ! \is_writable($pubdir.'thumbs/'))
+			if ( ! \is_writable($wwwpath.'thumbs/'))
 			{
 				return 'error';
 			}
 
 			return 'available';
 		};
-		
-	$require['mjolnir\base'][\str_replace('\\', '/', "{$pubdir}media")] = function () use ($pubdir)
+
+	$require['mjolnir\base'][\str_replace('\\', '/', "{$wwwpath}media")] = function () use ($wwwpath)
 		{
-			if ( ! \file_exists($pubdir.'media/'))
+			if ( ! \file_exists($wwwpath.'media/'))
 			{
 				return 'error';
 			}
 
-			if ( ! \is_writable($pubdir.'media/'))
+			if ( ! \is_writable($wwwpath.'media/'))
 			{
 				return 'error';
 			}
 
 			return 'available';
 		};
-}
 
-return $require;
+	return $require;

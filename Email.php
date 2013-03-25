@@ -13,12 +13,12 @@ class Email extends \app\Instantiatable
 	 * @var \Email
 	 */
 	protected $swift_mailer = null;
-	
+
 	/**
 	 * @var boolean
 	 */
 	protected $debug = false;
-	
+
 	/**
 	 * @var boolean
 	 */
@@ -41,11 +41,11 @@ class Email extends \app\Instantiatable
 			case 'debug':
 				$instance->debug = true;
 				return $instance;
-				
+
 			case 'file':
 				$instance->filemode = true;
 				return $instance;
-			
+
 			case 'native':
 				$transport = \Swift_MailTransport::newInstance();
 				break;
@@ -103,12 +103,12 @@ class Email extends \app\Instantiatable
 			echo $message;
 			exit;
 		}
-		
+
 		/**
 		 * In file mode we output to the local temporary directory. Each email
-		 * address is converted to a directory and emails added to it as new 
+		 * address is converted to a directory and emails added to it as new
 		 * html files.
-		 * 
+		 *
 		 * This is used when debugging a series of emails or an operation where
 		 * sending the email is only a intermediary step and hence using debug
 		 * may cause a rollback to happen.
@@ -117,10 +117,10 @@ class Email extends \app\Instantiatable
 		{
 			$time = \date('His');
 			$uniq = \substr(\base_convert(\uniqid('email', true), 10, 32), 0, 4);
-			\app\Filesystem::puts(ETCPATH."tmp/email.inbox/$to/$time-[ $subject ]-[$from]-$uniq.html", $message);
+			\app\Filesystem::puts(\app\Env::key('etc.path')."tmp/email.inbox/$to/$time-[ $subject ]-[$from]-$uniq.html", $message);
 			return true; # success
 		}
-		
+
 		$mimetype = $html ? 'text/html' : 'text/plain';
 		$message = \Swift_Message::newInstance($subject, $message, $mimetype, 'utf-8');
 
