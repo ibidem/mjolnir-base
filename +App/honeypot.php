@@ -63,8 +63,6 @@ class Session extends \mjolnir\base\Session
 
 class Shell extends \mjolnir\base\Shell
 {
-	/** @return \app\Shell */
-	static function instance() { return parent::instance(); }
 }
 
 class Text extends \mjolnir\base\Text
@@ -88,21 +86,6 @@ class VideoConverter extends \mjolnir\base\VideoConverter
 }
 
 /**
- * @method \app\View file_is($file, $ext = '.php')
- * @method \app\View bind($name,  & $non_object)
- * @method \app\View pass($name, $value)
- * @method \app\View inherit($view)
- * @method \app\View addmetarenderer($key, $metarenderer)
- * @method \app\View injectmetarenderers(array $metarenderers = null)
- * @method \app\View file_path($filepath)
- */
-class View extends \mjolnir\base\View
-{
-	/** @return \app\View */
-	static function instance($file = null, $ext = '.php') { return parent::instance($file, $ext); }
-}
-
-/**
  * @method \app\ViewComposite views_are(array $views)
  * @method \app\ViewComposite bind($name,  & $non_object)
  * @method \app\ViewComposite pass($name, $value)
@@ -114,4 +97,19 @@ class ViewComposite extends \mjolnir\base\ViewComposite
 {
 	/** @return \app\ViewComposite */
 	static function instance() { return parent::instance(); }
+}
+
+/**
+ * @method \app\View file_is($file, $ext = '.php')
+ * @method \app\View file_path($filepath)
+ * @method \app\View bind($name,  & $non_object)
+ * @method \app\View pass($name, $value)
+ * @method \app\View inherit($view)
+ * @method \app\View addmetarenderer($key, $metarenderer)
+ * @method \app\View injectmetarenderers(array $metarenderers = null)
+ */
+class View extends \mjolnir\base\View
+{
+	/** @return \app\View */
+	static function instance($file = null, $ext = '.php') { return parent::instance($file, $ext); }
 }

@@ -13,12 +13,16 @@
 			$wwwpath .= '/';
 		}
 	}
+	else
+	{
+		$wwwpath = false;
+	}
 
 	$require = array
 		(
 			'mjolnir\base' => array
 				(
-					'cookie Key' => function ()
+					'cookie key' => function ()
 						{
 							$cookiekey = \app\CFS::config('mjolnir/cookies')['key'];
 							if ($cookiekey !== null)
@@ -55,49 +59,52 @@
 				),
 		);
 
-	$require['mjolnir\base'][\str_replace('\\', '/', "{$wwwpath}uploads")] = function () use ($wwwpath)
-		{
-			if ( ! \file_exists($wwwpath.'uploads/'))
+	if ($wwwpath !== false)
+	{
+		$require['mjolnir\base'][\str_replace('\\', '/', "{$wwwpath}uploads")] = function () use ($wwwpath)
 			{
-				return 'error';
-			}
+				if ( ! \file_exists($wwwpath.'uploads/'))
+				{
+					return 'error';
+				}
 
-			if ( ! \is_writable($wwwpath.'uploads/'))
+				if ( ! \is_writable($wwwpath.'uploads/'))
+				{
+					return 'error';
+				}
+
+				return 'available';
+			};
+
+		$require['mjolnir\base'][\str_replace('\\', '/', "{$wwwpath}thumbs")] = function () use ($wwwpath)
 			{
-				return 'error';
-			}
+				if ( ! \file_exists($wwwpath.'thumbs/'))
+				{
+					return 'error';
+				}
 
-			return 'available';
-		};
+				if ( ! \is_writable($wwwpath.'thumbs/'))
+				{
+					return 'error';
+				}
 
-	$require['mjolnir\base'][\str_replace('\\', '/', "{$wwwpath}thumbs")] = function () use ($wwwpath)
-		{
-			if ( ! \file_exists($wwwpath.'thumbs/'))
+				return 'available';
+			};
+
+		$require['mjolnir\base'][\str_replace('\\', '/', "{$wwwpath}media")] = function () use ($wwwpath)
 			{
-				return 'error';
-			}
+				if ( ! \file_exists($wwwpath.'media/'))
+				{
+					return 'error';
+				}
 
-			if ( ! \is_writable($wwwpath.'thumbs/'))
-			{
-				return 'error';
-			}
+				if ( ! \is_writable($wwwpath.'media/'))
+				{
+					return 'error';
+				}
 
-			return 'available';
-		};
-
-	$require['mjolnir\base'][\str_replace('\\', '/', "{$wwwpath}media")] = function () use ($wwwpath)
-		{
-			if ( ! \file_exists($wwwpath.'media/'))
-			{
-				return 'error';
-			}
-
-			if ( ! \is_writable($wwwpath.'media/'))
-			{
-				return 'error';
-			}
-
-			return 'available';
-		};
+				return 'available';
+			};
+	}
 
 	return $require;

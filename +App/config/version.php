@@ -2,9 +2,8 @@
 	(
 		'mjolnir\base' => array
 			(
-				'major' => '1',
+				'major' => '2',
 				'minor' => '0',
-				'hotfix' => '0',
 				'tag' => 'liquid'
 			),
 	);

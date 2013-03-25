@@ -28,23 +28,26 @@ class Session_Native extends \app\Instantiatable implements \mjolnir\types\Meta
 		{
 			$instance = parent::instance();
 
-			// load session configuration
-			$session_config = \app\CFS::config('mjolnir/sessions');
-			$base_config = \app\CFS::config('mjolnir/base');
-			\session_set_cookie_params
-				(
-					$session_config['lifetime'], # lifetime (seconds)
-					$base_config['path'],        # path
-					$base_config['domain'],      # domain
-					$session_config['secure'],   # secure
-					$session_config['httponly']  # httponly
-				);
+			if ( ! \headers_sent())
+			{
+				// load session configuration
+				$session_config = \app\CFS::config('mjolnir/sessions');
+				$base_config = \app\CFS::config('mjolnir/base');
+				\session_set_cookie_params
+					(
+						$session_config['lifetime'], # lifetime (seconds)
+						$base_config['path'],        # path
+						$base_config['domain'],      # domain
+						$session_config['secure'],   # secure
+						$session_config['httponly']  # httponly
+					);
 
-			// start session
-			\session_start();
+				// start session
+				\session_start();
 
-			// write the session at shutdown
-			\register_shutdown_function(array($instance, 'close'));
+				// write the session at shutdown
+				\register_shutdown_function(array($instance, 'close'));
+			}
 		}
 
 		return $instance;
