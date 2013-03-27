@@ -20,7 +20,7 @@
 		'mjolnir:thumbnail.route' => array
 			(
 				'matcher' => \app\URLRoute::instance()
-					->urlpattern('thumbs/timthumb-2.8.10.php?src=<image>&w=<width>&h=<height>'),
+					->urlpattern('thumbs/timthumb.php?src=<image>&w=<width>&h=<height>'),
 				'enabled' => false, # should never be enabled; this is merely for creating urls
 			),
 	
