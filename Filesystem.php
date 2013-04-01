@@ -129,6 +129,7 @@ class Filesystem
 	 */
 	static function purge($dir)
 	{
+		$dir = \rtrim($dir, '/\\');
 		$files = \scandir($dir);
 		foreach($files as $file)
 		{
