@@ -24,9 +24,9 @@ class Shell
 		}
 		else # non-Windows
 		{
-			$fp = \popen("which $command", "r");
+			$fp = \popen("type $command >/dev/null 2>&1 || echo 'failed'", "r");
 			$result = \fgets($fp, 255);
-			$exists = $result !== false && ! empty($result);
+			$exists = empty($result);
 			\pclose($fp);
 		}
 
