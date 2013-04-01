@@ -32,6 +32,12 @@ class Filesystem extends \mjolnir\base\Filesystem
 {
 }
 
+class Image extends \mjolnir\base\Image
+{
+	/** @return \app\Image */
+	static function instance() { return parent::instance(); }
+}
+
 /**
  * @method \app\Lang addlibrary($librarykey)
  */
@@ -86,20 +92,6 @@ class VideoConverter extends \mjolnir\base\VideoConverter
 }
 
 /**
- * @method \app\ViewComposite views_are(array $views)
- * @method \app\ViewComposite bind($name,  & $non_object)
- * @method \app\ViewComposite pass($name, $value)
- * @method \app\ViewComposite inherit($view)
- * @method \app\ViewComposite addmetarenderer($key, $metarenderer)
- * @method \app\ViewComposite injectmetarenderers(array $metarenderers = null)
- */
-class ViewComposite extends \mjolnir\base\ViewComposite
-{
-	/** @return \app\ViewComposite */
-	static function instance() { return parent::instance(); }
-}
-
-/**
  * @method \app\View file_is($file, $ext = '.php')
  * @method \app\View file_path($filepath)
  * @method \app\View bind($name,  & $non_object)
@@ -112,4 +104,18 @@ class View extends \mjolnir\base\View
 {
 	/** @return \app\View */
 	static function instance($file = null, $ext = '.php') { return parent::instance($file, $ext); }
+}
+
+/**
+ * @method \app\ViewComposite views_are(array $views)
+ * @method \app\ViewComposite bind($name,  & $non_object)
+ * @method \app\ViewComposite pass($name, $value)
+ * @method \app\ViewComposite inherit($view)
+ * @method \app\ViewComposite addmetarenderer($key, $metarenderer)
+ * @method \app\ViewComposite injectmetarenderers(array $metarenderers = null)
+ */
+class ViewComposite extends \mjolnir\base\ViewComposite
+{
+	/** @return \app\ViewComposite */
+	static function instance() { return parent::instance(); }
 }
