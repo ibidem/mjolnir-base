@@ -24,7 +24,7 @@
 				(
 					'extension=php_exif' => function ()
 						{
-							return \function_exists('\exif_read_data') ? 'available' : 'error';
+							return \function_exists('\exif_read_data') ? 'satisfied' : 'error';
 						},
 				
 					'cookie key' => function ()
@@ -32,7 +32,7 @@
 							$cookiekey = \app\CFS::config('mjolnir/cookies')['key'];
 							if ($cookiekey !== null)
 							{
-								return 'available';
+								return 'satisfied';
 							}
 
 							return 'error';
@@ -42,7 +42,7 @@
 						{
 							if (\app\Shell::cmd_exists('ffmpeg'))
 							{
-								return 'available';
+								return 'satisfied';
 							}
 
 							return 'error';
@@ -51,7 +51,7 @@
 						{
 							if (\app\Shell::cmd_exists('mediainfo'))
 							{
-								return 'available';
+								return 'satisfied';
 							}
 
 							return 'error';
@@ -59,7 +59,7 @@
 					'non-dev email driver' => function ()
 						{
 							$email = \app\CFS::config('mjolnir/email');
-							return ! \in_array($email['default.driver'], ['debug', 'file']) ? 'available' : 'failed';
+							return ! \in_array($email['default.driver'], ['debug', 'file']) ? 'satisfied' : 'failed';
 						}
 				),
 		);
@@ -78,7 +78,7 @@
 					return 'error';
 				}
 
-				return 'available';
+				return 'satisfied';
 			};
 
 		$require['mjolnir\base'][\str_replace('\\', '/', "{$wwwpath}thumbs")] = function () use ($wwwpath)
@@ -93,7 +93,7 @@
 					return 'error';
 				}
 
-				return 'available';
+				return 'satisfied';
 			};
 
 		$require['mjolnir\base'][\str_replace('\\', '/', "{$wwwpath}media")] = function () use ($wwwpath)
@@ -108,7 +108,7 @@
 					return 'error';
 				}
 
-				return 'available';
+				return 'satisfied';
 			};
 	}
 
