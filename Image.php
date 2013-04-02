@@ -37,6 +37,8 @@ class Image
 					break;
 			}
 		}
+		
+		return $imagepath;
 	}
 
 	/**
