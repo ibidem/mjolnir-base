@@ -22,6 +22,11 @@
 		(
 			'mjolnir\base' => array
 				(
+					'extension=php_exif' => function ()
+						{
+							return \function_exists('\exif_read_data') ? 'available' : 'error';
+						},
+				
 					'cookie key' => function ()
 						{
 							$cookiekey = \app\CFS::config('mjolnir/cookies')['key'];

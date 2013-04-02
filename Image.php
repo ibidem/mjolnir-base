@@ -13,8 +13,12 @@ class Image
 	 * Removes Orientation metadata and rotates image to match 0 degrees 
 	 * relative to the orientation. If the image does not contain an Orientation
 	 * this function does nothing.
+	 * 
+	 * [!!] The path may be altered during the process.
+	 * 
+	 * @return string potentially altered image path 
 	 */
-	function remove_orientation($imagepath)
+	static function removeorientation($imagepath)
 	{
 		$meta = \exif_read_data($imagepath);
 		
@@ -23,13 +27,13 @@ class Image
 			switch ($meta['Orientation'])
 			{
 				case 8:
-					static::rotateimage($imagepath, 90);
+					return static::rotateimage($imagepath, 90);
 					break;
 				case 3:
-					static::rotateimage($imagepath, 180);
+					return static::rotateimage($imagepath, 180);
 					break;
 				case 6:
-					static::rotateimage($imagepath, -90);
+					return static::rotateimage($imagepath, -90);
 					break;
 			}
 		}
@@ -37,22 +41,40 @@ class Image
 
 	/**
 	 * Rotates the given file the given degrees.
+	 * 
+	 * The function may alter the image such as converting it to jpeg, in the 
+	 * event there are no other means of processing it.
+	 * 
+	 * @return string potentially altered image path 
 	 */
-	function rotateimage($imagepath, $degrees)
+	static function rotateimage($imagepath, $degrees)
 	{
-		$source = \imagecreatefrompng($filename);
-		
-		if ( ! $source)
+		$parts = null;
+		if (\preg_match('#(?P<path>.*)\.png$#', $imagepath, $parts))
 		{
-			throw new \Exception('Error opening file '.$imagepath);
+			$source = \imagecreatefrompng($imagepath);
+
+			if ( ! $source)
+			{
+				throw new \Exception('Error opening file '.$imagepath);
+			}
+
+			\imagealphablending($source, false);
+			\imagesavealpha($source, true);
+
+			$image = \imagerotate($source, $degrees, \imageColorAllocateAlpha($source, 0, 0, 0, 127));
+			\imagealphablending($image, false);
+			\imagesavealpha($image, true);
+			\imagepng($image, $imagepath, 9);
+		}
+		else # non-png
+		{
+			$source = \imagecreatefromstring(\file_get_contents($imagepath));
+			$image = \imagerotate($source, $degrees, 0);
+			\imagejpeg($image, $imagepath, 90);
 		}
 		
-		imagealphablending($source, false);
-		imagesavealpha($source, true);
-
-		$rotation = imagerotate($source, $degrees, imageColorAllocateAlpha($source, 0, 0, 0, 127));
-		imagealphablending($rotation, false);
-		imagesavealpha($rotation, true);
+		return $imagepath;
 	}
 	
 } # class
