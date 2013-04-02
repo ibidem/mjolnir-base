@@ -30,10 +30,17 @@ class Debug
 	 * eg.
 	 *
 	 *		\app\Debug::dump('/www/debug.html', $variable);
+	 * 
+	 * If the file contains no slash or backslash the etc.path/tmp will be used.
 	 */
 	static function dump($file, $variable, $append = false)
 	{
 		$output = \print_r($variable, true);
+		
+		if ( ! \preg_match('#[\\/]#', $file))
+		{
+			$file = \app\Env::key('etc.path').'tmp/'.$file;
+		}
 
 		if ($append)
 		{

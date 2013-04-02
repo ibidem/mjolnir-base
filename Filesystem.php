@@ -402,7 +402,13 @@ class Filesystem
 	 * @return array unreadable files
 	 */
 	static function find_unreadable($path, $pattern)
-	{
+	{				
+		if (empty($path))
+		{
+			\mjolnir\log('PHP', 'Recieved malformed variable data.');
+			return []; # PHP bug; we recieved malformed data
+		}
+		
 		$path = \rtrim($path, '\\/');
 		
 		if ( ! \file_exists($path) || ! \is_dir($path))
@@ -452,6 +458,12 @@ class Filesystem
 	 */
 	static function find_unwritable($path, $pattern)
 	{
+		if (empty($path))
+		{
+			\mjolnir\log('PHP', 'Recieved malformed variable data.');
+			return []; # PHP bug; we recieved malformed data
+		}
+		
 		$path = \rtrim($path, '\\/');
 		
 		if ( ! \file_exists($path) || ! \is_dir($path))
@@ -504,6 +516,12 @@ class Filesystem
 	 */
 	static function find_unexecutable($path, $pattern)
 	{
+		if (empty($path))
+		{
+			\mjolnir\log('PHP', 'Recieved malformed variable data.');
+			return []; # PHP bug; we recieved malformed data
+		}
+		
 		$path = \rtrim($path, '\\/');
 		
 		if ( ! \file_exists($path) || ! \is_dir($path))
@@ -556,6 +574,12 @@ class Filesystem
 	 */
 	static function find_unexecutabledir($path)
 	{
+		if (empty($path))
+		{
+			\mjolnir\log('PHP', 'Recieved malformed variable data.');
+			return []; # PHP bug; we recieved malformed data
+		}
+		
 		$path = \rtrim($path, '\\/');
 		
 		if ( ! \file_exists($path) || ! \is_dir($path))
