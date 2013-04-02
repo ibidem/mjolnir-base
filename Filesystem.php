@@ -394,5 +394,203 @@ class Filesystem
 			}
 		}
 	}
+	
+	// ------------------------------------------------------------------------
+	// System helth helpers
 
+	/**
+	 * @return array unreadable files
+	 */
+	static function find_unreadable($path, $pattern)
+	{
+		$path = \rtrim($path, '\\/');
+		
+		if ( ! \file_exists($path) || ! \is_dir($path))
+		{
+			throw new \Exception("The path [$path] does not exist or is not a directory.");
+		}
+		
+		$unreadable = [];
+		$files = \scandir($path);
+		foreach ($files as $file)
+		{
+			if (\preg_match('#^[\.].*#', $file))
+			{
+				continue; # skip dot files
+			}
+
+			$fullpath = $path.'/'.$file;
+
+			if (\is_dir($fullpath))
+			{
+				if (\is_readable($fullpath))
+				{
+					\app\Arr::merge($unreadable, static::find_unreadable($fullpath, $pattern));
+				}
+				else # unreadable directory
+				{
+					$unreadable []= $fullpath;
+				}
+			}
+			else # file
+			{
+				if (\preg_match($pattern, $file))
+				{
+					if ( ! \is_readable($fullpath))
+					{
+						$unreadable []= $fullpath;
+					}
+				}
+			}
+		}
+		
+		return $unreadable;
+	}
+	
+	/**
+	 * @return array unwritable files
+	 */
+	static function find_unwritable($path, $pattern)
+	{
+		$path = \rtrim($path, '\\/');
+		
+		if ( ! \file_exists($path) || ! \is_dir($path))
+		{
+			throw new \Exception("The path [$path] does not exist or is not a directory.");
+		}
+		
+		$unwritable = [];
+		$files = \scandir($path);
+		foreach ($files as $file)
+		{
+			if (\preg_match('#^[\.].*#', $file))
+			{
+				continue; # skip dot files
+			}
+
+			$fullpath = $path.'/'.$file;
+
+			if (\is_dir($fullpath))
+			{
+				if (\is_readable($fullpath))
+				{
+					\app\Arr::merge($unwritable, static::find_unwritable($fullpath, $pattern));
+				}
+				else # unreadable directory
+				{
+					// we consider it not being readable to mean it's not 
+					// writable since functions will fail to recursively 
+					// reach it
+					$unwritable []= $fullpath;
+				}
+			}
+			else # file
+			{
+				if (\preg_match($pattern, $file))
+				{
+					if ( ! \is_writable($fullpath))
+					{
+						$unwritable []= $fullpath;
+					}
+				}
+			}
+		}
+		
+		return $unwritable;
+	}
+	
+	/**
+	 * @return array unwritable files
+	 */
+	static function find_unexecutable($path, $pattern)
+	{
+		$path = \rtrim($path, '\\/');
+		
+		if ( ! \file_exists($path) || ! \is_dir($path))
+		{
+			throw new \Exception("The path [$path] does not exist or is not a directory.");
+		}
+		
+		$unwritable = [];
+		$files = \scandir($path);
+		foreach ($files as $file)
+		{
+			if (\preg_match('#^[\.].*#', $file))
+			{
+				continue; # skip dot files
+			}
+
+			$fullpath = $path.'/'.$file;
+
+			if (\is_dir($fullpath))
+			{
+				if (\is_readable($fullpath))
+				{
+					\app\Arr::merge($unwritable, static::find_unwritable($fullpath, $pattern));
+				}
+				else # unreadable directory
+				{
+					// we consider it not being readable to mean it's not 
+					// executable since functions will fail to recursively 
+					// reach it
+					$unwritable []= $fullpath;
+				}
+			}
+			else # file
+			{
+				if (\preg_match($pattern, $file))
+				{
+					if ( ! \is_executable($fullpath))
+					{
+						$unwritable []= $fullpath;
+					}
+				}
+			}
+		}
+		
+		return $unwritable;
+	}
+	
+	/**
+	 * @return array unexecutable directories
+	 */
+	static function find_unexecutabledir($path)
+	{
+		$path = \rtrim($path, '\\/');
+		
+		if ( ! \file_exists($path) || ! \is_dir($path))
+		{
+			throw new \Exception("The path [$path] does not exist or is not a directory.");
+		}
+		
+		$unexecutable = [];
+		$files = \scandir($path);
+		foreach ($files as $file)
+		{
+			if (\preg_match('#^[\.].*#', $file))
+			{
+				continue; # skip dot files
+			}
+
+			$fullpath = $path.'/'.$file;
+
+			if (\is_dir($fullpath))
+			{
+				if (\is_readable($fullpath) || \is_executable($fullpath))
+				{
+					\app\Arr::merge($unexecutable, static::find_unexecutabledir($fullpath));
+				}
+				else # unreadable directory
+				{
+					// we consider it not being readable to mean it's not 
+					// executable since functions will fail to recursively 
+					// reach it
+					$unexecutable []= $fullpath;
+				}
+			}
+		}
+		
+		return $unexecutable;
+	}
+	
 } # class
