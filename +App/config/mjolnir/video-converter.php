@@ -20,6 +20,10 @@
 								'mp4' => '-b:v 1000k',
 								'webm' => '-b:v 1000k',
 								'flv' => '-b:v 1000k',
+							),
+						'mov' => array
+							(
+								'flv' => '-ar 44100 -qscale:v 1',
 							)
 					)
 			)
