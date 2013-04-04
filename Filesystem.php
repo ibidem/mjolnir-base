@@ -396,7 +396,7 @@ class Filesystem
 	}
 	
 	// ------------------------------------------------------------------------
-	// System helth helpers
+	// System file permissions helpers
 
 	/**
 	 * @return array unreadable files
@@ -484,7 +484,7 @@ class Filesystem
 
 			if (\is_dir($fullpath))
 			{
-				if (\is_readable($fullpath))
+				if (\is_readable($fullpath) && \is_writable($fullpath))
 				{
 					$unwritable = \app\Arr::merge($unwritable, static::find_unwritable($fullpath, $pattern));
 				}
@@ -542,7 +542,7 @@ class Filesystem
 
 			if (\is_dir($fullpath))
 			{
-				if (\is_readable($fullpath))
+				if (\is_readable($fullpath) && \is_executable($fullpath))
 				{
 					$unexecutable = \app\Arr::merge($unexecutable, static::find_unwritable($fullpath, $pattern));
 				}
@@ -600,7 +600,7 @@ class Filesystem
 
 			if (\is_dir($fullpath))
 			{
-				if (\is_readable($fullpath) || \is_executable($fullpath))
+				if (\is_readable($fullpath) && \is_executable($fullpath))
 				{
 					$unexecutable = \app\Arr::merge($unexecutable, static::find_unexecutabledir($fullpath));
 				}
