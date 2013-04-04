@@ -617,4 +617,40 @@ class Filesystem
 		return $unexecutable;
 	}
 	
+	/**
+	 * This function is intendend for display.
+	 * 
+	 * @return int|string group name or id
+	 */
+	static function groupname($file)
+	{
+		$gid = \filegroup($file);
+		if (\function_exists('\posix_getgrgid'))
+		{
+			return \posix_getgrgid($gid)['name'];
+		}
+		else # windows system, we simply return the group id
+		{
+			return $gid;
+		}
+	}
+	
+	/**
+	 * This function is intendend for display.
+	 * 
+	 * @return int|string group name or id
+	 */
+	static function ownername($file)
+	{
+		$gid = \fileowner($file);
+		if (\function_exists('\posix_getgrgid'))
+		{
+			return \posix_getpwuid($gid)['name'];
+		}
+		else # windows system, we simply return the group id
+		{
+			return $gid;
+		}
+	}
+	
 } # class
