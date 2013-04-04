@@ -624,14 +624,21 @@ class Filesystem
 	 */
 	static function groupname($file)
 	{
-		$gid = \filegroup($file);
-		if (\function_exists('posix_getgrgid'))
+		try
 		{
-			return \posix_getgrgid($gid)['name'];
+			$gid = \filegroup($file);
+			if (\function_exists('posix_getgrgid'))
+			{
+				return \posix_getgrgid($gid)['name'];
+			}
+			else # windows system, we simply return the group id
+			{
+				return $gid;
+			}
 		}
-		else # windows system, we simply return the group id
+		catch (\Exception $e)
 		{
-			return $gid;
+			return '?';
 		}
 	}
 	
@@ -642,14 +649,21 @@ class Filesystem
 	 */
 	static function ownername($file)
 	{
-		$uid = \fileowner($file);
-		if (\function_exists('posix_getpwuid'))
+		try
 		{
-			return \posix_getpwuid($uid)['name'];
+			$uid = \fileowner($file);
+			if (\function_exists('posix_getpwuid'))
+			{
+				return \posix_getpwuid($uid)['name'];
+			}
+			else # windows system, we simply return the group id
+			{
+				return $uid;
+			}
 		}
-		else # windows system, we simply return the group id
+		catch (\Exception $e)
 		{
-			return $uid;
+			return '?';
 		}
 	}
 	
