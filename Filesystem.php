@@ -431,11 +431,11 @@ class Filesystem
 			{
 				if (\is_readable($fullpath))
 				{
-					\app\Arr::merge($unreadable, static::find_unreadable($fullpath, $pattern));
+					$unreadable = \app\Arr::merge($unreadable, static::find_unreadable($fullpath, $pattern));
 				}
 				else # unreadable directory
 				{
-					$unreadable []= $fullpath;
+					$unreadable[] = $fullpath;
 				}
 			}
 			else # file
@@ -444,7 +444,7 @@ class Filesystem
 				{
 					if ( ! \is_readable($fullpath))
 					{
-						$unreadable []= $fullpath;
+						$unreadable[] = $fullpath;
 					}
 				}
 			}
@@ -486,14 +486,14 @@ class Filesystem
 			{
 				if (\is_readable($fullpath))
 				{
-					\app\Arr::merge($unwritable, static::find_unwritable($fullpath, $pattern));
+					$unwritable = \app\Arr::merge($unwritable, static::find_unwritable($fullpath, $pattern));
 				}
 				else # unreadable directory
 				{
 					// we consider it not being readable to mean it's not 
 					// writable since functions will fail to recursively 
 					// reach it
-					$unwritable []= $fullpath;
+					$unwritable[] = $fullpath;
 				}
 			}
 			else # file
@@ -502,7 +502,7 @@ class Filesystem
 				{
 					if ( ! \is_writable($fullpath))
 					{
-						$unwritable []= $fullpath;
+						$unwritable[] = $fullpath;
 					}
 				}
 			}
@@ -529,7 +529,7 @@ class Filesystem
 			throw new \Exception("The path [$path] does not exist or is not a directory.");
 		}
 		
-		$unwritable = [];
+		$unexecutable = [];
 		$files = \scandir($path);
 		foreach ($files as $file)
 		{
@@ -544,14 +544,14 @@ class Filesystem
 			{
 				if (\is_readable($fullpath))
 				{
-					\app\Arr::merge($unwritable, static::find_unwritable($fullpath, $pattern));
+					$unexecutable = \app\Arr::merge($unexecutable, static::find_unwritable($fullpath, $pattern));
 				}
 				else # unreadable directory
 				{
 					// we consider it not being readable to mean it's not 
 					// executable since functions will fail to recursively 
 					// reach it
-					$unwritable []= $fullpath;
+					$unexecutable[] = $fullpath;
 				}
 			}
 			else # file
@@ -560,13 +560,13 @@ class Filesystem
 				{
 					if ( ! \is_executable($fullpath))
 					{
-						$unwritable []= $fullpath;
+						$unexecutable[] = $fullpath;
 					}
 				}
 			}
 		}
 		
-		return $unwritable;
+		return $unexecutable;
 	}
 	
 	/**
@@ -602,14 +602,14 @@ class Filesystem
 			{
 				if (\is_readable($fullpath) || \is_executable($fullpath))
 				{
-					\app\Arr::merge($unexecutable, static::find_unexecutabledir($fullpath));
+					$unexecutable = \app\Arr::merge($unexecutable, static::find_unexecutabledir($fullpath));
 				}
 				else # unreadable directory
 				{
 					// we consider it not being readable to mean it's not 
 					// executable since functions will fail to recursively 
 					// reach it
-					$unexecutable []= $fullpath;
+					$unexecutable[] = $fullpath;
 				}
 			}
 		}
