@@ -625,7 +625,7 @@ class Filesystem
 	static function groupname($file)
 	{
 		$gid = \filegroup($file);
-		if (\function_exists('\posix_getgrgid'))
+		if (\function_exists('posix_getgrgid'))
 		{
 			return \posix_getgrgid($gid)['name'];
 		}
@@ -642,14 +642,14 @@ class Filesystem
 	 */
 	static function ownername($file)
 	{
-		$gid = \fileowner($file);
-		if (\function_exists('\posix_getgrgid'))
+		$uid = \fileowner($file);
+		if (\function_exists('posix_getpwuid'))
 		{
-			return \posix_getpwuid($gid)['name'];
+			return \posix_getpwuid($uid)['name'];
 		}
 		else # windows system, we simply return the group id
 		{
-			return $gid;
+			return $uid;
 		}
 	}
 	
