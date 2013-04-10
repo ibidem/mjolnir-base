@@ -10,6 +10,34 @@ class Arr extends \mjolnir\base\Arr
 {
 }
 
+/**
+ * @method \app\Controller_Bootstrap add_preprocessor($name, $processor)
+ * @method \app\Controller_Bootstrap add_postprocessor($name, $processor)
+ * @method \app\Controller_Bootstrap preprocess()
+ * @method \app\Controller_Bootstrap postprocess()
+ * @method \app\Controller_Bootstrap channel_is($channel = null)
+ * @method \app\Channel channel()
+ */
+class Controller_Bootstrap extends \mjolnir\base\Controller_Bootstrap
+{
+	/** @return \app\Controller_Bootstrap */
+	static function instance() { return parent::instance(); }
+}
+
+/**
+ * @method \app\Controller add_preprocessor($name, $processor)
+ * @method \app\Controller add_postprocessor($name, $processor)
+ * @method \app\Controller preprocess()
+ * @method \app\Controller postprocess()
+ * @method \app\Controller channel_is($channel = null)
+ * @method \app\Channel channel()
+ */
+class Controller extends \mjolnir\base\Controller
+{
+	/** @return \app\Controller */
+	static function instance() { return parent::instance(); }
+}
+
 class Cookie extends \mjolnir\base\Cookie
 {
 }
@@ -34,8 +62,6 @@ class Filesystem extends \mjolnir\base\Filesystem
 
 class Image extends \mjolnir\base\Image
 {
-	/** @return \app\Image */
-	static function instance() { return parent::instance(); }
 }
 
 /**
