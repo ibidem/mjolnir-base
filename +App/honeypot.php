@@ -10,7 +10,14 @@ class Arr extends \mjolnir\base\Arr
 {
 }
 
+class Controller_Base extends \mjolnir\base\Controller_Base
+{
+	/** @return \app\Controller_Base */
+	static function instance() { return parent::instance(); }
+}
+
 /**
+ * @method \app\Renderable json_index()
  * @method \app\Controller_Bootstrap add_preprocessor($name, $processor)
  * @method \app\Controller_Bootstrap add_postprocessor($name, $processor)
  * @method \app\Controller_Bootstrap preprocess()
