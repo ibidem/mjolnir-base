@@ -10,6 +10,20 @@ class Arr extends \mjolnir\base\Arr
 {
 }
 
+class Auditor extends \mjolnir\base\Auditor
+{
+	/** @return \app\Auditor */
+	static function instance() { return parent::instance(); }
+}
+
+/**
+ * @method \app\Controller_Base add_preprocessor($name, $processor)
+ * @method \app\Controller_Base add_postprocessor($name, $processor)
+ * @method \app\Controller_Base preprocess()
+ * @method \app\Controller_Base postprocess()
+ * @method \app\Controller_Base channel_is($channel = null)
+ * @method \app\Channel channel()
+ */
 class Controller_Base extends \mjolnir\base\Controller_Base
 {
 	/** @return \app\Controller_Base */
@@ -17,7 +31,6 @@ class Controller_Base extends \mjolnir\base\Controller_Base
 }
 
 /**
- * @method \app\Renderable json_index()
  * @method \app\Controller_Bootstrap add_preprocessor($name, $processor)
  * @method \app\Controller_Bootstrap add_postprocessor($name, $processor)
  * @method \app\Controller_Bootstrap preprocess()
