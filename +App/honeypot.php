@@ -10,6 +10,18 @@ class Arr extends \mjolnir\base\Arr
 {
 }
 
+/**
+ * @method \app\Auditor addrule($field, $claim, $proof = null)
+ * @method \app\Auditor fields_array($fields)
+ * @method \app\Auditor check()
+ * @method \app\Auditor rule($field, $claim, $proof = null)
+ * @method \app\Auditor test($field, $proof = null)
+ * @method \app\Auditor inheriterrors($validator)
+ * @method \app\Auditor adderrormessages(array $errormesssages = null)
+ * @method \app\Auditor adderror($field, $claim, $message = null)
+ * @method \app\Auditor fields_array($fields)
+ * @method \app\Auditor check()
+ */
 class Auditor extends \mjolnir\base\Auditor
 {
 	/** @return \app\Auditor */
@@ -125,6 +137,22 @@ class URL extends \mjolnir\base\URL
 {
 	/** @return \app\URLCompatible */
 	static function route($key) { return parent::route($key); }
+}
+
+/**
+ * @method \app\Validator addrule($field, $claim, $proof = null)
+ * @method \app\Validator rule($field, $claim, $proof = null)
+ * @method \app\Validator test($field, $proof = null)
+ * @method \app\Validator fields_array($fields)
+ * @method \app\Validator inheriterrors($validator)
+ * @method \app\Validator adderrormessages(array $errormesssages = null)
+ * @method \app\Validator check()
+ * @method \app\Validator adderror($field, $claim, $message = null)
+ */
+class Validator extends \mjolnir\base\Validator
+{
+	/** @return \app\Validator */
+	static function instance(array $fields = null) { return parent::instance($fields); }
 }
 
 class VideoConverter_FFmpeg extends \mjolnir\base\VideoConverter_FFmpeg
