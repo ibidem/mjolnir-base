@@ -1,6 +1,6 @@
 <?php return array
 	(
-		'default.driver' => 'native', # native, sendmail, smtp
+		'default.driver' => 'native', # native, sendmail, smtp, file
 
 		'tries' => 5, # how many times to try to send the email
 

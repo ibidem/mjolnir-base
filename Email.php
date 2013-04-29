@@ -13,6 +13,11 @@ class Email extends \app\Instantiatable
 	 * @var \Email
 	 */
 	protected $swift_mailer = null;
+	
+	/**
+	 * @var boolean
+	 */
+	protected $filemode = false;
 
 	/**
 	 * @return \app\Email
@@ -28,6 +33,10 @@ class Email extends \app\Instantiatable
 
 		switch ($driver)
 		{
+			case 'file':
+				$instance->filemode = true;
+				return $instance;
+			
 			case 'native':
 				$transport = \Swift_MailTransport::newInstance();
 				break;
@@ -77,6 +86,14 @@ class Email extends \app\Instantiatable
 	 */
 	public function send($to, $from, $subject, $message, $html = false)
 	{
+		if ($this->filemode)
+		{
+			$time = \date('His');
+			$uniq = \substr(\base_convert(\uniqid('email', true), 10, 32), 0, 4);
+			\app\Filesystem::puts(APPPATH."tmp/email.inbox/$to/$time-[ $subject ]-[$from]-$uniq.html", $message);
+			return true; # success
+		}
+		
 		$mimetype = $html ? 'text/html' : 'text/plain';
 		$message = \Swift_Message::newInstance($subject, $message, $mimetype, 'utf-8');
 		
