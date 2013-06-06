@@ -175,7 +175,9 @@ class Arr
 	}
 
 	/**
-	 * Shorthand for CFS::merge, supports multiple arrays
+	 * Shorthand for CFS::merge, supports multiple arrays.
+	 * 
+	 * Right arguments overwrite left arguments.
 	 *
 	 * @return array
 	 */
