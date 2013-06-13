@@ -97,7 +97,7 @@ class Filesystem
 	}
 
 	/**
-	 * Delte resource. If resource does not exist, does nothing.
+	 * Delete resource. If resource does not exist, does nothing.
 	 */
 	static function delete($path)
 	{
