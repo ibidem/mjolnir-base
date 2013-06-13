@@ -26,7 +26,7 @@
 						{
 							return \function_exists('\exif_read_data') ? 'satisfied' : 'error';
 						},
-				
+
 					'cookie key' => function ()
 						{
 							$cookiekey = \app\CFS::config('mjolnir/cookies')['key'];
@@ -40,7 +40,8 @@
 
 					 "ffmpeg" => function ()
 						{
-							if (\app\Shell::cmd_exists('ffmpeg'))
+							$bin = \app\CFS::config('mjolnir/bin');
+							if (\app\Shell::cmd_exists($bin['ffmpeg']))
 							{
 								return 'satisfied';
 							}
@@ -49,7 +50,8 @@
 						},
 					"mediainfo" => function ()
 						{
-							if (\app\Shell::cmd_exists('mediainfo'))
+							$bin = \app\CFS::config('mjolnir/bin');
+							if (\app\Shell::cmd_exists($bin['mediainfo']))
 							{
 								return 'satisfied';
 							}

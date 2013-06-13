@@ -13,7 +13,7 @@ class VideoConverter_FFmpeg extends \app\Instantiatable implements \mjolnir\type
 
 	// ------------------------------------------------------------------------
 	// Hooks
-	
+
 	/**
 	 * @return string settings to pass to ffmpeg
 	 */
@@ -37,15 +37,15 @@ class VideoConverter_FFmpeg extends \app\Instantiatable implements \mjolnir\type
 		else # non-90 and non-180 rotation
 		{
 			// assuming video was recorded wrong; at the time of this writing there
-			// is no funky angled screens and the idea of funky angled screens or 
+			// is no funky angled screens and the idea of funky angled screens or
 			// funky video players seems too much of anti-UX gimmick
-			return ''; 
+			return '';
 		}
 	}
-	
+
 	// ------------------------------------------------------------------------
 	// interface: VideoConverter
-	
+
 	/**
 	 * Given a source file converts it to an output file.
 	 */
@@ -55,14 +55,14 @@ class VideoConverter_FFmpeg extends \app\Instantiatable implements \mjolnir\type
 		{
 			return;
 		}
-		
+
 		if ($config === null)
 		{
 			$config = \app\CFS::config('mjolnir/video-converter')['FFmpeg.driver'];;
 		}
-		
+
 		// get file types (simple extention scan)
-		
+
 		$matches = null;
 		if (\preg_match('#\.([^\.]+)$#', $source_file, $matches))
 		{
@@ -72,7 +72,7 @@ class VideoConverter_FFmpeg extends \app\Instantiatable implements \mjolnir\type
 		{
 			$source_ext = null;
 		}
-		
+
 		if (\preg_match('#\.([^\.]+)$#', $output_file, $matches))
 		{
 			$output_ext = $matches[1];
@@ -81,7 +81,7 @@ class VideoConverter_FFmpeg extends \app\Instantiatable implements \mjolnir\type
 		{
 			$output_ext = null;
 		}
-		
+
 		$settings = ' ';
 		if ($source_ext !== null && $output_ext !== null)
 		{
@@ -95,31 +95,33 @@ class VideoConverter_FFmpeg extends \app\Instantiatable implements \mjolnir\type
 		# The following is mostly to deal with .mov recorded using iphones.
 		#
 		# Iphones can handle their mangled non-standard video rotation metadata,
-		# so if we don't want the video to look upside down or on it's side to 
-		# everyone else we need to correct it. Support is limited, we can do 
-		# basic 90, 180, and delegate everything else to the application (if it 
+		# so if we don't want the video to look upside down or on it's side to
+		# everyone else we need to correct it. Support is limited, we can do
+		# basic 90, 180, and delegate everything else to the application (if it
 		# ever needs it).
 		#
-		
+
+		$bin = \app\CFS::config('mjolnir/bin');
+
 		// attempt to get rotation
-		$grep = \trim(\app\Shell::cmd('mediainfo '.\escapeshellarg($source_file)));
+		$grep = \trim(\app\Shell::cmd($bin['mediainfo'].' '.\escapeshellarg($source_file)));
 		$rotation_adjustment = ''; # rotation is 0 or not specified
 		if ( ! empty($grep) && \preg_match('/Rotation[^:]+:[^0-9]+(?P<rotation>[0-9]+)/', $grep, $matches))
 		{
 			$rotation = \intval($matches['rotation']);
 			$rotation_adjustment = $this->handle_rotation($rotation);
 		}
-		
-		$cmd = 'ffmpeg -y -i '
+
+		$cmd = $bin['ffmpeg'].' -y -i '
 			. \escapeshellarg($source_file)
 			. $rotation_adjustment
 			. $settings
 			. ' -map_metadata -1 '
 			. \escapeshellarg($output_file);
-		
+
 		$return_status = 1;
 		\passthru($cmd, $return_status);
-		
+
 		if ($return_status !== 0)
 		{
 			\mjolnir\log('Video', "Failed: $cmd");
