@@ -394,7 +394,32 @@ class Filesystem
 			}
 		}
 	}
-	
+
+	/**
+	 * Recursively copy a directory.
+	 */
+	static function copy($source, $destination)
+	{
+		$dir = \opendir($source);
+		\app\Filesystem::makedir($destination);
+		while (false !== ($file = \readdir($dir)))
+		{
+			if (($file != '.') && ($file != '..'))
+			{
+				if (\is_dir($source.'/'.$file))
+				{
+					static::copy($source.'/'.$file, $destination.'/'.$file);
+				}
+				else # file
+				{
+					\copy($source.'/'.$file, $destination.'/'.$file);
+				}
+			}
+		}
+
+		\closedir($dir);
+	}
+
 	// ------------------------------------------------------------------------
 	// System file permissions helpers
 
@@ -402,20 +427,20 @@ class Filesystem
 	 * @return array unreadable files
 	 */
 	static function find_unreadable($path, $pattern)
-	{				
+	{
 		if (empty($path))
 		{
 			\mjolnir\log('PHP', 'Recieved malformed variable data.');
 			return []; # PHP bug; we recieved malformed data
 		}
-		
+
 		$path = \rtrim($path, '\\/');
-		
+
 		if ( ! \file_exists($path) || ! \is_dir($path))
 		{
 			throw new \Exception("The path [$path] does not exist or is not a directory.");
 		}
-		
+
 		$unreadable = [];
 		$files = \scandir($path);
 		foreach ($files as $file)
@@ -449,10 +474,10 @@ class Filesystem
 				}
 			}
 		}
-		
+
 		return $unreadable;
 	}
-	
+
 	/**
 	 * @return array unwritable files
 	 */
@@ -463,14 +488,14 @@ class Filesystem
 			\mjolnir\log('PHP', 'Recieved malformed variable data.');
 			return []; # PHP bug; we recieved malformed data
 		}
-		
+
 		$path = \rtrim($path, '\\/');
-		
+
 		if ( ! \file_exists($path) || ! \is_dir($path))
 		{
 			throw new \Exception("The path [$path] does not exist or is not a directory.");
 		}
-		
+
 		$unwritable = [];
 		$files = \scandir($path);
 		foreach ($files as $file)
@@ -490,8 +515,8 @@ class Filesystem
 				}
 				else # unreadable directory
 				{
-					// we consider it not being readable to mean it's not 
-					// writable since functions will fail to recursively 
+					// we consider it not being readable to mean it's not
+					// writable since functions will fail to recursively
 					// reach it
 					$unwritable[] = $fullpath;
 				}
@@ -507,10 +532,10 @@ class Filesystem
 				}
 			}
 		}
-		
+
 		return $unwritable;
 	}
-	
+
 	/**
 	 * @return array unwritable files
 	 */
@@ -521,14 +546,14 @@ class Filesystem
 			\mjolnir\log('PHP', 'Recieved malformed variable data.');
 			return []; # PHP bug; we recieved malformed data
 		}
-		
+
 		$path = \rtrim($path, '\\/');
-		
+
 		if ( ! \file_exists($path) || ! \is_dir($path))
 		{
 			throw new \Exception("The path [$path] does not exist or is not a directory.");
 		}
-		
+
 		$unexecutable = [];
 		$files = \scandir($path);
 		foreach ($files as $file)
@@ -548,8 +573,8 @@ class Filesystem
 				}
 				else # unreadable directory
 				{
-					// we consider it not being readable to mean it's not 
-					// executable since functions will fail to recursively 
+					// we consider it not being readable to mean it's not
+					// executable since functions will fail to recursively
 					// reach it
 					$unexecutable[] = $fullpath;
 				}
@@ -565,10 +590,10 @@ class Filesystem
 				}
 			}
 		}
-		
+
 		return $unexecutable;
 	}
-	
+
 	/**
 	 * @return array unexecutable directories
 	 */
@@ -579,14 +604,14 @@ class Filesystem
 			\mjolnir\log('PHP', 'Recieved malformed variable data.');
 			return []; # PHP bug; we recieved malformed data
 		}
-		
+
 		$path = \rtrim($path, '\\/');
-		
+
 		if ( ! \file_exists($path) || ! \is_dir($path))
 		{
 			throw new \Exception("The path [$path] does not exist or is not a directory.");
 		}
-		
+
 		$unexecutable = [];
 		$files = \scandir($path);
 		foreach ($files as $file)
@@ -606,20 +631,20 @@ class Filesystem
 				}
 				else # unreadable directory
 				{
-					// we consider it not being readable to mean it's not 
-					// executable since functions will fail to recursively 
+					// we consider it not being readable to mean it's not
+					// executable since functions will fail to recursively
 					// reach it
 					$unexecutable[] = $fullpath;
 				}
 			}
 		}
-		
+
 		return $unexecutable;
 	}
-	
+
 	/**
 	 * This function is intendend for display.
-	 * 
+	 *
 	 * @return int|string group name or id
 	 */
 	static function groupname($file)
@@ -641,10 +666,10 @@ class Filesystem
 			return '?';
 		}
 	}
-	
+
 	/**
 	 * This function is intendend for display.
-	 * 
+	 *
 	 * @return int|string group name or id
 	 */
 	static function ownername($file)
@@ -666,10 +691,10 @@ class Filesystem
 			return '?';
 		}
 	}
-	
+
 	/**
 	 * This file returns human readable version of permissions on a file.
-	 * 
+	 *
 	 * @return string
 	 */
 	static function permissions($file)
@@ -678,41 +703,41 @@ class Filesystem
 		{
 			$perms = \fileperms($file);
 
-			if (($perms & 0xC000) == 0xC000) 
+			if (($perms & 0xC000) == 0xC000)
 			{
 				// Socket
 				$info = 's';
-			} 
-			elseif (($perms & 0xA000) == 0xA000) 
+			}
+			elseif (($perms & 0xA000) == 0xA000)
 			{
 				// Symbolic Link
 				$info = 'l';
-			} 
-			elseif (($perms & 0x8000) == 0x8000) 
+			}
+			elseif (($perms & 0x8000) == 0x8000)
 			{
 				// Regular
 				$info = '-';
-			} 
-			elseif (($perms & 0x6000) == 0x6000) 
+			}
+			elseif (($perms & 0x6000) == 0x6000)
 			{
 				// Block special
 				$info = 'b';
-			} 
-			elseif (($perms & 0x4000) == 0x4000) 
+			}
+			elseif (($perms & 0x4000) == 0x4000)
 			{
 				// Directory
 				$info = 'd';
-			} 
-			elseif (($perms & 0x2000) == 0x2000) 
+			}
+			elseif (($perms & 0x2000) == 0x2000)
 			{
 				// Character special
 				$info = 'c';
-			} 
-			elseif (($perms & 0x1000) == 0x1000) 
+			}
+			elseif (($perms & 0x1000) == 0x1000)
 			{
 				// FIFO pipe
 				$info = 'p';
-			} 
+			}
 			else # unknown
 			{
 				$info = 'u';
@@ -746,5 +771,5 @@ class Filesystem
 			return '?';
 		}
 	}
-	
+
 } # class
