@@ -69,16 +69,19 @@ class Auditor extends \app\Instantiatable implements \mjolnir\types\Exportable, 
 	 */
 	protected function addrule($field, $claim, $proof = null)
 	{
+		if ($proof === null)
+		{
+			isset($this->ruledef[$field]) or $this->ruledef[$field] = [];
+			\in_array($field, $this->ruledef) or $this->ruledef[$field][$claim] = $this->geterror($field, $claim);
+		}
+		
 		if (isset($this->fields[$field]))
 		{
 			$this->processedrules = false;
 
 			$auditor = $this;
 			if ($proof === null)
-			{
-				isset($this->ruledef[$field]) or $this->ruledef[$field] = [];
-				\in_array($field, $this->ruledef) or $this->ruledef[$field][$claim] = $this->geterror($field, $claim);
-				
+			{				
 				$this->rules[] = function () use ($auditor, $field, $claim)
 					{
 						$rules = \app\CFS::config('mjolnir/validator')['rules'];
@@ -152,7 +155,6 @@ class Auditor extends \app\Instantiatable implements \mjolnir\types\Exportable, 
 	 */
 	function export()
 	{
-		$this->compile_rules();
 		return [ 'rules' => $this->ruledef ];
 	}
 	
