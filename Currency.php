@@ -13,7 +13,7 @@ class Currency
 	 * Retrieve current system currency information. Only currencies defined in
 	 * mjolnir/currency are retrieved. This method will add the exchange rates
 	 * and return the types as-is defined in the configuration.
-	 * 
+	 *
 	 * @returna array
 	 */
 	static function information()

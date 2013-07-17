@@ -10,30 +10,30 @@
 class CurrencyRates_Google extends \app\Instantiatable implements \mjolnir\types\CurrencyRates
 {
 	use \app\Trait_CurrencyRates;
-	
+
 	/**
 	 * @return array
 	 */
 	function process($types)
 	{
 		$conf = \app\CFS::config('mjolnir/currency')['driver:Google'];
-		
+
 		$stashkey = 'mjolnir:Currency:drivers:Google.rates';
 		$stash = \app\Stash_File::instance(false); # forced on
 		$rates = $stash->get($stashkey, null);
-		
+
 		if ($this->is_missing_rates($rates, $types))
 		{
 			// calculate caching period
 			$requests = \count($types);
-			
+
 			if (isset($types['USD']))
 			{
 				$requests--;
 			}
-			
+
 			$cachetime = $requests * $conf['cache_multiplier'];
-			
+
 			$rates = [ 'USD' => 1 ];
 			foreach ($types as $currency => $information)
 			{
@@ -50,25 +50,25 @@ class CurrencyRates_Google extends \app\Instantiatable implements \mjolnir\types
 					$rates[$currency] = $json['rate'];
 				}
 			}
-			
+
 			// cache the rates
 			$stash->set($stashkey, $rates, $cachetime);
 		}
-		
+
 		foreach ($types as $currency => & $information)
 		{
 			$information['rate'] = $rates[$currency];
 		}
-		
+
 		return $types;
 	}
-	
+
 	/**
 	 * @return boolean
 	 */
 	private function is_missing_rates($rates, $types)
 	{
-		return $rates == null 
+		return $rates == null
 			|| \count(\array_diff(\array_keys($rates), \array_keys($types))) > 0;
 	}
 
