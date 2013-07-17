@@ -20,7 +20,6 @@ class Arr extends \mjolnir\base\Arr
  * @method \app\Auditor adderrormessages(array $errormesssages = null)
  * @method \app\Auditor adderror($field, $claim, $message = null)
  * @method \app\Auditor fields_array($fields)
- * @method \app\Auditor check()
  */
 class Auditor extends \mjolnir\base\Auditor
 {
@@ -43,6 +42,7 @@ class Controller_Base extends \mjolnir\base\Controller_Base
 }
 
 /**
+ * @method \app\Renderable json_index()
  * @method \app\Controller_Bootstrap add_preprocessor($name, $processor)
  * @method \app\Controller_Bootstrap add_postprocessor($name, $processor)
  * @method \app\Controller_Bootstrap preprocess()
@@ -74,6 +74,16 @@ class Cookie extends \mjolnir\base\Cookie
 {
 }
 
+class Currency extends \mjolnir\base\Currency
+{
+}
+
+class CurrencyRates_Google extends \mjolnir\base\CurrencyRates_Google
+{
+	/** @return \app\CurrencyRates_Google */
+	static function instance() { return parent::instance(); }
+}
+
 class Date extends \mjolnir\base\Date
 {
 }
@@ -90,6 +100,12 @@ class Email extends \mjolnir\base\Email
 
 class Filesystem extends \mjolnir\base\Filesystem
 {
+}
+
+class HTTP extends \mjolnir\base\HTTP
+{
+	/** @return \app\HTTP */
+	static function instance() { return parent::instance(); }
 }
 
 class Image extends \mjolnir\base\Image
@@ -146,7 +162,6 @@ class URL extends \mjolnir\base\URL
  * @method \app\Validator fields_array($fields)
  * @method \app\Validator inheriterrors($validator)
  * @method \app\Validator adderrormessages(array $errormesssages = null)
- * @method \app\Validator check()
  * @method \app\Validator adderror($field, $claim, $message = null)
  */
 class Validator extends \mjolnir\base\Validator
@@ -168,7 +183,7 @@ class VideoConverter extends \mjolnir\base\VideoConverter
 /**
  * @method \app\View file_is($file, $ext = '.php')
  * @method \app\View file_path($filepath)
- * @method \app\View bind($name,  & $non_object)
+ * @method \app\View bind($name,  & $value)
  * @method \app\View pass($name, $value)
  * @method \app\View inherit($view)
  * @method \app\View addmetarenderer($key, $metarenderer)
@@ -182,7 +197,7 @@ class View extends \mjolnir\base\View
 
 /**
  * @method \app\ViewComposite views_are(array $views)
- * @method \app\ViewComposite bind($name,  & $non_object)
+ * @method \app\ViewComposite bind($name,  & $value)
  * @method \app\ViewComposite pass($name, $value)
  * @method \app\ViewComposite inherit($view)
  * @method \app\ViewComposite addmetarenderer($key, $metarenderer)
@@ -191,5 +206,11 @@ class View extends \mjolnir\base\View
 class ViewComposite extends \mjolnir\base\ViewComposite
 {
 	/** @return \app\ViewComposite */
+	static function instance() { return parent::instance(); }
+}
+
+class Web extends \mjolnir\base\Web
+{
+	/** @return \app\Web */
 	static function instance() { return parent::instance(); }
 }
