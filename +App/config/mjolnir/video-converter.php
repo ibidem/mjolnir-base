@@ -1,9 +1,9 @@
 <?php return array
 	(
 		'driver' => 'FFmpeg',
-	
+
 		# -------------------------------------------------------------------- #
-	
+
 		'FFmpeg.driver' => array
 			(
 				// settings will be passed to ffmpeg when converting

@@ -10,10 +10,10 @@
 class Session
 {
 	/**
-	 * @var \mjolnir\base\Session 
+	 * @var \mjolnir\base\Session
 	 */
 	private static $session = null;
-	
+
 	/**
 	 * Starts the session.
 	 */
@@ -24,9 +24,9 @@ class Session
 			self::$session = \app\Session_Native::instance();
 		}
 	}
-	
+
 	/**
-	 * @return mixed parameter or default 
+	 * @return mixed parameter or default
 	 */
 	static function get($key, $default = null)
 	{
@@ -34,10 +34,10 @@ class Session
 		{
 			self::$session = \app\Session_Native::instance();
 		}
-		
+
 		return self::$session->get($key, $default);
 	}
-	
+
 	/**
 	 * @param string key
 	 * @param mixed value
@@ -49,14 +49,14 @@ class Session
 		{
 			self::$session = \app\Session_Native::instance();
 		}
-		
+
 		self::$session->set($key, $value);
-		
+
 		return $value;
 	}
-	
+
 	/**
-	 * Destroy the session. 
+	 * Destroy the session.
 	 */
 	static function destroy()
 	{

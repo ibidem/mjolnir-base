@@ -34,7 +34,7 @@ class Arr
 	 *
 	 * The function is mandatory; just use plain old \implode when you don't
 	 * need it.
-	 * 
+	 *
 	 * If the function returns false the item will be ignored from the list.
 	 *
 	 * @return string
@@ -176,7 +176,7 @@ class Arr
 
 	/**
 	 * Shorthand for CFS::merge, supports multiple arrays.
-	 * 
+	 *
 	 * Right arguments overwrite left arguments.
 	 *
 	 * @return array

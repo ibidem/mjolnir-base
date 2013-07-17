@@ -16,5 +16,5 @@ class Controller_Bootstrap extends \app\Controller
 	{
 		return \json_encode(\app\CFS::config('mjolnir/bootstrap'));
 	}
-	
+
 } # class

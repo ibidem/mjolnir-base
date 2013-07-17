@@ -2,7 +2,7 @@
 
 /**
  * General purpose image library.
- * 
+ *
  * @package    mjolnir
  * @category   Base
  * @author     Ibidem Team
@@ -15,13 +15,13 @@ class Media
 	 * Generates a image handler. A handler is a function that accepts width and
 	 * height and outputs the correct url for the given dimentions, or the full
 	 * image on null and null if the original image was null itself.
-	 * 
+	 *
 	 * @return callable
 	 */
 	static function image($image)
 	{
 		$baseconfig = \app\CFS::config('mjolnir/base');
-			
+
 		if ($image === null || empty($image))
 		{
 			return function ($width = null, $height = null) { return null; };
@@ -49,17 +49,17 @@ class Media
 				};
 		}
 	}
-	
+
 	/**
 	 * Generates a video handler. A handler is a function that accepts width and
-	 * height and outputs the correct markup for the given dimentions, or the 
+	 * height and outputs the correct markup for the given dimentions, or the
 	 * raw key if width is set to false, ie. $video['videokey'](false)
-	 * 
+	 *
 	 * If the key was empty a handler that returns null will be returned.
-	 * 
+	 *
 	 * The handler must be created via a video key which is the video url with
 	 * out the format.
-	 * 
+	 *
 	 * @return callable
 	 */
 	static function video($videokey)
@@ -80,33 +80,33 @@ class Media
 					{
 						// use video.formats from uploads
 						$uploads = \app\CFS::config('mjolnir/uploads');
-						
-						// the html module may not be included; so we need to 
+
+						// the html module may not be included; so we need to
 						// check if the configuration is usable
 						if (empty($uploads))
 						{
 							$formats = array
 								(
-									'mp4' => 'video/mp4', 
-									'ogv' => 'video/ogg', 
-									'webm' => 'video/webm' 
+									'mp4' => 'video/mp4',
+									'ogv' => 'video/ogg',
+									'webm' => 'video/webm'
 								);
 						}
 						else # found usable configuration
 						{
 							$formats = $uploads['video.formats'];
-							
+
 							// filter video formats
 							$formats = \app\Arr::filter
 								(
-									$formats, 
-									function ($i, $value) 
+									$formats,
+									function ($i, $value)
 									{
 										return $value !== null;
 									}
 								);
 						}
-						
+
 						return \app\View::instance('mjolnir/base/video.template')
 							->pass('videokey', $videokey)
 							->pass('formats', $formats)
@@ -117,14 +117,14 @@ class Media
 				};
 		}
 	}
-	
+
 	/**
 	 * @return string embed code
 	 */
 	static function embed($identifier, $provider, $width = null, $height = null, $meta = null)
 	{
 		$embeds = \app\CFS::config('mjolnir/embeds');
-		
+
 		if (isset($embeds[$provider]))
 		{
 			return $embeds[$provider]($identifier, $width, $height, $meta);
@@ -134,10 +134,10 @@ class Media
 			throw new \Exception('Missing embed handling for provider ['.$provider.'].');
 		}
 	}
-	
+
 	/**
 	 * Given embed code parses it into an id and provider.
-	 * 
+	 *
 	 * @return array|null
 	 */
 	static function unwrapembed($embed)
@@ -154,14 +154,14 @@ class Media
 			$result['identifier'] = $matches['id'];
 			$result['provider'] = 'youtube';
 		}
-		
+
 		return $result;
 	}
 
 	/**
-	 * Returns media ID unique to the request; used in handing certain 
+	 * Returns media ID unique to the request; used in handing certain
 	 * operations related to embeded videos to help identify them.
-	 * 
+	 *
 	 * @return int
 	 */
 	static function id()
@@ -169,5 +169,5 @@ class Media
 		static $id = 0;
 		return $id++;
 	}
-	
+
 } # class

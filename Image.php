@@ -10,18 +10,18 @@
 class Image
 {
 	/**
-	 * Removes Orientation metadata and rotates image to match 0 degrees 
+	 * Removes Orientation metadata and rotates image to match 0 degrees
 	 * relative to the orientation. If the image does not contain an Orientation
 	 * this function does nothing.
-	 * 
+	 *
 	 * [!!] The path may be altered during the process.
-	 * 
-	 * @return string potentially altered image path 
+	 *
+	 * @return string potentially altered image path
 	 */
 	static function removeorientation($imagepath)
 	{
 		$meta = \exif_read_data($imagepath);
-		
+
 		if ( ! empty($meta['Orientation']))
 		{
 			switch ($meta['Orientation'])
@@ -37,17 +37,17 @@ class Image
 					break;
 			}
 		}
-		
+
 		return $imagepath;
 	}
 
 	/**
 	 * Rotates the given file the given degrees.
-	 * 
-	 * The function may alter the image such as converting it to jpeg, in the 
+	 *
+	 * The function may alter the image such as converting it to jpeg, in the
 	 * event there are no other means of processing it.
-	 * 
-	 * @return string potentially altered image path 
+	 *
+	 * @return string potentially altered image path
 	 */
 	static function rotateimage($imagepath, $degrees)
 	{
@@ -75,8 +75,8 @@ class Image
 			$image = \imagerotate($source, $degrees, 0);
 			\imagejpeg($image, $imagepath, 90);
 		}
-		
+
 		return $imagepath;
 	}
-	
+
 } # class

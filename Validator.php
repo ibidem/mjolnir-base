@@ -18,7 +18,7 @@ class Validator extends \app\Instantiatable implements \mjolnir\types\Validator
 	{
 		$instance = parent::instance();
 		$fields === null or $instance->fields_array($fields);
-		
+
 		return $instance;
 	}
 
@@ -28,10 +28,10 @@ class Validator extends \app\Instantiatable implements \mjolnir\types\Validator
 	 *
 	 * Field and claim may be an array, and proof may be a function. The array
 	 * version will always be translated down to the non-array version.
-	 * 
+	 *
 	 * A validator will run the rule as it's called and generate the result, as
-	 * such it's designed for one time use but permits programatic rule 
-	 * definitions, ie. specifying proof as a boolean true or false. A 
+	 * such it's designed for one time use but permits programatic rule
+	 * definitions, ie. specifying proof as a boolean true or false. A
 	 * Validator will also run on all fields.
 	 *
 	 * eg.
