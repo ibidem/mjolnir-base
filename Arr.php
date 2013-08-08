@@ -195,4 +195,19 @@ class Arr
 		return $base;
 	}
 
+	/**
+	 * Expects an array of callbacks to be called. Goes though the callbacks
+	 * and executes them; also works if null is passed.
+	 */
+	static function call(array $callbacks = null)
+	{
+		if ( ! empty($callbacks))
+		{
+			foreach ($callbacks as $callback)
+			{
+				$callback();
+			}
+		}
+	}
+
 } # class
