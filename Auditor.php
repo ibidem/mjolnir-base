@@ -36,6 +36,11 @@ class Auditor extends \app\Instantiatable implements \mjolnir\types\Exportable, 
 	protected $processedrules = false;
 
 	/**
+	 * @var array field checkers
+	 */
+	protected $checks = null;
+
+	/**
 	 * A field will be tested against a claim and validated by the proof, or if
 	 * the proof is null the claim will provide the proof itself. You may only
 	 * specify proofs as callable or array of callable.
@@ -75,27 +80,30 @@ class Auditor extends \app\Instantiatable implements \mjolnir\types\Exportable, 
 			\in_array($field, $this->ruledef) or $this->ruledef[$field][$claim] = $this->geterror($field, $claim);
 		}
 
-		if (isset($this->fields[$field]))
-		{
-			$this->processedrules = false;
+		$auditor = $this;
+		$this->checks[] = function () use ($auditor, $field, $claim, $proof)
+			{
+				if (isset($this->fields[$field]))
+				{
+					$auditor->processedrules = false;
 
-			$auditor = $this;
-			if ($proof === null)
-			{
-				$this->rules[] = function () use ($auditor, $field, $claim)
+					if ($proof === null)
 					{
-						$rules = \app\CFS::config('mjolnir/validator')['rules'];
-						if ( ! $rules[$claim]($auditor->fields, $field))
-						{
-							$auditor->adderror($field, $claim);
-						}
-					};
-			}
-			else # proof !== null
-			{
-				$this->addrule_with_proof($field, $claim, $proof);
-			}
-		}
+						$this->rules[] = function () use ($auditor, $field, $claim)
+							{
+								$rules = \app\CFS::config('mjolnir/validator')['rules'];
+								if ( ! $rules[$claim]($auditor->fields, $field))
+								{
+									$auditor->adderror($field, $claim);
+								}
+							};
+					}
+					else # proof !== null
+					{
+						$this->addrule_with_proof($field, $claim, $proof);
+					}
+				}
+			};
 	}
 
 	/**
@@ -107,7 +115,7 @@ class Auditor extends \app\Instantiatable implements \mjolnir\types\Exportable, 
 	 *
 	 * The Auditor allows for callable proofs to facilitate server side
 	 * checks; unlike the Validator class in the Auditor you should only place
-	 * sanity checks as callables, all other user errors should be placed as
+	 * sanity checks as callables, all other user errors should be placed
 	 * using portable patterns so that the required information may be send
 	 * exported to the client.
 	 */
@@ -166,15 +174,9 @@ class Auditor extends \app\Instantiatable implements \mjolnir\types\Exportable, 
 		if ( ! $this->processedrules)
 		{
 			$this->errors = null;
-			$this->ruledef = [];
 
-			if ( ! empty($this->rules))
-			{
-				foreach ($this->rules as $rule_logic)
-				{
-					$rule_logic();
-				}
-			}
+			\app\Arr::call($this->checks);
+			\app\Arr::call($this->rules);
 
 			$this->processedrules = true;
 		}
