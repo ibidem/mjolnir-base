@@ -102,12 +102,6 @@ class Filesystem extends \mjolnir\base\Filesystem
 {
 }
 
-class HTTP extends \mjolnir\base\HTTP
-{
-	/** @return \app\HTTP */
-	static function instance() { return parent::instance(); }
-}
-
 class Image extends \mjolnir\base\Image
 {
 }
@@ -211,6 +205,4 @@ class ViewComposite extends \mjolnir\base\ViewComposite
 
 class Web extends \mjolnir\base\Web
 {
-	/** @return \app\Web */
-	static function instance() { return parent::instance(); }
 }
