@@ -43,4 +43,13 @@ class URL
 		}
 	}
 
+	/**
+	 * @return string
+	 */
+	static function base()
+	{
+		$base = \app\CFS::config('mjolnir/base');
+		return $base['protocol'].$base['domain'].$base['path'];
+	}
+
 } # class
