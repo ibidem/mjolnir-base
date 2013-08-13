@@ -77,12 +77,16 @@ class Validator extends \app\Instantiatable implements \mjolnir\types\Validator
 				$this->adderror($field, $claim);
 			}
 		}
-		else # callback
+		else if (\is_callable($proof))
 		{
 			if ( ! $proof($this->fields, $field))
 			{
 				$this->adderror($field, $claim);
 			}
+		}
+		else # unknown
+		{
+			throw new \app\Exception('Encountered unknown proof format: '.$proof);
 		}
 	}
 
