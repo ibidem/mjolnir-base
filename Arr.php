@@ -162,11 +162,14 @@ class Arr
 		$result = [];
 		foreach ($args as $array)
 		{
-			foreach ($array as $item)
+			if ($array != null)
 			{
-				if ( ! \in_array($item, $result))
+				foreach ($array as $item)
 				{
-					$result[] = $item;
+					if ( ! \in_array($item, $result))
+					{
+						$result[] = $item;
+					}
 				}
 			}
 		}
