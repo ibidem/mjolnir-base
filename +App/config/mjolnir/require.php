@@ -40,23 +40,47 @@
 
 					 "ffmpeg" => function ()
 						{
-							$bin = \app\CFS::config('mjolnir/bin');
-							if (\app\Shell::cmd_exists($bin['ffmpeg']))
+							if (\app\CFS::config('mjolnir/uploads')['video.upload.method'] !== 'direct')
 							{
-								return 'satisfied';
+								return 'skipped';
 							}
 
-							return 'error';
+							try
+							{
+								$bin = \app\CFS::config('mjolnir/bin');
+								if (\app\Shell::cmd_exists($bin['ffmpeg']))
+								{
+									return 'satisfied';
+								}
+
+								return 'failed';
+							}
+							catch (\Exception $e)
+							{
+								return 'failed';
+							}
 						},
 					"mediainfo" => function ()
 						{
-							$bin = \app\CFS::config('mjolnir/bin');
-							if (\app\Shell::cmd_exists($bin['mediainfo']))
+							if (\app\CFS::config('mjolnir/uploads')['video.upload.method'] !== 'direct')
 							{
-								return 'satisfied';
+								return 'skipped';
 							}
 
-							return 'error';
+							try
+							{
+								$bin = \app\CFS::config('mjolnir/bin');
+								if (\app\Shell::cmd_exists($bin['mediainfo']))
+								{
+									return 'satisfied';
+								}
+
+								return 'failed';
+							}
+							catch (\Exception $e)
+							{
+								return 'failed';
+							}
 						},
 					'non-dev email driver' => function ()
 						{
