@@ -20,7 +20,7 @@ class Debug
 	 */
 	static function temp($filename, $variable, $append = false)
 	{
-		static::dump(\app\Env::key('etc.path').'tmp/'.$filename, $variable, $append);
+		static::dump(\app\Env::key('tmp.path').$filename, $variable, $append);
 	}
 
 	/**
@@ -39,7 +39,7 @@ class Debug
 
 		if ( ! \preg_match('#[\\/]#', $file))
 		{
-			$file = \app\Env::key('etc.path').'tmp/'.$file;
+			$file = \app\Env::key('tmp.path').$file;
 		}
 
 		if ($append)
