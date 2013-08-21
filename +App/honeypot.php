@@ -42,21 +42,6 @@ class Controller_Base extends \mjolnir\base\Controller_Base
 }
 
 /**
- * @method \app\Renderable json_index()
- * @method \app\Controller_Bootstrap add_preprocessor($name, $processor)
- * @method \app\Controller_Bootstrap add_postprocessor($name, $processor)
- * @method \app\Controller_Bootstrap preprocess()
- * @method \app\Controller_Bootstrap postprocess()
- * @method \app\Controller_Bootstrap channel_is($channel = null)
- * @method \app\Channel channel()
- */
-class Controller_Bootstrap extends \mjolnir\base\Controller_Bootstrap
-{
-	/** @return \app\Controller_Bootstrap */
-	static function instance() { return parent::instance(); }
-}
-
-/**
  * @method \app\Controller add_preprocessor($name, $processor)
  * @method \app\Controller add_postprocessor($name, $processor)
  * @method \app\Controller preprocess()
@@ -120,9 +105,22 @@ class Media extends \mjolnir\base\Media
 }
 
 /**
+ * @method \app\Meta set($name, $value)
+ * @method \app\Meta add($name, $value)
+ * @method \app\Meta addmeta($name, $values = null)
+ * @method \app\Meta metadata_is(array $metadata = null)
+ */
+class Meta extends \mjolnir\base\Meta
+{
+	/** @return \app\Meta */
+	static function instance() { return parent::instance(); }
+}
+
+/**
  * @method \app\Session_Native set($key, $value)
  * @method \app\Session_Native populate_params(array $params)
  * @method \app\Session_Native add($name, $value)
+ * @method \app\Session_Native addmeta($name, $values = null)
  * @method \app\Session_Native metadata_is(array $metadata = null)
  */
 class Session_Native extends \mjolnir\base\Session_Native
@@ -181,6 +179,7 @@ class VideoConverter extends \mjolnir\base\VideoConverter
  * @method \app\View pass($name, $value)
  * @method \app\View inherit($view)
  * @method \app\View addmetarenderer($key, $metarenderer)
+ * @method \app\View dontrender($key)
  * @method \app\View injectmetarenderers(array $metarenderers = null)
  */
 class View extends \mjolnir\base\View
@@ -195,6 +194,7 @@ class View extends \mjolnir\base\View
  * @method \app\ViewComposite pass($name, $value)
  * @method \app\ViewComposite inherit($view)
  * @method \app\ViewComposite addmetarenderer($key, $metarenderer)
+ * @method \app\ViewComposite dontrender($key)
  * @method \app\ViewComposite injectmetarenderers(array $metarenderers = null)
  */
 class ViewComposite extends \mjolnir\base\ViewComposite
