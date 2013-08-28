@@ -10,6 +10,8 @@
 class Text
 {
 	/**
+	 * "Comma Seperated Values"
+	 *
 	 * Given data as an array, converts it to csv format. If not specified
 	 * PHP_EOL will be used as row_divider to facilitate development.
 	 *
@@ -163,29 +165,9 @@ class Text
 		{
 			return \round($bytes / 1048576, $decimals) . ' MiB';
 		}
-		elseif ($bytes < 1099511627776)
+		else # show multiple of the largest
 		{
 			return \round($bytes / 1073741824, $decimals) . ' GiB';
-		}
-		elseif ($bytes < 1125899906842624)
-		{
-			return \round($bytes / 1099511627776, $decimals) .' TiB';
-		}
-		elseif ($bytes < 1152921504606846976)
-		{
-			return \round($bytes / 1125899906842624, $decimals) .' PiB';
-		}
-		elseif ($bytes < 1180591620717411303424)
-		{
-			return \round($bytes / 1152921504606846976, $decimals) .' EiB';
-		}
-		elseif ($bytes < 1208925819614629174706176)
-		{
-			return \round($bytes / 1180591620717411303424, $decimals) .' ZiB';
-		}
-		else # show as multiple of largest
-		{
-			return \round($bytes / 1208925819614629174706176, $decimals) .' YiB';
 		}
 	}
 

@@ -30,10 +30,10 @@ class Arr
 	}
 
 	/**
-	 * Same as \imlode only has an extra processing function.
+	 * Same as \implode only has an extra processing function.
 	 *
-	 * The function is mandatory; just use plain old \implode when you don't
-	 * need it.
+	 * The manipulator function is mandatory; just use plain old \implode when
+	 * you don't need it.
 	 *
 	 * If the function returns false the item will be ignored from the list.
 	 *
@@ -72,8 +72,6 @@ class Arr
 	 * key from the inner arrays. If the key is not set in an array the function
 	 * will ignore that entry and continue processing.
 	 *
-	 * @param array array of arrays
-	 * @param mixed key
 	 * @return array all values for that key
 	 */
 	static function gather(array $array, $key)
@@ -95,8 +93,7 @@ class Arr
 	 * for acceptable entries and false for unacceptable entries. Keys will be
 	 * maintained in the filtered version;
 	 *
-	 * @param array collection
-	 * @param callback filter (key, value)
+	 * @return array filtered collection
 	 */
 	static function filter($collection, $filter)
 	{
