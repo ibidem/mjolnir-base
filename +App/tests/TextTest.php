@@ -261,4 +261,24 @@ class TextTest extends \PHPUnit_Framework_TestCase
 			);
 	}
 
+	/** @test */ function
+	camelcase_from_dashcase()
+	{
+		$this->assertEquals
+			(
+				Text::camelcase_from_dashcase('the-test-case'),
+				'TheTestCase'
+			);
+	}
+
+	/** @test */ function
+	camelcase_from()
+	{
+		$this->assertEquals
+			(
+				Text::camelcase_from('the test case'),
+				'TheTestCase'
+			);
+	}
+
 } # test
