@@ -2,7 +2,7 @@
 
 use \mjolnir\base\Controller;
 
-class ControllerTest extends \PHPUnit_Framework_TestCase
+class ControllerTest extends \app\PHPUnit_Framework_TestCase
 {
 	/** @test */ function
 	can_be_loaded()

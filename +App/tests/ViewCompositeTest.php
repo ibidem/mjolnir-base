@@ -2,7 +2,7 @@
 
 use \mjolnir\base\ViewComposite;
 
-class ViewCompositeTest extends \PHPUnit_Framework_TestCase
+class ViewCompositeTest extends \app\PHPUnit_Framework_TestCase
 {
 	/** @test */ function
 	can_be_loaded()

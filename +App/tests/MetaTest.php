@@ -2,7 +2,7 @@
 
 use \mjolnir\base\Meta;
 
-class MetaTest extends \PHPUnit_Framework_TestCase
+class MetaTest extends \app\PHPUnit_Framework_TestCase
 {
 	/** @test */ function
 	can_be_loaded()

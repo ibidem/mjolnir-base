@@ -2,7 +2,7 @@
 
 use \mjolnir\base\CurrencyRates_Google;
 
-class CurrencyRates_GoogleTest extends \PHPUnit_Framework_TestCase
+class CurrencyRates_GoogleTest extends \app\PHPUnit_Framework_TestCase
 {
 	/** @test */ function
 	can_be_loaded()

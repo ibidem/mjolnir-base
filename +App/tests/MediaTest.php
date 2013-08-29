@@ -2,7 +2,7 @@
 
 use \mjolnir\base\Media;
 
-class MediaTest extends \PHPUnit_Framework_TestCase
+class MediaTest extends \app\PHPUnit_Framework_TestCase
 {
 	/** @test */ function
 	can_be_loaded()

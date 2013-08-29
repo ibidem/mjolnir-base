@@ -2,7 +2,7 @@
 
 use \mjolnir\base\VideoConverter_FFmpeg;
 
-class VideoConverter_FFmpegTest extends \PHPUnit_Framework_TestCase
+class VideoConverter_FFmpegTest extends \app\PHPUnit_Framework_TestCase
 {
 	/** @test */ function
 	can_be_loaded()

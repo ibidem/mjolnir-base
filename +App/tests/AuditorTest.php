@@ -2,7 +2,7 @@
 
 use \mjolnir\base\Auditor;
 
-class AuditorTest extends \PHPUnit_Framework_TestCase
+class AuditorTest extends \app\PHPUnit_Framework_TestCase
 {
 	/** @test */ function
 	can_be_loaded()

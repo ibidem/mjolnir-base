@@ -2,7 +2,7 @@
 
 use \mjolnir\base\Debug;
 
-class DebugTest extends \PHPUnit_Framework_TestCase
+class DebugTest extends \app\PHPUnit_Framework_TestCase
 {
 	/** @test */ function
 	can_be_loaded()

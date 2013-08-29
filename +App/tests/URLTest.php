@@ -2,7 +2,7 @@
 
 use \mjolnir\base\URL;
 
-class URLTest extends \PHPUnit_Framework_TestCase
+class URLTest extends \app\PHPUnit_Framework_TestCase
 {
 	/** @test */ function
 	can_be_loaded()

@@ -2,7 +2,7 @@
 
 use \mjolnir\base\Arr;
 
-class ArrTest extends \PHPUnit_Framework_TestCase
+class ArrTest extends \app\PHPUnit_Framework_TestCase
 {
 	/** @test */ function
 	can_be_loaded()

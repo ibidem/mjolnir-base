@@ -2,7 +2,7 @@
 
 use \mjolnir\base\Email;
 
-class EmailTest extends \PHPUnit_Framework_TestCase
+class EmailTest extends \app\PHPUnit_Framework_TestCase
 {
 	/** @test */ function
 	can_be_loaded()

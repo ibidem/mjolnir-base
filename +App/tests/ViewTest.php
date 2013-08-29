@@ -2,7 +2,7 @@
 
 use \mjolnir\base\View;
 
-class ViewTest extends \PHPUnit_Framework_TestCase
+class ViewTest extends \app\PHPUnit_Framework_TestCase
 {
 	/** @test */ function
 	can_be_loaded()

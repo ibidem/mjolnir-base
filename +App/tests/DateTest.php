@@ -2,7 +2,7 @@
 
 use \mjolnir\base\Date;
 
-class DateTest extends \PHPUnit_Framework_TestCase
+class DateTest extends \app\PHPUnit_Framework_TestCase
 {
 	/** @test */ function
 	can_be_loaded()

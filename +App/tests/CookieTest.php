@@ -2,7 +2,7 @@
 
 use \mjolnir\base\Cookie;
 
-class CookieTest extends \PHPUnit_Framework_TestCase
+class CookieTest extends \app\PHPUnit_Framework_TestCase
 {
 	/** @test */ function
 	can_be_loaded()

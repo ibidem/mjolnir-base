@@ -2,7 +2,7 @@
 
 use \mjolnir\base\Shell;
 
-class ShellTest extends \PHPUnit_Framework_TestCase
+class ShellTest extends \app\PHPUnit_Framework_TestCase
 {
 	/** @test */ function
 	can_be_loaded()
