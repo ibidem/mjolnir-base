@@ -169,6 +169,10 @@ class Text
 		{
 			return \round($bytes / 1073741824, $decimals) . ' GiB';
 		}
+
+		#
+		# PHP may have problems beyond GiB
+		#
 	}
 
 	/**

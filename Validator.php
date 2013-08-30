@@ -12,17 +12,6 @@ class Validator extends \app\Instantiatable implements \mjolnir\types\Validator
 	use \app\Trait_Validator;
 
 	/**
-	 * @return static
-	 */
-	static function instance(array $fields = null)
-	{
-		$instance = parent::instance();
-		$fields === null or $instance->fields_array($fields);
-
-		return $instance;
-	}
-
-	/**
 	 * A field will be tested against a claim and validated by the proof, or if
 	 * the proof is null the claim will provide the proof itself.
 	 *

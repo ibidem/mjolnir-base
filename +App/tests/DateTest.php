@@ -10,6 +10,13 @@ class DateTest extends \app\PHPUnit_Framework_TestCase
 		$this->assertTrue(\class_exists('\mjolnir\base\Date'));
 	}
 
-	// @todo tests for \mjolnir\base\Date
+	/** @test */ function
+	works_with_typical_timezone()
+	{
+		$timezone = \date_default_timezone_get();
+		\date_default_timezone_set('America/Los_Angeles');
+		$this->assertEquals(\app\Date::default_timezone_offset(), '-7:00');
+		\date_default_timezone_set($timezone);
+	}
 
 } # test

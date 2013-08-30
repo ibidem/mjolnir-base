@@ -124,9 +124,19 @@ class Auditor extends \app\Instantiatable implements \mjolnir\types\Exportable, 
 		$auditor = $this;
 		$this->rules[] = function () use ($auditor, $field, $claim, $proof)
 			{
-				if ( ! $proof($auditor->fields, $field))
+				if (\is_callable($proof))
 				{
-					$auditor->adderror($field, $claim);
+					if ( ! $proof($auditor->fields, $field))
+					{
+						$auditor->adderror($field, $claim);
+					}
+				}
+				else # proof is boolean
+				{
+					if ( ! $proof)
+					{
+						$auditor->adderror($field, $claim);
+					}
 				}
 			};
 	}
