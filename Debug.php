@@ -35,7 +35,16 @@ class Debug
 	 */
 	static function dump($file, $variable, $append = false)
 	{
-		$output = \print_r($variable, true);
+		if (\is_string($variable))
+		{
+			$output = $variable;
+		}
+		else # non-string
+		{
+			\ob_start();
+			\var_dump($variable);
+			$output = \ob_get_clean();
+		}
 
 		if ( ! \preg_match('#[\\/]#', $file))
 		{
@@ -68,6 +77,14 @@ class Debug
 		}
 
 		\mjolnir\log('Debug', "$id: $message");
+	}
+
+	/**
+	 * @return string usable timestamp for debug files
+	 */
+	static function timestamp()
+	{
+		return \preg_replace('#[^0-9]#', '', \microtime(true));
 	}
 
 } # class
