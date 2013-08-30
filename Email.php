@@ -95,6 +95,29 @@ class Email extends \app\Instantiatable
 	 */
 	public function send($to, $from, $subject, $message, $html = false)
 	{
+		if ($to == null || $from == null)
+		{
+			if (\app\CFS::config('mjolnir/emails')['loose'])
+			{
+				return true;
+			}
+			else # non-loose handling
+			{
+				throw new \app\Exception_NotApplicable
+					(
+						\app\Lang::key
+							(
+								'mjolnir:participants-missing-email-addresses',
+								[
+									'to' => $to,
+									'from' => $from,
+									'subject' => $subject
+								]
+							)
+					);
+			}
+		}
+
 		// in debug mode we simply output straight to the screen; this mode is
 		// useful when dealing with logic that outputs a single email such as
 		// for example a contact form

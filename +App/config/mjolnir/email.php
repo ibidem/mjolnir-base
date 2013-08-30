@@ -6,6 +6,10 @@
 
 		'tries' => 5, # how many times to try to send the email
 
+		// if loose is enabled email system will gracefully ignore cases where
+		// null is passed in either to or from
+		'loose' => false,
+
 	# -- Driver Configuration ------------------------------------------------ #
 
 		'sendmail:driver' => array
