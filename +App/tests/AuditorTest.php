@@ -73,7 +73,7 @@ class AuditorTest extends \app\PHPUnit_Framework_TestCase
 			->rule('xxx', 'not_empty')
 			->errors();
 
-		$this->assertEquals($errors, ['xxx' => ['success']]);
+		$this->assertEquals($errors, ['xxx' => [ 'not_empty' => 'success']]);
 
 		$errors = \app\Auditor::instance(['xxx' => 'test'])
 			->adderrormessages(['xxx' => ['not_empty' => 'success']])
