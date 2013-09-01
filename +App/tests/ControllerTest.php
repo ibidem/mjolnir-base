@@ -10,6 +10,6 @@ class ControllerTest extends \app\PHPUnit_Framework_TestCase
 		$this->assertTrue(\class_exists('\mjolnir\base\Controller'));
 	}
 
-	// @todo tests for \mjolnir\base\Controller
+	// no tests required
 
 } # test
