@@ -95,7 +95,21 @@ class Email extends \app\Instantiatable
 	 */
 	public function send($to, $from, $subject, $message, $html = false)
 	{
-		if ($to == null || $from == null)
+		if ($from === null)
+		{
+			$base = \app\CFS::config('mjolnir/base');
+			if ($base['domain'] == '127.0.0.1' || $base['domain']  == 'localhost')
+			{
+				$from = 'no-reply@localhost.tld';
+			}
+			else # usable domain
+			{
+				$from = 'no-reply@'.$base['domain'];
+			}
+
+		}
+
+		if ($to == null)
 		{
 			if (\app\CFS::config('mjolnir/email')['loose'])
 			{
