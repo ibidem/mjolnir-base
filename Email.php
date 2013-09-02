@@ -97,7 +97,7 @@ class Email extends \app\Instantiatable
 	{
 		if ($to == null || $from == null)
 		{
-			if (\app\CFS::config('mjolnir/emails')['loose'])
+			if (\app\CFS::config('mjolnir/email')['loose'])
 			{
 				return true;
 			}
