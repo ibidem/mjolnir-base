@@ -89,6 +89,57 @@ class Arr
 	}
 
 	/**
+	 * Given a tabular array extracts an associative array using the provided
+	 * references.
+	 *
+	 * @return array
+	 */
+	static function gatherkeys(array $source_array, $key_reference, $value_reference)
+	{
+		$result = [];
+
+		foreach ($source_array as $array)
+		{
+			$result[$array[$key_reference]] = $array[$value_reference];
+		}
+
+		return $result;
+	}
+
+	/**
+	 * Given a tabular source array, a key and an associative array as a map,
+	 * replaces all values in the source array with the corresponding mapping.
+	 *
+	 * @return array
+	 */
+	static function applymapping(array $tabular_array, $key, array $mapping)
+	{
+		foreach ($tabular_array as & $array)
+		{
+			$array[$key] = $mapping[$array[$key]];
+		}
+
+		return $tabular_array;
+	}
+
+	/**
+	 * @return array with out any null values
+	 */
+	static function trim(array $array)
+	{
+		$clean_array = [];
+		foreach ($array as $key => $value)
+		{
+			if ($value !== null)
+			{
+				$clean_array[$key] = $value;
+			}
+		}
+
+		return $clean_array;
+	}
+
+	/**
 	 * Filter array based on filter function; the function should return true
 	 * for acceptable entries and false for unacceptable entries. Keys will be
 	 * maintained in the filtered version;
