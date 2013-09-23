@@ -18,15 +18,15 @@ class Arr
 	 * @param string value reference
 	 * @return array
 	 */
-	static function associative_from(array &$array, $key_ref = 'id', $value_ref = 'title')
+	static function associative_from(array &$table, $key_ref = 'id', $value_ref = 'title')
 	{
-		$new_array = [];
-		foreach ($array as $row)
+		$assoc = [];
+		foreach ($table as $row)
 		{
-			$new_array[$row[$key_ref]] = $row[$value_ref];
+			$assoc[$row[$key_ref]] = $row[$value_ref];
 		}
 
-		return $new_array;
+		return $assoc;
 	}
 
 	/**
@@ -74,14 +74,14 @@ class Arr
 	 *
 	 * @return array all values for that key
 	 */
-	static function gather(array $array, $key)
+	static function gather(array $table, $key)
 	{
 		$values = [];
-		foreach ($array as $sub_array)
+		foreach ($table as $row)
 		{
-			if (isset($sub_array[$key]))
+			if (isset($row[$key]))
 			{
-				$values[] = $sub_array[$key];
+				$values[] = $row[$key];
 			}
 		}
 
@@ -94,16 +94,34 @@ class Arr
 	 *
 	 * @return array
 	 */
-	static function gatherkeys(array $source_array, $key_reference, $value_reference)
+	static function gatherkeys(array $table, $targetkey, $valuekey)
 	{
 		$result = [];
 
-		foreach ($source_array as $array)
+		foreach ($table as $row)
 		{
-			$result[$array[$key_reference]] = $array[$value_reference];
+			$result[$row[$targetkey]] = $row[$valuekey];
 		}
 
 		return $result;
+	}
+
+	/**
+	 * Given a tabular array the function extracts the key from each row and
+	 * creates a new associative array with the key pointing to the original
+	 * row. The key is still available in the entry in the associative array.
+	 *
+	 * @return array associative array
+	 */
+	static function tablemap(array $table, $key)
+	{
+		$assoc = [];
+		foreach ($table as $row)
+		{
+			$assoc[$row[$key]] = $row;
+		}
+
+		return $assoc;
 	}
 
 	/**
@@ -112,23 +130,23 @@ class Arr
 	 *
 	 * @return array
 	 */
-	static function applymapping(array $tabular_array, $key, array $mapping)
+	static function applymapping(array $table, $key, array $mapping)
 	{
-		foreach ($tabular_array as & $array)
+		foreach ($table as & $row)
 		{
-			$array[$key] = $mapping[$array[$key]];
+			$row[$key] = $mapping[$row[$key]];
 		}
 
-		return $tabular_array;
+		return $table;
 	}
 
 	/**
 	 * @return array with out any null values
 	 */
-	static function trim(array $array)
+	static function trim(array $assoc)
 	{
 		$clean_array = [];
-		foreach ($array as $key => $value)
+		foreach ($assoc as $key => $value)
 		{
 			if ($value !== null)
 			{
