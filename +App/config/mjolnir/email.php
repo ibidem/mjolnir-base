@@ -26,4 +26,5 @@
 				'password' => null,
 				'timeout' => 10,
 			),
-	);
+	
+	); # config

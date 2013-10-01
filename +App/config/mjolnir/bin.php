@@ -2,4 +2,5 @@
 	(
 		'ffmpeg' => 'ffmpeg',
 		'mediainfo' => 'mediainfo',
-	);
+
+	); # config
