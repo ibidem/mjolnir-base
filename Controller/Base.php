@@ -11,4 +11,19 @@ abstract class Controller_Base extends \app\Puppet implements \mjolnir\types\Con
 {
 	use \app\Trait_Controller;
 
+	/**
+	 * @return string singular name for puppet
+	 */
+	static function singular()
+	{
+		if (isset(static::$grammar))
+		{
+			return static::$grammar[0];
+		}
+		else # grammar not set, attempt to retrieve from name
+		{
+			return strtolower(\str_replace('_', ' ', \preg_replace('/.*\\\Controller_/', '', \get_called_class())));
+		}
+	}
+
 } # class
