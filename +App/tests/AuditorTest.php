@@ -14,20 +14,20 @@ class AuditorTest extends \app\PHPUnit_Framework_TestCase
 	can_add_rules()
 	{
 		Auditor::instance(['xxx' => 1])
-			->rule('xxx', 'not_empty');
+			->rule('xxx', 'not-empty');
 	}
 
 	/** @test */ function
 	basic_not_empty_test_works()
 	{
 		$check = Auditor::instance(['xxx' => 'test'])
-			->rule('xxx', 'not_empty')
+			->rule('xxx', 'not-empty')
 			->check();
 
 		$this->assertEquals($check, true);
 
 		$check = Auditor::instance(['xxx' => ''])
-			->rule('xxx', 'not_empty')
+			->rule('xxx', 'not-empty')
 			->check();
 
 		$this->assertEquals($check, false);
@@ -37,13 +37,13 @@ class AuditorTest extends \app\PHPUnit_Framework_TestCase
 	basic_not_empty_test_with_custom_proof()
 	{
 		$check = Auditor::instance(['xxx' => ''])
-			->rule('xxx', 'not_empty', true)
+			->rule('xxx', 'not-empty', true)
 			->check();
 
 		$this->assertEquals($check, true);
 
 		$check = Auditor::instance(['xxx' => ''])
-			->rule('xxx', 'not_empty', false)
+			->rule('xxx', 'not-empty', false)
 			->check();
 
 		$this->assertEquals($check, false);
@@ -53,13 +53,13 @@ class AuditorTest extends \app\PHPUnit_Framework_TestCase
 	basic_not_empty_test_with_custom_callable_proof()
 	{
 		$check = Auditor::instance(['xxx' => ''])
-			->rule('xxx', 'not_empty', function ($field, $field) { return true; })
+			->rule('xxx', 'not-empty', function ($field, $field) { return true; })
 			->check();
 
 		$this->assertEquals($check, true);
 
 		$check = Auditor::instance(['xxx' => ''])
-			->rule('xxx', 'not_empty', function ($field, $field) { return false; })
+			->rule('xxx', 'not-empty', function ($field, $field) { return false; })
 			->check();
 
 		$this->assertEquals($check, false);
@@ -69,15 +69,15 @@ class AuditorTest extends \app\PHPUnit_Framework_TestCase
 	error_retrieval_works()
 	{
 		$errors = Auditor::instance(['xxx' => ''])
-			->adderrormessages(['xxx' => ['not_empty' => 'success']])
-			->rule('xxx', 'not_empty')
+			->adderrormessages(['xxx' => ['not-empty' => 'success']])
+			->rule('xxx', 'not-empty')
 			->errors();
 
-		$this->assertEquals($errors, ['xxx' => [ 'not_empty' => 'success']]);
+		$this->assertEquals($errors, ['xxx' => [ 'not-empty' => 'success']]);
 
 		$errors = Auditor::instance(['xxx' => 'test'])
-			->adderrormessages(['xxx' => ['not_empty' => 'success']])
-			->rule('xxx', 'not_empty')
+			->adderrormessages(['xxx' => ['not-empty' => 'success']])
+			->rule('xxx', 'not-empty')
 			->errors();
 
 		$this->assertEquals($errors, null);
@@ -87,11 +87,11 @@ class AuditorTest extends \app\PHPUnit_Framework_TestCase
 	exporting_rules_works()
 	{
 		$rules = Auditor::instance(['xxx' => ''])
-			->adderrormessages(['xxx' => ['not_empty' => 'success']])
-			->rule('xxx', 'not_empty')
+			->adderrormessages(['xxx' => ['not-empty' => 'success']])
+			->rule('xxx', 'not-empty')
 			->export();
 
-		$this->assertEquals($rules, [ 'rules' => [ 'xxx' => ['not_empty' => 'success']] ]);
+		$this->assertEquals($rules, [ 'rules' => [ 'xxx' => ['not-empty' => 'success']] ]);
 	}
 
 } # test

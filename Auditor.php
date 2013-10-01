@@ -55,10 +55,10 @@ class Auditor extends \app\Instantiatable implements \mjolnir\types\Exportable, 
 	 * eg.
 	 *
 	 *	   // check a password is not empty
-	 *     $auditor->rule('password', 'not_empty');
+	 *     $auditor->rule('password', 'not-empty');
 	 *
 	 *     // check both a password and title are not empty
-	 *	   $auditor->rule(['title', 'password'], 'not_empty');
+	 *	   $auditor->rule(['title', 'password'], 'not-empty');
 	 *
 	 *     // check multiple fields
 	 *     $auditor->rule

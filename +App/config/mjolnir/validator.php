@@ -11,6 +11,13 @@
 
 		'rules' => array
 			(
+				'not-empty' => function ($fields, $field)
+					{
+						return $fields[$field] === 0
+							|| $fields[$field] === '0'
+							|| ! empty($fields[$field]);
+					},
+
 				'not_empty' => function ($fields, $field)
 					{
 						return $fields[$field] === 0
