@@ -23,4 +23,14 @@ class Currency
 		return $driver::instance()->process($conf['types']);
 	}
 
+	/**
+	 * @param type $value
+	 * @param type $type
+	 */
+	static function format($value, $type)
+	{
+		$info = \app\Currency::information()[$type];
+		return \number_format($value, $info['precision'], $info['thousand'], $info['decimal']).' '.$type;
+	}
+
 } # class
