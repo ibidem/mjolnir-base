@@ -19,6 +19,12 @@ class Currency
 	static function information()
 	{
 		$conf = \app\CFS::config('mjolnir/currency');
+
+		if ($conf['driver'] === null)
+		{
+			return null;
+		}
+
 		$driver = "\app\CurrencyRates_{$conf['driver']}";
 		return $driver::instance()->process($conf['types']);
 	}
