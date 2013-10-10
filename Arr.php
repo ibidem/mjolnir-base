@@ -230,11 +230,18 @@ class Arr
 		{
 			if ($array != null)
 			{
-				foreach ($array as $item)
+				foreach ($array as $key => $item)
 				{
 					if ( ! \in_array($item, $result))
 					{
-						$result[] = $item;
+						if (\is_int($key))
+						{
+							$result[] = $item;
+						}
+						else # named key
+						{
+							$result[$key] = $item;
+						}
 					}
 				}
 			}
