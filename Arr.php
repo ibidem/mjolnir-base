@@ -286,4 +286,32 @@ class Arr
 		}
 	}
 
+	/**
+	 * @return array
+	 */
+	static function hierarchy_from($flatarray, $parentkey = null, $subtreekey = null)
+	{
+		$parentkey !== null or $parentkey = 'parent';
+		$subtreekey !== null or $subtreekey = 'subentries';
+
+		$tree = [];
+		$refs = [];
+		foreach ($flatarray as $key => $entry)
+		{
+			$entry[$subtreekey] = [];
+			if ($entry[$parentkey] === null)
+			{
+				$tree[$key] = $entry;
+				$refs[$key] = &$tree[$key];
+			}
+			else # sub entry
+			{
+				$refs[$entry[$parentkey]][$subtreekey][$key] = $entry;
+				$refs[$key] = &$refs[$entry[$parentkey]][$subtreekey][$key];
+			}
+		}
+
+		return $tree;
+	}
+
 } # class
