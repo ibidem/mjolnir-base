@@ -314,4 +314,40 @@ class Arr
 		return $tree;
 	}
 
+	/**
+	 * @return array
+	 */
+	static function process_hierarchy($hierarchy, callable $func, $subentrieskey = null, &$partialresult = null)
+	{
+		$subentrieskey !== null or $subentrieskey = 'subentries';
+		foreach ($hierarchy as &$entry)
+		{
+			$func($partialresult, $entry);
+			if (isset($entry[$subentrieskey]))
+			{
+				static::process_hierarchy($entry[$subentrieskey], $func, $subentrieskey, $partialresult);
+			}
+		}
+
+		return $partialresult;
+	}
+
+	/**
+	 * The refs paramter is internal, but may also be used to pass references
+	 * to this method.
+	 */
+	static function refs_from(array &$source, $refkey, $refsubtree, array &$refs = null)
+	{
+		foreach ($source as &$entry)
+		{
+			$refs[$entry[$refkey]] = &$entry;
+			if (isset($entry[$refsubtree]))
+			{
+				static::refs_from($entry[$refsubtree], $refkey, $refsubtree, $refs);
+			}
+		}
+
+		return $refs;
+	}
+
 } # class
