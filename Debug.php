@@ -62,6 +62,18 @@ class Debug
 	}
 
 	/**
+	 * Attempts to dump the variable to the screen; will erase all other
+	 * content. Essentially this is similar to var_dump(...); die; but has the
+	 * benefit of being immune to issues such as output going into script tags
+	 * or output going into attributes, etc.
+	 */
+	static function livedump($variable)
+	{
+		$carrier = new \app\Exception_LiveDump('Stack does not support Debug::livedump');
+		throw $carrier->variable_is($variable);
+	}
+
+	/**
 	 * Ouputs the debug message to the logs, a request identifier will be
 	 * prepended if possible to help distinguish between different instances of
 	 * the message that can occur when the piece of code is executed by various
