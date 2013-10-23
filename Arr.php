@@ -350,4 +350,27 @@ class Arr
 		return $refs;
 	}
 
+	/**
+	 * All values are assumed to be integers and will be converted to integers
+	 * before calculating the result. The function will also throw an exception
+	 * if an empty array is passed.
+	 *
+	 * @return int result
+	 */
+	static function intmul(array $trail, $key)
+	{
+		if (empty($trail))
+		{
+			throw new \app\Exception('Empty trail recieved.');
+		}
+
+		$mul = 1;
+		foreach ($trail as $entry)
+		{
+			$mul = $mul * \intval($entry[$key]);
+		}
+
+		return $mul;
+	}
+
 } # class
