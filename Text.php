@@ -180,7 +180,11 @@ class Text
 	 */
 	static function camelcase_from_dashcase($dashcase)
 	{
-		return \app\Arr::implode('', \explode('-', $dashcase), function ($k, $segment) {
+		$cleaned_dashcase = \app\Arr::implode('_', \explode('--', $dashcase), function ($k, $segment) {
+			return \ucfirst($segment);
+		});
+		
+		return \app\Arr::implode('', \explode('-', $cleaned_dashcase), function ($k, $segment) {
 			return \ucfirst($segment);
 		});
 	}
