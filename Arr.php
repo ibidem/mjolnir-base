@@ -338,6 +338,11 @@ class Arr
 	 */
 	static function refs_from(array &$source, $refkey, $refsubtree, array &$refs = null)
 	{
+		if ($refs === null)
+		{
+			$refs = [];
+		}
+
 		foreach ($source as &$entry)
 		{
 			$refs[$entry[$refkey]] = &$entry;
