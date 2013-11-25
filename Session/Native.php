@@ -108,7 +108,7 @@ class Session_Native extends \app\Instantiatable implements \mjolnir\types\Meta
 	 */
 	function &get($key, $default = null)
 	{
-		if (\array_key_exists($key, $_SESSION))
+		if (isset($_SESSION) && \array_key_exists($key, $_SESSION))
 		{
 			return $_SESSION[$key];
 		}
