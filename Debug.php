@@ -15,6 +15,58 @@
 class Debug
 {
 	/**
+	 * @return int
+	 */
+	static function breadcrum()
+	{
+		static $breadcrum = 1;
+		return $breadcrum++;
+	}
+
+	/**
+	 * Prints out system calls.
+	 */
+	static function filetrace()
+	{
+		if (\app\CFS::config('mjolnir/base')['development'])
+		{
+			$trace_array = [];
+
+			$clean_syspath = \str_replace('\\', '/', \app\Env::key('sys.path'));
+
+			if (\app\Env::key('www.path') !== null)
+			{
+				$clean_wwwpath = \str_replace('\\', '/', \app\Env::key('www.path'));
+			}
+
+			foreach (\debug_backtrace(false) as $trace)
+			{
+				$file_path = \str_replace('\\', '/', $trace['file']);
+				$file_path = \str_replace($clean_syspath, 'sys.path:/', $file_path);
+
+				if (\app\Env::key('www.path') !== null)
+				{
+					$file_path = \str_replace($clean_wwwpath, 'www.path:/', $file_path);
+				}
+
+				$trace_array[] = $file_path.'['.$trace['line'].'] -> '.(isset($trace['class']) ? $trace['class'].'::' : '').$trace['function'];
+			}
+
+			$trace = \implode("\n", $trace_array);
+
+			if (\app\Env::key('www.path') !== null)
+			{
+				$clean_wwwpath = \str_replace('\\', '/', \app\Env::key('www.path'));
+				$trace = \str_replace($clean_wwwpath, 'www.path:/', $trace);
+			}
+
+			return $trace;
+		}
+
+		return null;
+	}
+
+	/**
 	 * Shorthand for performing dump in a path relative to the temporary file
 	 * directory of the project.
 	 */
