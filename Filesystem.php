@@ -248,6 +248,12 @@ class Filesystem
 	 */
 	static function mimetype($path)
 	{
+		// @hotfix finfo doens't recognize woff files
+		if (\preg_match('/.*\.woff/', $path))
+		{
+			return 'application/x-font-woff';
+		}
+
 		if (\defined('FILEINFO_MIME_TYPE'))
 		{
 			$finfo = \finfo_open(FILEINFO_MIME_TYPE);
