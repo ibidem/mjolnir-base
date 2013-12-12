@@ -42,6 +42,11 @@ class Session_Native extends \app\Instantiatable implements \mjolnir\types\Meta
 						$session_config['httponly']  # httponly
 					);
 
+				if (isset($base_config['session.path']) && $base_config['session.path'] !== null)
+				{
+					\session_save_path($base_config['session.path']);
+				}
+
 				// start session
 				\session_start();
 
